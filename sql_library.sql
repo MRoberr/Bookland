@@ -10,15 +10,16 @@ Drop table if exists  `library`.`library_users`;
 CREATE TABLE `library`.`library_users` (
   `uuid` VARCHAR(80) NOT NULL,
   `name` VARCHAR(45) NOT NULL UNIQUE,
+  `email` VARCHAR(45) NOT NULL UNIQUE,
   `user_type` enum('ADMIN','READER'),
   `loyality_index` INT(2),
    `password` VARCHAR(80),
   PRIMARY KEY (`uuid`),
   UNIQUE INDEX `uuid_UNIQUE` (`uuid` ASC)); 
   
-INSERT INTO `library`.`library_users` (`uuid`, `name`, `user_type`, `loyality_index`, `password`) VALUES ('123', 'Robi', 'ADMIN', '10', '12345');
-INSERT INTO `library`.`library_users` (`uuid`, `name`, `user_type`, `loyality_index`, `password`) VALUES ('145', 'Terez', 'READER', '10', '12345');
-INSERT INTO `library`.`library_users` (`uuid`, `name`, `user_type`, `loyality_index`, `password`) VALUES ('146', 'Joco', 'READER', '0', '12345');
+INSERT INTO `library`.`library_users` (`uuid`, `name`, `email`,`user_type`, `loyality_index`, `password`) VALUES ('123', 'Robi','alma@fa.com', 'ADMIN', '10', '12345');
+INSERT INTO `library`.`library_users` (`uuid`, `name`, `email`, `user_type`, `loyality_index`, `password`) VALUES ('145', 'Terez','terez@msg.com', 'READER', '10', '12345');
+INSERT INTO `library`.`library_users` (`uuid`, `name`,  `email`,`user_type`, `loyality_index`, `password`) VALUES ('146', 'Joco', ' joco@msg.com','READER', '0', '12345');
   
   
    Drop table if exists  `library`.`authors`;
