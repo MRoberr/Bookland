@@ -1,8 +1,9 @@
 package edu.msg.bookland.model;
 
+import java.io.Serializable;
 import java.sql.Date;
 
-public class Borrowing extends BaseEntity {
+public class Borrowing implements Serializable {
 
 	private static final long serialVersionUID = 482888478185204088L;
 	
@@ -37,8 +38,8 @@ public class Borrowing extends BaseEntity {
 	}
 	@Override
 	public String toString() {
-		return "Borrowing [user=" + user + ", publication=" + publication + ", borrowingDate=" + borrowingDate
-				+ ", deadline=" + deadline + "]";
+		return "Borrowing: user=" + user + ", publication=" + publication + ", borrowingDate=" + borrowingDate
+				+ ", deadline=" + deadline;
 	}
 
 }
