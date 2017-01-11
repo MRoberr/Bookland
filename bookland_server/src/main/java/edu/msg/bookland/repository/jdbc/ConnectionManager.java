@@ -23,7 +23,7 @@ public final class ConnectionManager {
 	private List<Connection> pool;
 	private static final Logger LOGGER = Logger.getLogger(ConnectionManager.class);
 
-	private ConnectionManager() {
+	private ConnectionManager() throws RepositoryException{
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			pool = new ArrayList<Connection>();
@@ -40,14 +40,14 @@ public final class ConnectionManager {
 		}
 	}
 
-	public synchronized static ConnectionManager getInstance() {
+	public synchronized static ConnectionManager getInstance() throws RepositoryException{
 		if (instance == null) {
 			instance = new ConnectionManager();
 		}
 		return instance;
 	}
 
-	public synchronized Connection getConnection() {
+	public synchronized Connection getConnection() throws RepositoryException{
 		Connection con = null;
 		if (!pool.isEmpty()) {
 			con = pool.get(0);
