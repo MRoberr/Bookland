@@ -9,10 +9,11 @@ public class Newspaper extends Publication{
 		
 	}
 	
+	@SuppressWarnings("deprecation")
 	@Override
 	public String toString() {
 		String ss=super.toString();
-		return "Newspaper: "+ ss ;
+		return "Newspaper: "+ ss+", releaseDate "+releaseDate.getYear()+"-"+releaseDate.getMonth()+"-"+releaseDate.getDay() ;
 	}
 
 }

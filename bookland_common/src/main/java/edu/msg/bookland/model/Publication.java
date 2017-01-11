@@ -10,10 +10,9 @@ public abstract class Publication extends BaseEntity {
 	private String publisher;
 	private int numberOfCopies;
 	private int copiesLeft;
-	private Date releaseDate;
+	protected Date releaseDate;
 
 	public String getTitle() {
-
 		return title;
 	}
 
@@ -56,7 +55,7 @@ public abstract class Publication extends BaseEntity {
 	@Override
 	public String toString() {
 		return "title=" + title + ", publisher=" + publisher + ", numberOfCopies=" + numberOfCopies
-				+ ", copiesLeft=" + copiesLeft + ", releaseDate=" + releaseDate;
+				+ ", copiesLeft=" + copiesLeft;
 	}
 
 }

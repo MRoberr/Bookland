@@ -22,10 +22,12 @@ public class Book extends Publication{
 		authors.add(author);
 	}
 
+
+	@SuppressWarnings("deprecation")
 	@Override
 	public String toString() {
 		String ss=super.toString();
-		return "Book: "+ ss + authors ;
+		return "Book: "+ ss +", releaseDate"+releaseDate.getYear()+" "+ authors ;
 	}
 	
 	

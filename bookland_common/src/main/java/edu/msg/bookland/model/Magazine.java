@@ -9,7 +9,7 @@ public class Magazine extends Publication {
 
 	private List<Author> authors;
 
-	public Magazine() {		
+	public Magazine() {
 		authors = new ArrayList<Author>();
 	}
 
@@ -20,11 +20,14 @@ public class Magazine extends Publication {
 	public void addAuthor(Author author) {
 		authors.add(author);
 	}
-	
+
+
+	@SuppressWarnings("deprecation")
 	@Override
 	public String toString() {
-		String ss=super.toString();
-		return "Magazine: "+ ss + authors ;
+		String ss = super.toString();
+		return "Magazine: " + ss + ", releaseDate " + releaseDate.getYear() + "-" + releaseDate.getMonth() + " "
+				+ authors;
 	}
 
 }
