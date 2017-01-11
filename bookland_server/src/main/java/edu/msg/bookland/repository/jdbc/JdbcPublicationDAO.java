@@ -52,7 +52,7 @@ public class JdbcPublicationDAO implements PublicationDAO{
 					+ "from publications p"
 					+ "join publication_type pton p.type = pt.id");
 			
-			LOGGER.info("Publications query successful");
+			LOGGER.info("Publications query completed");
 			
 			buildListFromQuery(queryResult, connection).forEach(publication -> publications.add(publication));
 			
@@ -62,7 +62,7 @@ public class JdbcPublicationDAO implements PublicationDAO{
 		} catch (SQLException e) {
 			
 			LOGGER.error("Couldn't query publications", e);
-			throw new RepositoryException("Couldn't query users");			
+			throw new RepositoryException("Couldn't query users", e);			
 		} finally {
 			
 			if (connection != null) {
@@ -74,19 +74,130 @@ public class JdbcPublicationDAO implements PublicationDAO{
 
 	public List<Book> getAllBooks() {
 
+		List<Book> books = new ArrayList<Book>();
+		Connection connection = null;
 		
+		try {
+			
+			connection = connectionManager.getConnection();
+			Statement statement = connection.createStatement();
+			ResultSet queryResult = statement.executeQuery(
+					"select "
+					+ "p.uuid, "
+					+ "p.title, "
+					+ "p.publisher, "
+					+ "p.release_date, "
+					+ "p.nr_of_copies, "
+					+ "p.copies_left, "
+					+ "pt.name "
+					+ "from publications p"
+					+ "join publication_type pton p.type = pt.id"
+					+ "where pt.name = book");
+			
+			LOGGER.info("Books query completed");
+			
+			buildListFromQuery(queryResult, connection).forEach(book -> books.add((Book)book));
+			
+			LOGGER.info("Books list build completed");
+			return books;
+			
+		} catch (SQLException e) {
+			
+			LOGGER.info("Couldn't query books", e);
+			throw new RepositoryException("Couldn't query books",e );
+		} finally {
+			
+			if (connection != null) {
+				
+				connectionManager.returnConnection(connection);
+			}
+		}
 		
-		return null;
 	}
 
 	public List<Magazine> getAllMagazines() {
-		// TODO Auto-generated method stub
-		return null;
+
+		List<Magazine> magazines = new ArrayList<Magazine>();
+		Connection connection = null;
+		
+		try {
+			
+			connection = connectionManager.getConnection();
+			Statement statement = connection.createStatement();
+			ResultSet queryResult = statement.executeQuery(
+					"select "
+					+ "p.uuid, "
+					+ "p.title, "
+					+ "p.publisher, "
+					+ "p.release_date, "
+					+ "p.nr_of_copies, "
+					+ "p.copies_left, "
+					+ "pt.name "
+					+ "from publications p"
+					+ "join publication_type pton p.type = pt.id"
+					+ "where pt.name = magazine");
+			
+			LOGGER.info("Magazines query completed");
+			
+			buildListFromQuery(queryResult, connection).forEach(magazine -> magazines.add((Magazine)magazine));
+			
+			LOGGER.info("Magazines list build completed");
+			return magazines;
+			
+		} catch (SQLException e) {
+			
+			LOGGER.info("Couldn't query magazine", e);
+			throw new RepositoryException("Couldn't query magazine",e );
+		} finally {
+			
+			if (connection != null) {
+				
+				connectionManager.returnConnection(connection);
+			}
+		}
 	}
 
 	public List<Newspaper> getAllNewspapers() {
-		// TODO Auto-generated method stub
-		return null;
+
+
+		List<Newspaper> newspapers = new ArrayList<Newspaper>();
+		Connection connection = null;
+		
+		try {
+			
+			connection = connectionManager.getConnection();
+			Statement statement = connection.createStatement();
+			ResultSet queryResult = statement.executeQuery(
+					"select "
+					+ "p.uuid, "
+					+ "p.title, "
+					+ "p.publisher, "
+					+ "p.release_date, "
+					+ "p.nr_of_copies, "
+					+ "p.copies_left, "
+					+ "pt.name "
+					+ "from publications p"
+					+ "join publication_type pton p.type = pt.id"
+					+ "where pt.name = newspaper");
+			
+			LOGGER.info("Newspapers query completed");
+			
+			buildListFromQuery(queryResult, connection).forEach(newspaper -> newspapers.add((Newspaper)newspaper));
+			
+			LOGGER.info("Newspapers list build completed");
+			return newspapers;
+			
+		} catch (SQLException e) {
+			
+			LOGGER.info("Couldn't query newspapers", e);
+			throw new RepositoryException("Couldn't query newspapers",e );
+		} finally {
+			
+			if (connection != null) {
+				
+				connectionManager.returnConnection(connection);
+			}
+		}
 	}
 
 	public void insertBook(Book book) {
