@@ -7,22 +7,22 @@ public class Borrowing implements Serializable {
 
 	private static final long serialVersionUID = 482888478185204088L;
 	
-	private User user;
-	private Publication publication;
+	private String userId;
+	private String publicationId;
 	private Date borrowingDate;
 	private Date deadline;
 	
-	public User getUser() {
-		return user;
+	public String getUserId() {
+		return userId;
 	}
-	public void setUser(User user) {
-		this.user = user;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
-	public Publication getPublication() {
-		return publication;
+	public String getPublicationId() {
+		return publicationId;
 	}
-	public void setPublication(Publication publication) {
-		this.publication = publication;
+	public void setPublicationId(String publicationId) {
+		this.publicationId = publicationId;
 	}
 	public Date getBorrowingDate() {
 		return borrowingDate;
@@ -38,8 +38,8 @@ public class Borrowing implements Serializable {
 	}
 	@Override
 	public String toString() {
-		return "Borrowing: user=" + user + ", publication=" + publication + ", borrowingDate=" + borrowingDate
-				+ ", deadline=" + deadline;
+		return "Borrowing [userId=" + userId + ", publicationId=" + publicationId + ", borrowingDate=" + borrowingDate
+				+ ", deadline=" + deadline + "]";
 	}
-
+	
 }
