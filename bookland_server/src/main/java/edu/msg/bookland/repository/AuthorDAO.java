@@ -6,13 +6,13 @@ import edu.msg.bookland.model.Author;
 
 public interface AuthorDAO {
 	
-	List<Author> getAllAuthors();
+	List<Author> getAllAuthors() throws RepositoryException;
 
-	Author insertUser(Author author);
+	Author insertAuthor(Author author) throws RepositoryException;
 
-	void updateAuthor(Author author);
+	void updateAuthor(Author author) throws RepositoryException;
 
-	void deleteAuthor(Author author);
+	void deleteAuthor(Author author) throws RepositoryException;
 	
-	Author getAuthorByUuid(String uuId);
+	Author getAuthorByUuid(String uuId) throws RepositoryException;
 }
