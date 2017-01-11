@@ -5,6 +5,7 @@ public class User extends BaseEntity {
 	private static final long serialVersionUID = 2326611259099577676L;
 
 	private String name;
+	private String password;
 	private UserType userType;
 	private int loyaltyIndex;
 
@@ -37,6 +38,14 @@ public class User extends BaseEntity {
 
 	public void setLoyaltyIndex(int loyaltyIndex) {
 		this.loyaltyIndex = loyaltyIndex;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 }
