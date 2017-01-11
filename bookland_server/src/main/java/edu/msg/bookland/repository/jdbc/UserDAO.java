@@ -36,8 +36,8 @@ public class UserDAO implements edu.msg.bookland.repository.UserDAO{
 				User u = new User();
 				u.setName(users.getString("name"));
 				u.setEmail(users.getString("email"));
-				u.setLoyaltyIndex(users.getInt("loyality_index"));
 				u.setUserType(UserType.valueOf(users.getString("user_type")));
+				u.setLoyaltyIndex(users.getInt("loyality_index"));			
 				u.setUUID(users.getString("uuid"));
 				list.add(u);
 			}
@@ -92,7 +92,7 @@ public class UserDAO implements edu.msg.bookland.repository.UserDAO{
 			con = conMan.getConnection();
 			PreparedStatement preparedStatement = 
 					con.prepareStatement("update library_users set  name=?, email=?, loiality_index=?,  password=? "
-					+"where id=?");
+					+"where uuid=?");
 			
 			
 			preparedStatement.setString(1, user.getName());
