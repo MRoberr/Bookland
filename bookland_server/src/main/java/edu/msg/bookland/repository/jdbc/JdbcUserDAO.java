@@ -13,12 +13,13 @@ import org.apache.log4j.Logger;
 import edu.msg.bookland.model.User;
 import edu.msg.bookland.model.UserType;
 import edu.msg.bookland.repository.RepositoryException;
+import edu.msg.bookland.repository.UserDAO;
 
-public class UserDAO implements edu.msg.bookland.repository.UserDAO {
+public class JdbcUserDAO implements UserDAO {
 	private ConnectionManager conMan;
-	private static final Logger LOGGER = Logger.getLogger(UserDAO.class);
+	private static final Logger LOGGER = Logger.getLogger(JdbcUserDAO.class);
 
-	public UserDAO() {
+	public JdbcUserDAO() {
 		conMan = ConnectionManager.getInstance();
 	}
 
@@ -55,8 +56,7 @@ public class UserDAO implements edu.msg.bookland.repository.UserDAO {
 		try {
 			con = conMan.getConnection();
 			PreparedStatement preparedStatement = con.prepareStatement("insert into library_users "
-					+ "(uuid, name, email, user_type, loyalty_index, password) " + "values ( ?, ?, ?, ?, ?, ?)",
-					Statement.RETURN_GENERATED_KEYS);
+					+ "(uuid, name, email, user_type, loyalty_index, password) " + "values ( ?, ?, ?, ?, ?, ?)");
 			preparedStatement.setString(1, user.getUUID());
 			preparedStatement.setString(2, user.getName());
 			preparedStatement.setString(3, user.getEmail());
@@ -85,7 +85,6 @@ public class UserDAO implements edu.msg.bookland.repository.UserDAO {
 			preparedStatement.execute();
 
 			LOGGER.info("user deleted");
-			LOGGER.error("user deletted");
 		} catch (SQLException e) {
 			LOGGER.error("Could not delete user. ", e);
 			throw new RepositoryException("Could not delete user. ", e);
@@ -123,9 +122,28 @@ public class UserDAO implements edu.msg.bookland.repository.UserDAO {
 
 	}
 
-	public void updateUserName(User user) throws RepositoryException {
-		// TODO Auto-generated method stub
+	public void updateUserWithoutPassword(User user) throws RepositoryException {
+		Connection con = null;
+		try {
+			con = conMan.getConnection();
+			PreparedStatement preparedStatement = con.prepareStatement(
+					"update library_users set  name=?, email=?, loyalty_index=?" + "where uuid=?");
 
+			preparedStatement.setString(1, user.getName());
+			preparedStatement.setString(2, user.getEmail());
+			preparedStatement.setInt(3, user.getLoyaltyIndex());
+			preparedStatement.setString(5, user.getUUID());
+			preparedStatement.execute();
+			LOGGER.info("user info updated");
+
+		} catch (SQLException e) {
+			LOGGER.error("Could not update user. ", e);
+			throw new RepositoryException("Could not update user. ", e);
+		} finally {
+			if (con != null) {
+				conMan.returnConnection(con);
+			}
+		}
 	}
 
 }

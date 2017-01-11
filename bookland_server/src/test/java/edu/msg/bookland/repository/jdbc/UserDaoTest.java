@@ -12,7 +12,7 @@ import edu.msg.bookland.repository.RepositoryException;
 import edu.msg.bookland.util.PasswordEncrypting;
 
 public class UserDaoTest {
-	private UserDAO userDao = new UserDAO();
+	private JdbcUserDAO userDao = new JdbcUserDAO();
 
 	@Test
 	public void selectAllUserTest() {
@@ -59,11 +59,11 @@ public class UserDaoTest {
 		User u = createUser();
 		u.setName("test12");
 		u.setUUID("37a97280-bb03-4b65-b84d-7602f6b6a86f");
-		//try {
+		try {
 			userDao.deleteUser(u);
-//		} catch (RepositoryException e) {
-//			// TODO: handle exception
-//			System.out.println(e.getMessage());
-//		}
+		} catch (RepositoryException e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+		}
 	}
 }
