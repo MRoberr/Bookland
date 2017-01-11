@@ -57,13 +57,11 @@ public class JDBCAuthorDAO implements AuthorDAO {
 
 		try {
 			con = connectionManager.getConnection();
-			PreparedStatement preparedStatement = con.prepareStatement("Insert into suma_user (name) values (?)",
-					Statement.RETURN_GENERATED_KEYS);
-			preparedStatement.setString(1, author.getName());
+			PreparedStatement preparedStatement = con.prepareStatement("Insert into authors (uuid, name) values (?, ?)");
+			preparedStatement.setString(1, author.getUUID());
+			preparedStatement.setString(2, author.getName());
 			preparedStatement.execute();
-			ResultSet resultSet = preparedStatement.getGeneratedKeys();
-			resultSet.next();
-			author.setUUID(resultSet.getString(1));
+			
 			LOGGER.info("Author successfully inserted into DB");
 
 		} catch (SQLException e) {
@@ -82,8 +80,9 @@ public class JDBCAuthorDAO implements AuthorDAO {
 		try {
 			con = connectionManager.getConnection();
 
-			PreparedStatement preparedStatement = con.prepareStatement("select from authors where uuid = ?");
+			PreparedStatement preparedStatement = con.prepareStatement("update authors set name = ? where uuid = ?");
 			preparedStatement.setString(1, author.getName());
+			preparedStatement.setString(2, author.getUUID());
 			preparedStatement.execute();
 
 			LOGGER.info("Author successfully updated in DB");
@@ -124,8 +123,10 @@ public class JDBCAuthorDAO implements AuthorDAO {
 		Author author = new Author();
 		try {
 			con = connectionManager.getConnection();
-			PreparedStatement preparedStatement = con.prepareStatement("select from authors where id = ?");
+			PreparedStatement preparedStatement = con.prepareStatement("select * from authors where uuid = ?");
+			preparedStatement.setString(1, uuId);
 			ResultSet resultset = preparedStatement.executeQuery();
+			resultset.next();
 			author.setUUID(resultset.getString("uuid"));
 			author.setName(resultset.getString("name"));
 			LOGGER.info("Succesfully retrieved author by id from DB");
