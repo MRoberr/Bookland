@@ -5,6 +5,7 @@ import java.util.List;
 import edu.msg.bookland.model.Author;
 
 public interface AuthorDAO {
+	
 	List<Author> getAllAuthors();
 
 	Author insertUser(Author author);
@@ -12,4 +13,6 @@ public interface AuthorDAO {
 	void updateAuthor(Author author);
 
 	void deleteAuthor(Author author);
+	
+	Author getAuthorByUuid(String uuId);
 }
