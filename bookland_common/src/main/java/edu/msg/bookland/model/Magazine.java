@@ -1,6 +1,7 @@
 package edu.msg.bookland.model;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class Magazine extends Publication {
@@ -21,13 +22,15 @@ public class Magazine extends Publication {
 		authors.add(author);
 	}
 
-
-	@SuppressWarnings("deprecation")
 	@Override
 	public String toString() {
 		String ss = super.toString();
-		return "Magazine: " + ss + ", releaseDate " + releaseDate.getYear() + "-" + releaseDate.getMonth() + " "
-				+ authors;
+		Calendar date = Calendar.getInstance();
+		date.setTime(releaseDate);
+		int year = date.get(Calendar.YEAR);
+		int month = date.get(Calendar.MONTH);
+
+		return "Magazine: " + ss + ", releaseDate " + year + "-" + month + ", " + authors;
 	}
 
 }
