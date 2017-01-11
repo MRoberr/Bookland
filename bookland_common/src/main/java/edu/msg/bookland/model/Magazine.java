@@ -20,5 +20,11 @@ public class Magazine extends Publication {
 	public void addAuthor(Author author) {
 		authors.add(author);
 	}
+	
+	@Override
+	public String toString() {
+		String ss=super.toString();
+		return "Magazine: "+ ss + authors ;
+	}
 
 }

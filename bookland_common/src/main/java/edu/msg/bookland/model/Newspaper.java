@@ -8,5 +8,11 @@ public class Newspaper extends Publication{
 		
 		
 	}
+	
+	@Override
+	public String toString() {
+		String ss=super.toString();
+		return "Newspaper: "+ ss ;
+	}
 
 }

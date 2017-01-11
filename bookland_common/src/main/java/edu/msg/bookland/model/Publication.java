@@ -53,4 +53,10 @@ public abstract class Publication extends BaseEntity {
 		this.releaseDate = releaseDate;
 	}
 
+	@Override
+	public String toString() {
+		return "title=" + title + ", publisher=" + publisher + ", numberOfCopies=" + numberOfCopies
+				+ ", copiesLeft=" + copiesLeft + ", releaseDate=" + releaseDate;
+	}
+
 }

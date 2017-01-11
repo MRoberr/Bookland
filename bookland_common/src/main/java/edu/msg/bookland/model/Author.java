@@ -14,4 +14,11 @@ public class Author extends BaseEntity {
 		this.name = name;
 	}
 
+	@Override
+	public String toString() {
+		return "Author name=" + name;
+	}
+	
+	
+
 }

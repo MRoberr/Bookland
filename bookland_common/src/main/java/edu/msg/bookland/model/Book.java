@@ -21,6 +21,12 @@ public class Book extends Publication{
 	public void addAuthor(Author author) {		
 		authors.add(author);
 	}
+
+	@Override
+	public String toString() {
+		String ss=super.toString();
+		return "Book: "+ ss + authors ;
+	}
 	
 	
 }
