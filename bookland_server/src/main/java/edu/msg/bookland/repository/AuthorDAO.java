@@ -8,7 +8,7 @@ public interface AuthorDAO {
 	
 	List<Author> getAllAuthors() throws RepositoryException;
 
-	Author insertUser(Author author) throws RepositoryException;
+	Author insertAuthor(Author author) throws RepositoryException;
 
 	void updateAuthor(Author author) throws RepositoryException;
 

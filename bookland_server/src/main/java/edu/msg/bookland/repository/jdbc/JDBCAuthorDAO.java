@@ -19,7 +19,7 @@ public class JDBCAuthorDAO implements AuthorDAO {
 	private ConnectionManager connectionManager;
 	private static final Logger LOGGER = Logger.getLogger(JDBCAuthorDAO.class);
 
-	public JDBCAuthorDAO() {
+	public JDBCAuthorDAO() throws RepositoryException {
 		connectionManager = ConnectionManager.getInstance();
 	}
 
@@ -52,7 +52,7 @@ public class JDBCAuthorDAO implements AuthorDAO {
 		return authorsList;
 	}
 
-	public Author insertUser(Author author) {
+	public Author insertAuthor(Author author) {
 		Connection con = null;
 
 		try {

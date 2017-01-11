@@ -10,13 +10,11 @@ import edu.msg.bookland.model.Author;
 
 public class AuthorDAOTest {
 	JDBCAuthorDAO authorDAO = new JDBCAuthorDAO();
-	
+
 	@Test
 	public void getAllAuthors() {
-	List<Author> authors = authorDAO.getAllAuthors();
-	for(Author a:authors) {
-		System.out.println(a);
-	}
+		List<Author> authors = authorDAO.getAllAuthors();
+		assertTrue(!authors.isEmpty());
 	}
 
 }
