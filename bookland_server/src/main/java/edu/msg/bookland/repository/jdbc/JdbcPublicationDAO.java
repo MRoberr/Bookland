@@ -1,6 +1,5 @@
 package edu.msg.bookland.repository.jdbc;
 
-import java.rmi.RemoteException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -40,6 +39,7 @@ public class JdbcPublicationDAO implements PublicationDAO{
 		try {
 			
 			connection = connectionManager.getConnection();
+			
 			Statement statement = connection.createStatement();
 			ResultSet queryResult = statement.executeQuery(
 					"select "
@@ -81,6 +81,7 @@ public class JdbcPublicationDAO implements PublicationDAO{
 		try {
 			
 			connection = connectionManager.getConnection();
+			
 			Statement statement = connection.createStatement();
 			ResultSet queryResult = statement.executeQuery(
 					"select "
@@ -124,6 +125,7 @@ public class JdbcPublicationDAO implements PublicationDAO{
 		try {
 			
 			connection = connectionManager.getConnection();
+			
 			Statement statement = connection.createStatement();
 			ResultSet queryResult = statement.executeQuery(
 					"select "
@@ -167,6 +169,7 @@ public class JdbcPublicationDAO implements PublicationDAO{
 		try {
 			
 			connection = connectionManager.getConnection();
+			
 			Statement statement = connection.createStatement();
 			ResultSet queryResult = statement.executeQuery(
 					"select "
@@ -253,6 +256,8 @@ public class JdbcPublicationDAO implements PublicationDAO{
 		
 		try {
 			
+			connection = connectionManager.getConnection();
+			
 			insertPublication(magazine, connection);
 			
 			PreparedStatement insertMagazineWriterRelation = connection.prepareStatement(
@@ -286,29 +291,49 @@ public class JdbcPublicationDAO implements PublicationDAO{
 	}
 
 	public void insertNewspaper(Newspaper newspaper) {
-		// TODO Auto-generated method stub
+
+		Connection connection = null;
+		
+		try {
+			
+			connection = connectionManager.getConnection();
+			
+			insertPublication(newspaper, connection);
+			
+		} catch(SQLException e) {
+			
+			LOGGER.error("Failed to insert newspaper", e);
+			throw new RepositoryException("Failed to insert newspaper", e);
+		} finally {
+			
+			if (connection != null) {
+				
+				connectionManager.returnConnection(connection);
+			}
+		}
 		
 	}
 
 	public void updateBook(Book book) {
-		// TODO Auto-generated method stub
-		
+
+		doUpdatePublication(book);		
 	}
 
 	public void updateMagazine(Magazine magazine) {
-		// TODO Auto-generated method stub
 		
+		doUpdatePublication(magazine);		
 	}
 
 	public void updateNewspaper(Newspaper newspaper) {
-		// TODO Auto-generated method stub
+
+		doUpdatePublication(newspaper);		
+	}
+	
+	public void updatePublication(Publication publication) {
 		
+		doUpdatePublication(publication);
 	}
 
-	public void deletePublication(Publication publication) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	public void deleteBook(String uuid) {
 		// TODO Auto-generated method stub
@@ -325,7 +350,7 @@ public class JdbcPublicationDAO implements PublicationDAO{
 		
 	}
 
-	public void insertPublication() {
+	public void deletePublication(Publication publication) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -443,4 +468,86 @@ public class JdbcPublicationDAO implements PublicationDAO{
 		LOGGER.info(publication.getClass().getSimpleName() + " inserted");
 	}
 
+	private void doUpdatePublication(Publication publication){
+		
+		Connection connection = null;
+		
+		try {
+		
+			connection = connectionManager.getConnection();
+			
+			PreparedStatement updatePublication = connection.prepareStatement(
+					"update publications"
+					+ "set uuid = ?,"
+					+ "set title = ?,"
+					+ "set publisher = ?,"
+					+ "set release_date = ?,"
+					+ "set nr_of_copies = ?,"
+					+ "set copies_left = ?,"
+					+ "set type = ?");
+			
+			updatePublication.setString(1, publication.getUUID());
+			updatePublication.setString(2, publication.getTitle());
+			updatePublication.setString(3, publication.getPublisher());
+			updatePublication.setDate(4, publication.getReleaseDate());
+			updatePublication.setInt(5, publication.getNumberOfCopies());
+			updatePublication.setInt(6, publication.getCopiesLeft());
+			
+			switch (publication.getClass().getSimpleName()) {
+			
+			case "Book":
+				updatePublication.setInt(7, 1);
+				break;
+			case "Magazine":
+				updatePublication.setInt(7, 2);
+				break;
+			case "Newspaper":
+				updatePublication.setInt(7, 3);
+				break;
+			}
+			
+			updatePublication.execute();
+			
+			LOGGER.info(publication.getClass().getSimpleName() + " update was successfull");
+		
+		} catch (SQLException e) {
+
+			LOGGER.error("Failed to update " + publication.getClass().getSimpleName());
+			throw new RepositoryException("Failed to update " + publication.getClass().getSimpleName(), e);
+		} finally {
+			
+			if (connection != null) {
+				
+				connectionManager.returnConnection(connection);
+			}
+		}		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
