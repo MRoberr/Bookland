@@ -70,6 +70,7 @@ public class UserService extends UnicastRemoteObject implements UserServiceRmi {
 
 	@Override
 	public void deleteUser(User user) throws RemoteException {
+		//ha a usernek van konyve akkor nem lehet toroni
 		try{
 			userDAO.deleteUser(user);
 		}catch (RepositoryException e) {
