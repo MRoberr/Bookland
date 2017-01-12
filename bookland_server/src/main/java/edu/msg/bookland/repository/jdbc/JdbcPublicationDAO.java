@@ -49,10 +49,11 @@ public class JdbcPublicationDAO implements PublicationDAO{
 					+ "p.release_date, "
 					+ "p.nr_of_copies, "
 					+ "p.copies_left, "
-					+ "pt.name "
-					+ "from publications p"
-					+ "join publication_type pton p.type = pt.id");
+					+ "pt.name as type "
+					+ "from publications p "
+					+ "join publication_type pt on p.type = pt.id");
 			
+			System.out.println(queryResult.getFetchSize());
 			LOGGER.info("Publications query completed");
 			
 			buildListFromQuery(queryResult, connection).forEach(publication -> publications.add(publication));
@@ -455,7 +456,7 @@ public class JdbcPublicationDAO implements PublicationDAO{
 		List<Publication> publications = new ArrayList<Publication>();
 		
 		while(queryResult.next()) {
-
+			
 			switch(queryResult.getString("type")) {
 			
 			case "Book": {
