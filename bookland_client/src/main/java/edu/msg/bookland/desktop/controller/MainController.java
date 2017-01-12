@@ -30,7 +30,7 @@ public class MainController {
 				System.out.println("Logged in as user...");
 				MainView.menuForUser();
 				while (true) {
-					//handleUserCommand();
+					handleUserCommand();
 				}
 			} else if (login.equals(UserType.ADMIN)) {
 				System.out.println("Logged in as admin...");
@@ -44,7 +44,7 @@ public class MainController {
 				consoleLogin();
 			}
 		} catch (RemoteException e) {		
-			throw new ConnectionException("Connection error.");
+			throw new ConnectionException("Connection error." + e.getMessage());
 		}
 	}
 

@@ -90,7 +90,7 @@ public class UserDaoTest {
 		u.setName("try");
 		u.setEmail("tessfasfas@email");
 		u.setLoyaltyIndex(10);
-		u.setPassword(PasswordEncrypting.encrypt("password", "salt"));
+		u.setPassword(PasswordEncrypting.encrypt("password", "user"));
 		u.setUserType(UserType.READER);
 		return u;
 	}
