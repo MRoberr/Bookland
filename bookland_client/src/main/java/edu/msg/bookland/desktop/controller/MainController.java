@@ -23,15 +23,14 @@ public class MainController {
 
 	private void consoleLogin() {
 		System.out.println("Please enter your name and password!");		
-		try {
-			
-			UserType login = ConnectionModel.INSTANCE.userServiceRmi.login(scanner.nextLine(), scanner.nextLine());
+		try {			
+			UserType login = ConnectionModel.userServiceRmi.login(scanner.nextLine(), scanner.nextLine());
 			System.out.println(login);
 			if (login.equals(UserType.READER)) {
 				System.out.println("Logged in as user...");
 				MainView.menuForUser();
 				while (true) {
-					handleUserCommand();
+					//handleUserCommand();
 				}
 			} else if (login.equals(UserType.ADMIN)) {
 				System.out.println("Logged in as admin...");
