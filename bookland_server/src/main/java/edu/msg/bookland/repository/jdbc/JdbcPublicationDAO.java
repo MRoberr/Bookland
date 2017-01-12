@@ -1,5 +1,6 @@
 package edu.msg.bookland.repository.jdbc;
 
+import java.rmi.RemoteException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -201,12 +202,67 @@ public class JdbcPublicationDAO implements PublicationDAO{
 	}
 
 	public void insertBook(Book book) {
-		// TODO Auto-generated method stub
+
+		//ha nem létezik az author akkor azt a service rétegbe kell létrehozni
+		//nem kapcsolódnak a dao-k. inkább a servicek
+		//itt csak olyan book-ot lehet beszúrni amelyiknek már léteznek az author-jai
+		//tehát egy szinttel feljebb van ez lekezelve
+		//ide úgy jön be a book, hogy az authorok léteznek
 		
+		Connection connection = null;
+		
+		try {
+
+			connection = connectionManager.getConnection();
+			
+			PreparedStatement insertBook = connection.prepareStatement(
+					"insert into publications"
+					+ "(uuid, title, publisher, release_date, nr_of_copies, copies_left, type"
+					+ "values(?, ?, ?, ?, ?, ?, ?)");
+			insertBook.setString(1, book.getUUID());
+			insertBook.setString(2, book.getTitle());
+			insertBook.setString(3, book.getPublisher());
+			insertBook.setDate(4, book.getReleaseDate());
+			insertBook.setInt(5, book.getNumberOfCopies());
+			insertBook.setInt(6, book.getCopiesLeft());
+			insertBook.setString(7, book.getClass().getSimpleName().toLowerCase());
+			
+			insertBook.execute();			
+			LOGGER.info("Book inserted");
+			
+			PreparedStatement insertBookWriterRelation = connection.prepareStatement(
+					"insert into publications_authors"
+					+ "(publications_uuid, authors_uuid)"
+					+ "values(?, ?)");
+			
+			for(Author author:book.getAuthors()) {
+				
+				insertBookWriterRelation.setString(1, book.getUUID());
+				insertBookWriterRelation.setString(2, author.getUUID());
+				insertBookWriterRelation.executeQuery();
+				
+				LOGGER.info("Book - Author relation inserted in connection table");
+			}
+			
+			LOGGER.info("Book insert completed successfully");
+		
+		} catch(SQLException e) {
+			
+			LOGGER.error("Failed to insert book", e);
+			throw new RepositoryException("Failed to insert book", e);
+		} finally {
+			
+			if (connection != null) {
+				
+				connectionManager.returnConnection(connection);
+			}
+		}
 	}
+	
 
 	public void insertMagazine(Magazine magazine) {
-		// TODO Auto-generated method stub
+
+		
 		
 	}
 
