@@ -2,7 +2,10 @@ package edu.msg.bookland.repository.jdbc;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 
@@ -19,7 +22,7 @@ public class JDBCBorrowingDAO implements BorrowingDAO {
 		connectionManager = ConnectionManager.getInstance();
 	}
 
-	@Override
+
 	public void insertBorrowing(Borrowing borrowing) {
 		Connection con = null;
 		try {
@@ -43,7 +46,7 @@ public class JDBCBorrowingDAO implements BorrowingDAO {
 
 	}
 
-	@Override
+
 	public void deleteBorrowing(Borrowing borrowing) {
 
 		Connection con = null;
@@ -64,5 +67,41 @@ public class JDBCBorrowingDAO implements BorrowingDAO {
 			}
 		}
 	}
+
+	@Override
+	public List<Borrowing> getPublicationsBorrowedByUser(String userUuid) throws RepositoryException {
+		
+		Connection con = null;
+		List<Borrowing> borrowingList = null;
+		try {
+			con = connectionManager.getConnection();
+			borrowingList = new ArrayList<>();
+			PreparedStatement preparedStatement = con.prepareStatement(""
+					+ "select * from publication_borrowings where user_uuid = ?");
+			preparedStatement.setString(1, userUuid);
+			ResultSet resultset = preparedStatement.executeQuery();
+			while(resultset.next()) {
+				Borrowing borrowing = new Borrowing();
+				borrowing.setPublicationId(resultset.getString("publications_uuid"));
+				borrowing.setUserId(resultset.getString("user_uuid"));
+				borrowing.setBorrowingDate(resultset.getDate("borrowing_date"));
+				borrowing.setDeadline(resultset.getDate("deadline"));
+				borrowingList.add(borrowing);				
+			}
+			LOGGER.info("Succesfully retrieved borrowings from DB");
+		} catch(SQLException e) {
+			LOGGER.error("Cannot retrieve borrowings from DB", e);
+			throw new RepositoryException("Cannot retrieve borrowings from DB", e);
+		} 
+		finally {
+			if (con != null) {
+				connectionManager.returnConnection(con);
+			}
+		}
+		
+		return borrowingList;
+	}
+
+	
 
 }

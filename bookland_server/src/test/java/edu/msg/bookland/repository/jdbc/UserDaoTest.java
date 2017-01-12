@@ -2,6 +2,7 @@ package edu.msg.bookland.repository.jdbc;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
@@ -21,27 +22,17 @@ public class UserDaoTest {
 		assertTrue(!users.isEmpty());
 	}
 
-	private User createUser() {
-		User u = new User();
-		u.setName("test34766685");
-		u.setEmail("test378666645@email");
-		u.setLoyaltyIndex(10);
-		u.setPassword(PasswordEncrypting.encrypt("password", "salt"));
-		u.setUserType(UserType.READER);
-		return u;
-	}
 
 	@Test
 	public void insertUserTest() {
 		try {
 			userDao.insertUser(createUser());
 		} catch (RepositoryException e) {
-			// TODO: handle exception
 			System.out.println(e.getMessage());
 		}
 	}
 
-	
+	@Test
 	public void updateUserTest() {
 		User u = createUser();
 		u.setName("test12");
@@ -62,8 +53,45 @@ public class UserDaoTest {
 		try {
 			userDao.deleteUser(u);
 		} catch (RepositoryException e) {
-			// TODO: handle exception
 			System.out.println(e.getMessage());
 		}
+	}
+	@Test
+	public void getUserByNameTest(){
+		try{
+			
+			System.out.println(userDao.getUserByName("Terez"));
+		}catch (RepositoryException e) {
+			System.out.println(e.getMessage());
+		}
+		
+	}
+	@Test
+	public void getUserByIdTest(){
+		try{
+			
+			System.out.println(userDao.getUserById("123"));
+		}catch (RepositoryException e) {
+			System.out.println(e.getMessage());
+		}
+		
+	}
+	@Test
+	public void searchUserByNameTest(){
+		List<User>userList = new ArrayList<User>();
+		try{
+			System.out.println(userDao.searchUserByName("jo"));
+		}catch (RepositoryException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	private User createUser() {
+		User u = new User();
+		u.setName("test34766685");
+		u.setEmail("test378666645@email");
+		u.setLoyaltyIndex(10);
+		u.setPassword(PasswordEncrypting.encrypt("password", "salt"));
+		u.setUserType(UserType.READER);
+		return u;
 	}
 }

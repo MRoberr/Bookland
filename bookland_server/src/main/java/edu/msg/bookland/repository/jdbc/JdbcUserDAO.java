@@ -1,5 +1,6 @@
 package edu.msg.bookland.repository.jdbc;
 
+import java.rmi.RemoteException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -23,7 +24,7 @@ public class JdbcUserDAO implements UserDAO {
 		conMan = ConnectionManager.getInstance();
 	}
 
-	@Override
+	
 	public List<User> getAllUsers() throws RepositoryException {
 		List<User> list = new ArrayList<User>();
 		Connection con = null;
@@ -36,7 +37,7 @@ public class JdbcUserDAO implements UserDAO {
 				u.setName(users.getString("name"));
 				u.setEmail(users.getString("email"));
 				u.setUserType(UserType.valueOf(users.getString("user_type")));
-				u.setLoyaltyIndex(users.getInt("loyalty_index"));
+				u.setLoyaltyIndex(users.getInt("loyality_index"));
 				u.setUUID(users.getString("uuid"));
 				list.add(u);
 			}
@@ -57,7 +58,7 @@ public class JdbcUserDAO implements UserDAO {
 		try {
 			con = conMan.getConnection();
 			PreparedStatement preparedStatement = con.prepareStatement("insert into library_users "
-					+ "(uuid, name, email, user_type, loyalty_index, password) " + "values ( ?, ?, ?, ?, ?, ?)");
+					+ "(uuid, name, email, user_type, loyality_index, password) " + "values ( ?, ?, ?, ?, ?, ?)");
 			preparedStatement.setString(1, user.getUUID());
 			preparedStatement.setString(2, user.getName());
 			preparedStatement.setString(3, user.getEmail());
@@ -102,7 +103,7 @@ public class JdbcUserDAO implements UserDAO {
 		try {
 			con = conMan.getConnection();
 			PreparedStatement preparedStatement = con.prepareStatement(
-					"update library_users set  name=?, email=?, loyalty_index=?,  password=? " + "where uuid=?");
+					"update library_users set  name=?, email=?, loyality_index=?,  password=? " + "where uuid=?");
 
 			preparedStatement.setString(1, user.getName());
 			preparedStatement.setString(2, user.getEmail());
@@ -128,7 +129,7 @@ public class JdbcUserDAO implements UserDAO {
 		try {
 			con = conMan.getConnection();
 			PreparedStatement preparedStatement = con.prepareStatement(
-					"update library_users set  name=?, email=?, loyalty_index=?" + "where uuid=?");
+					"update library_users set  name=?, email=?, loyality_index=?" + "where uuid=?");
 
 			preparedStatement.setString(1, user.getName());
 			preparedStatement.setString(2, user.getEmail());
@@ -164,5 +165,67 @@ public class JdbcUserDAO implements UserDAO {
 		}
 
 	}
+
+
+	public User getUserByName(String name) throws RepositoryException {
+		Connection con = null;
+		String query = "select name, email, user_type, loyality_index from library_users where name = ?";
+		User user = new User();
+		try {
+			con = conMan.getConnection();
+			PreparedStatement statement = con.prepareStatement(query);
+			statement.setString(1, name);
+			ResultSet users = statement.executeQuery();
+			if(users.next()){
+				user = new User(users.getString("name"),users.getString("email"),UserType.valueOf(users.getString("user_type")),users.getInt("loyality_index"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return user;
+	}
+
+
+	public User getUserById(String id) throws RepositoryException {
+		Connection con = null;
+		String query = "select name, email, user_type, loyality_index from library_users where uuid = ?";
+		User user = new User();
+		try {
+			con = conMan.getConnection();
+			PreparedStatement statement = con.prepareStatement(query);
+			statement.setString(1, id);
+			ResultSet users = statement.executeQuery();
+			if(users.next()){
+				user = new User(users.getString("name"),users.getString("email"),UserType.valueOf(users.getString("user_type")),users.getInt("loyality_index"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return user;
+	}
+
+
+	public List<User> searchUserByName(String name) throws RepositoryException {
+		Connection con = null;
+		String query = "select name, email, user_type, loyality_index from library_users where name like ?";
+		User user = new User();
+		List<User>userList = new ArrayList<User>();
+		try {
+			con = conMan.getConnection();
+			PreparedStatement statement = con.prepareStatement(query);
+			statement.setString(1, "%" + name + "%");
+			ResultSet users = statement.executeQuery();
+			while(users.next()){
+				user = new User(users.getString("name"),users.getString("email"),UserType.valueOf(users.getString("user_type")),users.getInt("loyality_index"));
+				userList.add(user);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return userList;
+	}
+
+
+	
 
 }
