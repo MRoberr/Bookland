@@ -21,9 +21,9 @@ public enum ConnectionModel {
 
 	static {
 		try {
-			authorServiceRmi = (AuthorServiceRmi) registry.lookup(AuthorServiceRmi.RMI_NAME);
-			borrowingServiceRmi = (BorrowingServiceRmi) registry.lookup(BorrowingServiceRmi.RMI_NAME);
-			publicationServiceRmi = (PublicationServiceRmi) registry.lookup(PublicationServiceRmi.RMI_NAME);
+		//	authorServiceRmi = (AuthorServiceRmi) registry.lookup(AuthorServiceRmi.RMI_NAME);
+		//	borrowingServiceRmi = (BorrowingServiceRmi) registry.lookup(BorrowingServiceRmi.RMI_NAME);
+		//	publicationServiceRmi = (PublicationServiceRmi) registry.lookup(PublicationServiceRmi.RMI_NAME);
 			userServiceRmi = (UserServiceRmi) registry.lookup(UserServiceRmi.RMI_NAME);
 		} catch (RemoteException | NotBoundException e) {
 			throw new ConnectionException("Connection error.");
