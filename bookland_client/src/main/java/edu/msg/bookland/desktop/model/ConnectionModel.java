@@ -13,13 +13,13 @@ import edu.msg.bookland.rmi.UserServiceRmi;
 public enum ConnectionModel {
 	INSTANCE;
 
-	private Registry registry;
-	public AuthorServiceRmi authorServiceRmi;
-	public BorrowingServiceRmi borrowingServiceRmi;
-	public PublicationServiceRmi publicationServiceRmi;
-	public UserServiceRmi userServiceRmi;
+	private static Registry registry;
+	public static AuthorServiceRmi authorServiceRmi;
+	public static BorrowingServiceRmi borrowingServiceRmi;
+	public static PublicationServiceRmi publicationServiceRmi;
+	public static UserServiceRmi userServiceRmi;
 
-	{
+	static {
 		try {
 			authorServiceRmi = (AuthorServiceRmi) registry.lookup(AuthorServiceRmi.RMI_NAME);
 			borrowingServiceRmi = (BorrowingServiceRmi) registry.lookup(BorrowingServiceRmi.RMI_NAME);
