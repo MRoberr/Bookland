@@ -15,11 +15,11 @@ public interface UserServiceRmi extends Remote {
 	
 	public List<User> getAllUsers() throws RemoteException; 
 	
-	public boolean insertUser(User user) throws RemoteException;
+	public void insertUser(User user) throws RemoteException;
 	
-	public boolean updateUser(User user) throws RemoteException;
+	public void updateUser(User user) throws RemoteException;
 	
-	public boolean deleteUser(User user) throws RemoteException;
+	public void deleteUser(User user) throws RemoteException;
 	
 	public User getUserByName(String name) throws RemoteException;
 	
