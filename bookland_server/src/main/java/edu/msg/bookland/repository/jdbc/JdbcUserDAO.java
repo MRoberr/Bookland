@@ -1,5 +1,6 @@
 package edu.msg.bookland.repository.jdbc;
 
+import java.rmi.RemoteException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,7 +23,6 @@ public class JdbcUserDAO implements UserDAO {
 	public JdbcUserDAO() {
 		conMan = ConnectionManager.getInstance();
 	}
-
 	@Override
 	public List<User> getAllUsers() throws RepositoryException {
 		List<User> list = new ArrayList<User>();
@@ -51,7 +51,7 @@ public class JdbcUserDAO implements UserDAO {
 		}
 		return list;
 	}
-
+	@Override
 	public void insertUser(User user) throws RepositoryException {
 		Connection con = null;
 		try {
@@ -76,7 +76,7 @@ public class JdbcUserDAO implements UserDAO {
 			}
 		}
 	}
-
+	@Override
 	public void deleteUser(User user) throws RepositoryException {
 		Connection con = null;
 		try {
@@ -96,7 +96,7 @@ public class JdbcUserDAO implements UserDAO {
 		}
 
 	}
-
+	@Override
 	public void updateUser(User user) throws RepositoryException {
 		Connection con = null;
 		try {
@@ -122,13 +122,13 @@ public class JdbcUserDAO implements UserDAO {
 		}
 
 	}
-
+	@Override
 	public void updateUserWithoutPassword(User user) throws RepositoryException {
 		Connection con = null;
 		try {
 			con = conMan.getConnection();
-			PreparedStatement preparedStatement = con.prepareStatement(
-					"update library_users set  name=?, email=?, loyalty_index=?" + "where uuid=?");
+			PreparedStatement preparedStatement = con
+					.prepareStatement("update library_users set  name=?, email=?, loyalty_index=?" + "where uuid=?");
 
 			preparedStatement.setString(1, user.getName());
 			preparedStatement.setString(2, user.getEmail());
@@ -146,23 +146,102 @@ public class JdbcUserDAO implements UserDAO {
 			}
 		}
 	}
-	
+	@Override
 	public UserType login(String userName, String password) throws RepositoryException {
 		Connection con = null;
 		try {
 			con = conMan.getConnection();
-			PreparedStatement preparedStatement = con.prepareStatement("select user_type from library.library_users where name = ? and password = ?");
+			PreparedStatement preparedStatement = con
+					.prepareStatement("select user_type from library.library_users where name = ? and password = ?");
 			preparedStatement.setString(1, userName);
 			preparedStatement.setString(2, password);
 			ResultSet resultSet = preparedStatement.executeQuery();
-			resultSet.next();			;
+			resultSet.next();
+
 			return UserType.valueOf(resultSet.getString(1).toUpperCase());
-			
+
 		} catch (SQLException e) {
-			LOGGER.error("Login failed! ",e);
-			throw new RepositoryException("Login failed!",e);
+			LOGGER.error("Login failed! ", e);
+			throw new RepositoryException("Login failed!", e);
 		}
 
+	}
+	@Override
+	public User getUserByName(String name) throws RepositoryException {
+		Connection con = null;
+		String query = "select name, email, user_type, loyalty_index from library_users where name = ?";
+		User user = new User();
+		try {
+			con = conMan.getConnection();
+			PreparedStatement statement = con.prepareStatement(query);
+			statement.setString(1, name);
+			ResultSet users = statement.executeQuery();
+			if (users.next()) {
+				user = new User(users.getString("name"), users.getString("email"),
+						UserType.valueOf(users.getString("user_type")), users.getInt("loyalty_index"));
+			}
+		LOGGER.info("select succses");
+		} catch (SQLException e) {
+			LOGGER.error("Could not select user. ", e);
+			throw new RepositoryException("Could not select user. ", e);
+		} finally {
+			if (con != null) {
+				conMan.returnConnection(con);
+			}
+		}
+		return user;
+	}
+	@Override
+	public User getUserById(String id) throws RepositoryException {
+		Connection con = null;
+		String query = "select name, email, user_type, loyalty_index from library_users where uuid = ?";
+		User user = new User();
+		try {
+			con = conMan.getConnection();
+			PreparedStatement statement = con.prepareStatement(query);
+			statement.setString(1, id);
+			ResultSet users = statement.executeQuery();
+			if (users.next()) {
+				user = new User(users.getString("name"), users.getString("email"),
+						UserType.valueOf(users.getString("user_type")), users.getInt("loyalty_index"));
+			}
+			LOGGER.info("select succses");
+		} catch (SQLException e) {
+			LOGGER.error("Could not select user by id. ", e);
+			throw new RepositoryException("Could not select user by id ", e);
+		} finally {
+			if (con != null) {
+				conMan.returnConnection(con);
+			}
+		}
+		return user;
+	}
+	@Override
+	public List<User> searchUserByName(String name) throws RepositoryException {
+		Connection con = null;
+		String query = "select name, email, user_type, loyalty_index from library_users where name like ?";
+		User user = new User();
+		List<User> userList = new ArrayList<User>();
+		try {
+			con = conMan.getConnection();
+			PreparedStatement statement = con.prepareStatement(query);
+			statement.setString(1, "%" + name + "%");
+			ResultSet users = statement.executeQuery();
+			while (users.next()) {
+				user = new User(users.getString("name"), users.getString("email"),
+						UserType.valueOf(users.getString("user_type")), users.getInt("loyalty_index"));
+				userList.add(user);
+			}
+			LOGGER.info("search succses");
+		} catch (SQLException e) {
+			LOGGER.error("Could not search by name ", e);
+			throw new RepositoryException("Could not search  user by name ", e);
+		} finally {
+			if (con != null) {
+				conMan.returnConnection(con);
+			}
+		}
+		return userList;
 	}
 
 }

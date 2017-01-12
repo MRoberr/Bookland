@@ -24,7 +24,7 @@ public class JDBCAuthorDAO implements AuthorDAO {
 	}
 
 	public List<Author> getAllAuthors() {
-		List<Author> authorsList = new ArrayList<>();
+		List<Author> authorsList = new ArrayList();
 		Connection con = null;
 		try {
 			con = connectionManager.getConnection();

@@ -1,5 +1,6 @@
 package edu.msg.bookland.repository;
 
+import java.rmi.RemoteException;
 import java.util.List;
 
 import edu.msg.bookland.model.User;
@@ -12,5 +13,8 @@ public interface UserDAO {
 	void deleteUser(User user) throws RepositoryException;
 	void updateUserWithoutPassword(User user) throws RepositoryException;
 	public UserType login(String userName, String password) throws RepositoryException;
+	User getUserByName(String name) throws RepositoryException;
+	User getUserById(String id) throws RepositoryException;
+	List<User> searchUserByName(String name) throws RepositoryException;
 		
 }

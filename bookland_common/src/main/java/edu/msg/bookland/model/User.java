@@ -20,6 +20,15 @@ public class User extends BaseEntity {
 		loyaltyIndex = 10;
 		userType = UserType.READER;
 	}
+	
+
+	public User(String name,String email, UserType userType, int loyaltyIndex) {
+		super();
+		this.name = name;
+		this.userType = userType;
+		this.loyaltyIndex = loyaltyIndex;
+		this.email = email;
+	}
 
 	public String getName() {
 		return name;
