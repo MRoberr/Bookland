@@ -10,13 +10,6 @@ public abstract class DataAdministrationView {
 		System.out.println("4 -Borrowing management");
 	}
 	
-	public static void menuForAdminCustomS() {
-		System.out.println("Please choose an option!");
-		System.out.println("1 -Search for publication");
-		System.out.println("2 -Borrow publication");
-		System.out.println("3 -Return publication");
-	}
-	
 	public static void menuForAdminDataAUsers() {
 		System.out.println("Please choose an option!");
 		System.out.println("1 -Search for User");
