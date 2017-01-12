@@ -19,7 +19,7 @@ public class JDBCBorrowingDAO implements BorrowingDAO {
 		connectionManager = ConnectionManager.getInstance();
 	}
 
-	@Override
+
 	public void insertBorrowing(Borrowing borrowing) {
 		Connection con = null;
 		try {
@@ -43,7 +43,7 @@ public class JDBCBorrowingDAO implements BorrowingDAO {
 
 	}
 
-	@Override
+
 	public void deleteBorrowing(Borrowing borrowing) {
 
 		Connection con = null;
