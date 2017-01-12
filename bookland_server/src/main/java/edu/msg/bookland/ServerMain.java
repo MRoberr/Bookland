@@ -20,6 +20,7 @@ public class ServerMain {
 
 			UserService uService = new UserService();
 			registry.rebind(UserServiceRmi.RMI_NAME, uService);
+			System.out.println("Server online!");
 			
 			
 		} catch (RemoteException e) {
