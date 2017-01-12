@@ -8,12 +8,26 @@ public class User extends BaseEntity {
 	private String password;
 	private UserType userType;
 	private int loyaltyIndex;
+	private String email;
+
+	public User() {
+
+	}
 
 	public User(String name) {
 
 		this.name = name;
 		loyaltyIndex = 10;
 		userType = UserType.READER;
+	}
+	
+
+	public User(String name,String email, UserType userType, int loyaltyIndex) {
+		super();
+		this.name = name;
+		this.userType = userType;
+		this.loyaltyIndex = loyaltyIndex;
+		this.email = email;
 	}
 
 	public String getName() {
@@ -47,5 +61,21 @@ public class User extends BaseEntity {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	@Override
+	public String toString() {
+		return "User: name=" + name + ", userType=" + userType + ", loyaltyIndex="
+				+ loyaltyIndex + ", email=" + email;
+	}
+	
+	
 
 }
