@@ -35,8 +35,8 @@ public class UserDaoTest {
 	@Test
 	public void updateUserTest() {
 		User u = createUser();
-		u.setName("test12");
-		u.setUUID("37a97280-bb03-4b65-b84d-7602f6b6a86f");
+		u.setName("aranka");
+		u.setUUID("12");
 		try {
 			userDao.updateUser(u);
 		} catch (RepositoryException e) {
@@ -48,8 +48,8 @@ public class UserDaoTest {
 	@Test
 	public void deleteUserTest() {
 		User u = createUser();
-		u.setName("test12");
-		u.setUUID("37a97280-bb03-4b65-b84d-7602f6b6a86f");
+		u.setName("testada");
+		u.setUUID("1458");
 		try {
 			userDao.deleteUser(u);
 		} catch (RepositoryException e) {
@@ -87,8 +87,8 @@ public class UserDaoTest {
 	}
 	private User createUser() {
 		User u = new User();
-		u.setName("test34766685");
-		u.setEmail("test378666645@email");
+		u.setName("try");
+		u.setEmail("tessfasfas@email");
 		u.setLoyaltyIndex(10);
 		u.setPassword(PasswordEncrypting.encrypt("password", "salt"));
 		u.setUserType(UserType.READER);

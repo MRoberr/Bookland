@@ -23,7 +23,7 @@ public class JdbcUserDAO implements UserDAO {
 	public JdbcUserDAO() {
 		conMan = ConnectionManager.getInstance();
 	}
-
+	@Override
 	public List<User> getAllUsers() throws RepositoryException {
 		List<User> list = new ArrayList<User>();
 		Connection con = null;
@@ -51,7 +51,7 @@ public class JdbcUserDAO implements UserDAO {
 		}
 		return list;
 	}
-
+	@Override
 	public void insertUser(User user) throws RepositoryException {
 		Connection con = null;
 		try {
@@ -76,7 +76,7 @@ public class JdbcUserDAO implements UserDAO {
 			}
 		}
 	}
-
+	@Override
 	public void deleteUser(User user) throws RepositoryException {
 		Connection con = null;
 		try {
@@ -96,7 +96,7 @@ public class JdbcUserDAO implements UserDAO {
 		}
 
 	}
-
+	@Override
 	public void updateUser(User user) throws RepositoryException {
 		Connection con = null;
 		try {
@@ -122,7 +122,7 @@ public class JdbcUserDAO implements UserDAO {
 		}
 
 	}
-
+	@Override
 	public void updateUserWithoutPassword(User user) throws RepositoryException {
 		Connection con = null;
 		try {
@@ -146,7 +146,7 @@ public class JdbcUserDAO implements UserDAO {
 			}
 		}
 	}
-
+	@Override
 	public UserType login(String userName, String password) throws RepositoryException {
 		Connection con = null;
 		try {
@@ -157,7 +157,7 @@ public class JdbcUserDAO implements UserDAO {
 			preparedStatement.setString(2, password);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			resultSet.next();
-			;
+
 			return UserType.valueOf(resultSet.getString(1).toUpperCase());
 
 		} catch (SQLException e) {
@@ -166,7 +166,7 @@ public class JdbcUserDAO implements UserDAO {
 		}
 
 	}
-
+	@Override
 	public User getUserByName(String name) throws RepositoryException {
 		Connection con = null;
 		String query = "select name, email, user_type, loyalty_index from library_users where name = ?";
@@ -180,12 +180,18 @@ public class JdbcUserDAO implements UserDAO {
 				user = new User(users.getString("name"), users.getString("email"),
 						UserType.valueOf(users.getString("user_type")), users.getInt("loyalty_index"));
 			}
+		LOGGER.info("select succses");
 		} catch (SQLException e) {
-			e.printStackTrace();
+			LOGGER.error("Could not select user. ", e);
+			throw new RepositoryException("Could not select user. ", e);
+		} finally {
+			if (con != null) {
+				conMan.returnConnection(con);
+			}
 		}
 		return user;
 	}
-
+	@Override
 	public User getUserById(String id) throws RepositoryException {
 		Connection con = null;
 		String query = "select name, email, user_type, loyalty_index from library_users where uuid = ?";
@@ -199,12 +205,18 @@ public class JdbcUserDAO implements UserDAO {
 				user = new User(users.getString("name"), users.getString("email"),
 						UserType.valueOf(users.getString("user_type")), users.getInt("loyalty_index"));
 			}
+			LOGGER.info("select succses");
 		} catch (SQLException e) {
-			e.printStackTrace();
+			LOGGER.error("Could not select user by id. ", e);
+			throw new RepositoryException("Could not select user by id ", e);
+		} finally {
+			if (con != null) {
+				conMan.returnConnection(con);
+			}
 		}
 		return user;
 	}
-
+	@Override
 	public List<User> searchUserByName(String name) throws RepositoryException {
 		Connection con = null;
 		String query = "select name, email, user_type, loyalty_index from library_users where name like ?";
@@ -220,8 +232,14 @@ public class JdbcUserDAO implements UserDAO {
 						UserType.valueOf(users.getString("user_type")), users.getInt("loyalty_index"));
 				userList.add(user);
 			}
+			LOGGER.info("search succses");
 		} catch (SQLException e) {
-			e.printStackTrace();
+			LOGGER.error("Could not search by name ", e);
+			throw new RepositoryException("Could not search  user by name ", e);
+		} finally {
+			if (con != null) {
+				conMan.returnConnection(con);
+			}
 		}
 		return userList;
 	}
