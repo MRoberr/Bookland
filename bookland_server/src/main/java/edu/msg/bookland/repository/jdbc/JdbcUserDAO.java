@@ -23,6 +23,7 @@ public class JdbcUserDAO implements UserDAO {
 		conMan = ConnectionManager.getInstance();
 	}
 
+	@Override
 	public List<User> getAllUsers() throws RepositoryException {
 		List<User> list = new ArrayList<User>();
 		Connection con = null;
@@ -144,6 +145,24 @@ public class JdbcUserDAO implements UserDAO {
 				conMan.returnConnection(con);
 			}
 		}
+	}
+	
+	public UserType login(String userName, String password) throws RepositoryException {
+		Connection con = null;
+		try {
+			con = conMan.getConnection();
+			PreparedStatement preparedStatement = con.prepareStatement("select user_type from library.library_users where name = ? and password = ?");
+			preparedStatement.setString(1, userName);
+			preparedStatement.setString(2, password);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			resultSet.next();			;
+			return UserType.valueOf(resultSet.getString(1).toUpperCase());
+			
+		} catch (SQLException e) {
+			LOGGER.error("Login failed! ",e);
+			throw new RepositoryException("Login failed!",e);
+		}
+
 	}
 
 }
