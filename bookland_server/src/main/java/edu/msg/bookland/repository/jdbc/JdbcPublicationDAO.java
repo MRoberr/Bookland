@@ -215,20 +215,7 @@ public class JdbcPublicationDAO implements PublicationDAO{
 
 			connection = connectionManager.getConnection();
 			
-			PreparedStatement insertBook = connection.prepareStatement(
-					"insert into publications"
-					+ "(uuid, title, publisher, release_date, nr_of_copies, copies_left, type"
-					+ "values(?, ?, ?, ?, ?, ?, ?)");
-			insertBook.setString(1, book.getUUID());
-			insertBook.setString(2, book.getTitle());
-			insertBook.setString(3, book.getPublisher());
-			insertBook.setDate(4, book.getReleaseDate());
-			insertBook.setInt(5, book.getNumberOfCopies());
-			insertBook.setInt(6, book.getCopiesLeft());
-			insertBook.setString(7, book.getClass().getSimpleName().toLowerCase());
-			
-			insertBook.execute();			
-			LOGGER.info("Book inserted");
+			insertPublication(book, connection);
 			
 			PreparedStatement insertBookWriterRelation = connection.prepareStatement(
 					"insert into publications_authors"
@@ -262,7 +249,39 @@ public class JdbcPublicationDAO implements PublicationDAO{
 
 	public void insertMagazine(Magazine magazine) {
 
+		Connection connection = null;
 		
+		try {
+			
+			insertPublication(magazine, connection);
+			
+			PreparedStatement insertMagazineWriterRelation = connection.prepareStatement(
+					"insert into publications_authors"
+					+ "(publications_uuid, authors_uuid)"
+					+ "values(?, ?)");
+			
+			for(Author author:magazine.getAuthors()) {
+				
+				insertMagazineWriterRelation.setString(1, magazine.getUUID());
+				insertMagazineWriterRelation.setString(2, author.getUUID());
+				insertMagazineWriterRelation.executeQuery();
+				
+				LOGGER.info("Magazine - Author relation inserted in connection table");
+			}
+			
+			LOGGER.info("Magazine insert completed successfully");
+		
+		} catch (SQLException e) {
+
+			LOGGER.error("Failed to insert magazine", e);
+			throw new RepositoryException("Failed to insert magazine", e);
+		} finally {
+			
+			if (connection != null) {
+				
+				connectionManager.returnConnection(connection);
+			}
+		}
 		
 	}
 
@@ -404,6 +423,24 @@ public class JdbcPublicationDAO implements PublicationDAO{
 		}	
 		
 		return authors;
+	}
+	
+	private void insertPublication(Publication publication, Connection connection) throws SQLException{
+		
+		PreparedStatement insert = connection.prepareStatement(
+				"insert into publications"
+				+ "(uuid, title, publisher, release_date, nr_of_copies, copies_left, type"
+				+ "values(?, ?, ?, ?, ?, ?, ?)");
+		insert.setString(1, publication.getUUID());
+		insert.setString(2, publication.getTitle());
+		insert.setString(3, publication.getPublisher());
+		insert.setDate(4, publication.getReleaseDate());
+		insert.setInt(5, publication.getNumberOfCopies());
+		insert.setInt(6, publication.getCopiesLeft());
+		insert.setString(7, publication.getClass().getSimpleName().toLowerCase());
+		
+		insert.execute();			
+		LOGGER.info(publication.getClass().getSimpleName() + " inserted");
 	}
 
 }
