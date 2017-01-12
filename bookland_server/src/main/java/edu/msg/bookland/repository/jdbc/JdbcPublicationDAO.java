@@ -329,31 +329,126 @@ public class JdbcPublicationDAO implements PublicationDAO{
 		doUpdatePublication(newspaper);		
 	}
 	
-	public void updatePublication(Publication publication) {
+	public void deleteBook(Book book) {
 		
-		doUpdatePublication(publication);
+		//csak akkor lehet torolni, ha nincs kikolcsonozve
+		//ezt a service retegbe kell leelenorizni
+		
+		Connection connection = null;
+		
+		try {
+			
+			connection = connectionManager.getConnection();
+			
+			PreparedStatement deleteBook = connection.prepareStatement(
+					"delete from publications"
+					+ "where uuid = ?");
+			
+			deleteBook.setString(1, book.getUUID());
+			deleteBook.execute();
+			
+			LOGGER.info("Book deleted");
+			
+			PreparedStatement deleteBookAuthorConnection = connection.prepareStatement(
+					"delete from  publications_authros"
+					+ "where publications_uuid = ?");
+			
+			deleteBookAuthorConnection.setString(1, book.getUUID());
+			deleteBookAuthorConnection.executeQuery();
+			
+			LOGGER.info("Book and author connections deleted");
+			
+			LOGGER.info("Book deleted completed successfully");
+			
+		} catch(SQLException e) {
+			
+			LOGGER.error("Failed to delete book");
+			throw new RepositoryException("Failed to delete book");
+		} finally {
+			
+			if (connection != null) {
+				
+				connectionManager.returnConnection(connection);
+			}
+		}
 	}
 
+	public void deleteMagazine(Magazine magazine) {
 
-	public void deleteBook(String uuid) {
-		// TODO Auto-generated method stub
+		//csak akkor lehet torolni, ha nincs kikolcsonozve
+		//ezt a service retegbe kell leelenorizni
 		
+		Connection connection = null;
+		
+		try {
+			
+			connection = connectionManager.getConnection();
+			
+			PreparedStatement deleteMagazine = connection.prepareStatement(
+					"delete from publications"
+					+ "where uuid = ?");
+			
+			deleteMagazine.setString(1, magazine.getUUID());
+			deleteMagazine.execute();
+			
+			LOGGER.info("Magazine deleted");
+			
+			PreparedStatement deleteMagazineAuthorConnection = connection.prepareStatement(
+					"delete from  publications_authros"
+					+ "where publications_uuid = ?");
+			
+			deleteMagazineAuthorConnection.setString(1, magazine.getUUID());
+			deleteMagazineAuthorConnection.executeQuery();
+			
+			LOGGER.info("Magazine and author connections deleted");
+			
+			LOGGER.info("Magazine deleted completed successfully");
+			
+		} catch(SQLException e) {
+			
+			LOGGER.error("Failed to delete magazine");
+			throw new RepositoryException("Failed to delete magazine");
+		} finally {
+			
+			if (connection != null) {
+				
+				connectionManager.returnConnection(connection);
+			}
+		}
 	}
 
-	public void deleteMagazine(String uuid) {
-		// TODO Auto-generated method stub
+	public void deleteNewspaper(Newspaper newspaper) {
+
+		Connection connection = null;
 		
+		try {
+			
+			connection = connectionManager.getConnection();
+			
+			PreparedStatement deleteNewspaper = connection.prepareStatement(
+					"delete from publications"
+					+ "where uuid = ?");
+			
+			deleteNewspaper.setString(1, newspaper.getUUID());
+			deleteNewspaper.execute();
+			
+			LOGGER.info("Newspaper deleted");
+			
+			LOGGER.info("Newspaper deleted completed successfully");
+			
+		} catch(SQLException e) {
+			
+			LOGGER.error("Failed to delete newspaper");
+			throw new RepositoryException("Failed to delete newspapaer");
+		} finally {
+			
+			if (connection != null) {
+				
+				connectionManager.returnConnection(connection);
+			}
+		}
 	}
 
-	public void deleteNewspaper(String uuid) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void deletePublication(Publication publication) {
-		// TODO Auto-generated method stub
-		
-	}
 	
 	private List<Publication> buildListFromQuery(ResultSet queryResult, Connection connection) throws SQLException {
 		
@@ -522,32 +617,5 @@ public class JdbcPublicationDAO implements PublicationDAO{
 			}
 		}		
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 }

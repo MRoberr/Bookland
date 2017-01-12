@@ -22,11 +22,9 @@ public interface PublicationDAO {
 	void updateBook(Book book) throws RepositoryException;
 	void updateMagazine(Magazine magazine) throws RepositoryException;
 	void updateNewspaper(Newspaper newspaper) throws RepositoryException;
-	void updatePublication(Publication publication) throws RepositoryException;
 	
-	void deleteBook(String uuid) throws RepositoryException;
-	void deleteMagazine(String uuid) throws RepositoryException;
-	void deleteNewspaper(String uuid) throws RepositoryException;
-	void deletePublication(Publication publication) throws RepositoryException;
+	void deleteBook(Book book) throws RepositoryException;
+	void deleteMagazine(Magazine magazine) throws RepositoryException;
+	void deleteNewspaper(Newspaper newspaper) throws RepositoryException;
 	
 }
