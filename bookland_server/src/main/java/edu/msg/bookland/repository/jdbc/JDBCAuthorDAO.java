@@ -163,10 +163,10 @@ public class JDBCAuthorDAO implements AuthorDAO {
 			PreparedStatement preparedStatement = con.prepareStatement("select * from authors where uuid = ?");
 			preparedStatement.setString(1, uuId);
 			ResultSet resultset = preparedStatement.executeQuery();
-			preparedStatement.close();
 			resultset.next();
 			author.setUUID(resultset.getString("uuid"));
 			author.setName(resultset.getString("name"));
+			preparedStatement.close();
 			resultset.close();
 			LOGGER.info("Succesfully retrieved author by id from DB");
 			return author;

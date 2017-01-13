@@ -55,7 +55,7 @@ public class UserDaoTest {
 	}
 
 	/**
-	 * R from CRUD. Test select all users list is not empty.
+	 * R from CRUD. Test select all Users list is not empty.
 	 */
 	@Test
 	public void test1SelectAllUser() {
@@ -71,7 +71,7 @@ public class UserDaoTest {
 	 * R from CRUD. Test select Users with given name.
 	 */
 	@Test
-	public void test2searchUserByName() {
+	public void test2SearchUserByName() {
 		try {
 			List<User> users = userDao.searchUserByName("UserDAO");
 			assertTrue(!users.isEmpty());
@@ -85,7 +85,7 @@ public class UserDaoTest {
 	 * R from CRUD. Test select User with given full name.
 	 */
 	@Test
-	public void test3getUserByName() {
+	public void test3GetUserByName() {
 		try {
 			System.out.println(userDao.getUserByName("testUserDAO"));
 			Assert.assertEquals(createUser().getUUID(), userDao.getUserByName("testUserDAO").getUUID());
@@ -98,7 +98,7 @@ public class UserDaoTest {
 	 * R from CRUD. Test select User with given id.
 	 */
 	@Test
-	public void test4getUserById() {
+	public void test4GetUserById() {
 		try {
 			Assert.assertEquals(userDao.getUserById("37a97280-bb03-4b65-b84d-7602f6b6a86u").getName(),
 					createUser().getName());
@@ -111,7 +111,7 @@ public class UserDaoTest {
 	 * U from CRUD. Test User update.
 	 */
 	@Test
-	public void test5updateUser() {
+	public void test5UpdateUser() {
 		User u = createUser();
 		u.setName("testUser");
 		try {
@@ -126,7 +126,7 @@ public class UserDaoTest {
 	 * D from CRUD. Test User delete.
 	 */
 	@Test
-	public void test6deleteUser() {
+	public void test6DeleteUser() {
 		User u = createUser();
 		try {
 			userDao.deleteUser(u);

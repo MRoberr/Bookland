@@ -44,7 +44,7 @@ public interface BorrowingServiceRmi extends Remote {
 	public boolean updateBorrowing(Borrowing borrow) throws RemoteException;
 	
 	/**
-	 * This method deletes the Borrow by its id.
+	 * This method deletes the Borrow by its ids(user and publication uuid)
 	 * 
 	 * @param borrow - Borrowing object
 	 * @return true if the delete was successful, or false if not

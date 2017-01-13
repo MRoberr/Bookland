@@ -50,7 +50,7 @@ public class JDBCBorrowingDAO implements BorrowingDAO {
 			preparedStatement.setDate(4, borrowing.getDeadline());
 			preparedStatement.execute();
 			preparedStatement.close();
-			LOGGER.info("Insterted a borrowing");
+			LOGGER.info("Inserted a borrowing");
 		} catch (SQLException e) {
 			LOGGER.error("Cannot insert borrowing");
 			throw new RepositoryException("Cannot insert borrowing", e);
