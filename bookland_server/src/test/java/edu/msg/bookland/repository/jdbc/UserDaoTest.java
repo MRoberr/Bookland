@@ -82,18 +82,18 @@ public class UserDaoTest {
 	}
 
 	/**
-	 * R from CRUD. Test select User with given name.
+	 * R from CRUD. Test select User with given full name.
 	 */
 	@Test
 	public void test3getUserByName() {
 		try {
-			Assert.assertEquals(createUser().getUUID(), userDao.getUserByName("UserDAO").getUUID());
+			System.out.println(userDao.getUserByName("testUserDAO"));
+			Assert.assertEquals(createUser().getUUID(), userDao.getUserByName("testUserDAO").getUUID());
 		} catch (RepositoryException e) {
 			Assert.fail("Could no search for user.");
 		}
-
 	}
-	
+
 	/**
 	 * R from CRUD. Test select User with given id.
 	 */

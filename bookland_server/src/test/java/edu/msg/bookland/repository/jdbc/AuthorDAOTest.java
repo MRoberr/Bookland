@@ -7,10 +7,15 @@ import java.util.List;
 import org.junit.Test;
 
 import edu.msg.bookland.model.Author;
+import edu.msg.bookland.model.User;
+import edu.msg.bookland.model.UserType;
+import edu.msg.bookland.repository.AuthorDAO;
+import edu.msg.bookland.util.PasswordEncrypting;
 
 public class AuthorDAOTest {
-	JDBCAuthorDAO authorDAO = new JDBCAuthorDAO();
+	AuthorDAO authorDAO = new JDBCAuthorDAO();
 
+	
 	@Test
 	public void getAllAuthors() {
 		List<Author> authors = authorDAO.getAllAuthors();
