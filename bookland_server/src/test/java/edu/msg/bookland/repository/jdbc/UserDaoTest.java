@@ -28,11 +28,7 @@ import edu.msg.bookland.util.PasswordEncrypting;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class UserDaoTest {
-<<<<<<< HEAD
-	private JDBCUserDAO userDao = new JDBCUserDAO();
-=======
-	private UserDAO userDao = new JdbcUserDAO();
->>>>>>> refs/heads/Javitas
+	private UserDAO userDao = new JDBCUserDAO();
 
 	private User createUser() {
 		User u = new User("");
@@ -107,7 +103,7 @@ public class UserDaoTest {
 			Assert.assertEquals(userDao.getUserById("37a97280-bb03-4b65-b84d-7602f6b6a86u").getName(),
 					createUser().getName());
 		} catch (RepositoryException e) {
-			System.out.println(e.getMessage());
+			Assert.fail("Could not search for User.");
 		}
 	}
 

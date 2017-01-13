@@ -11,7 +11,7 @@ import org.apache.log4j.Logger;
  */
 public class PropertyProvider {
 
-	private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle("edu.msg.bookland.res.bookland");
+	private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle("bookland");
 	private static final Logger LOGGER = Logger.getLogger(PropertyProvider.class);
 	
 	private PropertyProvider(){		
