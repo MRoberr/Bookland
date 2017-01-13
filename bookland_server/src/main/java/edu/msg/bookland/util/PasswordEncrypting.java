@@ -8,14 +8,28 @@ import org.apache.log4j.Logger;
 
 import edu.msg.bookland.service.ServiceException;
 
+/**
+ * Singleton class to Encrypt password
+ * 
+ * @author Terez Sipos
+ */
 public class PasswordEncrypting {
 	private static final Logger LOGGER = Logger.getLogger(PasswordEncrypting.class);
-	
-	private PasswordEncrypting(){
-		
+
+	private PasswordEncrypting() {
+
 	}
 
-	public static String encrypt(String password, String salt) throws ServiceException{
+	/**
+	 * This method use property provider to get algorithm and encoding to
+	 * encrypt password with salt
+	 * 
+	 * @param password
+	 * @param salt
+	 * @return hashed password
+	 * @throws ServiceException
+	 */
+	public static String encrypt(String password, String salt) throws ServiceException {
 		try {
 			byte[] initialBytes = (password + salt).getBytes(PropertyProvider.getProperty("encrypt.encoding"));
 			MessageDigest algorithm = MessageDigest.getInstance(PropertyProvider.getProperty("encrypt.algorithm"));

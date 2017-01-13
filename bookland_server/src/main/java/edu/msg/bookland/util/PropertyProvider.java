@@ -7,7 +7,7 @@ import org.apache.log4j.Logger;
 
 /**
  * PropertyProvider to get properties from file using ResourceBundle
- * @author Terez Sipos <terez.sipos@msg-systems.com> 
+ * @author Terez Sipos
  */
 public class PropertyProvider {
 

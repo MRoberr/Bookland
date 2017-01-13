@@ -12,17 +12,27 @@ import edu.msg.bookland.model.Borrowing;
 public interface BorrowingDAO {
 	/**
 	 * This method define insert for {@link Borrowing}
+	 * 
 	 * @param borrowing
 	 * @throws RepositoryException
 	 */
 	void insertBorrowing(Borrowing borrowing) throws RepositoryException;
-/**
- * This method define delete for {@link Borrowing}
- * @param borrowing
- * @throws RepositoryException
- */
+
+	/**
+	 * This method define delete for {@link Borrowing}
+	 * 
+	 * @param borrowing
+	 * @throws RepositoryException
+	 */
 	void deleteBorrowing(Borrowing borrowing) throws RepositoryException;
 
+	/**
+	 * This method define select for {@link Borrowing} with conditon
+	 * 
+	 * @param userUuid
+	 * @return list of Borrowing if exist
+	 * @throws RepositoryException
+	 */
 	List<Borrowing> getPublicationsBorrowedByUser(String userUuid) throws RepositoryException;
 
 }
