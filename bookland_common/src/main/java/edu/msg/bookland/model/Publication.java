@@ -2,10 +2,17 @@ package edu.msg.bookland.model;
 
 import java.sql.Date;
 
+/**
+ * Publication model class.
+ * 
+ * @author Majai Robert
+ * @author Simo Zoltan
+ *
+ */
+
 public abstract class Publication extends BaseEntity {
 
 	private static final long serialVersionUID = 2723956432127785557L;
-
 	private String title;
 	private String publisher;
 	private int numberOfCopies;
@@ -54,8 +61,8 @@ public abstract class Publication extends BaseEntity {
 
 	@Override
 	public String toString() {
-		return "title=" + title + ", publisher=" + publisher + ", numberOfCopies=" + numberOfCopies
-				+ ", copiesLeft=" + copiesLeft;
+		return "title=" + title + ", publisher=" + publisher + ", numberOfCopies=" + numberOfCopies + ", copiesLeft="
+				+ copiesLeft;
 	}
 
 }

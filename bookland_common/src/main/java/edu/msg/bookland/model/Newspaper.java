@@ -2,14 +2,17 @@ package edu.msg.bookland.model;
 
 import java.util.Calendar;
 
+/**
+ * Newspaper model class.
+ * 
+ * @author Majai Robert
+ * @author Simo Zoltan
+ *
+ */
+
 public class Newspaper extends Publication{
 
 	private static final long serialVersionUID = -3891407649176906111L;
-	
-	public Newspaper() {
-		
-		
-	}
 	
 	@Override
 	public String toString() {

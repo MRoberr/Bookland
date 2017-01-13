@@ -7,25 +7,30 @@ import java.util.List;
 import org.junit.Test;
 
 import edu.msg.bookland.model.Author;
+import edu.msg.bookland.model.User;
+import edu.msg.bookland.model.UserType;
+import edu.msg.bookland.repository.AuthorDAO;
+import edu.msg.bookland.util.PasswordEncrypting;
 
 public class AuthorDAOTest {
-	JDBCAuthorDAO authorDAO = new JDBCAuthorDAO();
+	AuthorDAO authorDAO = new JDBCAuthorDAO();
 
+	
 	@Test
 	public void getAllAuthors() {
 		List<Author> authors = authorDAO.getAllAuthors();
 		assertTrue(!authors.isEmpty());
 	}
-	
+
 	@Test
 	public void instertAuthor() {
 		Author author = new Author();
 		author.setUUID("12345");
 		author.setName("Pista");
 		authorDAO.insertAuthor(author);
-		
+
 	}
-	
+
 	@Test
 	public void updateAuthor() {
 		Author author = new Author();
@@ -33,7 +38,7 @@ public class AuthorDAOTest {
 		author.setName("Zolika");
 		authorDAO.updateAuthor(author);
 	}
-	
+
 	@Test
 	public void deleteAuthor() {
 		Author author = new Author();
@@ -41,7 +46,7 @@ public class AuthorDAOTest {
 		author.setName("Zolika");
 		authorDAO.deleteAuthor(author);
 	}
-	
+
 	@Test
 	public void getAuthorById() {
 		Author author = new Author();
@@ -50,7 +55,7 @@ public class AuthorDAOTest {
 		authorDAO.insertAuthor(author);
 		Author author2 = authorDAO.getAuthorByUuid(author.getUUID());
 		assertTrue(author.getName().equals(author2.getName()));
-	
+
 	}
 
 }
