@@ -32,7 +32,7 @@ public interface UserServiceRmi extends Remote {
 	 * @param user
 	 * @throws RemoteException
 	 */
-	public void insertUser(User user) throws RemoteException;
+	public boolean insertUser(User user) throws RemoteException;
 	
 	/**
 	 * This method updates the User by its id.
@@ -40,7 +40,7 @@ public interface UserServiceRmi extends Remote {
 	 * @param user
 	 * @throws RemoteException
 	 */
-	public void updateUser(User user) throws RemoteException;
+	public boolean updateUser(User user) throws RemoteException;
 	
 	/**
 	 * This method deletes the User by its id.
@@ -48,7 +48,7 @@ public interface UserServiceRmi extends Remote {
 	 * @param user
 	 * @throws RemoteException
 	 */
-	public void deleteUser(User user) throws RemoteException;
+	public boolean deleteUser(User user) throws RemoteException;
 	
 	/**
 	 * This method searches for the User with the specified name.
