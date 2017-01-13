@@ -49,6 +49,7 @@ public class JDBCBorrowingDAO implements BorrowingDAO {
 			preparedStatement.setDate(3, borrowing.getBorrowingDate());
 			preparedStatement.setDate(4, borrowing.getDeadline());
 			preparedStatement.execute();
+			preparedStatement.close();
 			LOGGER.info("Insterted a borrowing");
 		} catch (SQLException e) {
 			LOGGER.error("Cannot insert borrowing");
@@ -60,9 +61,12 @@ public class JDBCBorrowingDAO implements BorrowingDAO {
 		}
 
 	}
-/*
- * @see edu.msg.bookland.repository.BorrowingDAO#deleteBorrowing(edu.msg.bookland.model.Borrowing)
- */
+
+	/*
+	 * @see
+	 * edu.msg.bookland.repository.BorrowingDAO#deleteBorrowing(edu.msg.bookland
+	 * .model.Borrowing)
+	 */
 	@Override
 	public void deleteBorrowing(Borrowing borrowing) {
 
@@ -74,6 +78,7 @@ public class JDBCBorrowingDAO implements BorrowingDAO {
 			preparedStatement.setString(1, borrowing.getPublicationId());
 			preparedStatement.setString(2, borrowing.getUserId());
 			preparedStatement.execute();
+			preparedStatement.close();
 			LOGGER.info("Succesfully deleted a borrowing");
 		} catch (SQLException e) {
 			LOGGER.error("Cannot delete a borrowing");
@@ -84,9 +89,12 @@ public class JDBCBorrowingDAO implements BorrowingDAO {
 			}
 		}
 	}
-/*
- * @see edu.msg.bookland.repository.BorrowingDAO#getPublicationsBorrowedByUser(java.lang.String)
- */
+
+	/*
+	 * @see
+	 * edu.msg.bookland.repository.BorrowingDAO#getPublicationsBorrowedByUser(
+	 * java.lang.String)
+	 */
 	@Override
 	public List<Borrowing> getPublicationsBorrowedByUser(String userUuid) throws RepositoryException {
 
@@ -107,7 +115,10 @@ public class JDBCBorrowingDAO implements BorrowingDAO {
 				borrowing.setDeadline(resultset.getDate("deadline"));
 				borrowingList.add(borrowing);
 			}
+			preparedStatement.close();
+			resultset.close();
 			LOGGER.info("Succesfully retrieved borrowings from DB");
+			return borrowingList;
 		} catch (SQLException e) {
 			LOGGER.error("Cannot retrieve borrowings from DB", e);
 			throw new RepositoryException("Cannot retrieve borrowings from DB", e);
@@ -116,8 +127,6 @@ public class JDBCBorrowingDAO implements BorrowingDAO {
 				connectionManager.returnConnection(con);
 			}
 		}
-
-		return borrowingList;
 	}
 
 }

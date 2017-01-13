@@ -44,7 +44,6 @@ public class JDBCAuthorDAO implements AuthorDAO {
 			con = connectionManager.getConnection();
 			Statement stat = con.createStatement();
 			ResultSet authors = stat.executeQuery("Select * from authors");
-			stat.close();
 			while (authors.next()) {
 				Author author = new Author();
 				author.setUUID(authors.getString("uuid"));
@@ -52,9 +51,10 @@ public class JDBCAuthorDAO implements AuthorDAO {
 				authorsList.add(author);
 
 			}
+			stat.close();
 			authors.close();
 			LOGGER.info("Authors successfully retrieved from DB");
-
+			return authorsList;
 		} catch (SQLException e) {
 			LOGGER.error("Could not query authors", e);
 			throw new RepositoryException("Could not query authors", e);
@@ -63,8 +63,6 @@ public class JDBCAuthorDAO implements AuthorDAO {
 				connectionManager.returnConnection(con);
 			}
 		}
-
-		return authorsList;
 	}
 
 	/*
@@ -171,6 +169,7 @@ public class JDBCAuthorDAO implements AuthorDAO {
 			author.setName(resultset.getString("name"));
 			resultset.close();
 			LOGGER.info("Succesfully retrieved author by id from DB");
+			return author;
 		} catch (SQLException e) {
 			LOGGER.error("Cannot select from authors by id", e);
 			throw new RepositoryException("Cannot select from authors by id", e);
@@ -179,7 +178,6 @@ public class JDBCAuthorDAO implements AuthorDAO {
 				connectionManager.returnConnection(con);
 			}
 		}
-		return author;
 	}
 
 }
