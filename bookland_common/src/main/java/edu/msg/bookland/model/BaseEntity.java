@@ -8,6 +8,15 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Transient;
 
+
+/**
+ * All java model classes are derived from this Base Entity class representing
+ * a universally unique id except for the Borrowing model class.
+ * 
+ * @author Majai Robert
+ * @author Simo Zoltan
+ *
+ */
 @MappedSuperclass
 public abstract class BaseEntity implements Serializable {
 	

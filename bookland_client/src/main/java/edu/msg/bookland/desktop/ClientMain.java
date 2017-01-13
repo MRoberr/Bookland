@@ -1,3 +1,4 @@
+package edu.msg.bookland.desktop;
 import edu.msg.bookland.desktop.controller.MainController;
 
 public class ClientMain {

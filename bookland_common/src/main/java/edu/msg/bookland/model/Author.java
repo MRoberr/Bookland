@@ -5,6 +5,12 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+/**
+ * This is the Author class corresponding to Authors table in the DB.
+ * 
+ * @author Majai Robert
+ *
+ */
 
 @Entity
 @Table(name = "authors")
@@ -28,8 +34,5 @@ public class Author extends BaseEntity {
 	public String toString() {
 		return "Author name=" + name;
 	}
-	
-	
-	
 
 }
