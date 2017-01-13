@@ -1,6 +1,5 @@
 package edu.msg.bookland.repository;
 
-import java.rmi.RemoteException;
 import java.util.List;
 
 import edu.msg.bookland.model.User;

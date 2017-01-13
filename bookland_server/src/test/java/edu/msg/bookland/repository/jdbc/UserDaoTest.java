@@ -13,7 +13,7 @@ import edu.msg.bookland.repository.RepositoryException;
 import edu.msg.bookland.util.PasswordEncrypting;
 
 public class UserDaoTest {
-	private JdbcUserDAO userDao = new JdbcUserDAO();
+	private JDBCUserDAO userDao = new JDBCUserDAO();
 
 	@Test
 	public void selectAllUserTest() {

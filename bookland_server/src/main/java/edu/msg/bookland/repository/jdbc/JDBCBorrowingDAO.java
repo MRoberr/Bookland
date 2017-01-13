@@ -13,16 +13,31 @@ import edu.msg.bookland.model.Borrowing;
 import edu.msg.bookland.repository.BorrowingDAO;
 import edu.msg.bookland.repository.RepositoryException;
 
+/**
+ * Implements CRUD for BORROWING Model
+ * 
+ * @author Jozsef Solomon
+ */
 public class JDBCBorrowingDAO implements BorrowingDAO {
 
 	private ConnectionManager connectionManager;
 	private static final Logger LOGGER = Logger.getLogger(JDBCBorrowingDAO.class);
 
+	/**
+	 * Initialize ConnectionManager
+	 * 
+	 * @throws RepositoryException
+	 */
 	public JDBCBorrowingDAO() throws RepositoryException {
 		connectionManager = ConnectionManager.getInstance();
 	}
 
-
+	/*
+	 * @see
+	 * edu.msg.bookland.repository.BorrowingDAO#insertBorrowing(edu.msg.bookland
+	 * .model.Borrowing)
+	 */
+	@Override
 	public void insertBorrowing(Borrowing borrowing) {
 		Connection con = null;
 		try {
@@ -45,8 +60,10 @@ public class JDBCBorrowingDAO implements BorrowingDAO {
 		}
 
 	}
-
-
+/*
+ * @see edu.msg.bookland.repository.BorrowingDAO#deleteBorrowing(edu.msg.bookland.model.Borrowing)
+ */
+	@Override
 	public void deleteBorrowing(Borrowing borrowing) {
 
 		Connection con = null;
@@ -67,41 +84,40 @@ public class JDBCBorrowingDAO implements BorrowingDAO {
 			}
 		}
 	}
-
+/*
+ * @see edu.msg.bookland.repository.BorrowingDAO#getPublicationsBorrowedByUser(java.lang.String)
+ */
 	@Override
 	public List<Borrowing> getPublicationsBorrowedByUser(String userUuid) throws RepositoryException {
-		
+
 		Connection con = null;
 		List<Borrowing> borrowingList = null;
 		try {
 			con = connectionManager.getConnection();
 			borrowingList = new ArrayList<>();
-			PreparedStatement preparedStatement = con.prepareStatement(""
-					+ "select * from publication_borrowings where user_uuid = ?");
+			PreparedStatement preparedStatement = con
+					.prepareStatement("" + "select * from publication_borrowings where user_uuid = ?");
 			preparedStatement.setString(1, userUuid);
 			ResultSet resultset = preparedStatement.executeQuery();
-			while(resultset.next()) {
+			while (resultset.next()) {
 				Borrowing borrowing = new Borrowing();
 				borrowing.setPublicationId(resultset.getString("publications_uuid"));
 				borrowing.setUserId(resultset.getString("user_uuid"));
 				borrowing.setBorrowingDate(resultset.getDate("borrowing_date"));
 				borrowing.setDeadline(resultset.getDate("deadline"));
-				borrowingList.add(borrowing);				
+				borrowingList.add(borrowing);
 			}
 			LOGGER.info("Succesfully retrieved borrowings from DB");
-		} catch(SQLException e) {
+		} catch (SQLException e) {
 			LOGGER.error("Cannot retrieve borrowings from DB", e);
 			throw new RepositoryException("Cannot retrieve borrowings from DB", e);
-		} 
-		finally {
+		} finally {
 			if (con != null) {
 				connectionManager.returnConnection(con);
 			}
 		}
-		
+
 		return borrowingList;
 	}
-
-	
 
 }

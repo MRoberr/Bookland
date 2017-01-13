@@ -14,10 +14,10 @@ import edu.msg.bookland.util.PropertyProvider;
 
 public final class ConnectionManager {
 	
-	private static final String DBURL = PropertyProvider.INSTANCE.getProperty("mysql.URL");
-	private static final String user =PropertyProvider.INSTANCE.getProperty("mysql.user");
-	private static final String password = PropertyProvider.INSTANCE.getProperty("mysql.password");
-	private static final short size = Short.parseShort(PropertyProvider.INSTANCE.getProperty("connection.size"));
+	private static final String DBURL = PropertyProvider.getProperty("mysql.URL");
+	private static final String user =PropertyProvider.getProperty("mysql.user");
+	private static final String password = PropertyProvider.getProperty("mysql.password");
+	private static final short size = Short.parseShort(PropertyProvider.getProperty("connection.size"));
 
 	private static ConnectionManager instance;
 	private List<Connection> pool;

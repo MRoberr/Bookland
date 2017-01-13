@@ -10,11 +10,15 @@ import edu.msg.bookland.service.ServiceException;
 
 public class PasswordEncrypting {
 	private static final Logger LOGGER = Logger.getLogger(PasswordEncrypting.class);
+	
+	private PasswordEncrypting(){
+		
+	}
 
 	public static String encrypt(String password, String salt) throws ServiceException{
 		try {
-			byte[] initialBytes = (password + salt).getBytes(PropertyProvider.INSTANCE.getProperty("encrypt.encoding"));
-			MessageDigest algorithm = MessageDigest.getInstance(PropertyProvider.INSTANCE.getProperty("encrypt.algorithm"));
+			byte[] initialBytes = (password + salt).getBytes(PropertyProvider.getProperty("encrypt.encoding"));
+			MessageDigest algorithm = MessageDigest.getInstance(PropertyProvider.getProperty("encrypt.algorithm"));
 			algorithm.reset();
 			algorithm.update(initialBytes);
 			byte[] hashBytes = algorithm.digest();

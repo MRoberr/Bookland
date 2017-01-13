@@ -1,6 +1,5 @@
 package edu.msg.bookland.repository.jdbc;
 
-import java.rmi.RemoteException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,15 +15,29 @@ import edu.msg.bookland.model.UserType;
 import edu.msg.bookland.repository.RepositoryException;
 import edu.msg.bookland.repository.UserDAO;
 
-public class JdbcUserDAO implements UserDAO {
+/**
+ * Implements CRUD for USER Model
+ * 
+ * @author Csilla Szocs
+ * @author Terez Sipos
+ */
+public class JDBCUserDAO implements UserDAO {
 	private ConnectionManager conMan;
-	private static final Logger LOGGER = Logger.getLogger(JdbcUserDAO.class);
+	private static final Logger LOGGER = Logger.getLogger(JDBCUserDAO.class);
 
-	public JdbcUserDAO() {
+	/**
+	 * Initialize ConnectionManager
+	 * 
+	 * @throws RepositoryException
+	 */
+	public JDBCUserDAO() {
 		conMan = ConnectionManager.getInstance();
 	}
 
-	
+	/*
+	 * @see edu.msg.bookland.repository.UserDAO#getAllUsers()
+	 */
+	@Override
 	public List<User> getAllUsers() throws RepositoryException {
 		List<User> list = new ArrayList<User>();
 		Connection con = null;
@@ -53,6 +66,12 @@ public class JdbcUserDAO implements UserDAO {
 		return list;
 	}
 
+	/*
+	 * @see
+	 * edu.msg.bookland.repository.UserDAO#insertUser(edu.msg.bookland.model.
+	 * User)
+	 */
+	@Override
 	public void insertUser(User user) throws RepositoryException {
 		Connection con = null;
 		try {
@@ -78,6 +97,12 @@ public class JdbcUserDAO implements UserDAO {
 		}
 	}
 
+	/*
+	 * @see
+	 * edu.msg.bookland.repository.UserDAO#deleteUser(edu.msg.bookland.model.
+	 * User)
+	 */
+	@Override
 	public void deleteUser(User user) throws RepositoryException {
 		Connection con = null;
 		try {
@@ -98,6 +123,12 @@ public class JdbcUserDAO implements UserDAO {
 
 	}
 
+	/*
+	 * @see
+	 * edu.msg.bookland.repository.UserDAO#updateUser(edu.msg.bookland.model.
+	 * User)
+	 */
+	@Override
 	public void updateUser(User user) throws RepositoryException {
 		Connection con = null;
 		try {
@@ -124,12 +155,18 @@ public class JdbcUserDAO implements UserDAO {
 
 	}
 
+	/*
+	 * @see
+	 * edu.msg.bookland.repository.UserDAO#updateUserWithoutPassword(edu.msg.
+	 * bookland.model.User)
+	 */
+	@Override
 	public void updateUserWithoutPassword(User user) throws RepositoryException {
 		Connection con = null;
 		try {
 			con = conMan.getConnection();
-			PreparedStatement preparedStatement = con.prepareStatement(
-					"update library_users set  name=?, email=?, loyality_index=?" + "where uuid=?");
+			PreparedStatement preparedStatement = con
+					.prepareStatement("update library_users set  name=?, email=?, loyality_index=?" + "where uuid=?");
 
 			preparedStatement.setString(1, user.getName());
 			preparedStatement.setString(2, user.getEmail());
@@ -147,25 +184,31 @@ public class JdbcUserDAO implements UserDAO {
 			}
 		}
 	}
-	
+
+	/*
+	 * @see edu.msg.bookland.repository.UserDAO#login(java.lang.String,
+	 * java.lang.String)
+	 */
+	@Override
 	public UserType login(String userName, String password) throws RepositoryException {
 		Connection con = null;
 		try {
 			con = conMan.getConnection();
-			PreparedStatement preparedStatement = con.prepareStatement("select user_type from library.library_users where name = ? and password = ?");
+			PreparedStatement preparedStatement = con
+					.prepareStatement("select user_type from library.library_users where name = ? and password = ?");
 			preparedStatement.setString(1, userName);
 			preparedStatement.setString(2, password);
 			ResultSet resultSet = preparedStatement.executeQuery();
-			resultSet.next();			;
+			resultSet.next();
+			;
 			return UserType.valueOf(resultSet.getString(1).toUpperCase());
-			
+
 		} catch (SQLException e) {
-			LOGGER.error("Login failed! ",e);
-			throw new RepositoryException("Login failed!",e);
+			LOGGER.error("Login failed! ", e);
+			throw new RepositoryException("Login failed!", e);
 		}
 
 	}
-
 
 	public User getUserByName(String name) throws RepositoryException {
 		Connection con = null;
@@ -176,15 +219,15 @@ public class JdbcUserDAO implements UserDAO {
 			PreparedStatement statement = con.prepareStatement(query);
 			statement.setString(1, name);
 			ResultSet users = statement.executeQuery();
-			if(users.next()){
-				user = new User(users.getString("name"),users.getString("email"),UserType.valueOf(users.getString("user_type")),users.getInt("loyality_index"));
+			if (users.next()) {
+				user = new User(users.getString("name"), users.getString("email"),
+						UserType.valueOf(users.getString("user_type")), users.getInt("loyality_index"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return user;
 	}
-
 
 	public User getUserById(String id) throws RepositoryException {
 		Connection con = null;
@@ -195,8 +238,9 @@ public class JdbcUserDAO implements UserDAO {
 			PreparedStatement statement = con.prepareStatement(query);
 			statement.setString(1, id);
 			ResultSet users = statement.executeQuery();
-			if(users.next()){
-				user = new User(users.getString("name"),users.getString("email"),UserType.valueOf(users.getString("user_type")),users.getInt("loyality_index"));
+			if (users.next()) {
+				user = new User(users.getString("name"), users.getString("email"),
+						UserType.valueOf(users.getString("user_type")), users.getInt("loyality_index"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -204,19 +248,19 @@ public class JdbcUserDAO implements UserDAO {
 		return user;
 	}
 
-
 	public List<User> searchUserByName(String name) throws RepositoryException {
 		Connection con = null;
 		String query = "select name, email, user_type, loyality_index from library_users where name like ?";
 		User user = new User();
-		List<User>userList = new ArrayList<User>();
+		List<User> userList = new ArrayList<User>();
 		try {
 			con = conMan.getConnection();
 			PreparedStatement statement = con.prepareStatement(query);
 			statement.setString(1, "%" + name + "%");
 			ResultSet users = statement.executeQuery();
-			while(users.next()){
-				user = new User(users.getString("name"),users.getString("email"),UserType.valueOf(users.getString("user_type")),users.getInt("loyality_index"));
+			while (users.next()) {
+				user = new User(users.getString("name"), users.getString("email"),
+						UserType.valueOf(users.getString("user_type")), users.getInt("loyality_index"));
 				userList.add(user);
 			}
 		} catch (SQLException e) {
@@ -224,8 +268,5 @@ public class JdbcUserDAO implements UserDAO {
 		}
 		return userList;
 	}
-
-
-	
 
 }

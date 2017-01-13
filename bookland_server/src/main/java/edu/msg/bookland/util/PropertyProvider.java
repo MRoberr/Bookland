@@ -5,14 +5,23 @@ import java.util.ResourceBundle;
 
 import org.apache.log4j.Logger;
 
+/**
+ * PropertyProvider to get properties from file using ResourceBundle
+ * @author Terez Sipos <terez.sipos@msg-systems.com> 
+ */
+public class PropertyProvider {
 
-public enum PropertyProvider {
-	INSTANCE;
-
-	private final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle("edu.msg.bookland.res.bookland");
+	private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle("edu.msg.bookland.res.bookland");
 	private static final Logger LOGGER = Logger.getLogger(PropertyProvider.class);
-
-	public String getProperty(String property) {
+	
+	private PropertyProvider(){		
+	}
+/**
+ * get property using ResourceBundle
+ * @param property - name of property
+ * @return value of the property
+ */
+	public static String getProperty(String property) {
 		try {
 			return RESOURCE_BUNDLE.getString(property);
 		} catch (MissingResourceException e) {
