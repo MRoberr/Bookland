@@ -10,10 +10,11 @@ import org.junit.Test;
 import edu.msg.bookland.model.User;
 import edu.msg.bookland.model.UserType;
 import edu.msg.bookland.repository.RepositoryException;
+import edu.msg.bookland.repository.UserDAO;
 import edu.msg.bookland.util.PasswordEncrypting;
 
 public class UserDaoTest {
-	private JdbcUserDAO userDao = new JdbcUserDAO();
+	private UserDAO userDao = new JdbcUserDAO();
 
 	@Test
 	public void selectAllUserTest() {

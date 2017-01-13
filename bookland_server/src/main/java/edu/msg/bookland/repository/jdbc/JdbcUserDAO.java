@@ -1,6 +1,5 @@
 package edu.msg.bookland.repository.jdbc;
 
-import java.rmi.RemoteException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -157,7 +156,7 @@ public class JdbcUserDAO implements UserDAO {
 			preparedStatement.setString(2, password);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			resultSet.next();
-			;
+			
 			return UserType.valueOf(resultSet.getString(1).toUpperCase());
 
 		} catch (SQLException e) {

@@ -13,10 +13,11 @@ public class PublicationDAOTest {
 	
 	@Test
 	public void testGetAllPublications() {
+			
 		List<Publication> pubs = publicationDAO.getAllPublications();
 		pubs.forEach(pub -> System.out.println(pub.getTitle()));;
-		System.out.println(pubs.size());
 		
+			
 		
 	}
 }

@@ -9,20 +9,77 @@
 	<artifactId>bookland_server</artifactId>
 
 	<dependencies>
+
 		<dependency>
 			<groupId>edu.msg.bookland</groupId>
 			<artifactId>bookland_common</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.12</version>
 		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-annotations</artifactId>
+			<version>3.5.6-Final</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>5.3.4.Final</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-search</artifactId>
+			<version>5.5.6.Final</version>
+		</dependency>
+
+
+
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.5.8</version>
+		</dependency>
+
+
+
+		<dependency>
+			<groupId>javax.el</groupId>
+			<artifactId>javax.el-api</artifactId>
+			<version>2.2.4</version>
+			<scope>provided</scope> <!-- No required in JBoss but for test -->
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.web</groupId>
+			<artifactId>javax.el</artifactId>
+			<version>2.2.4</version>
+			<scope>provided</scope> <!-- No required in JBoss but for test -->
+		</dependency>
+
+
+
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.40</version>
 		</dependency>
+
+
+		<dependency>
+			<groupId>javassist</groupId>
+			<artifactId>javassist</artifactId>
+			<version>3.12.1.GA</version>
+		</dependency>
+
+
 	</dependencies>
+
 </project>

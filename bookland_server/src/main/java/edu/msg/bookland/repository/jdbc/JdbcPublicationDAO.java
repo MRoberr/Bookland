@@ -33,6 +33,7 @@ public class JdbcPublicationDAO implements PublicationDAO{
 	
 	public List<Publication> getAllPublications() {
 		
+		
 		List<Publication> publications = new ArrayList<Publication>();
 		Connection connection = null;
 		
@@ -53,7 +54,6 @@ public class JdbcPublicationDAO implements PublicationDAO{
 					+ "from publications p "
 					+ "join publication_type pt on p.type = pt.id");
 			
-			System.out.println(queryResult.getFetchSize());
 			LOGGER.info("Publications query completed");
 			
 			buildListFromQuery(queryResult, connection).forEach(publication -> publications.add(publication));
@@ -93,8 +93,8 @@ public class JdbcPublicationDAO implements PublicationDAO{
 					+ "p.nr_of_copies, "
 					+ "p.copies_left, "
 					+ "pt.name "
-					+ "from publications p"
-					+ "join publication_type pton p.type = pt.id"
+					+ "from publications p "
+					+ "join publication_type pton p.type = pt.id "
 					+ "where pt.name = book");
 			
 			LOGGER.info("Books query completed");
@@ -137,8 +137,8 @@ public class JdbcPublicationDAO implements PublicationDAO{
 					+ "p.nr_of_copies, "
 					+ "p.copies_left, "
 					+ "pt.name "
-					+ "from publications p"
-					+ "join publication_type pton p.type = pt.id"
+					+ "from publications p "
+					+ "join publication_type pton p.type = pt.id "
 					+ "where pt.name = magazine");
 			
 			LOGGER.info("Magazines query completed");
@@ -181,8 +181,8 @@ public class JdbcPublicationDAO implements PublicationDAO{
 					+ "p.nr_of_copies, "
 					+ "p.copies_left, "
 					+ "pt.name "
-					+ "from publications p"
-					+ "join publication_type pton p.type = pt.id"
+					+ "from publications p "
+					+ "join publication_type pton p.type = pt.id "
 					+ "where pt.name = newspaper");
 			
 			LOGGER.info("Newspapers query completed");
@@ -207,11 +207,11 @@ public class JdbcPublicationDAO implements PublicationDAO{
 
 	public void insertBook(Book book) {
 
-		//ha nem létezik az author akkor azt a service rétegbe kell létrehozni
-		//nem kapcsolódnak a dao-k. inkább a servicek
-		//itt csak olyan book-ot lehet beszúrni amelyiknek már léteznek az author-jai
-		//tehát egy szinttel feljebb van ez lekezelve
-		//ide úgy jön be a book, hogy az authorok léteznek
+		//ha nem lï¿½tezik az author akkor azt a service rï¿½tegbe kell lï¿½trehozni
+		//nem kapcsolï¿½dnak a dao-k. inkï¿½bb a servicek
+		//itt csak olyan book-ot lehet beszï¿½rni amelyiknek mï¿½r lï¿½teznek az author-jai
+		//tehï¿½t egy szinttel feljebb van ez lekezelve
+		//ide ï¿½gy jï¿½n be a book, hogy az authorok lï¿½teznek
 		
 		Connection connection = null;
 		
@@ -222,8 +222,8 @@ public class JdbcPublicationDAO implements PublicationDAO{
 			insertPublication(book, connection);
 			
 			PreparedStatement insertBookWriterRelation = connection.prepareStatement(
-					"insert into publications_authors"
-					+ "(publications_uuid, authors_uuid)"
+					"insert into publications_authors "
+					+ "(publications_uuid, authors_uuid) "
 					+ "values(?, ?)");
 			
 			for(Author author:book.getAuthors()) {
@@ -262,8 +262,8 @@ public class JdbcPublicationDAO implements PublicationDAO{
 			insertPublication(magazine, connection);
 			
 			PreparedStatement insertMagazineWriterRelation = connection.prepareStatement(
-					"insert into publications_authors"
-					+ "(publications_uuid, authors_uuid)"
+					"insert into publications_authors "
+					+ "(publications_uuid, authors_uuid) "
 					+ "values(?, ?)");
 			
 			for(Author author:magazine.getAuthors()) {
@@ -342,7 +342,7 @@ public class JdbcPublicationDAO implements PublicationDAO{
 			connection = connectionManager.getConnection();
 			
 			PreparedStatement deleteBook = connection.prepareStatement(
-					"delete from publications"
+					"delete from publications "
 					+ "where uuid = ?");
 			
 			deleteBook.setString(1, book.getUUID());
@@ -351,7 +351,7 @@ public class JdbcPublicationDAO implements PublicationDAO{
 			LOGGER.info("Book deleted");
 			
 			PreparedStatement deleteBookAuthorConnection = connection.prepareStatement(
-					"delete from  publications_authros"
+					"delete from  publications_authros "
 					+ "where publications_uuid = ?");
 			
 			deleteBookAuthorConnection.setString(1, book.getUUID());
@@ -427,7 +427,7 @@ public class JdbcPublicationDAO implements PublicationDAO{
 			connection = connectionManager.getConnection();
 			
 			PreparedStatement deleteNewspaper = connection.prepareStatement(
-					"delete from publications"
+					"delete from publications "
 					+ "where uuid = ?");
 			
 			deleteNewspaper.setString(1, newspaper.getUUID());
@@ -456,10 +456,12 @@ public class JdbcPublicationDAO implements PublicationDAO{
 		List<Publication> publications = new ArrayList<Publication>();
 		
 		while(queryResult.next()) {
-			
+
 			switch(queryResult.getString("type")) {
 			
-			case "Book": {
+			
+			
+			case "book": {
 				
 				Book book = new Book();
 				//create book
@@ -474,7 +476,7 @@ public class JdbcPublicationDAO implements PublicationDAO{
 				break;
 			}
 			
-			case "Magazine": {
+			case "magazine": {
 				
 				Magazine magazine = new Magazine();
 				//create magazine
@@ -489,10 +491,11 @@ public class JdbcPublicationDAO implements PublicationDAO{
 				break;
 			}
 			
-			case "Newspaper": {
+			case "newspaper": {
 				
 				Newspaper newspaper = new Newspaper();
 				//create newspaper
+				createPublication(newspaper, queryResult);
 									
 				publications.add(newspaper);
 				
@@ -521,10 +524,10 @@ public class JdbcPublicationDAO implements PublicationDAO{
 		List<Author> authors = new ArrayList<Author>();
 		
 		PreparedStatement prepStat = connection.prepareStatement(
-				"select a.*" + 
-				"from authors a" +
-				"join publications_authors pa on a.uuid = pa.authors_uuid" +
-				"join publications p on p.uuid = pa.publications_uuid" +
+				"select a.* " + 
+				"from authors a " +
+				"join publications_authors pa on a.uuid = pa.authors_uuid " +
+				"join publications p on p.uuid = pa.publications_uuid " +
 				"where p.uuid = ? ;");
 		
 		LOGGER.info("Authors query successful");

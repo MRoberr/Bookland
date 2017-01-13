@@ -105,7 +105,7 @@ public class UserService extends UnicastRemoteObject implements UserServiceRmi {
 			return type;
 		}catch (RepositoryException e) {
 			LOGGER.error("Invalid login");
-			throw new ServiceException("Invatid login", e);
+			throw new ServiceException("Invalid login", e);
 		}
 	}
 
