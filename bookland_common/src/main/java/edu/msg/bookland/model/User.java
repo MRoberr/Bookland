@@ -1,5 +1,13 @@
 package edu.msg.bookland.model;
 
+/**
+ * User class.
+ * 
+ * @author Majai Robert
+ * @author Simo Zoltan
+ *
+ */
+
 public class User extends BaseEntity {
 
 	private static final long serialVersionUID = 2326611259099577676L;
@@ -10,25 +18,19 @@ public class User extends BaseEntity {
 	private int loyaltyIndex;
 	private String email;
 
-	public User() {
-
-	}
-
 	public User(String name) {
-
 		this.name = name;
 		loyaltyIndex = 10;
 		userType = UserType.READER;
 	}
-	
 
-	public User(String name,String email, UserType userType, int loyaltyIndex) {
+	public User(String name, String email, UserType userType, int loyaltyIndex) {
 		super();
 		this.name = name;
 		this.userType = userType;
 		this.loyaltyIndex = loyaltyIndex;
 		this.email = email;
-	}
+	}	
 
 	public String getName() {
 		return name;
@@ -72,10 +74,7 @@ public class User extends BaseEntity {
 
 	@Override
 	public String toString() {
-		return "User: name=" + name + ", userType=" + userType + ", loyaltyIndex="
-				+ loyaltyIndex + ", email=" + email;
+		return "User: name=" + name + ", userType=" + userType + ", loyaltyIndex=" + loyaltyIndex + ", email=" + email;
 	}
-	
-	
 
 }
