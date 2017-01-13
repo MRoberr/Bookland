@@ -52,7 +52,7 @@ public class JDBCAuthorDAO implements AuthorDAO {
 		return authorsList;
 	}
 
-	public Author insertAuthor(Author author) {
+	public void insertAuthor(Author author) {
 		Connection con = null;
 
 		try {
@@ -72,7 +72,6 @@ public class JDBCAuthorDAO implements AuthorDAO {
 				connectionManager.returnConnection(con);
 			}
 		}
-		return author;
 	}
 
 	public void updateAuthor(Author author) {
