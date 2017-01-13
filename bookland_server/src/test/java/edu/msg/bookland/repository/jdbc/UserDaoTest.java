@@ -27,7 +27,7 @@ import edu.msg.bookland.util.PasswordEncrypting;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class UserDaoTest {
-	private UserDAO userDao = new JdbcUserDAO();
+	private UserDAO userDao = new JDBCUserDAO();
 
 	private User createUser() {
 		User u = new User("");

@@ -17,7 +17,7 @@ public class JDBCDAOFactory extends DAOFactory {
 	 */
 	@Override
 	public UserDAO getUserDAO() {
-		return new JdbcUserDAO();
+		return new JDBCUserDAO();
 	}
 /*
  * @see edu.msg.bookland.repository.DAOFactory#getAuthorDAO()

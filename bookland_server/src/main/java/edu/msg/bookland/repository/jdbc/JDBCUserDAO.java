@@ -23,16 +23,16 @@ import edu.msg.bookland.repository.UserDAO;
  * @author Simo Zoltan
  * 
  */
-public class JdbcUserDAO implements UserDAO { 
+public class JDBCUserDAO implements UserDAO { 
 	private ConnectionManager conMan;
-	private static final Logger LOGGER = Logger.getLogger(JdbcUserDAO.class);
+	private static final Logger LOGGER = Logger.getLogger(JDBCUserDAO.class);
 
 	/**
 	 * Initialize ConnectionManager
 	 * 
 	 * @throws RepositoryException
 	 */
-	public JdbcUserDAO() {
+	public JDBCUserDAO() {
 		conMan = ConnectionManager.getInstance();
 	}
 

@@ -11,7 +11,7 @@ import edu.msg.bookland.model.UserType;
 import edu.msg.bookland.repository.DAOFactory;
 import edu.msg.bookland.repository.RepositoryException;
 import edu.msg.bookland.repository.UserDAO;
-import edu.msg.bookland.repository.jdbc.JdbcUserDAO;
+import edu.msg.bookland.repository.jdbc.JDBCUserDAO;
 import edu.msg.bookland.rmi.UserServiceRmi;
 import edu.msg.bookland.util.PasswordEncrypting;
 
@@ -25,7 +25,7 @@ public class UserService extends UnicastRemoteObject implements UserServiceRmi {
 
 	private static final long serialVersionUID = -2602148302307548346L;
 
-	private static final Logger LOGGER = Logger.getLogger(JdbcUserDAO.class);
+	private static final Logger LOGGER = Logger.getLogger(JDBCUserDAO.class);
 	private UserDAO userDAO;
 
 	/**
