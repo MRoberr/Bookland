@@ -73,7 +73,7 @@ public class JDBCAuthorDAO implements AuthorDAO {
 	 * .Author)
 	 */
 	@Override
-	public Author insertAuthor(Author author) {
+	public void insertAuthor(Author author) {
 		Connection con = null;
 
 		try {
@@ -94,7 +94,6 @@ public class JDBCAuthorDAO implements AuthorDAO {
 				connectionManager.returnConnection(con);
 			}
 		}
-		return author;
 	}
 
 	/*

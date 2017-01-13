@@ -20,7 +20,7 @@ public interface AuthorDAO {
  * @param author
  * @throws RepositoryException
  */
-	Author insertAuthor(Author author) throws RepositoryException;
+	void insertAuthor(Author author) throws RepositoryException;
 
 	void updateAuthor(Author author) throws RepositoryException;
 
