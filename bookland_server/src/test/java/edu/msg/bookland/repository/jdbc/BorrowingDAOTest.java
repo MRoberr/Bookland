@@ -75,5 +75,15 @@ public class BorrowingDAOTest {
 			Assert.fail("Could not delete Borrowing.");
 		}
 	}
+	
+	@Test
+	public void testUpdate() {
+		Borrowing borrowing = new Borrowing();
+		borrowing.setUserId("123");
+		borrowing.setPublicationId("1234");
+		borrowing.setDeadline(java.sql.Date.valueOf("2000-01-01"));
+		borrowingDAO.updateBorrowing(borrowing);
+		
+	}
 
 }
