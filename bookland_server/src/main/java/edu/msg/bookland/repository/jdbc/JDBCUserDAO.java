@@ -15,11 +15,11 @@ import edu.msg.bookland.model.UserType;
 import edu.msg.bookland.repository.RepositoryException;
 import edu.msg.bookland.repository.UserDAO;
 
-public class JdbcUserDAO implements UserDAO {
+public class JDBCUserDAO implements UserDAO {
 	private ConnectionManager conMan;
-	private static final Logger LOGGER = Logger.getLogger(JdbcUserDAO.class);
+	private static final Logger LOGGER = Logger.getLogger(JDBCUserDAO.class);
 
-	public JdbcUserDAO() {
+	public JDBCUserDAO() {
 		conMan = ConnectionManager.getInstance();
 	}
 
