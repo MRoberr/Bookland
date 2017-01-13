@@ -46,7 +46,7 @@ public class JDBCUserDAO implements UserDAO {
 			Statement statemanet = con.createStatement();
 			ResultSet users = statemanet.executeQuery("select * from library_users");
 			while (users.next()) {
-				User u = new User();
+				User u = new User("");
 				u.setName(users.getString("name"));
 				u.setEmail(users.getString("email"));
 				u.setUserType(UserType.valueOf(users.getString("user_type")));
@@ -213,7 +213,7 @@ public class JDBCUserDAO implements UserDAO {
 	public User getUserByName(String name) throws RepositoryException {
 		Connection con = null;
 		String query = "select name, email, user_type, loyality_index from library_users where name = ?";
-		User user = new User();
+		User user = new User("");
 		try {
 			con = conMan.getConnection();
 			PreparedStatement statement = con.prepareStatement(query);
@@ -232,7 +232,7 @@ public class JDBCUserDAO implements UserDAO {
 	public User getUserById(String id) throws RepositoryException {
 		Connection con = null;
 		String query = "select name, email, user_type, loyality_index from library_users where uuid = ?";
-		User user = new User();
+		User user = new User("");
 		try {
 			con = conMan.getConnection();
 			PreparedStatement statement = con.prepareStatement(query);
@@ -251,7 +251,7 @@ public class JDBCUserDAO implements UserDAO {
 	public List<User> searchUserByName(String name) throws RepositoryException {
 		Connection con = null;
 		String query = "select name, email, user_type, loyality_index from library_users where name like ?";
-		User user = new User();
+		User user = new User("");
 		List<User> userList = new ArrayList<User>();
 		try {
 			con = conMan.getConnection();
