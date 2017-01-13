@@ -3,13 +3,24 @@ package edu.msg.bookland;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+
+import org.apache.log4j.Logger;
+import org.hibernate.HibernateException;
+
+import edu.msg.bookland.model.Author;
+import edu.msg.bookland.repository.jdbc.ConnectionManager;
 import edu.msg.bookland.rmi.AuthorServiceRmi;
 import edu.msg.bookland.rmi.BorrowingServiceRmi;
 import edu.msg.bookland.rmi.PublicationServiceRmi;
-import org.apache.log4j.Logger;
-
-import edu.msg.bookland.repository.jdbc.ConnectionManager;
 import edu.msg.bookland.rmi.UserServiceRmi;
 import edu.msg.bookland.service.AuthorService;
 import edu.msg.bookland.service.BorrowingService;
@@ -44,61 +55,42 @@ public class ServerMain {
 			registry.rebind(PublicationServiceRmi.RMI_NAME, pubService);			
 			LOGGER.info("Server online!");
 
+			try {
+				
+				
+				EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("edu.msg.bookland.jpa");
+				EntityManager em = entityManagerFactory.createEntityManager();
+				
+				CriteriaBuilder builder = em.getCriteriaBuilder();
+				
+				CriteriaQuery<Author> authors2 = builder.createQuery(Author.class);
+				Root<Author> authorRoot = authors2.from(Author.class);
+				
+				authors2.select(authorRoot);
+				TypedQuery<Author> authorTypeQuery = em.createQuery(authors2);
+				List<Author> finalList = authorTypeQuery.getResultList();
+				System.out.println("ok");
+				
+				for(Author a:finalList) {
+					System.out.println(a.getName());
+				}
+
+				
+					
+			} catch(HibernateException e) {
+				e.printStackTrace();
+			}
+ 
+			
+			
+			
+			
+			
+			
+			
 		} catch (RemoteException e) {
 			LOGGER.error("Server not running", e);
 		}
 	}
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
- * 			
-			SessionFactory factory = new AnnotationConfiguration()
-					.addAnnotatedClass(Author.class)
-					.configure()
-					.buildSessionFactory();
-			Session session = factory.openSession();
-
-			try {
-
-				Transaction t = session.beginTransaction();
-				
-				//insert
-//				Author a = new Author();
-//				a.setName("addsda");
-//				a.setUUID("sda23erh");
-//				
-//				session.save(a);
-//				
-//				t.commit();
-				//insert vege
-				
-				Criteria criteria = session.createCriteria(Author.class);
-				List<Author> authors = criteria.list();
-				
-				for(Author author:authors) {
-					
-					System.out.println(author.getName() + author.getUUID());
-				}
-				
-			} catch(HibernateException e) {
-				e.printStackTrace();
-			}
- */
