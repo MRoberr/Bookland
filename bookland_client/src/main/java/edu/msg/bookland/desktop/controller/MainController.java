@@ -19,7 +19,7 @@ public class MainController {
 	private void consoleLogin() {
 		System.out.println("Please enter your name and password!");		
 		try {
-			UserType login = ConnectionModel.INSTANCE.userServiceRmi.login(scanner.nextLine(), scanner.nextLine());
+			UserType login = ConnectionModel.USER_SERVICE_RMI.login(scanner.nextLine(), scanner.nextLine());
 			System.out.println(login);
 		} catch (RemoteException e) {		
 			throw new ConnectionException("Connection error.");
