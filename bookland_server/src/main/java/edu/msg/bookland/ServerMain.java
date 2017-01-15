@@ -55,38 +55,6 @@ public class ServerMain {
 			registry.rebind(PublicationServiceRmi.RMI_NAME, pubService);			
 			LOGGER.info("Server online!");
 
-			try {
-				
-				
-				EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("edu.msg.bookland.jpa");
-				EntityManager em = entityManagerFactory.createEntityManager();
-				
-				CriteriaBuilder builder = em.getCriteriaBuilder();
-				
-				CriteriaQuery<Author> authors2 = builder.createQuery(Author.class);
-				Root<Author> authorRoot = authors2.from(Author.class);
-				
-				authors2.select(authorRoot);
-				TypedQuery<Author> authorTypeQuery = em.createQuery(authors2);
-				List<Author> finalList = authorTypeQuery.getResultList();
-				System.out.println("ok");
-				
-				for(Author a:finalList) {
-					System.out.println(a.getName());
-				}
-
-				
-					
-			} catch(HibernateException e) {
-				e.printStackTrace();
-			}
- 
-			
-			
-			
-			
-			
-			
 			
 		} catch (RemoteException e) {
 			LOGGER.error("Server not running", e);

@@ -12,6 +12,7 @@ import org.junit.runners.MethodSorters;
 import edu.msg.bookland.model.Author;
 import edu.msg.bookland.repository.AuthorDAO;
 import edu.msg.bookland.repository.RepositoryException;
+import edu.msg.bookland.repository.hibernate.HibernateAuthorDAO;
 
 /**
  * Test the Author data access object for CRUD operations.
@@ -22,7 +23,7 @@ import edu.msg.bookland.repository.RepositoryException;
  */
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class AuthorDAOTest {
-	AuthorDAO authorDAO = new JDBCAuthorDAO();
+	AuthorDAO authorDAO = new HibernateAuthorDAO();
 
 	private Author createAuthor() {
 		Author a = new Author();

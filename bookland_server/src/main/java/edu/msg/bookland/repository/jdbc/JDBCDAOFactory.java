@@ -4,6 +4,7 @@ import edu.msg.bookland.repository.AuthorDAO;
 import edu.msg.bookland.repository.BorrowingDAO;
 import edu.msg.bookland.repository.DAOFactory;
 import edu.msg.bookland.repository.UserDAO;
+import edu.msg.bookland.repository.hibernate.HibernateAuthorDAO;
 
 /**
  * Implements methods of {@link DAOFactory} every method return a JDBC specific
@@ -24,7 +25,7 @@ public class JDBCDAOFactory extends DAOFactory {
  */
 	@Override
 	public AuthorDAO getAuthorDAO() {
-		return new JDBCAuthorDAO();
+		return new HibernateAuthorDAO();
 	}
 /*
  * @see edu.msg.bookland.repository.DAOFactory#getBorrowingDAO()

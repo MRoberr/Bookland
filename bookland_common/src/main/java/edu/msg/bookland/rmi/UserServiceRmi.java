@@ -16,7 +16,7 @@ import edu.msg.bookland.model.UserType;
 public interface UserServiceRmi extends Remote {
 
 	public static final String RMI_NAME = "User";
-	public static final int RMI_PORT = 1199;
+	public static final int RMI_PORT = 1099;
 	
 	/**
 	 * This function gets all the Users from DB.
