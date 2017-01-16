@@ -3,6 +3,7 @@ package edu.msg.bookland.repository.jdbc;
 import edu.msg.bookland.repository.AuthorDAO;
 import edu.msg.bookland.repository.BorrowingDAO;
 import edu.msg.bookland.repository.DAOFactory;
+import edu.msg.bookland.repository.PublicationDAO;
 import edu.msg.bookland.repository.UserDAO;
 import edu.msg.bookland.repository.hibernate.HibernateAuthorDAO;
 
@@ -25,7 +26,7 @@ public class JDBCDAOFactory extends DAOFactory {
  */
 	@Override
 	public AuthorDAO getAuthorDAO() {
-		return new HibernateAuthorDAO();
+		return new JDBCAuthorDAO();
 	}
 /*
  * @see edu.msg.bookland.repository.DAOFactory#getBorrowingDAO()
@@ -33,6 +34,14 @@ public class JDBCDAOFactory extends DAOFactory {
 	@Override
 	public BorrowingDAO getBorrowingDAO() {
 		return new JDBCBorrowingDAO();
+	}
+	
+	/*
+	 * @see edu.msg.bookland.repository.DAOFactory#getPublicationDAO()
+	 */
+	@Override
+	public PublicationDAO getPublicationDAO() {
+		return new JdbcPublicationDAO();
 	}
 
 }
