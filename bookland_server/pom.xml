@@ -8,6 +8,12 @@
 	</parent>
 	<artifactId>bookland_server</artifactId>
 
+
+
+	
+
+
+
 	<dependencies>
 
 		<dependency>
@@ -41,6 +47,8 @@
 		</dependency>
 
 
+
 	</dependencies>
+
 
 </project>

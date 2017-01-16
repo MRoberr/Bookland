@@ -27,7 +27,12 @@ import edu.msg.bookland.util.PasswordEncrypting;
  */
 
 public class UserDaoTest {
+<<<<<<< HEAD
+=======
+	private UserDAO userDao = new JDBCUserDAO();
+>>>>>>> branch 'develop' of https://github.com/MRoberr/Bookland.git
 
+<<<<<<< HEAD
 	private static UserDAO userDao = DAOFactory.getDAOFactory().getUserDAO();
 	private static User u = new User();
 	private static User u3 = new User();
@@ -39,7 +44,14 @@ public class UserDaoTest {
 		// user for update, getByName
 		u.setName("testAdmin");
 		u.setEmail("testAdmin@email");
+=======
+	private User createUser() {
+		User u = new User("");
+		u.setName("Robi");
+		u.setEmail("alma@fa.com");
+>>>>>>> branch 'develop' of https://github.com/MRoberr/Bookland.git
 		u.setLoyaltyIndex(10);
+<<<<<<< HEAD
 		u.setUUID(u.getName());
 		u.setPassword(PasswordEncrypting.encrypt("password", "user"));
 		u.setUserType(UserType.ADMIN);
@@ -68,6 +80,12 @@ public class UserDaoTest {
 		// delete user for update and first user
 		userDao.deleteUser(u);
 		userDao.deleteUser(uu);
+=======
+		u.setUUID("321");
+		u.setPassword(PasswordEncrypting.encrypt("password", "salt"));
+		u.setUserType(UserType.READER);
+		return u;
+>>>>>>> branch 'develop' of https://github.com/MRoberr/Bookland.git
 	}
 
 	/**
@@ -111,10 +129,24 @@ public class UserDaoTest {
 		assertTrue(!users.isEmpty());
 	}
 
+<<<<<<< HEAD
 	@Test
 	public void testSearchUserByNameFail() {
 		List<User> users = userDao.searchUserByName("NothingToFind");
 		assertTrue(users.isEmpty());
+=======
+	/**
+	 * R from CRUD. Test select User with given full name.
+	 */
+	@Test
+	public void test3GetUserByName() {
+		try {
+			System.out.println(userDao.searchUserByName("Terez"));
+			Assert.assertEquals(createUser().getUUID(), userDao.searchUserByName("Terez").get(0).getUUID());
+		} catch (RepositoryException e) {
+			Assert.fail("Could no search for user.");
+		}
+>>>>>>> branch 'develop' of https://github.com/MRoberr/Bookland.git
 	}
 
 	/**
@@ -131,7 +163,12 @@ public class UserDaoTest {
 	@Test
 	public void testGetUserByIdFail() {
 		try {
+<<<<<<< HEAD
 			userDao.getUserById("12345").getName();
+=======
+			Assert.assertEquals(userDao.getUserById("fasfasfgas").getName(),
+					createUser().getName());
+>>>>>>> branch 'develop' of https://github.com/MRoberr/Bookland.git
 		} catch (RepositoryException e) {
 			assertTrue(true);
 		}
@@ -156,6 +193,7 @@ public class UserDaoTest {
 			assertTrue(true);
 		}
 	}
+<<<<<<< HEAD
 
 	/**
 	 * D from CRUD. Test User delete.
@@ -182,4 +220,7 @@ public class UserDaoTest {
 		}
 	}
 
+=======
+>>>>>>> branch 'develop' of https://github.com/MRoberr/Bookland.git
 }
+
