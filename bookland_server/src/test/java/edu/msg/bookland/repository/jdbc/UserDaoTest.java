@@ -4,16 +4,16 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
+import org.junit.AfterClass;
 import org.junit.Assert;
-import org.junit.FixMethodOrder;
+import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.runners.MethodSorters;
 
 import edu.msg.bookland.model.User;
 import edu.msg.bookland.model.UserType;
+import edu.msg.bookland.repository.DAOFactory;
 import edu.msg.bookland.repository.RepositoryException;
 import edu.msg.bookland.repository.UserDAO;
-import edu.msg.bookland.repository.hibernate.HibernateUserDAO;
 import edu.msg.bookland.util.PasswordEncrypting;
 
 /**
@@ -26,31 +26,67 @@ import edu.msg.bookland.util.PasswordEncrypting;
  *
  */
 
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class UserDaoTest {
-	private UserDAO userDao = new HibernateUserDAO();
 
-	private User createUser() {
-		User u = new User("");
-		u.setName("testUserDAO");
-		u.setEmail("testUserDAO@email");
+	private static UserDAO userDao = DAOFactory.getDAOFactory().getUserDAO();
+	private static User u = new User();
+	private static User u3 = new User();
+	private static User uu = new User();
+
+	// run once, initialize database
+	@BeforeClass
+	public static void runOnceBeforeClass() {
+		// user for update, getByName
+		u.setName("testAdmin");
+		u.setEmail("testAdmin@email");
 		u.setLoyaltyIndex(10);
-		u.setUUID("37a97280-bb03-4b65-b84d-7602f6b6a86u");
-		u.setPassword(PasswordEncrypting.encrypt("password", "salt"));
-		u.setUserType(UserType.READER);
-		return u;
+		u.setUUID(u.getName());
+		u.setPassword(PasswordEncrypting.encrypt("password", "user"));
+		u.setUserType(UserType.ADMIN);
+		userDao.insertUser(u);
+		// user for insert
+		uu.setName("testUserDAO");
+		uu.setEmail("testUserDAO@email");
+		uu.setLoyaltyIndex(10);
+		uu.setUUID(uu.getName());
+		uu.setPassword(PasswordEncrypting.encrypt("password", "salt"));
+		uu.setUserType(UserType.READER);
+		// user for delete
+		u3.setName("testUser");
+		u3.setEmail("testUser@email");
+		u3.setLoyaltyIndex(10);
+		u3.setUUID(u3.getName());
+		u3.setPassword(PasswordEncrypting.encrypt("user", "user"));
+		u3.setUserType(UserType.READER);
+		userDao.insertUser(u3);
+
+	}
+
+	// Run once, cleanup
+	@AfterClass
+	public static void runOnceAfterClass() {
+		// delete user for update and first user
+		userDao.deleteUser(u);
+		userDao.deleteUser(uu);
 	}
 
 	/**
 	 * C from CRUD. Test User insertion.
 	 */
 	@Test
-	public void test0InsertUser() {
+	public void testInsertUser() {
+		uu.setEmail("testUserDAOOO@email");
+		userDao.insertUser(uu);
+		assertTrue(true);
+	}
+
+	@Test
+	public void testInsertUserFail() {
+		uu.setEmail("testAdmin@email");
 		try {
-			userDao.insertUser(createUser());
-			assertTrue(true);
+			userDao.insertUser(uu);
 		} catch (RepositoryException e) {
-			Assert.fail("Could no insert user.");
+			assertTrue(true);
 		}
 	}
 
@@ -58,15 +94,11 @@ public class UserDaoTest {
 	 * R from CRUD. Test select all Users list is not empty.
 	 */
 	@Test
-	public void test1SelectAllUser() {
-		try {
-			List<User> users = userDao.getAllUsers();
-			assertTrue(!users.isEmpty());
-			for(User u:users) {
-				System.out.println(u);
-			}
-		} catch (RepositoryException e) {
-			Assert.fail("Could no get users.");
+	public void testSelectAllUser() {
+		List<User> users = userDao.getAllUsers();
+		assertTrue(!users.isEmpty());
+		for (User u : users) {
+			System.out.println(u);
 		}
 	}
 
@@ -74,28 +106,34 @@ public class UserDaoTest {
 	 * R from CRUD. Test select Users with given name.
 	 */
 	@Test
-	public void test2SearchUserByName() {
-		try {
-			List<User> users = userDao.searchUserByName("UserDAO");
-			assertTrue(!users.isEmpty());
-			Assert.assertEquals(createUser().getUUID(), userDao.searchUserByName("UserDAO").get(0).getUUID());
-		} catch (RepositoryException e) {
-			Assert.fail("Could no search for users.");
-		}
+	public void testSearchUserByName() {
+		List<User> users = userDao.searchUserByName("testAdmin");
+		assertTrue(!users.isEmpty());
 	}
 
-	
+	@Test
+	public void testSearchUserByNameFail() {
+		List<User> users = userDao.searchUserByName("NothingToFind");
+		assertTrue(users.isEmpty());
+	}
 
 	/**
 	 * R from CRUD. Test select User with given id.
 	 */
 	@Test
-	public void test4GetUserById() {
+	public void testGetUserById() {
+		User u4=userDao.getUserById(u.getUUID());
+		System.out.println(u4.getEmail());
+		assertTrue(u4.getEmail().equals("testAdmin@email"));
+		
+	}
+
+	@Test
+	public void testGetUserByIdFail() {
 		try {
-			Assert.assertEquals(userDao.getUserById("37a97280-bb03-4b65-b84d").getName(),
-					createUser().getName());
+			userDao.getUserById("12345").getName();
 		} catch (RepositoryException e) {
-			Assert.fail("Could not search for User.");
+			assertTrue(true);
 		}
 	}
 
@@ -103,14 +141,19 @@ public class UserDaoTest {
 	 * U from CRUD. Test User update.
 	 */
 	@Test
-	public void test5UpdateUser() {
-		User u = createUser();
-		u.setName("testUser");
+	public void testUpdateUser() {
+		uu.setEmail("testUserDAO123");
+		userDao.updateUser(uu);
+		assertTrue(true);
+	}
+
+	@Test
+	public void testUpdateUserFaild() {
+		uu.setName("testUser");
 		try {
-			userDao.updateUser(u);
-			assertTrue(true);
+			userDao.updateUser(uu);
 		} catch (RepositoryException e) {
-			Assert.fail("Could not update User.");
+			assertTrue(true);
 		}
 	}
 
@@ -118,13 +161,24 @@ public class UserDaoTest {
 	 * D from CRUD. Test User delete.
 	 */
 	@Test
-	public void test6DeleteUser() {
-		User u = createUser();
+	public void testDeleteUser() {
 		try {
 			userDao.deleteUser(u);
 			assertTrue(true);
 		} catch (RepositoryException e) {
 			Assert.fail("Could not delete User.");
+		}
+	}
+
+	@Test
+	public void testDeleteUserFail() {
+		String uuid = u.getUUID();
+		u.setUUID("nothing");
+		try {
+			userDao.deleteUser(u);
+		} catch (RepositoryException e) {
+			u.setUUID(uuid);
+			assertTrue(true);
 		}
 	}
 
