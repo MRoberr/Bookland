@@ -63,6 +63,9 @@ public class UserDaoTest {
 		try {
 			List<User> users = userDao.getAllUsers();
 			assertTrue(!users.isEmpty());
+			for(User u:users) {
+				System.out.println(u);
+			}
 		} catch (RepositoryException e) {
 			Assert.fail("Could no get users.");
 		}
