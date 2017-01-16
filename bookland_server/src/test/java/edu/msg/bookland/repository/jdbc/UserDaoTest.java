@@ -2,7 +2,6 @@ package edu.msg.bookland.repository.jdbc;
 
 import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Assert;
@@ -82,18 +81,7 @@ public class UserDaoTest {
 		}
 	}
 
-	/**
-	 * R from CRUD. Test select User with given full name.
-	 */
-	@Test
-	public void test3GetUserByName() {
-		try {
-			System.out.println(userDao.getUserByName("testUserDAO"));
-			Assert.assertEquals(createUser().getUUID(), userDao.getUserByName("testUserDAO").getUUID());
-		} catch (RepositoryException e) {
-			Assert.fail("Could no search for user.");
-		}
-	}
+	
 
 	/**
 	 * R from CRUD. Test select User with given id.
@@ -101,7 +89,7 @@ public class UserDaoTest {
 	@Test
 	public void test4GetUserById() {
 		try {
-			Assert.assertEquals(userDao.getUserById("37a97280-bb03-4b65-b84d-7602f6b6a86u").getName(),
+			Assert.assertEquals(userDao.getUserById("37a97280-bb03-4b65-b84d").getName(),
 					createUser().getName());
 		} catch (RepositoryException e) {
 			Assert.fail("Could not search for User.");

@@ -77,14 +77,6 @@ public class HibernateUserDAO implements UserDAO {
 		return user.getUserType();
 	}
 
-	@Override
-	public User getUserByName(String name) throws RepositoryException {
-		TypedQuery<User> query = entityManager.createQuery("Select u " + "from User u where u.name LIKE :n", User.class)
-				.setParameter("n", name);
-		User user = query.getSingleResult();
-		return user;
-
-	}
 
 	@Override
 	public User getUserById(String id) throws RepositoryException {
@@ -98,6 +90,13 @@ public class HibernateUserDAO implements UserDAO {
 				.setParameter("n", "%" + name + "%");
 		List<User> users = query.getResultList();
 		return users;
+	}
+
+	@Override
+	public void setUserLoyaltyIndex(String uuid) throws RepositoryException {
+		// TODO Auto-generated method stub
+		//loyaltiIndex=-1;
+		
 	}
 
 }

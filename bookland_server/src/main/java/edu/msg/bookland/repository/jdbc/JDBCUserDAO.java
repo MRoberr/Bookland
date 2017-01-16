@@ -314,4 +314,10 @@ public class JDBCUserDAO implements UserDAO {
 		return userList;
 	}
 
+	@Override
+	public void setUserLoyaltyIndex(String uuid) throws RepositoryException {
+		// TODO Auto-generated method stub
+		//loyaltyIndex-1
+	}
+
 }
