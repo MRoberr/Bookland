@@ -1,21 +1,42 @@
 package edu.msg.bookland.model;
 
+import javax.persistence.Column;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
 /**
  * User class.
  * 
  * @author Majai Robert
  * @author Simo Zoltan
+ * @author Solomon Jozsef
  *
  */
 
+@Entity
+@Table(name = "library_users")
 public class User extends BaseEntity {
-
+	@Transient
 	private static final long serialVersionUID = 2326611259099577676L;
-
+	
+	@Column(name = "name", nullable = false, unique = true)
 	private String name;
+	
+	@Column(name = "password")
 	private String password;
+	
+	@Column(name = "user_type")
+	@Enumerated(EnumType.STRING)
 	private UserType userType;
+	
+	@Column(name = "loyalty_index")
 	private int loyaltyIndex;
+	
+	@Column(name = "email", nullable = false, unique = true)
 	private String email;
 
 	public User() {

@@ -8,6 +8,7 @@
 	<persistence-unit name="bookland_jpa">
 
 		<class>edu.msg.bookland.model.Author</class>
+		<class>edu.msg.bookland.model.User</class>
 		<properties>
 			<property name="javax.persistence.jdbc.url"
 				value="jdbc:mysql://localhost:3306/library?useSSL=false" />

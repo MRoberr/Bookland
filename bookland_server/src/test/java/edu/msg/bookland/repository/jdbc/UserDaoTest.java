@@ -13,6 +13,7 @@ import edu.msg.bookland.model.User;
 import edu.msg.bookland.model.UserType;
 import edu.msg.bookland.repository.RepositoryException;
 import edu.msg.bookland.repository.UserDAO;
+import edu.msg.bookland.repository.hibernate.HibernateUserDAO;
 import edu.msg.bookland.util.PasswordEncrypting;
 
 /**
@@ -27,7 +28,7 @@ import edu.msg.bookland.util.PasswordEncrypting;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class UserDaoTest {
-	private UserDAO userDao = new JDBCUserDAO();
+	private UserDAO userDao = new HibernateUserDAO();
 
 	private User createUser() {
 		User u = new User("");
