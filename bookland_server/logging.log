@@ -1,0 +1,16 @@
+2017-01-15 11:53:24 INFO  ConnectionManager:43 - Connection pool initialized
+  2017-01-15 11:53:24 INFO  ConnectionManager:56 - Server online!
+  2017-01-15 11:53:24 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [
+	name: edu.msg.bookland.jpa
+	...]
+  2017-01-15 11:53:24 INFO  Version:45 - HHH000412: Hibernate Core {5.2.6.Final}
+  2017-01-15 11:53:24 INFO  Environment:213 - HHH000206: hibernate.properties not found
+  2017-01-15 11:53:24 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+  2017-01-15 11:53:25 WARN  pooling:70 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+  2017-01-15 11:53:25 INFO  pooling:126 - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library]
+  2017-01-15 11:53:25 INFO  pooling:135 - HHH10001001: Connection properties: {user=library_admin, password=****}
+  2017-01-15 11:53:25 INFO  pooling:140 - HHH10001003: Autocommit mode: false
+  2017-01-15 11:53:25 INFO  DriverManagerConnectionProviderImpl:41 - HHH000115: Hibernate connection pool size: 20 (min=1)
+  2017-01-15 11:53:25 INFO  Dialect:157 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+  2017-01-15 11:53:26 INFO  QueryTranslatorFactoryInitiator:47 - HHH000397: Using ASTQueryTranslatorFactory
+  
