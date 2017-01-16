@@ -36,7 +36,7 @@ public class BorrowingService extends UnicastRemoteObject implements BorrowingSe
 		borrowingDAO = DAOFactory.getDAOFactory().getBorrowingDAO();
 	}
 
-	@Override
+	
 	public boolean insertBorrowing(Borrowing borrow) throws RemoteException {
 		try {
 			borrowingDAO.insertBorrowing(borrow);
@@ -47,7 +47,7 @@ public class BorrowingService extends UnicastRemoteObject implements BorrowingSe
 		}
 	}
 
-	@Override
+	
 	public boolean updateBorrowing(Borrowing borrow) throws RemoteException {
 		try {
 			// borrowingDAO.up(borrow);
@@ -58,7 +58,7 @@ public class BorrowingService extends UnicastRemoteObject implements BorrowingSe
 		}
 	}
 
-	@Override
+	
 	public boolean deleteBorrow(Borrowing borrow) throws RemoteException {
 		try {
 			borrowingDAO.deleteBorrowing(borrow);
@@ -83,6 +83,7 @@ public class BorrowingService extends UnicastRemoteObject implements BorrowingSe
 
 	@Override
 	public boolean returnPublication(Borrowing borrow) throws RemoteException {
+		//to do
 		try {
 			borrowingDAO.deleteBorrowing(borrow);
 			return true;
@@ -94,6 +95,7 @@ public class BorrowingService extends UnicastRemoteObject implements BorrowingSe
 
 	@Override
 	public boolean borrowPublication(Borrowing borrow) throws RemoteException {
+		//to do
 		try {
 			borrowingDAO.insertBorrowing(borrow);
 			return true;

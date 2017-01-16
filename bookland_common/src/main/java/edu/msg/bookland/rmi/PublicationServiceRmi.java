@@ -140,7 +140,7 @@ public interface PublicationServiceRmi extends Remote {
 	 * @return Book
 	 * @throws RemoteException
 	 */
-	public Book getBookByUUID(String uuid) throws RemoteException; 
+	public Book searchBook(String title) throws RemoteException; 
 	
 	/**
 	 * This method searches for a Magazine with the specified uuid.
@@ -149,7 +149,7 @@ public interface PublicationServiceRmi extends Remote {
 	 * @return Magazine
 	 * @throws RemoteException
 	 */
-	public Magazine getMagazineByUUID(String uuid) throws RemoteException; 
+	public Magazine searchMagazin(String title) throws RemoteException; 
 	
 	/**
 	 * This method searches for a Newspaper with the specified uuid.
@@ -158,16 +158,7 @@ public interface PublicationServiceRmi extends Remote {
 	 * @return Newspaper
 	 * @throws RemoteException
 	 */
-	public Newspaper getNewspaperByUUID(String uuid) throws RemoteException; 
-	
-	/**
-	 * This method searches for all Publications with the specified title string.
-	 * 
-	 * @param title
-	 * @return Publication List
-	 * @throws RemoteException
-	 */
-	public List<Publication> searchPublicationByTitles(String title) throws RemoteException;	
+	public Newspaper searchNewspaper(String title) throws RemoteException; 
 	
 	/**
 	 * This method searches for all Publications with the specified title using regex.
@@ -178,4 +169,5 @@ public interface PublicationServiceRmi extends Remote {
 	 */
 	public List<Publication> searchPublicationByRegexp(String regex) throws RemoteException;
 
+	
 }

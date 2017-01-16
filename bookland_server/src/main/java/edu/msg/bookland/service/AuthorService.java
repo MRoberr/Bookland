@@ -36,9 +36,10 @@ public class AuthorService extends UnicastRemoteObject implements AuthorServiceR
 		authorDAO = DAOFactory.getDAOFactory().getAuthorDAO();
 
 	}
-/*
- * @see edu.msg.bookland.rmi.AuthorServiceRmi#getAllAuthors()
- */
+
+	/*
+	 * @see edu.msg.bookland.rmi.AuthorServiceRmi#getAllAuthors()
+	 */
 	@Override
 	public List<Author> getAllAuthors() throws RemoteException {
 		try {
@@ -49,9 +50,12 @@ public class AuthorService extends UnicastRemoteObject implements AuthorServiceR
 		}
 
 	}
-/*
- * @see edu.msg.bookland.rmi.AuthorServiceRmi#insertAuthor(edu.msg.bookland.model.Author)
- */
+
+	/*
+	 * @see
+	 * edu.msg.bookland.rmi.AuthorServiceRmi#insertAuthor(edu.msg.bookland.model
+	 * .Author)
+	 */
 	@Override
 	public boolean insertAuthor(Author author) throws RemoteException {
 		try {
@@ -62,9 +66,12 @@ public class AuthorService extends UnicastRemoteObject implements AuthorServiceR
 			return false;
 		}
 	}
-/*
- * @see edu.msg.bookland.rmi.AuthorServiceRmi#updateAuthor(edu.msg.bookland.model.Author)
- */
+
+	/*
+	 * @see
+	 * edu.msg.bookland.rmi.AuthorServiceRmi#updateAuthor(edu.msg.bookland.model
+	 * .Author)
+	 */
 	@Override
 	public boolean updateAuthor(Author author) throws RemoteException {
 		try {
@@ -75,13 +82,16 @@ public class AuthorService extends UnicastRemoteObject implements AuthorServiceR
 			return false;
 		}
 	}
-/*
- * @see edu.msg.bookland.rmi.AuthorServiceRmi#deleteAuthor(edu.msg.bookland.model.Author)
- */
+
+	/*
+	 * @see
+	 * edu.msg.bookland.rmi.AuthorServiceRmi#deleteAuthor(edu.msg.bookland.model
+	 * .Author)
+	 */
 	@Override
 	public boolean deleteAuthor(Author author) throws RemoteException {
-		//publicationService-getPublicationsByAuthorUUID
-		//if return null can delete
+		// publicationService-getPublicationsByAuthorUUID
+		// if return null can delete
 		try {
 			authorDAO.deleteAuthor(author);
 			return true;
@@ -90,16 +100,13 @@ public class AuthorService extends UnicastRemoteObject implements AuthorServiceR
 			return false;
 		}
 	}
-/*
- * @see edu.msg.bookland.rmi.AuthorServiceRmi#getAuthorByUUID(java.lang.String)
- */
+
+	/*
+	 * @see edu.msg.bookland.rmi.AuthorServiceRmi#searchAuthor(java.lang.String)
+	 */
 	@Override
-	public Author getAuthorByUUID(String uuid) throws RemoteException {
-		try {
-			return authorDAO.getAuthorByUuid(uuid);
-		} catch (RepositoryException e) {
-			LOGGER.error("Failed to get author");
-			return null;
-		}
+	public List<Author> searchAuthor(String name) throws RemoteException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

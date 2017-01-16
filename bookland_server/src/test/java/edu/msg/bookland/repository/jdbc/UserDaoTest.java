@@ -2,6 +2,7 @@ package edu.msg.bookland.repository.jdbc;
 
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Assert;
@@ -58,7 +59,7 @@ public class UserDaoTest {
 	 * R from CRUD. Test select all Users list is not empty.
 	 */
 	@Test
-	public void test1SelectAllUser() { 
+	public void test1SelectAllUser() {
 		try {
 			List<User> users = userDao.getAllUsers();
 			assertTrue(!users.isEmpty());

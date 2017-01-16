@@ -14,6 +14,7 @@ public interface PublicationDAO {
 	List<Magazine> getAllMagazines() throws RepositoryException;
 	List<Newspaper> getAllNewspapers() throws RepositoryException;
 	List<Publication> getAllPublications() throws RepositoryException;	
+	List<Publication> getPublicationsByAuthorUUID(String uuid) throws RepositoryException;	
 	
 	void insertBook(Book book) throws RepositoryException;
 	void insertMagazine(Magazine magazine) throws RepositoryException;
@@ -26,5 +27,7 @@ public interface PublicationDAO {
 	void deleteBook(Book book) throws RepositoryException;
 	void deleteMagazine(Magazine magazine) throws RepositoryException;
 	void deleteNewspaper(Newspaper newspaper) throws RepositoryException;
+	
+	
 	
 }

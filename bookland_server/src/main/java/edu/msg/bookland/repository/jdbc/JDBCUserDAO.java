@@ -15,14 +15,31 @@ import edu.msg.bookland.model.UserType;
 import edu.msg.bookland.repository.RepositoryException;
 import edu.msg.bookland.repository.UserDAO;
 
+/**
+ * Implements CRUD for USER Model
+ * 
+ * @author Csilla Szocs
+ * @author Terez Sipos
+ * @author Simo Zoltan
+ * 
+ */
 public class JDBCUserDAO implements UserDAO {
 	private ConnectionManager conMan;
 	private static final Logger LOGGER = Logger.getLogger(JDBCUserDAO.class);
 
+	/**
+	 * Initialize ConnectionManager
+	 * 
+	 * @throws RepositoryException
+	 */
 	public JDBCUserDAO() {
 		conMan = ConnectionManager.getInstance();
 	}
 
+	/*
+	 * @see edu.msg.bookland.repository.UserDAO#getAllUsers()
+	 */
+	@Override
 	public List<User> getAllUsers() throws RepositoryException {
 		List<User> list = new ArrayList<User>();
 		Connection con = null;
@@ -31,7 +48,7 @@ public class JDBCUserDAO implements UserDAO {
 			Statement statemanet = con.createStatement();
 			ResultSet users = statemanet.executeQuery("select * from library_users");
 			while (users.next()) {
-				User u = new User();
+				User u = new User("");
 				u.setName(users.getString("name"));
 				u.setEmail(users.getString("email"));
 				u.setUserType(UserType.valueOf(users.getString("user_type")));
@@ -39,6 +56,8 @@ public class JDBCUserDAO implements UserDAO {
 				u.setUUID(users.getString("uuid"));
 				list.add(u);
 			}
+			users.close();
+			statemanet.close();
 			LOGGER.info("All user selected");
 		} catch (SQLException e) {
 			LOGGER.error("Could not query Users", e);
@@ -51,6 +70,12 @@ public class JDBCUserDAO implements UserDAO {
 		return list;
 	}
 
+	/*
+	 * @see
+	 * edu.msg.bookland.repository.UserDAO#insertUser(edu.msg.bookland.model.
+	 * User)
+	 */
+	@Override
 	public void insertUser(User user) throws RepositoryException {
 		Connection con = null;
 		try {
@@ -64,7 +89,7 @@ public class JDBCUserDAO implements UserDAO {
 			preparedStatement.setInt(5, user.getLoyaltyIndex());
 			preparedStatement.setString(6, user.getPassword());
 			preparedStatement.execute();
-
+			preparedStatement.close();
 			LOGGER.info("user inserted");
 		} catch (SQLException e) {
 			LOGGER.error("Could not inserd users. ", e);
@@ -76,6 +101,12 @@ public class JDBCUserDAO implements UserDAO {
 		}
 	}
 
+	/*
+	 * @see
+	 * edu.msg.bookland.repository.UserDAO#deleteUser(edu.msg.bookland.model.
+	 * User)
+	 */
+	@Override
 	public void deleteUser(User user) throws RepositoryException {
 		Connection con = null;
 		try {
@@ -83,7 +114,7 @@ public class JDBCUserDAO implements UserDAO {
 			PreparedStatement preparedStatement = con.prepareStatement("DELETE FROM library_users WHERE uuid = ?");
 			preparedStatement.setString(1, user.getUUID());
 			preparedStatement.execute();
-
+			preparedStatement.close();
 			LOGGER.info("user deleted");
 		} catch (SQLException e) {
 			LOGGER.error("Could not delete user. ", e);
@@ -96,6 +127,12 @@ public class JDBCUserDAO implements UserDAO {
 
 	}
 
+	/*
+	 * @see
+	 * edu.msg.bookland.repository.UserDAO#updateUser(edu.msg.bookland.model.
+	 * User)
+	 */
+	@Override
 	public void updateUser(User user) throws RepositoryException {
 		Connection con = null;
 		try {
@@ -109,6 +146,7 @@ public class JDBCUserDAO implements UserDAO {
 			preparedStatement.setString(4, user.getPassword());
 			preparedStatement.setString(5, user.getUUID());
 			preparedStatement.execute();
+			preparedStatement.close();
 			LOGGER.info("user info updated");
 
 		} catch (SQLException e) {
@@ -122,6 +160,12 @@ public class JDBCUserDAO implements UserDAO {
 
 	}
 
+	/*
+	 * @see
+	 * edu.msg.bookland.repository.UserDAO#updateUserWithoutPassword(edu.msg.
+	 * bookland.model.User)
+	 */
+	@Override
 	public void updateUserWithoutPassword(User user) throws RepositoryException {
 		Connection con = null;
 		try {
@@ -134,6 +178,7 @@ public class JDBCUserDAO implements UserDAO {
 			preparedStatement.setInt(3, user.getLoyaltyIndex());
 			preparedStatement.setString(5, user.getUUID());
 			preparedStatement.execute();
+			preparedStatement.close();			
 			LOGGER.info("user info updated");
 
 		} catch (SQLException e) {
@@ -146,6 +191,11 @@ public class JDBCUserDAO implements UserDAO {
 		}
 	}
 
+	/*
+	 * @see edu.msg.bookland.repository.UserDAO#login(java.lang.String,
+	 * java.lang.String)
+	 */
+	@Override
 	public UserType login(String userName, String password) throws RepositoryException {
 		Connection con = null;
 		try {
@@ -156,20 +206,28 @@ public class JDBCUserDAO implements UserDAO {
 			preparedStatement.setString(2, password);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			resultSet.next();
-			
-			return UserType.valueOf(resultSet.getString(1).toUpperCase());
+			UserType ut = UserType.valueOf(resultSet.getString(1).toUpperCase());
+			preparedStatement.close();
+			resultSet.close();
+			return ut;
 
 		} catch (SQLException e) {
 			LOGGER.error("Login failed! ", e);
 			throw new RepositoryException("Login failed!", e);
+		} finally {
+			if (con != null) {
+				conMan.returnConnection(con);
+			}
 		}
-
 	}
 
+	/*
+	 * @see edu.msg.bookland.repository.UserDAO#getUserByName(java.lang.String)
+	 */
 	public User getUserByName(String name) throws RepositoryException {
 		Connection con = null;
-		String query = "select name, email, user_type, loyalty_index from library_users where name = ?";
-		User user = new User();
+		String query = "select uuid, name, email, user_type, loyalty_index from library_users where name = ?";
+		User user = new User("");
 		try {
 			con = conMan.getConnection();
 			PreparedStatement statement = con.prepareStatement(query);
@@ -178,17 +236,28 @@ public class JDBCUserDAO implements UserDAO {
 			if (users.next()) {
 				user = new User(users.getString("name"), users.getString("email"),
 						UserType.valueOf(users.getString("user_type")), users.getInt("loyalty_index"));
+				user.setUUID(users.getString("uuid"));
 			}
+			statement.close();
+			users.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			LOGGER.error("Could not retrieve User! ", e);
+			throw new RepositoryException("Could not retrive User!", e);
+		} finally {
+			if (con != null) {
+				conMan.returnConnection(con);
+			}
 		}
 		return user;
 	}
 
+	/*
+	 * @see edu.msg.bookland.repository.UserDAO#getUserById(java.lang.String)
+	 */
 	public User getUserById(String id) throws RepositoryException {
 		Connection con = null;
 		String query = "select name, email, user_type, loyalty_index from library_users where uuid = ?";
-		User user = new User();
+		User user = new User("");
 		try {
 			con = conMan.getConnection();
 			PreparedStatement statement = con.prepareStatement(query);
@@ -197,17 +266,29 @@ public class JDBCUserDAO implements UserDAO {
 			if (users.next()) {
 				user = new User(users.getString("name"), users.getString("email"),
 						UserType.valueOf(users.getString("user_type")), users.getInt("loyalty_index"));
+				user.setUUID(id);
 			}
+			statement.close();
+			users.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			LOGGER.error("Could not retrieve User! ", e);
+			throw new RepositoryException("Could not retrive User!", e);
+		} finally {
+			if (con != null) {
+				conMan.returnConnection(con);
+			}
 		}
 		return user;
 	}
 
+	/*
+	 * @see
+	 * edu.msg.bookland.repository.UserDAO#searchUserByName(java.lang.String)
+	 */
 	public List<User> searchUserByName(String name) throws RepositoryException {
 		Connection con = null;
-		String query = "select name, email, user_type, loyalty_index from library_users where name like ?";
-		User user = new User();
+		String query = "select uuid, name, email, user_type, loyalty_index from library_users where name like ?";
+		User user = new User("");
 		List<User> userList = new ArrayList<User>();
 		try {
 			con = conMan.getConnection();
@@ -217,10 +298,18 @@ public class JDBCUserDAO implements UserDAO {
 			while (users.next()) {
 				user = new User(users.getString("name"), users.getString("email"),
 						UserType.valueOf(users.getString("user_type")), users.getInt("loyalty_index"));
+				user.setUUID(users.getString("uuid"));
 				userList.add(user);
 			}
+			statement.close();
+			users.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			LOGGER.error("Could not retrieve User list! ", e);
+			throw new RepositoryException("Could not retrive User list!", e);
+		} finally {			
+			if (con != null) {
+				conMan.returnConnection(con);
+			}
 		}
 		return userList;
 	}

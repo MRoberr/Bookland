@@ -34,7 +34,7 @@ public interface BorrowingDAO {
 	 * @throws RepositoryException
 	 */
 	List<Borrowing> getPublicationsBorrowedByUser(String userUuid) throws RepositoryException;
-	
+
 	void updateBorrowing(Borrowing borrowing) throws RepositoryException;
 
 }
