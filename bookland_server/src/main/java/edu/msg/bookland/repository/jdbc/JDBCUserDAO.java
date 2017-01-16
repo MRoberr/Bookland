@@ -314,4 +314,27 @@ public class JDBCUserDAO implements UserDAO {
 		return userList;
 	}
 
+	@Override
+	public void setUserLoyaltyIndex(String uuid) throws RepositoryException {
+		Connection con = null;
+		try {
+			con = conMan.getConnection();
+			PreparedStatement preparedStatement = con.prepareStatement(
+					"update library_users set loyalty_index = loyalty_index -1 where uuid=?");
+			preparedStatement.setString(1, uuid);
+
+			preparedStatement.execute();
+			preparedStatement.close();
+			LOGGER.info("user's loyalty index decreased");
+
+		} catch (SQLException e) {
+			LOGGER.error("Could not user's loyalty index decreased.", e);
+			throw new RepositoryException("user's loyalty index decreased. ", e);
+		} finally {
+			if (con != null) {
+				conMan.returnConnection(con);
+			}
+		}
+	}
+
 }
