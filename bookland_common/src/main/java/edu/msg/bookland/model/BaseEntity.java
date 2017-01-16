@@ -27,7 +27,7 @@ public abstract class BaseEntity implements Serializable {
 	 * {@link baseEntity#uuId} Represents a unique id.
 	 */
 	@Id
-	@Column(name = "uuid", nullable = true, unique = true)
+	@Column(name = "uuid", nullable = false, unique = true)
 	private String uuId;
 
 	public String getUUID() {

@@ -14,5 +14,12 @@
 			<artifactId>hibernate-annotations</artifactId>
 			<version>3.5.6-Final</version>
 		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-jpamodelgen</artifactId>
+			<version>5.2.6.Final</version>
+			<optional>true</optional>
+		</dependency>
 	</dependencies>
 </project>

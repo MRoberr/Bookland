@@ -27,4 +27,5 @@ public interface PublicationDAO {
 	void deleteMagazine(Magazine magazine) throws RepositoryException;
 	void deleteNewspaper(Newspaper newspaper) throws RepositoryException;
 	
+	Publication searchBublication(String name) throws RepositoryException;
 }

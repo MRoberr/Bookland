@@ -19,8 +19,9 @@ import edu.msg.bookland.repository.RepositoryException;
  * AuthorDAO implemented with Hibernate and used JPQL language
  */
 public class HibernateAuthorDAO implements AuthorDAO {
-	EntityManagerFactory entityManagerFactory;
-	EntityManager entityManager;
+	
+	private EntityManagerFactory entityManagerFactory;
+	private EntityManager entityManager;
 
 	@Override
 	public List<Author> getAllAuthors() throws RepositoryException {

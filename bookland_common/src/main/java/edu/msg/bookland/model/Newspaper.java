@@ -2,6 +2,10 @@ package edu.msg.bookland.model;
 
 import java.util.Calendar;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.Transient;
+
 /**
  * Newspaper model class.
  * 
@@ -9,9 +13,11 @@ import java.util.Calendar;
  * @author Simo Zoltan
  *
  */
-
+@Entity
+@DiscriminatorValue("3")
 public class Newspaper extends Publication{
 
+	@Transient
 	private static final long serialVersionUID = -3891407649176906111L;
 	
 	@Override
