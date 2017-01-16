@@ -16,7 +16,7 @@ public class UserServiceTest {
 		UserService userService;
 		try {
 			userService = new UserService();
-			User u = new User();
+			User u = new User("");
 			u.setName("admin");
 			u.setEmail("admin@email");
 			u.setLoyaltyIndex(10);

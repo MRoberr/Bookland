@@ -1,6 +1,9 @@
 package edu.msg.bookland.repository;
 
-public class RepositoryException extends RuntimeException{
+/**
+ * @author Terez Sipos
+ */
+public class RepositoryException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
 
