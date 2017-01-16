@@ -38,9 +38,6 @@ public class UserService extends UnicastRemoteObject implements UserServiceRmi {
 		userDAO = DAOFactory.getDAOFactory().getUserDAO();
 	}
 
-	/**
-	 * @see edu.msg.bookland.rmi.UserServiceRmi#getAllUsers()
-	 */
 	@Override
 	public List<User> getAllUsers() throws RemoteException {
 		try {
@@ -51,9 +48,6 @@ public class UserService extends UnicastRemoteObject implements UserServiceRmi {
 		}
 	}
 
-	/**
-	 * @see edu.msg.bookland.rmi.UserServiceRmi#insertUser(edu.msg.bookland.model.User)
-	 */
 	@Override
 	public boolean insertUser(User user) throws RemoteException {
 		try {
@@ -66,9 +60,6 @@ public class UserService extends UnicastRemoteObject implements UserServiceRmi {
 		}
 	}
 
-	/**
-	 * @see edu.msg.bookland.rmi.UserServiceRmi#updateUser(edu.msg.bookland.model.User)
-	 */
 	@Override
 	public boolean updateUser(User user) throws RemoteException {
 		try {
@@ -81,14 +72,12 @@ public class UserService extends UnicastRemoteObject implements UserServiceRmi {
 		}
 	}
 
-	/**
-	 * @see edu.msg.bookland.rmi.UserServiceRmi#deleteUser(edu.msg.bookland.model.User)
-	 */
 	@Override
 	public boolean deleteUser(User user) throws RemoteException {
-		BorrowingService borrow=new BorrowingService();
-		List<Publication> userPubs=borrow.getBorrowByUserUUID(user.getUUID());
-		if(userPubs==null) return false;
+		BorrowingService borrow = new BorrowingService();
+		List<Publication> userPubs = borrow.getBorrowByUserUUID(user.getUUID());
+		if (userPubs == null)
+			return false;
 		try {
 			userDAO.deleteUser(user);
 			return true;
@@ -98,9 +87,6 @@ public class UserService extends UnicastRemoteObject implements UserServiceRmi {
 		}
 	}
 
-	/**
-	 * @see edu.msg.bookland.rmi.UserServiceRmi#getUserByUUUID(java.lang.String)
-	 */
 	@Override
 	public User getUserByUUUID(String uuid) throws RemoteException {
 		try {
@@ -111,9 +97,6 @@ public class UserService extends UnicastRemoteObject implements UserServiceRmi {
 		}
 	}
 
-	/**
-	 * @see edu.msg.bookland.rmi.UserServiceRmi#searchUser(java.lang.String)
-	 */
 	@Override
 	public List<User> searchUser(String name) throws RemoteException {
 		try {
@@ -124,30 +107,26 @@ public class UserService extends UnicastRemoteObject implements UserServiceRmi {
 		}
 	}
 
-	/**
-	 * @see edu.msg.bookland.rmi.UserServiceRmi#login(java.lang.String,
-	 *      java.lang.String)
-	 */
 	@Override
 	public UserType login(String name, String password) throws RemoteException {
 		try {
-			String pass = PasswordEncrypting.encrypt(password, "user");			
+			String pass = PasswordEncrypting.encrypt(password, "user");
 			return userDAO.login(name, pass);
 		} catch (RepositoryException e) {
 			LOGGER.error("Invalid login");
 			return null;
 		}
 	}
-	
+
 	/**
-	 * This method decreases the loyalty index of the user specified by uuid 
+	 * This method decreases the loyalty index of the user specified by uuid
 	 * 
 	 * @param uuid
 	 * @return
 	 */
-	public boolean setUserLoyaltyIndex(String uuid){
+	public boolean setUserLoyaltyIndex(String uuid) {
 		return false;
-		
+
 	}
 
 }

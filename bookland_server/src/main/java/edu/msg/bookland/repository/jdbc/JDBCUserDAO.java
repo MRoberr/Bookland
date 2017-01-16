@@ -36,9 +36,6 @@ public class JDBCUserDAO implements UserDAO {
 		conMan = ConnectionManager.getInstance();
 	}
 
-	/*
-	 * @see edu.msg.bookland.repository.UserDAO#getAllUsers()
-	 */
 	@Override
 	public List<User> getAllUsers() throws RepositoryException {
 		List<User> list = new ArrayList<User>();
@@ -70,11 +67,6 @@ public class JDBCUserDAO implements UserDAO {
 		return list;
 	}
 
-	/*
-	 * @see
-	 * edu.msg.bookland.repository.UserDAO#insertUser(edu.msg.bookland.model.
-	 * User)
-	 */
 	@Override
 	public void insertUser(User user) throws RepositoryException {
 		Connection con = null;
@@ -101,11 +93,6 @@ public class JDBCUserDAO implements UserDAO {
 		}
 	}
 
-	/*
-	 * @see
-	 * edu.msg.bookland.repository.UserDAO#deleteUser(edu.msg.bookland.model.
-	 * User)
-	 */
 	@Override
 	public void deleteUser(User user) throws RepositoryException {
 		Connection con = null;
@@ -127,11 +114,6 @@ public class JDBCUserDAO implements UserDAO {
 
 	}
 
-	/*
-	 * @see
-	 * edu.msg.bookland.repository.UserDAO#updateUser(edu.msg.bookland.model.
-	 * User)
-	 */
 	@Override
 	public void updateUser(User user) throws RepositoryException {
 		Connection con = null;
@@ -160,11 +142,6 @@ public class JDBCUserDAO implements UserDAO {
 
 	}
 
-	/*
-	 * @see
-	 * edu.msg.bookland.repository.UserDAO#updateUserWithoutPassword(edu.msg.
-	 * bookland.model.User)
-	 */
 	@Override
 	public void updateUserWithoutPassword(User user) throws RepositoryException {
 		Connection con = null;
@@ -178,7 +155,7 @@ public class JDBCUserDAO implements UserDAO {
 			preparedStatement.setInt(3, user.getLoyaltyIndex());
 			preparedStatement.setString(5, user.getUUID());
 			preparedStatement.execute();
-			preparedStatement.close();			
+			preparedStatement.close();
 			LOGGER.info("user info updated");
 
 		} catch (SQLException e) {
@@ -191,10 +168,6 @@ public class JDBCUserDAO implements UserDAO {
 		}
 	}
 
-	/*
-	 * @see edu.msg.bookland.repository.UserDAO#login(java.lang.String,
-	 * java.lang.String)
-	 */
 	@Override
 	public UserType login(String userName, String password) throws RepositoryException {
 		Connection con = null;
@@ -237,7 +210,11 @@ public class JDBCUserDAO implements UserDAO {
 				user = new User(users.getString("name"), users.getString("email"),
 						UserType.valueOf(users.getString("user_type")), users.getInt("loyalty_index"));
 				user.setUUID(users.getString("uuid"));
+			} else {
+				throw new RepositoryException("Could not retrieve User!");
+
 			}
+
 			statement.close();
 			users.close();
 		} catch (SQLException e) {
@@ -267,6 +244,9 @@ public class JDBCUserDAO implements UserDAO {
 				user = new User(users.getString("name"), users.getString("email"),
 						UserType.valueOf(users.getString("user_type")), users.getInt("loyalty_index"));
 				user.setUUID(id);
+			} else {
+				throw new RepositoryException("Could not retrieve User!");
+
 			}
 			statement.close();
 			users.close();
@@ -295,18 +275,20 @@ public class JDBCUserDAO implements UserDAO {
 			PreparedStatement statement = con.prepareStatement(query);
 			statement.setString(1, "%" + name + "%");
 			ResultSet users = statement.executeQuery();
-			while (users.next()) {
+			if (users.next()) {
 				user = new User(users.getString("name"), users.getString("email"),
 						UserType.valueOf(users.getString("user_type")), users.getInt("loyalty_index"));
 				user.setUUID(users.getString("uuid"));
 				userList.add(user);
+			} else {
+				throw new RepositoryException("Could not retrieve User list! ");
 			}
 			statement.close();
 			users.close();
 		} catch (SQLException e) {
 			LOGGER.error("Could not retrieve User list! ", e);
 			throw new RepositoryException("Could not retrive User list!", e);
-		} finally {			
+		} finally {
 			if (con != null) {
 				conMan.returnConnection(con);
 			}
