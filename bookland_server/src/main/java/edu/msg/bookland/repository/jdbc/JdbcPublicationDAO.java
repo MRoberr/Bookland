@@ -624,7 +624,7 @@ public class JdbcPublicationDAO implements PublicationDAO{
 
 
 	@Override
-	public List<Publication> getPublicationsByAuthorUUID() throws RepositoryException {
+	public List<Publication> getPublicationsByAuthorUUID(String uuid) throws RepositoryException {
 		// TODO Auto-generated method stub
 		return null;
 	}
