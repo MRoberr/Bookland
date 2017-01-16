@@ -57,15 +57,7 @@ public interface UserServiceRmi extends Remote {
 	 * @return User
 	 * @throws RemoteException
 	 */
-	public User getUserByName(String name) throws RemoteException;
 	
-	/**
-	 * This method searches for a User with the specified uuid.
-	 * 
-	 * @param uuid
-	 * @return User
-	 * @throws RemoteException
-	 */
 	public User getUserByUUUID(String uuid) throws RemoteException; 
 	
 	/**

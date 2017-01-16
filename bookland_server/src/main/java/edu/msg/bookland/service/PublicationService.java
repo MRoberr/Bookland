@@ -12,9 +12,6 @@ import edu.msg.bookland.rmi.PublicationServiceRmi;
 
 public class PublicationService extends UnicastRemoteObject implements PublicationServiceRmi {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 3284877157625860710L;
 
 	public PublicationService() throws RemoteException {
@@ -101,31 +98,37 @@ public class PublicationService extends UnicastRemoteObject implements Publicati
 	}
 
 	@Override
-	public Book getBookByUUID(String uuid) throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Magazine getMagazineByUUID(String uuid) throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Newspaper getNewspaperByUUID(String uuid) throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Publication> searchPublicationByTitles(String title) throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public List<Publication> searchPublicationByRegexp(String regex) throws RemoteException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public int getPublicationCopiesLeft(String uuid) {
+		return 0;
+	}
+
+	public boolean setPublicationCopiesLeft(String uuid) {
+		return false;
+	}
+
+	public Publication getPublicationByUuid(String uuid){
+		return null;
+	}
+
+	@Override
+	public Book searchBook(String title) throws RemoteException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Magazine searchMagazin(String title) throws RemoteException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Newspaper searchNewspaper(String title) throws RemoteException {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -12,12 +12,8 @@ public class PublicationDAOTest {
 	PublicationDAO publicationDAO = new JdbcPublicationDAO();
 	
 	@Test
-	public void testGetAllPublications() {
-			
+	public void testGetAllPublications() {	
 		List<Publication> pubs = publicationDAO.getAllPublications();
-		pubs.forEach(pub -> System.out.println(pub.getTitle()));;
-		
-			
-		
+		pubs.forEach(pub -> System.out.println(pub.getTitle()));
 	}
 }
