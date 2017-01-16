@@ -10,8 +10,7 @@ public class HibernateDAOFactory extends DAOFactory {
 
 	@Override
 	public UserDAO getUserDAO() {
-		// TODO Auto-generated method stub
-		return null;
+		return new HibernateUserDAO();
 	}
 
 	@Override

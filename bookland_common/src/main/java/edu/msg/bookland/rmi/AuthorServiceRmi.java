@@ -47,18 +47,18 @@ public interface AuthorServiceRmi extends Remote {
 	 * This method deletes the Author by its id.
 	 * 
 	 * @param author
-	 * @return true, if delete succeeded 
+	 * @return true, if delete succeeded
 	 * @throws RemoteException
 	 */
 	public boolean deleteAuthor(Author author) throws RemoteException;
 
 	/**
-	 * This method searches for an Author with the specified uuid.
+	 * This method searches for an Author with the specified name.
 	 * 
-	 * @param uuid
-	 * @return Author
+	 * @param name
+	 * @return List<Author>
 	 * @throws RemoteException
 	 */
-	public Author getAuthorByUUID(String uuid) throws RemoteException;
+	public List<Author> searchAuthor(String name) throws RemoteException;
 
 }

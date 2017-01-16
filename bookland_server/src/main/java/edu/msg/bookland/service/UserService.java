@@ -99,19 +99,6 @@ public class UserService extends UnicastRemoteObject implements UserServiceRmi {
 	}
 
 	/**
-	 * @see edu.msg.bookland.rmi.UserServiceRmi#getUserByName(java.lang.String)
-	 */
-	@Override
-	public User getUserByName(String name) throws RemoteException {
-		try {
-			return userDAO.getUserByName(name);
-		} catch (RepositoryException e) {
-			LOGGER.error("Failed to get user");
-			return null;
-		}
-	}
-
-	/**
 	 * @see edu.msg.bookland.rmi.UserServiceRmi#getUserByUUUID(java.lang.String)
 	 */
 	@Override
@@ -150,6 +137,17 @@ public class UserService extends UnicastRemoteObject implements UserServiceRmi {
 			LOGGER.error("Invalid login");
 			return null;
 		}
+	}
+	
+	/**
+	 * This method decreases the loyalty index of the user specified by uuid 
+	 * 
+	 * @param uuid
+	 * @return
+	 */
+	public boolean setUserLoyaltyIndex(String uuid){
+		return false;
+		
 	}
 
 }

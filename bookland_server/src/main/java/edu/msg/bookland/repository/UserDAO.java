@@ -63,14 +63,6 @@ public interface UserDAO {
 	 */
 	public UserType login(String userName, String password) throws RepositoryException;
 
-	/**
-	 * This method define select with condition of username for {@link User}
-	 * 
-	 * @param name
-	 * @return User if exist
-	 * @throws RepositoryException
-	 */
-	User getUserByName(String name) throws RepositoryException;
 
 	/**
 	 * This method define select with condition of userId for {@link User}
@@ -91,4 +83,5 @@ public interface UserDAO {
 	 */
 	List<User> searchUserByName(String name) throws RepositoryException;
 
+	void setUserLoyaltyIndex(String uuid) throws RepositoryException;
 }

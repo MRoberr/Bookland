@@ -12,6 +12,7 @@
 		<class>edu.msg.bookland.model.Book</class>
 		<class>edu.msg.bookland.model.Magazine</class>
 		<class>edu.msg.bookland.model.Newspaper</class>
+		<class>edu.msg.bookland.model.User</class>
 
 		<properties>
 			<property name="javax.persistence.jdbc.url"

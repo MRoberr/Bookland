@@ -8,7 +8,7 @@ target/
 *.bak
 *.swp
 *~.nib
-logging.log
+*.log
 local.properties
 .settings/
 .loadpath

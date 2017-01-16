@@ -9,11 +9,8 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.CriteriaUpdate;
-import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Root;
 
-import edu.msg.bookland.model.Author;
-import edu.msg.bookland.model.Author_;
 import edu.msg.bookland.model.Book;
 import edu.msg.bookland.model.Book_;
 import edu.msg.bookland.model.Magazine;
@@ -173,7 +170,7 @@ public class HibernatePublicationDAO implements PublicationDAO{
 	}
 
 	@Override
-	public Publication searchBublication(String name) throws RepositoryException {
+	public List<Publication> searchBublication(String name) throws RepositoryException {
 		// TODO Auto-generated method stub
 		return null;
 	}

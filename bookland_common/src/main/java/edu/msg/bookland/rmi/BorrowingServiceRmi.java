@@ -18,35 +18,6 @@ public interface BorrowingServiceRmi extends Remote {
 	public static final String RMI_NAME = "Borrowing";
 	public static final int RMI_PORT = 1099;
 
-	/**
-	 * This method inserts a Borrow into DB.
-	 * 
-	 * @param borrow
-	 *            - Borrowing object
-	 * @return true if the insert was successful, or false if not
-	 * @throws RemoteException
-	 */
-	public boolean insertBorrowing(Borrowing borrow) throws RemoteException;
-
-	/**
-	 * This method updates the Borrow by its id.
-	 * 
-	 * @param borrow
-	 *            - Borrowing object
-	 * @return true if the insert was successful, or false if not
-	 * @throws RemoteException
-	 */
-	public boolean updateBorrowing(Borrowing borrow) throws RemoteException;
-
-	/**
-	 * This method deletes the Borrow by its ids(user and publication uuid)
-	 * 
-	 * @param borrow
-	 *            - Borrowing object
-	 * @return true if the delete was successful, or false if not
-	 * @throws RemoteException
-	 */
-	public boolean deleteBorrow(Borrowing borrow) throws RemoteException;
 
 	/**
 	 * This method searches for a Borrowing with the specified uuid.
