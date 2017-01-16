@@ -32,10 +32,10 @@ public class UserDaoTest {
 
 	private User createUser() {
 		User u = new User("");
-		u.setName("testUserDAO");
-		u.setEmail("testUserDAO@email");
+		u.setName("Robi");
+		u.setEmail("alma@fa.com");
 		u.setLoyaltyIndex(10);
-		u.setUUID("37a97280-bb03-4b65-b84d-7602f6b6a86u");
+		u.setUUID("321");
 		u.setPassword(PasswordEncrypting.encrypt("password", "salt"));
 		u.setUserType(UserType.READER);
 		return u;
@@ -44,7 +44,7 @@ public class UserDaoTest {
 	/**
 	 * C from CRUD. Test User insertion.
 	 */
-	//@Test
+	@Test
 	public void test0InsertUser() {
 		try {
 			userDao.insertUser(createUser());
@@ -57,7 +57,7 @@ public class UserDaoTest {
 	/**
 	 * R from CRUD. Test select all Users list is not empty.
 	 */
-	//@Test
+	@Test
 	public void test1SelectAllUser() {
 		try {
 			List<User> users = userDao.getAllUsers();
@@ -73,7 +73,7 @@ public class UserDaoTest {
 	/**
 	 * R from CRUD. Test select Users with given name.
 	 */
-	//@Test
+	@Test
 	public void test2SearchUserByName() {
 		try {
 			List<User> users = userDao.searchUserByName("UserDAO");
@@ -84,15 +84,26 @@ public class UserDaoTest {
 		}
 	}
 
-	
+	/**
+	 * R from CRUD. Test select User with given full name.
+	 */
+	@Test
+	public void test3GetUserByName() {
+		try {
+			System.out.println(userDao.searchUserByName("Terez"));
+			Assert.assertEquals(createUser().getUUID(), userDao.searchUserByName("Terez").get(0).getUUID());
+		} catch (RepositoryException e) {
+			Assert.fail("Could no search for user.");
+		}
+	}
 
 	/**
 	 * R from CRUD. Test select User with given id.
 	 */
-	//@Test
+	@Test
 	public void test4GetUserById() {
 		try {
-			Assert.assertEquals(userDao.getUserById("37a97280-bb03-4b65-b84d").getName(),
+			Assert.assertEquals(userDao.getUserById("fasfasfgas").getName(),
 					createUser().getName());
 		} catch (RepositoryException e) {
 			Assert.fail("Could not search for User.");
@@ -102,7 +113,7 @@ public class UserDaoTest {
 	/**
 	 * U from CRUD. Test User update.
 	 */
-	//@Test
+	@Test
 	public void test5UpdateUser() {
 		User u = createUser();
 		u.setName("testUser");
@@ -113,24 +124,5 @@ public class UserDaoTest {
 			Assert.fail("Could not update User.");
 		}
 	}
-
-	/**
-	 * D from CRUD. Test User delete.
-	 */
-	//@Test
-	public void test6DeleteUser() {
-		User u = createUser();
-		try {
-			userDao.deleteUser(u);
-			assertTrue(true);
-		} catch (RepositoryException e) {
-			Assert.fail("Could not delete User.");
-		}
-	}
-	
-	@Test public
-	void decreaseLoyaltyIndex(){
-		userDao.setUserLoyaltyIndex("123");
-	}
-
 }
+

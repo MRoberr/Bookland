@@ -624,7 +624,7 @@ public class JdbcPublicationDAO implements PublicationDAO{
 
 
 	@Override
-	public Publication searchBublication(String name) throws RepositoryException {
+	public List<Publication> searchBublication(String name) throws RepositoryException {
 		// TODO Auto-generated method stub
 		return null;
 	}
