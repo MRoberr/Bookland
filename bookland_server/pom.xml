@@ -15,7 +15,7 @@
 			<artifactId>hibernate-core</artifactId>
 			<version>5.2.6.Final</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>edu.msg.bookland</groupId>
 			<artifactId>bookland_common</artifactId>
@@ -32,6 +32,12 @@
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.40</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.5.8</version>
 		</dependency>
 
 
