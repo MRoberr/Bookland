@@ -35,12 +35,7 @@ public class UserService extends UnicastRemoteObject implements UserServiceRmi {
 	 * @throw ServiceException if can't get a DAO
 	 */
 	public UserService() throws RemoteException {
-		try {
-			userDAO = DAOFactory.getDAOFactory().getUserDAO();
-		} catch (RepositoryException e) {
-			LOGGER.error("Failed to create a user service");
-			throw new ServiceException("Failed to create a user service", e);
-		}
+		userDAO = DAOFactory.getDAOFactory().getUserDAO();
 	}
 
 	/**
@@ -48,13 +43,11 @@ public class UserService extends UnicastRemoteObject implements UserServiceRmi {
 	 */
 	@Override
 	public List<User> getAllUsers() throws RemoteException {
-		List<User> users;
 		try {
-			users = userDAO.getAllUsers();
-			return users;
+			return userDAO.getAllUsers();
 		} catch (RepositoryException e) {
 			LOGGER.error("Failed to get all users");
-			throw new ServiceException("Failed to get all users", e);
+			return null;
 		}
 	}
 
@@ -62,13 +55,14 @@ public class UserService extends UnicastRemoteObject implements UserServiceRmi {
 	 * @see edu.msg.bookland.rmi.UserServiceRmi#insertUser(edu.msg.bookland.model.User)
 	 */
 	@Override
-	public void insertUser(User user) throws RemoteException {
-		user.setPassword(PasswordEncrypting.encrypt(user.getPassword(), "user"));
+	public boolean insertUser(User user) throws RemoteException {
 		try {
+			user.setPassword(PasswordEncrypting.encrypt(user.getPassword(), "user"));
 			userDAO.insertUser(user);
+			return true;
 		} catch (RepositoryException e) {
 			LOGGER.error("Failed to insert user");
-			throw new ServiceException("Failed to insert user", e);
+			return false;
 		}
 	}
 
@@ -76,13 +70,14 @@ public class UserService extends UnicastRemoteObject implements UserServiceRmi {
 	 * @see edu.msg.bookland.rmi.UserServiceRmi#updateUser(edu.msg.bookland.model.User)
 	 */
 	@Override
-	public void updateUser(User user) throws RemoteException {
-		user.setPassword(PasswordEncrypting.encrypt(user.getPassword(), "user"));
+	public boolean updateUser(User user) throws RemoteException {
 		try {
+			user.setPassword(PasswordEncrypting.encrypt(user.getPassword(), "user"));
 			userDAO.updateUser(user);
+			return true;
 		} catch (RepositoryException e) {
 			LOGGER.error("Failed to update user");
-			throw new ServiceException("Failed to update user", e);
+			return false;
 		}
 	}
 
@@ -90,12 +85,16 @@ public class UserService extends UnicastRemoteObject implements UserServiceRmi {
 	 * @see edu.msg.bookland.rmi.UserServiceRmi#deleteUser(edu.msg.bookland.model.User)
 	 */
 	@Override
-	public void deleteUser(User user) throws RemoteException {
+	public boolean deleteUser(User user) throws RemoteException {
+		BorrowingService borrow=new BorrowingService();
+		List<Publication> userPubs=borrow.getBorrowByUserUUID(user.getUUID());
+		if(userPubs==null) return false;
 		try {
 			userDAO.deleteUser(user);
+			return true;
 		} catch (RepositoryException e) {
 			LOGGER.error("Failed to delete user");
-			throw new ServiceException("Failed to delete user", e);
+			return false;
 		}
 	}
 
@@ -104,13 +103,11 @@ public class UserService extends UnicastRemoteObject implements UserServiceRmi {
 	 */
 	@Override
 	public User getUserByName(String name) throws RemoteException {
-		User user;
 		try {
-			user = userDAO.getUserByName(name);
-			return user;
+			return userDAO.getUserByName(name);
 		} catch (RepositoryException e) {
 			LOGGER.error("Failed to get user");
-			throw new ServiceException("Failed to get user", e);
+			return null;
 		}
 	}
 
@@ -119,13 +116,11 @@ public class UserService extends UnicastRemoteObject implements UserServiceRmi {
 	 */
 	@Override
 	public User getUserByUUUID(String uuid) throws RemoteException {
-		User user;
 		try {
-			user = userDAO.getUserById(uuid);
-			return user;
+			return userDAO.getUserById(uuid);
 		} catch (RepositoryException e) {
 			LOGGER.error("Failed to get user");
-			throw new ServiceException("Failed to get user", e);
+			return null;
 		}
 	}
 
@@ -134,13 +129,11 @@ public class UserService extends UnicastRemoteObject implements UserServiceRmi {
 	 */
 	@Override
 	public List<User> searchUser(String name) throws RemoteException {
-		List<User> users;
 		try {
-			users = userDAO.searchUserByName(name);
-			return users;
+			return userDAO.searchUserByName(name);
 		} catch (RepositoryException e) {
 			LOGGER.error("Failed to get user");
-			throw new ServiceException("Failed to get user", e);
+			return null;
 		}
 	}
 
@@ -150,14 +143,12 @@ public class UserService extends UnicastRemoteObject implements UserServiceRmi {
 	 */
 	@Override
 	public UserType login(String name, String password) throws RemoteException {
-		UserType type;
-		String pass = PasswordEncrypting.encrypt(password, "user");
 		try {
-			type = userDAO.login(name, pass);
-			return type;
+			String pass = PasswordEncrypting.encrypt(password, "user");			
+			return userDAO.login(name, pass);
 		} catch (RepositoryException e) {
 			LOGGER.error("Invalid login");
-			throw new ServiceException("Invatid login", e);
+			return null;
 		}
 	}
 
