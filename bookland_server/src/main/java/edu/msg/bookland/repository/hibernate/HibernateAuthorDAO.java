@@ -6,6 +6,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 import edu.msg.bookland.model.Author;
 import edu.msg.bookland.repository.AuthorDAO;
@@ -22,10 +25,22 @@ public class HibernateAuthorDAO implements AuthorDAO {
 	@Override
 	public List<Author> getAllAuthors() throws RepositoryException {
 		openConnection();
-		TypedQuery<Author> query = entityManager.createQuery("Select a from Author a", Author.class);
-		List<Author> authors = query.getResultList();
+		
+		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+		CriteriaQuery<Author> authors = builder.createQuery(Author.class);
+						
+		
+		Root<Author> author = authors.from(Author.class);
+		
+		authors.select(author);
+
+		
+		TypedQuery<Author> authorTypeQuery = entityManager.createQuery(authors);
+		List<Author> finalList = authorTypeQuery.getResultList();
+
+		
 		closeConnection();
-		return authors;
+		return finalList;
 	}
 
 	@Override
