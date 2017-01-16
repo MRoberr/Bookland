@@ -1,5 +1,10 @@
 package edu.msg.bookland.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
 /**
  * This is the Author class corresponding to Authors table in the DB.
  * 
@@ -7,11 +12,16 @@ package edu.msg.bookland.model;
  *
  */
 
+@Entity
+@Table(name = "authors")
 public class Author extends BaseEntity {
 
+	@Transient
 	private static final long serialVersionUID = 3106992709617480273L;
-	private String name;	
-	
+
+	@Column(name = "name", nullable = true, unique = true)
+	private String name;
+
 	public String getName() {
 		return name;
 	}

@@ -56,6 +56,8 @@ public class JDBCUserDAO implements UserDAO {
 				u.setUUID(users.getString("uuid"));
 				list.add(u);
 			}
+			users.close();
+			statemanet.close();
 			LOGGER.info("All user selected");
 		} catch (SQLException e) {
 			LOGGER.error("Could not query Users", e);
@@ -87,7 +89,7 @@ public class JDBCUserDAO implements UserDAO {
 			preparedStatement.setInt(5, user.getLoyaltyIndex());
 			preparedStatement.setString(6, user.getPassword());
 			preparedStatement.execute();
-
+			preparedStatement.close();
 			LOGGER.info("user inserted");
 		} catch (SQLException e) {
 			LOGGER.error("Could not inserd users. ", e);
@@ -112,7 +114,7 @@ public class JDBCUserDAO implements UserDAO {
 			PreparedStatement preparedStatement = con.prepareStatement("DELETE FROM library_users WHERE uuid = ?");
 			preparedStatement.setString(1, user.getUUID());
 			preparedStatement.execute();
-
+			preparedStatement.close();
 			LOGGER.info("user deleted");
 		} catch (SQLException e) {
 			LOGGER.error("Could not delete user. ", e);
@@ -144,6 +146,7 @@ public class JDBCUserDAO implements UserDAO {
 			preparedStatement.setString(4, user.getPassword());
 			preparedStatement.setString(5, user.getUUID());
 			preparedStatement.execute();
+			preparedStatement.close();
 			LOGGER.info("user info updated");
 
 		} catch (SQLException e) {
@@ -175,6 +178,7 @@ public class JDBCUserDAO implements UserDAO {
 			preparedStatement.setInt(3, user.getLoyaltyIndex());
 			preparedStatement.setString(5, user.getUUID());
 			preparedStatement.execute();
+			preparedStatement.close();			
 			LOGGER.info("user info updated");
 
 		} catch (SQLException e) {

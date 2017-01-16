@@ -129,4 +129,29 @@ public class JDBCBorrowingDAO implements BorrowingDAO {
 		}
 	}
 
+	@Override
+	public void updateBorrowing(Borrowing borrowing) throws RepositoryException {
+		Connection con = null;
+		try {
+			con = connectionManager.getConnection();
+			PreparedStatement preparedStatement = con
+					.prepareStatement("update publication_borrowings set deadline = ? "
+							+ "where publications_uuid = ? and user_uuid = ?");
+			preparedStatement.setDate(1, borrowing.getDeadline());
+			preparedStatement.setString(2, borrowing.getPublicationId());
+			preparedStatement.setString(3, borrowing.getUserId());
+			preparedStatement.execute();
+			preparedStatement.close();
+			LOGGER.info("Succesfully updated borrowing");
+		} catch (SQLException e) {
+			LOGGER.error("Cannot update borrowing", e);
+			throw new RepositoryException("Cannot update borrowing", e);
+		} finally {
+			if (con != null) {
+				connectionManager.returnConnection(con);
+			}
+		}
+		
+	}
+
 }

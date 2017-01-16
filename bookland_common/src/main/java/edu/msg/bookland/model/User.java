@@ -18,6 +18,11 @@ public class User extends BaseEntity {
 	private int loyaltyIndex;
 	private String email;
 
+
+	public User() {
+		
+	}
+	
 	public User(String name) {
 		this.name = name;
 		loyaltyIndex = 10;
