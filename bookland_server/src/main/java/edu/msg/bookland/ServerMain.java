@@ -93,8 +93,4 @@ public class ServerMain {
 		}
 	}
 
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> branch 'develop' of https://github.com/MRoberr/Bookland.git
