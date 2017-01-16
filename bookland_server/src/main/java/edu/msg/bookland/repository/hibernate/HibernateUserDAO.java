@@ -6,7 +6,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
-
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 import edu.msg.bookland.model.User;
 import edu.msg.bookland.model.UserType;
@@ -19,8 +21,19 @@ public class HibernateUserDAO implements UserDAO {
 
 	@Override
 	public List<User> getAllUsers() throws RepositoryException {
-		TypedQuery<User> query = entityManager.createQuery("Select u from User u", User.class);
-		List<User> users = query.getResultList();
+	
+		//JPQL
+//		TypedQuery<User> query = entityManager.createQuery("Select u from User u", User.class);
+//		List<User> users = query.getResultList();
+//		return users;
+		
+		//Criteria
+		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+		CriteriaQuery<User> criteriaQuery = criteriaBuilder.createQuery(User.class);
+		Root<User> from = criteriaQuery.from(User.class);
+		criteriaQuery.select(from);
+		TypedQuery<User> q = entityManager.createQuery(criteriaQuery);
+		List<User> users = q.getResultList();
 		return users;
 	}
 
