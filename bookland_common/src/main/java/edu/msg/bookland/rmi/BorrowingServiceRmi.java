@@ -6,6 +6,7 @@ import java.util.List;
 
 import edu.msg.bookland.model.Borrowing;
 import edu.msg.bookland.model.Publication;
+import edu.msg.bookland.model.Tuple;
 
 /**
  * RMI interface for Borrow CRUD operations.
@@ -27,7 +28,7 @@ public interface BorrowingServiceRmi extends Remote {
 	 * @return returns a Borrow object
 	 * @throws RemoteException
 	 */
-	public List<Publication> getBorrowByUserUUID(String uuid) throws RemoteException;
+	public List<Tuple> getBorrowByUserUUID(String uuid) throws RemoteException;
 
 	/**
 	 * Deletes the borrowing in the DB. Updates the number of copies left field

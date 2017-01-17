@@ -3,20 +3,9 @@ package edu.msg.bookland;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import java.util.List;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 
 import org.apache.log4j.Logger;
-import org.hibernate.HibernateException;
 
-import edu.msg.bookland.model.Author;
 import edu.msg.bookland.repository.jdbc.ConnectionManager;
 import edu.msg.bookland.rmi.AuthorServiceRmi;
 import edu.msg.bookland.rmi.BorrowingServiceRmi;

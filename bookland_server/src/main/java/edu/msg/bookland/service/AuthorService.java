@@ -37,9 +37,6 @@ public class AuthorService extends UnicastRemoteObject implements AuthorServiceR
 
 	}
 
-	/*
-	 * @see edu.msg.bookland.rmi.AuthorServiceRmi#getAllAuthors()
-	 */
 	@Override
 	public List<Author> getAllAuthors() throws RemoteException {
 		try {
@@ -51,11 +48,6 @@ public class AuthorService extends UnicastRemoteObject implements AuthorServiceR
 
 	}
 
-	/*
-	 * @see
-	 * edu.msg.bookland.rmi.AuthorServiceRmi#insertAuthor(edu.msg.bookland.model
-	 * .Author)
-	 */
 	@Override
 	public boolean insertAuthor(Author author) throws RemoteException {
 		try {
@@ -67,11 +59,7 @@ public class AuthorService extends UnicastRemoteObject implements AuthorServiceR
 		}
 	}
 
-	/*
-	 * @see
-	 * edu.msg.bookland.rmi.AuthorServiceRmi#updateAuthor(edu.msg.bookland.model
-	 * .Author)
-	 */
+
 	@Override
 	public boolean updateAuthor(Author author) throws RemoteException {
 		try {
@@ -83,11 +71,6 @@ public class AuthorService extends UnicastRemoteObject implements AuthorServiceR
 		}
 	}
 
-	/*
-	 * @see
-	 * edu.msg.bookland.rmi.AuthorServiceRmi#deleteAuthor(edu.msg.bookland.model
-	 * .Author)
-	 */
 	@Override
 	public boolean deleteAuthor(Author author) throws RemoteException {
 		// publicationService-getPublicationsByAuthorUUID
@@ -101,9 +84,7 @@ public class AuthorService extends UnicastRemoteObject implements AuthorServiceR
 		}
 	}
 
-	/*
-	 * @see edu.msg.bookland.rmi.AuthorServiceRmi#searchAuthor(java.lang.String)
-	 */
+	
 	@Override
 	public List<Author> searchAuthor(String name) throws RemoteException {
 		// TODO Auto-generated method stub

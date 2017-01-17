@@ -4,97 +4,146 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import edu.msg.bookland.model.Book;
 import edu.msg.bookland.model.Magazine;
 import edu.msg.bookland.model.Newspaper;
 import edu.msg.bookland.model.Publication;
+import edu.msg.bookland.repository.DAOFactory;
+import edu.msg.bookland.repository.PublicationDAO;
+import edu.msg.bookland.repository.RepositoryException;
+import edu.msg.bookland.repository.jdbc.JDBCUserDAO;
 import edu.msg.bookland.rmi.PublicationServiceRmi;
 
 public class PublicationService extends UnicastRemoteObject implements PublicationServiceRmi {
 
 	private static final long serialVersionUID = 3284877157625860710L;
 
-	public PublicationService() throws RemoteException {
-		super();
+	private static final Logger LOGGER = Logger.getLogger(JDBCUserDAO.class);
+	private PublicationDAO pubDAO;
 
+	public PublicationService() throws RemoteException {
+		pubDAO = DAOFactory.getDAOFactory().getPublicationDAO();
 	}
 
 	@Override
 	public List<Book> getAllBooks() throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
+		return pubDAO.getAllBooks();
 	}
 
 	@Override
 	public List<Magazine> getAllMagazines() throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
+		return pubDAO.getAllMagazines();
 	}
 
 	@Override
 	public List<Newspaper> getAllNewspapers() throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
+		return pubDAO.getAllNewspapers();
 	}
 
 	@Override
 	public List<Publication> getAllPublications() throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
+		return pubDAO.getAllPublications();
 	}
 
 	@Override
 	public boolean insertBook(Book book) throws RemoteException {
-		// TODO Auto-generated method stub
-		return false;
+		try{
+			pubDAO.insertBook(book);
+			return true;
+		}catch (RepositoryException e) {
+			LOGGER.error("Can't insert Book");
+			return false;
+		}
 	}
 
 	@Override
 	public boolean insertMagazine(Magazine magazine) throws RemoteException {
-		// TODO Auto-generated method stub
-		return false;
+		try{
+			pubDAO.insertMagazine(magazine);
+			return true;
+		}catch (RepositoryException e) {
+			LOGGER.error("Can't insert Magazine");
+			return false;
+		}
 	}
 
 	@Override
 	public boolean insertNewspaper(Newspaper newspaper) throws RemoteException {
-		// TODO Auto-generated method stub
-		return false;
+		try{
+			pubDAO.insertNewspaper(newspaper);
+			return true;
+		}catch (RepositoryException e) {
+			LOGGER.error("Can't insert Newspaper");
+			return false;
+		}
 	}
 
 	@Override
 	public boolean updateBook(Book book) throws RemoteException {
-		// TODO Auto-generated method stub
-		return false;
+		try{
+			pubDAO.updateBook(book);
+			return true;
+		}catch (RepositoryException e) {
+			LOGGER.error("Can't update Book");
+			return false;
+		}
 	}
 
 	@Override
 	public boolean updateMagazine(Magazine magazine) throws RemoteException {
-		// TODO Auto-generated method stub
-		return false;
+		try{
+			pubDAO.updateMagazine(magazine);
+			return true;
+		}catch (RepositoryException e) {
+			LOGGER.error("Can't update Magazine");
+			return false;
+		}
 	}
 
 	@Override
 	public boolean updateNewspaper(Newspaper newspaper) throws RemoteException {
-		// TODO Auto-generated method stub
-		return false;
+		try{
+			pubDAO.updateNewspaper(newspaper);
+			return true;
+		}catch (RepositoryException e) {
+			LOGGER.error("Can't update Newspaper");
+			return false;
+		}
 	}
 
 	@Override
 	public boolean deleteBook(Book book) throws RemoteException {
-		// TODO Auto-generated method stub
-		return false;
+		try{
+			pubDAO.deleteBook(book);
+			return true;
+		}catch (RepositoryException e) {
+			LOGGER.error("Can't delete Book");
+			return false;
+		}
 	}
 
 	@Override
 	public boolean deleteMagazine(Magazine magazine) throws RemoteException {
-		// TODO Auto-generated method stub
-		return false;
+		try{
+			pubDAO.deleteMagazine(magazine);
+			return true;
+		}catch (RepositoryException e) {
+			LOGGER.error("Can't delete Magazine");
+			return false;
+		}
 	}
 
 	@Override
 	public boolean deleteNewspaper(Newspaper newspaper) throws RemoteException {
-		// TODO Auto-generated method stub
-		return false;
+		try{
+			pubDAO.deleteNewspaper(newspaper);
+			return true;
+		}catch (RepositoryException e) {
+			LOGGER.error("Can't delete Newspaper");
+			return false;
+		}
 	}
 
 	@Override
@@ -111,7 +160,7 @@ public class PublicationService extends UnicastRemoteObject implements Publicati
 		return false;
 	}
 
-	public Publication getPublicationByUuid(String uuid){
+	public Publication getPublicationByUuid(String uuid) {
 		return null;
 	}
 

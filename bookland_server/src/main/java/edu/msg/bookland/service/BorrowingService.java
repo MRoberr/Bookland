@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 
 import edu.msg.bookland.model.Borrowing;
 import edu.msg.bookland.model.Publication;
+import edu.msg.bookland.model.Tuple;
 import edu.msg.bookland.repository.BorrowingDAO;
 import edu.msg.bookland.repository.DAOFactory;
 import edu.msg.bookland.repository.RepositoryException;
@@ -36,7 +37,15 @@ public class BorrowingService extends UnicastRemoteObject implements BorrowingSe
 		borrowingDAO = DAOFactory.getDAOFactory().getBorrowingDAO();
 	}
 
-	
+	/**
+	 * Inserts the given {@link Borrowing} into database.
+	 * @param borrow 
+	 * the {@link Borrowing} object
+	 * 
+	 * @return false if insert fails otherwise true
+	 * 
+	 * @throws RemoteException 
+	 */
 	public boolean insertBorrowing(Borrowing borrow) throws RemoteException {
 		try {
 			borrowingDAO.insertBorrowing(borrow);
@@ -47,7 +56,15 @@ public class BorrowingService extends UnicastRemoteObject implements BorrowingSe
 		}
 	}
 
-	
+	/**
+	 * Update the given {@link Borrowing} into database.
+	 * @param borrow 
+	 * the {@link Borrowing} object
+	 * 
+	 * @return false if update fails otherwise true
+	 * 
+	 * @throws RemoteException 
+	 */
 	public boolean updateBorrowing(Borrowing borrow) throws RemoteException {
 		try {
 			// borrowingDAO.up(borrow);
@@ -58,7 +75,15 @@ public class BorrowingService extends UnicastRemoteObject implements BorrowingSe
 		}
 	}
 
-	
+	/**
+	 * Inserts the given {@link Borrowing} into database.
+	 * @param borrow 
+	 * the {@link Borrowing} object
+	 * 
+	 * @return false if delete fails otherwise true
+	 * 
+	 * @throws RemoteException 
+	 */
 	public boolean deleteBorrow(Borrowing borrow) throws RemoteException {
 		try {
 			borrowingDAO.deleteBorrowing(borrow);
@@ -70,7 +95,7 @@ public class BorrowingService extends UnicastRemoteObject implements BorrowingSe
 	}
 
 	@Override
-	public List<Publication> getBorrowByUserUUID(String uuid) throws RemoteException {
+	public List<Tuple> getBorrowByUserUUID(String uuid) throws RemoteException {
 		List<Borrowing> borrows;
 		try {
 			borrows = borrowingDAO.getPublicationsBorrowedByUser(uuid);
