@@ -1,6 +1,8 @@
 package edu.msg.bookland.desktop.controller;
 
 import java.rmi.RemoteException;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
@@ -131,13 +133,14 @@ public class MainController {
 				searchUsers();
 				tempUser = getUserFromResult();
 				if (tempUser != null) {
-					System.out.println("Enter publication title!");
 					searchPublications();
 					tempPublication = getPublicationFromResult();
 					if (tempPublication != null) {
 						Borrowing borrowing = new Borrowing();
 						borrowing.setUserId(tempUser.getUUID());
 						borrowing.setPublicationId(tempPublication.getUUID());
+						borrowing.setBorrowingDate(Date.valueOf(LocalDate.now()));
+						borrowing.setDeadline(Date.valueOf(LocalDate.now().plusDays(20)));
 						if (csc.borrowPublication(borrowing)) {
 							System.out.println("Borrowing successful!");
 						} else {
@@ -216,7 +219,6 @@ public class MainController {
 			System.exit(0);
 			break;
 		case 1:
-			System.out.println("Enter publication title!");
 			searchPublications();
 			break;
 		default:
@@ -226,6 +228,7 @@ public class MainController {
 	}
 
 	private void searchPublications() {
+		System.out.println("Enter publication title!");
 		tempStr = getLine();
 		tempPublications = dac.getPublications(tempStr);
 		if (tempPublications == null) {
@@ -249,7 +252,7 @@ public class MainController {
 		}
 		tempInt = 0;
 		for (Tuple t : tempTuples) {
-			System.out.println(++tempInt + ": " + t.toString());
+			System.out.println(++tempInt + ": " + t.getBorrow().toString());
 		}
 	}
 
