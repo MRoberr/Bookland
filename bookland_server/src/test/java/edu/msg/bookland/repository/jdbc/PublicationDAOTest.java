@@ -2,6 +2,8 @@ package edu.msg.bookland.repository.jdbc;
 
 import java.util.List;
 
+import javax.persistence.PersistenceException;
+
 import org.junit.Test;
 
 import edu.msg.bookland.model.Book;
@@ -42,8 +44,10 @@ public class PublicationDAOTest {
 			publicationDAO.getAllPublications();
 			
 			Book book = new Book();
-			book.setUUID("asdq14312");
-			book.setTitle("title hahaha xD");
+			book.setUUID("1klj345n1");
+			book.setTitle("minusz beszuras");
+			book.setCopiesLeft(11);
+			book.setCopiesLeft(1);
 			
 			
 //			publicationDAO.insertBook(book);
@@ -52,7 +56,10 @@ public class PublicationDAOTest {
 //			publicationDAO.updateBook(book);
 			publicationDAO.searchPublication("ember");
 			
-		} catch(Exception e) {
+			publicationDAO.getCopiesLeft("1234");
+			publicationDAO.setCopiesLeft("1234");
+			
+		} catch(PersistenceException e) {
 			e.printStackTrace();
 		}
 

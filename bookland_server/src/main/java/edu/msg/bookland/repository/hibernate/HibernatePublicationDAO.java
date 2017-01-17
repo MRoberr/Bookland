@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -192,20 +193,46 @@ public class HibernatePublicationDAO implements PublicationDAO{
 
 	@Override
 	public int getCopiesLeft(String uuid) {
-		// TODO Auto-generated method stub
-		return 0;
+
+		Publication publication = entityManager.find(Publication.class, uuid);
+		
+		System.out.println(publication.getCopiesLeft());
+		
+		return publication.getCopiesLeft();
 	}
 
 	@Override
 	public void setCopiesLeft(String uuid) {
-		// TODO Auto-generated method stub
+
+		try {
+			
+			Publication pub = entityManager.find(Publication.class, uuid);
+			
+			entityManager.getTransaction().begin();
+			CriteriaUpdate<Book> updateCopiesLeft = builder.createCriteriaUpdate(Book.class);
+			
+			Root<Book> bookRoot = updateCopiesLeft.from(Book.class);
+			
+			pub.setCopiesLeft(pub.getCopiesLeft()-1);
+			updateCopiesLeft.set(bookRoot.get(Book_.copiesLeft), pub.getCopiesLeft());
+			
+			updateCopiesLeft.where(builder.equal(bookRoot.get(Book_.uuId), uuid));
+			entityManager.createQuery(updateCopiesLeft).executeUpdate();
+			entityManager.getTransaction().commit();
+			
+		} catch(PersistenceException e) {
+			//log error
+			throw new RepositoryException("",e);
+		}
 		
 	}
 
 	@Override
 	public Publication getPublicationByUuid(String uuid) {
-		// TODO Auto-generated method stub
-		return null;
+
+		Publication pub = entityManager.find(Publication.class, uuid);
+		
+		return pub;
 	}
 
 }
