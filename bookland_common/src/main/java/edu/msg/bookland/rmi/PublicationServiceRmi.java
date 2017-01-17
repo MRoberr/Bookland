@@ -18,16 +18,16 @@ import edu.msg.bookland.model.Publication;
 public interface PublicationServiceRmi extends Remote {
 
 	public static final String RMI_NAME = "Publication";
-	public static final int RMI_PORT = 1099;
-	
+	public static final int RMI_PORT = 10099;
+
 	/**
 	 * This function gets all the Books from DB.
 	 * 
 	 * @return Book List
 	 * @throws RemoteException
 	 */
-	public List<Book> getAllBooks() throws RemoteException; 
-	
+	public List<Book> getAllBooks() throws RemoteException;
+
 	/**
 	 * This function gets all the Magazines from DB.
 	 * 
@@ -35,7 +35,7 @@ public interface PublicationServiceRmi extends Remote {
 	 * @throws RemoteException
 	 */
 	public List<Magazine> getAllMagazines() throws RemoteException;
-	
+
 	/**
 	 * This function gets all the Newspapers from DB.
 	 * 
@@ -43,7 +43,7 @@ public interface PublicationServiceRmi extends Remote {
 	 * @throws RemoteException
 	 */
 	public List<Newspaper> getAllNewspapers() throws RemoteException;
-	
+
 	/**
 	 * This function gets all the Publications from DB.
 	 * 
@@ -51,16 +51,16 @@ public interface PublicationServiceRmi extends Remote {
 	 * @throws RemoteException
 	 */
 	public List<Publication> getAllPublications() throws RemoteException;
-	
+
 	/**
 	 * This method inserts a Book into DB.
-	 * 	
+	 * 
 	 * @param book
 	 * @return true, if succeeded
 	 * @throws RemoteException
 	 */
 	public boolean insertBook(Book book) throws RemoteException;
-	
+
 	/**
 	 * This method inserts a Magazine into DB.
 	 * 
@@ -69,7 +69,7 @@ public interface PublicationServiceRmi extends Remote {
 	 * @throws RemoteException
 	 */
 	public boolean insertMagazine(Magazine magazine) throws RemoteException;
-	
+
 	/**
 	 * This method inserts a Newspaper into DB.
 	 * 
@@ -78,7 +78,7 @@ public interface PublicationServiceRmi extends Remote {
 	 * @throws RemoteException
 	 */
 	public boolean insertNewspaper(Newspaper newspaper) throws RemoteException;
-	
+
 	/**
 	 * This method updates the Book by its id.
 	 * 
@@ -87,7 +87,7 @@ public interface PublicationServiceRmi extends Remote {
 	 * @throws RemoteException
 	 */
 	public boolean updateBook(Book book) throws RemoteException;
-	
+
 	/**
 	 * This method updates the Magazine by its id.
 	 * 
@@ -96,7 +96,7 @@ public interface PublicationServiceRmi extends Remote {
 	 * @throws RemoteException
 	 */
 	public boolean updateMagazine(Magazine magazine) throws RemoteException;
-	
+
 	/**
 	 * This method updates the Newspaper by its id.
 	 * 
@@ -105,7 +105,7 @@ public interface PublicationServiceRmi extends Remote {
 	 * @throws RemoteException
 	 */
 	public boolean updateNewspaper(Newspaper newspaper) throws RemoteException;
-	
+
 	/**
 	 * This method deletes the Book by its id.
 	 * 
@@ -114,7 +114,7 @@ public interface PublicationServiceRmi extends Remote {
 	 * @throws RemoteException
 	 */
 	public boolean deleteBook(Book book) throws RemoteException;
-	
+
 	/**
 	 * This method deletes the Magazine by its id.
 	 * 
@@ -123,7 +123,7 @@ public interface PublicationServiceRmi extends Remote {
 	 * @throws RemoteException
 	 */
 	public boolean deleteMagazine(Magazine magazine) throws RemoteException;
-	
+
 	/**
 	 * This method deletes the Newspaper by its id.
 	 * 
@@ -132,7 +132,7 @@ public interface PublicationServiceRmi extends Remote {
 	 * @throws RemoteException
 	 */
 	public boolean deleteNewspaper(Newspaper newspaper) throws RemoteException;
-	
+
 	/**
 	 * This method searches for a Book with the specified uuid.
 	 * 
@@ -140,8 +140,8 @@ public interface PublicationServiceRmi extends Remote {
 	 * @return Book
 	 * @throws RemoteException
 	 */
-	public Book searchBook(String title) throws RemoteException; 
-	
+	public Book searchBook(String title) throws RemoteException;
+
 	/**
 	 * This method searches for a Magazine with the specified uuid.
 	 * 
@@ -149,8 +149,8 @@ public interface PublicationServiceRmi extends Remote {
 	 * @return Magazine
 	 * @throws RemoteException
 	 */
-	public Magazine searchMagazin(String title) throws RemoteException; 
-	
+	public Magazine searchMagazin(String title) throws RemoteException;
+
 	/**
 	 * This method searches for a Newspaper with the specified uuid.
 	 * 
@@ -158,10 +158,11 @@ public interface PublicationServiceRmi extends Remote {
 	 * @return Newspaper
 	 * @throws RemoteException
 	 */
-	public Newspaper searchNewspaper(String title) throws RemoteException; 
-	
+	public Newspaper searchNewspaper(String title) throws RemoteException;
+
 	/**
-	 * This method searches for all Publications with the specified title using regex.
+	 * This method searches for all Publications with the specified title using
+	 * regex.
 	 * 
 	 * @param regex
 	 * @return Publication List
@@ -169,5 +170,4 @@ public interface PublicationServiceRmi extends Remote {
 	 */
 	public List<Publication> searchPublicationByRegexp(String regex) throws RemoteException;
 
-	
 }

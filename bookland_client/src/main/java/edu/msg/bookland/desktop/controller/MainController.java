@@ -228,7 +228,7 @@ public class MainController {
 	private void searchPublications() {
 		tempStr = getLine();
 		tempPublications = dac.getPublications(tempStr);
-		if ((tempPublications == null) || (tempPublications.isEmpty())) {
+		if (tempPublications == null) {
 			System.out.println("Couldn't find any publication with title <" + tempStr + ">!");
 			return;
 		}
@@ -240,8 +240,11 @@ public class MainController {
 
 	private void searchBorrowedPublications(String uuid) {
 		tempTuples = csc.getPublicationsBorrowedByUser(uuid);
-		if ((tempTuples == null) || (tempTuples.isEmpty())) {
+		if (tempTuples == null) {
 			System.out.println("Couldn't find any publication for user!");
+			return;
+		} else if ((tempTuples.size()>0) && ((tempTuples.get(0).getBorrow() == null) || (tempTuples.get(0).getPublication() == null)) ){
+			tempTuples = null;
 			return;
 		}
 		tempInt = 0;
@@ -284,9 +287,7 @@ public class MainController {
 
 	private Tuple getBorrowedPublicationFromResult() {
 		if (tempTuples == null) {
-			return null;
-		} else if ((tempTuples.size()>0) && ((tempTuples.get(0).getBorrow() == null) || (tempTuples.get(0).getPublication() == null)) ){
-			return null;
+			return null;		
 		} else {
 			System.out.println("Select number from the list above.");
 			int cmd = getIntLine();

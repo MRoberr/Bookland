@@ -22,6 +22,14 @@ public class Author extends BaseEntity {
 	@Column(name = "name", nullable = false, unique = true)
 	private String name;
 
+	public Author(){
+		
+	}
+	
+	public Author(Author a){
+		setUUID(a.getUUID());
+		name=a.getName();
+	}
 	public String getName() {
 		return name;
 	}

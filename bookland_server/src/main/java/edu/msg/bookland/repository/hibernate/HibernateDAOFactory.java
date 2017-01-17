@@ -20,8 +20,7 @@ public class HibernateDAOFactory extends DAOFactory {
 
 	@Override
 	public BorrowingDAO getBorrowingDAO() {
-		// TODO Auto-generated method stub
-		return null;
+		return new HibernateBorrowingDAO();
 	}
 
 	@Override
