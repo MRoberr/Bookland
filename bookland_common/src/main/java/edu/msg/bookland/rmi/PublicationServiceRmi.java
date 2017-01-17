@@ -17,8 +17,13 @@ import edu.msg.bookland.model.Publication;
  */
 public interface PublicationServiceRmi extends Remote {
 
+<<<<<<< HEAD
 	public static final String RMI_NAME = "Book";
 	public static final int RMI_PORT = 10099;
+=======
+	public static final String RMI_NAME = "Publication";
+	public static final int RMI_PORT = 1099;
+>>>>>>> branch 'develop' of https://github.com/MRoberr/Bookland.git
 	
 	/**
 	 * This function gets all the Books from DB.
