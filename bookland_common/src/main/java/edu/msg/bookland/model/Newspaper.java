@@ -21,9 +21,17 @@ public class Newspaper extends Publication{
 	@Transient
 	private static final long serialVersionUID = -3891407649176906111L;
 	
-	public Newspaper() {
-		
+	public Newspaper() {		
 		borrow = new ArrayList<>();
+	}
+	
+	public Newspaper(Newspaper n){
+		setUUID(n.getUUID());
+		setCopiesLeft(n.getCopiesLeft());
+		setNumberOfCopies(n.getNumberOfCopies());
+		setPublisher(n.getPublisher());
+		setReleaseDate(n.getReleaseDate());
+		setTitle(n.getTitle());
 	}
 	
 	@Override
