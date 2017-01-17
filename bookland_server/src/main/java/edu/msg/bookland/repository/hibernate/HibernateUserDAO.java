@@ -39,8 +39,10 @@ public class HibernateUserDAO implements UserDAO {
 		try {
 			CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 			CriteriaQuery<User> criteriaQuery = criteriaBuilder.createQuery(User.class);
+			
 			Root<User> from = criteriaQuery.from(User.class);
 			criteriaQuery.select(from);
+			
 			TypedQuery<User> q = entityManager.createQuery(criteriaQuery);
 			users = q.getResultList();
 			LOGGER.info("All user selected");

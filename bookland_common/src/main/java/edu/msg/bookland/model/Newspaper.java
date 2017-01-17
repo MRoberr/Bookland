@@ -16,15 +16,15 @@ import javax.persistence.Transient;
  */
 @Entity
 @DiscriminatorValue("3")
-public class Newspaper extends Publication {
+public class Newspaper extends Publication{
 
 	@Transient
 	private static final long serialVersionUID = -3891407649176906111L;
-
-	public Newspaper() {
-
+	
+	public Newspaper() {		
+		borrow = new ArrayList<>();
 	}
-
+	
 	public Newspaper(Newspaper newspaper) {
 		setUUID(newspaper.getUUID());
 		setCopiesLeft(newspaper.getCopiesLeft());
@@ -33,16 +33,16 @@ public class Newspaper extends Publication {
 		setReleaseDate(newspaper.getReleaseDate());
 		setTitle(newspaper.getTitle());
 	}
-
+	
 	@Override
 	public String toString() {
-		String ss = super.toString();
+		String ss=super.toString();
 		Calendar date = Calendar.getInstance();
 		date.setTime(releaseDate);
-		int year = date.get(Calendar.YEAR);
-		int month = date.get(Calendar.MONTH);
-		int day = date.get(Calendar.DAY_OF_MONTH);
-		return "Newspaper: " + ss + ", releaseDate " + year + "-" + month + "-" + day;
+		int year = date.get(Calendar.YEAR);  
+		int month = date.get(Calendar.MONTH); 
+		int day = date.get(Calendar.DAY_OF_MONTH); 
+		return "Newspaper: "+ ss+", releaseDate "+year+"-"+month+"-"+day ;
 	}
 
 }

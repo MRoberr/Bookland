@@ -1,9 +1,13 @@
 package edu.msg.bookland.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -19,6 +23,7 @@ import javax.persistence.Transient;
 @Entity
 @Table(name = "library_users")
 public class User extends BaseEntity {
+	
 	@Transient
 	private static final long serialVersionUID = 2326611259099577676L;
 
@@ -37,9 +42,13 @@ public class User extends BaseEntity {
 
 	@Column(name = "email", nullable = false, unique = true)
 	private String email;
+	
+	@OneToMany(mappedBy = "user")
+	private List<Borrowing> borrow;
 
 	public User() {
 
+		borrow = new ArrayList<>();
 	}
 
 	public User(String name) {
@@ -96,6 +105,10 @@ public class User extends BaseEntity {
 		this.email = email;
 	}
 
+	public List<Borrowing> getBorrows() {
+		
+		return borrow;
+	}
 	@Override
 	public String toString() {
 		return "User: name=" + name + ", userType=" + userType + ", loyaltyIndex=" + loyaltyIndex + ", email=" + email;
