@@ -169,7 +169,7 @@ public class PublicationService extends UnicastRemoteObject implements Publicati
 	@Override
 	public List<Publication> searchPublicationByRegexp(String regex) throws RemoteException {
 		try {
-			return pubDAO.searchPublication("%" + regex + "%");
+			return pubDAO.searchPublication(regex);
 		} catch (RepositoryException e) {
 			return null;
 		}
