@@ -1,5 +1,6 @@
 package edu.msg.bookland.repository;
 
+import edu.msg.bookland.repository.hibernate.HibernateDAOFactory;
 import edu.msg.bookland.repository.jdbc.JDBCDAOFactory;
 
 /**
@@ -16,7 +17,7 @@ public abstract class DAOFactory {
 	 * @return one specific DAO Factory
 	 */
 	public static DAOFactory getDAOFactory() {
-		return new JDBCDAOFactory();
+		return new HibernateDAOFactory();
 	}
 
 	/**
