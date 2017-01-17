@@ -1,3 +1,715 @@
+<<<<<<< HEAD
+2017-01-17 10:36:30 ERROR ConnectionManager:49 - Server not running
+  java.rmi.server.ExportException: Port already in use: 1099; nested exception is: 
+	java.net.BindException: Address already in use: JVM_Bind
+	at sun.rmi.transport.tcp.TCPTransport.listen(TCPTransport.java:341)
+	at sun.rmi.transport.tcp.TCPTransport.exportObject(TCPTransport.java:249)
+	at sun.rmi.transport.tcp.TCPEndpoint.exportObject(TCPEndpoint.java:411)
+	at sun.rmi.transport.LiveRef.exportObject(LiveRef.java:147)
+	at sun.rmi.server.UnicastServerRef.exportObject(UnicastServerRef.java:212)
+	at sun.rmi.registry.RegistryImpl.setup(RegistryImpl.java:152)
+	at sun.rmi.registry.RegistryImpl.<init>(RegistryImpl.java:137)
+	at java.rmi.registry.LocateRegistry.createRegistry(LocateRegistry.java:203)
+	at edu.msg.bookland.ServerMain.initServer(ServerMain.java:36)
+	at edu.msg.bookland.ServerMain.main(ServerMain.java:28)
+Caused by: java.net.BindException: Address already in use: JVM_Bind
+	at java.net.DualStackPlainSocketImpl.bind0(Native Method)
+	at java.net.DualStackPlainSocketImpl.socketBind(DualStackPlainSocketImpl.java:106)
+	at java.net.AbstractPlainSocketImpl.bind(AbstractPlainSocketImpl.java:387)
+	at java.net.PlainSocketImpl.bind(PlainSocketImpl.java:190)
+	at java.net.ServerSocket.bind(ServerSocket.java:375)
+	at java.net.ServerSocket.<init>(ServerSocket.java:237)
+	at java.net.ServerSocket.<init>(ServerSocket.java:128)
+	at sun.rmi.transport.proxy.RMIDirectSocketFactory.createServerSocket(RMIDirectSocketFactory.java:45)
+	at sun.rmi.transport.proxy.RMIMasterSocketFactory.createServerSocket(RMIMasterSocketFactory.java:345)
+	at sun.rmi.transport.tcp.TCPEndpoint.newServerSocket(TCPEndpoint.java:666)
+	at sun.rmi.transport.tcp.TCPTransport.listen(TCPTransport.java:330)
+	... 9 more
+2017-01-17 10:36:42 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [
+	name: bookland_jpa
+	...]
+  2017-01-17 10:36:42 INFO  Version:45 - HHH000412: Hibernate Core {5.2.6.Final}
+  2017-01-17 10:36:42 INFO  Environment:213 - HHH000206: hibernate.properties not found
+  2017-01-17 10:36:42 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+  2017-01-17 10:36:42 WARN  pooling:70 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+  2017-01-17 10:36:42 INFO  pooling:126 - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library?useSSL=false]
+  2017-01-17 10:36:42 INFO  pooling:135 - HHH10001001: Connection properties: {user=library_admin, password=****}
+  2017-01-17 10:36:42 INFO  pooling:140 - HHH10001003: Autocommit mode: false
+  2017-01-17 10:36:42 INFO  DriverManagerConnectionProviderImpl:41 - HHH000115: Hibernate connection pool size: 20 (min=1)
+  2017-01-17 10:36:42 INFO  Dialect:157 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+  2017-01-17 10:36:43 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [
+	name: bookland_jpa
+	...]
+  2017-01-17 10:36:43 WARN  pooling:70 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+  2017-01-17 10:36:43 INFO  pooling:126 - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library?useSSL=false]
+  2017-01-17 10:36:43 INFO  pooling:135 - HHH10001001: Connection properties: {user=library_admin, password=****}
+  2017-01-17 10:36:43 INFO  pooling:140 - HHH10001003: Autocommit mode: false
+  2017-01-17 10:36:43 INFO  DriverManagerConnectionProviderImpl:41 - HHH000115: Hibernate connection pool size: 20 (min=1)
+  2017-01-17 10:36:43 INFO  Dialect:157 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+  2017-01-17 10:36:43 INFO  ConnectionManager:45 - Server online!
+  2017-01-17 10:37:49 INFO  QueryTranslatorFactoryInitiator:47 - HHH000397: Using ASTQueryTranslatorFactory
+  2017-01-17 10:37:49 ERROR HibernateUserDAO:140 - Could not loged user. 
+  javax.persistence.NoResultException: No entity found for query
+	at org.hibernate.query.internal.AbstractProducedQuery.getSingleResult(AbstractProducedQuery.java:1461)
+	at edu.msg.bookland.repository.hibernate.HibernateUserDAO.login(HibernateUserDAO.java:137)
+	at edu.msg.bookland.service.UserService.login(UserService.java:114)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at sun.rmi.server.UnicastServerRef.dispatch(UnicastServerRef.java:324)
+	at sun.rmi.transport.Transport$1.run(Transport.java:200)
+	at sun.rmi.transport.Transport$1.run(Transport.java:197)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at sun.rmi.transport.Transport.serviceCall(Transport.java:196)
+	at sun.rmi.transport.tcp.TCPTransport.handleMessages(TCPTransport.java:568)
+	at sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run0(TCPTransport.java:826)
+	at sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.lambda$run$0(TCPTransport.java:683)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run(TCPTransport.java:682)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+2017-01-17 10:37:49 ERROR JDBCUserDAO:116 - Invalid login
+  2017-01-17 10:39:03 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [
+	name: bookland_jpa
+	...]
+  2017-01-17 10:39:03 INFO  Version:45 - HHH000412: Hibernate Core {5.2.6.Final}
+  2017-01-17 10:39:03 INFO  Environment:213 - HHH000206: hibernate.properties not found
+  2017-01-17 10:39:03 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+  2017-01-17 10:39:03 WARN  pooling:70 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+  2017-01-17 10:39:03 INFO  pooling:126 - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library?useSSL=false]
+  2017-01-17 10:39:03 INFO  pooling:135 - HHH10001001: Connection properties: {user=library_admin, password=****}
+  2017-01-17 10:39:03 INFO  pooling:140 - HHH10001003: Autocommit mode: false
+  2017-01-17 10:39:03 INFO  DriverManagerConnectionProviderImpl:41 - HHH000115: Hibernate connection pool size: 20 (min=1)
+  2017-01-17 10:39:04 INFO  Dialect:157 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+  2017-01-17 10:39:04 INFO  QueryTranslatorFactoryInitiator:47 - HHH000397: Using ASTQueryTranslatorFactory
+  2017-01-17 10:39:04 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [
+	name: bookland_jpa
+	...]
+  2017-01-17 10:39:04 WARN  pooling:70 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+  2017-01-17 10:39:04 INFO  pooling:126 - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library?useSSL=false]
+  2017-01-17 10:39:04 INFO  pooling:135 - HHH10001001: Connection properties: {user=library_admin, password=****}
+  2017-01-17 10:39:04 INFO  pooling:140 - HHH10001003: Autocommit mode: false
+  2017-01-17 10:39:04 INFO  DriverManagerConnectionProviderImpl:41 - HHH000115: Hibernate connection pool size: 20 (min=1)
+  2017-01-17 10:39:04 INFO  Dialect:157 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+  2017-01-17 10:39:04 ERROR HibernateUserDAO:66 - Could not inserd users. 
+  javax.persistence.PersistenceException: org.hibernate.id.IdentifierGenerationException: ids for this class must be manually assigned beforeQuery calling save(): edu.msg.bookland.model.User
+	at org.hibernate.internal.ExceptionConverterImpl.convert(ExceptionConverterImpl.java:147)
+	at org.hibernate.internal.ExceptionConverterImpl.convert(ExceptionConverterImpl.java:155)
+	at org.hibernate.internal.ExceptionConverterImpl.convert(ExceptionConverterImpl.java:162)
+	at org.hibernate.internal.SessionImpl.firePersist(SessionImpl.java:780)
+	at org.hibernate.internal.SessionImpl.persist(SessionImpl.java:758)
+	at edu.msg.bookland.repository.hibernate.HibernateUserDAO.insertUser(HibernateUserDAO.java:61)
+	at edu.msg.bookland.service.UserService.insertUser(UserService.java:55)
+	at edu.msg.bookland.service.UserServiceTest.insertTest(UserServiceTest.java:25)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:86)
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:459)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:678)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:382)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:192)
+Caused by: org.hibernate.id.IdentifierGenerationException: ids for this class must be manually assigned beforeQuery calling save(): edu.msg.bookland.model.User
+	at org.hibernate.id.Assigned.generate(Assigned.java:33)
+	at org.hibernate.event.internal.AbstractSaveEventListener.saveWithGeneratedId(AbstractSaveEventListener.java:105)
+	at org.hibernate.jpa.event.internal.core.JpaPersistEventListener.saveWithGeneratedId(JpaPersistEventListener.java:67)
+	at org.hibernate.event.internal.DefaultPersistEventListener.entityIsTransient(DefaultPersistEventListener.java:189)
+	at org.hibernate.event.internal.DefaultPersistEventListener.onPersist(DefaultPersistEventListener.java:132)
+	at org.hibernate.event.internal.DefaultPersistEventListener.onPersist(DefaultPersistEventListener.java:58)
+	at org.hibernate.internal.SessionImpl.firePersist(SessionImpl.java:773)
+	... 27 more
+2017-01-17 10:39:04 ERROR JDBCUserDAO:58 - Failed to insert user
+  2017-01-17 10:39:33 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [
+	name: bookland_jpa
+	...]
+  2017-01-17 10:39:33 INFO  Version:45 - HHH000412: Hibernate Core {5.2.6.Final}
+  2017-01-17 10:39:33 INFO  Environment:213 - HHH000206: hibernate.properties not found
+  2017-01-17 10:39:33 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+  2017-01-17 10:39:33 WARN  pooling:70 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+  2017-01-17 10:39:33 INFO  pooling:126 - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library?useSSL=false]
+  2017-01-17 10:39:33 INFO  pooling:135 - HHH10001001: Connection properties: {user=library_admin, password=****}
+  2017-01-17 10:39:33 INFO  pooling:140 - HHH10001003: Autocommit mode: false
+  2017-01-17 10:39:33 INFO  DriverManagerConnectionProviderImpl:41 - HHH000115: Hibernate connection pool size: 20 (min=1)
+  2017-01-17 10:39:33 INFO  Dialect:157 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+  2017-01-17 10:39:34 ERROR HibernateUserDAO:66 - Could not inserd users. 
+  javax.persistence.PersistenceException: org.hibernate.id.IdentifierGenerationException: ids for this class must be manually assigned beforeQuery calling save(): edu.msg.bookland.model.User
+	at org.hibernate.internal.ExceptionConverterImpl.convert(ExceptionConverterImpl.java:147)
+	at org.hibernate.internal.ExceptionConverterImpl.convert(ExceptionConverterImpl.java:155)
+	at org.hibernate.internal.ExceptionConverterImpl.convert(ExceptionConverterImpl.java:162)
+	at org.hibernate.internal.SessionImpl.firePersist(SessionImpl.java:780)
+	at org.hibernate.internal.SessionImpl.persist(SessionImpl.java:758)
+	at edu.msg.bookland.repository.hibernate.HibernateUserDAO.insertUser(HibernateUserDAO.java:61)
+	at edu.msg.bookland.service.UserService.insertUser(UserService.java:55)
+	at edu.msg.bookland.service.UserServiceTest.insertTest(UserServiceTest.java:25)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:86)
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:459)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:678)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:382)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:192)
+Caused by: org.hibernate.id.IdentifierGenerationException: ids for this class must be manually assigned beforeQuery calling save(): edu.msg.bookland.model.User
+	at org.hibernate.id.Assigned.generate(Assigned.java:33)
+	at org.hibernate.event.internal.AbstractSaveEventListener.saveWithGeneratedId(AbstractSaveEventListener.java:105)
+	at org.hibernate.jpa.event.internal.core.JpaPersistEventListener.saveWithGeneratedId(JpaPersistEventListener.java:67)
+	at org.hibernate.event.internal.DefaultPersistEventListener.entityIsTransient(DefaultPersistEventListener.java:189)
+	at org.hibernate.event.internal.DefaultPersistEventListener.onPersist(DefaultPersistEventListener.java:132)
+	at org.hibernate.event.internal.DefaultPersistEventListener.onPersist(DefaultPersistEventListener.java:58)
+	at org.hibernate.internal.SessionImpl.firePersist(SessionImpl.java:773)
+	... 27 more
+2017-01-17 10:39:34 ERROR JDBCUserDAO:58 - Failed to insert user
+  2017-01-17 10:41:08 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [
+	name: bookland_jpa
+	...]
+  2017-01-17 10:41:08 INFO  Version:45 - HHH000412: Hibernate Core {5.2.6.Final}
+  2017-01-17 10:41:08 INFO  Environment:213 - HHH000206: hibernate.properties not found
+  2017-01-17 10:41:08 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+  2017-01-17 10:41:08 WARN  pooling:70 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+  2017-01-17 10:41:08 INFO  pooling:126 - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library?useSSL=false]
+  2017-01-17 10:41:08 INFO  pooling:135 - HHH10001001: Connection properties: {user=library_admin, password=****}
+  2017-01-17 10:41:08 INFO  pooling:140 - HHH10001003: Autocommit mode: false
+  2017-01-17 10:41:08 INFO  DriverManagerConnectionProviderImpl:41 - HHH000115: Hibernate connection pool size: 20 (min=1)
+  2017-01-17 10:41:08 INFO  Dialect:157 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+  2017-01-17 10:41:09 WARN  SqlExceptionHelper:129 - SQL Error: 1062, SQLState: 23000
+  2017-01-17 10:41:09 ERROR SqlExceptionHelper:131 - Duplicate entry 'admin' for key 'name'
+  2017-01-17 10:41:09 INFO  AbstractBatchImpl:193 - HHH000010: On release of batch it still contained JDBC statements
+  2017-01-17 10:41:09 ERROR ExceptionMapperStandardImpl:39 - HHH000346: Error during managed flush [org.hibernate.exception.ConstraintViolationException: could not execute statement]
+  2017-01-17 10:41:09 ERROR HibernateUserDAO:66 - Could not inserd users. 
+  javax.persistence.RollbackException: Error while committing the transaction
+	at org.hibernate.internal.ExceptionConverterImpl.convertCommitException(ExceptionConverterImpl.java:75)
+	at org.hibernate.engine.transaction.internal.TransactionImpl.commit(TransactionImpl.java:71)
+	at edu.msg.bookland.repository.hibernate.HibernateUserDAO.insertUser(HibernateUserDAO.java:62)
+	at edu.msg.bookland.service.UserService.insertUser(UserService.java:55)
+	at edu.msg.bookland.service.UserServiceTest.insertTest(UserServiceTest.java:26)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:86)
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:459)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:678)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:382)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:192)
+Caused by: javax.persistence.PersistenceException: org.hibernate.exception.ConstraintViolationException: could not execute statement
+	at org.hibernate.internal.ExceptionConverterImpl.convert(ExceptionConverterImpl.java:147)
+	at org.hibernate.internal.ExceptionConverterImpl.convert(ExceptionConverterImpl.java:155)
+	at org.hibernate.internal.ExceptionConverterImpl.convertCommitException(ExceptionConverterImpl.java:56)
+	... 27 more
+Caused by: org.hibernate.exception.ConstraintViolationException: could not execute statement
+	at org.hibernate.exception.internal.SQLExceptionTypeDelegate.convert(SQLExceptionTypeDelegate.java:59)
+	at org.hibernate.exception.internal.StandardSQLExceptionConverter.convert(StandardSQLExceptionConverter.java:42)
+	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:111)
+	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:97)
+	at org.hibernate.engine.jdbc.internal.ResultSetReturnImpl.executeUpdate(ResultSetReturnImpl.java:207)
+	at org.hibernate.engine.jdbc.batch.internal.NonBatchingBatch.addToBatch(NonBatchingBatch.java:45)
+	at org.hibernate.persister.entity.AbstractEntityPersister.insert(AbstractEntityPersister.java:3001)
+	at org.hibernate.persister.entity.AbstractEntityPersister.insert(AbstractEntityPersister.java:3501)
+	at org.hibernate.action.internal.EntityInsertAction.execute(EntityInsertAction.java:89)
+	at org.hibernate.engine.spi.ActionQueue.executeActions(ActionQueue.java:586)
+	at org.hibernate.engine.spi.ActionQueue.executeActions(ActionQueue.java:460)
+	at org.hibernate.event.internal.AbstractFlushingEventListener.performExecutions(AbstractFlushingEventListener.java:337)
+	at org.hibernate.event.internal.DefaultFlushEventListener.onFlush(DefaultFlushEventListener.java:39)
+	at org.hibernate.internal.SessionImpl.doFlush(SessionImpl.java:1428)
+	at org.hibernate.internal.SessionImpl.managedFlush(SessionImpl.java:484)
+	at org.hibernate.internal.SessionImpl.flushBeforeTransactionCompletion(SessionImpl.java:3190)
+	at org.hibernate.internal.SessionImpl.beforeTransactionCompletion(SessionImpl.java:2404)
+	at org.hibernate.engine.jdbc.internal.JdbcCoordinatorImpl.beforeTransactionCompletion(JdbcCoordinatorImpl.java:467)
+	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcResourceLocalTransactionCoordinatorImpl.beforeCompletionCallback(JdbcResourceLocalTransactionCoordinatorImpl.java:146)
+	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcResourceLocalTransactionCoordinatorImpl.access$100(JdbcResourceLocalTransactionCoordinatorImpl.java:38)
+	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcResourceLocalTransactionCoordinatorImpl$TransactionDriverControlImpl.commit(JdbcResourceLocalTransactionCoordinatorImpl.java:220)
+	at org.hibernate.engine.transaction.internal.TransactionImpl.commit(TransactionImpl.java:68)
+	... 26 more
+Caused by: com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException: Duplicate entry 'admin' for key 'name'
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at com.mysql.jdbc.Util.handleNewInstance(Util.java:425)
+	at com.mysql.jdbc.Util.getInstance(Util.java:408)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:935)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3970)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3906)
+	at com.mysql.jdbc.MysqlIO.sendCommand(MysqlIO.java:2524)
+	at com.mysql.jdbc.MysqlIO.sqlQueryDirect(MysqlIO.java:2677)
+	at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2549)
+	at com.mysql.jdbc.PreparedStatement.executeInternal(PreparedStatement.java:1861)
+	at com.mysql.jdbc.PreparedStatement.executeUpdateInternal(PreparedStatement.java:2073)
+	at com.mysql.jdbc.PreparedStatement.executeUpdateInternal(PreparedStatement.java:2009)
+	at com.mysql.jdbc.PreparedStatement.executeLargeUpdate(PreparedStatement.java:5098)
+	at com.mysql.jdbc.PreparedStatement.executeUpdate(PreparedStatement.java:1994)
+	at org.hibernate.engine.jdbc.internal.ResultSetReturnImpl.executeUpdate(ResultSetReturnImpl.java:204)
+	... 43 more
+2017-01-17 10:41:09 ERROR JDBCUserDAO:58 - Failed to insert user
+  2017-01-17 10:42:34 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [
+	name: bookland_jpa
+	...]
+  2017-01-17 10:42:34 INFO  Version:45 - HHH000412: Hibernate Core {5.2.6.Final}
+  2017-01-17 10:42:34 INFO  Environment:213 - HHH000206: hibernate.properties not found
+  2017-01-17 10:42:34 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+  2017-01-17 10:42:34 WARN  pooling:70 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+  2017-01-17 10:42:34 INFO  pooling:126 - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library?useSSL=false]
+  2017-01-17 10:42:34 INFO  pooling:135 - HHH10001001: Connection properties: {user=library_admin, password=****}
+  2017-01-17 10:42:34 INFO  pooling:140 - HHH10001003: Autocommit mode: false
+  2017-01-17 10:42:34 INFO  DriverManagerConnectionProviderImpl:41 - HHH000115: Hibernate connection pool size: 20 (min=1)
+  2017-01-17 10:42:35 INFO  Dialect:157 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+  2017-01-17 10:42:35 INFO  HibernateUserDAO:63 - user inserted
+  2017-01-17 10:43:10 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [
+	name: bookland_jpa
+	...]
+  2017-01-17 10:43:10 INFO  Version:45 - HHH000412: Hibernate Core {5.2.6.Final}
+  2017-01-17 10:43:10 INFO  Environment:213 - HHH000206: hibernate.properties not found
+  2017-01-17 10:43:10 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+  2017-01-17 10:43:10 WARN  pooling:70 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+  2017-01-17 10:43:10 INFO  pooling:126 - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library?useSSL=false]
+  2017-01-17 10:43:10 INFO  pooling:135 - HHH10001001: Connection properties: {user=library_admin, password=****}
+  2017-01-17 10:43:10 INFO  pooling:140 - HHH10001003: Autocommit mode: false
+  2017-01-17 10:43:10 INFO  DriverManagerConnectionProviderImpl:41 - HHH000115: Hibernate connection pool size: 20 (min=1)
+  2017-01-17 10:43:11 INFO  Dialect:157 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+  2017-01-17 10:43:11 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [
+	name: bookland_jpa
+	...]
+  2017-01-17 10:43:11 WARN  pooling:70 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+  2017-01-17 10:43:11 INFO  pooling:126 - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library?useSSL=false]
+  2017-01-17 10:43:11 INFO  pooling:135 - HHH10001001: Connection properties: {user=library_admin, password=****}
+  2017-01-17 10:43:11 INFO  pooling:140 - HHH10001003: Autocommit mode: false
+  2017-01-17 10:43:11 INFO  DriverManagerConnectionProviderImpl:41 - HHH000115: Hibernate connection pool size: 20 (min=1)
+  2017-01-17 10:43:11 INFO  Dialect:157 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+  2017-01-17 10:43:11 INFO  ConnectionManager:45 - Server online!
+  2017-01-17 10:43:22 INFO  QueryTranslatorFactoryInitiator:47 - HHH000397: Using ASTQueryTranslatorFactory
+  2017-01-17 10:43:22 ERROR HibernateUserDAO:140 - Could not loged user. 
+  javax.persistence.NoResultException: No entity found for query
+	at org.hibernate.query.internal.AbstractProducedQuery.getSingleResult(AbstractProducedQuery.java:1461)
+	at edu.msg.bookland.repository.hibernate.HibernateUserDAO.login(HibernateUserDAO.java:137)
+	at edu.msg.bookland.service.UserService.login(UserService.java:114)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at sun.rmi.server.UnicastServerRef.dispatch(UnicastServerRef.java:324)
+	at sun.rmi.transport.Transport$1.run(Transport.java:200)
+	at sun.rmi.transport.Transport$1.run(Transport.java:197)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at sun.rmi.transport.Transport.serviceCall(Transport.java:196)
+	at sun.rmi.transport.tcp.TCPTransport.handleMessages(TCPTransport.java:568)
+	at sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run0(TCPTransport.java:826)
+	at sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.lambda$run$0(TCPTransport.java:683)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run(TCPTransport.java:682)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+2017-01-17 10:43:22 ERROR JDBCUserDAO:116 - Invalid login
+  2017-01-17 10:44:40 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [
+	name: bookland_jpa
+	...]
+  2017-01-17 10:44:40 INFO  Version:45 - HHH000412: Hibernate Core {5.2.6.Final}
+  2017-01-17 10:44:40 INFO  Environment:213 - HHH000206: hibernate.properties not found
+  2017-01-17 10:44:40 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+  2017-01-17 10:44:40 WARN  pooling:70 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+  2017-01-17 10:44:40 INFO  pooling:126 - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library?useSSL=false]
+  2017-01-17 10:44:40 INFO  pooling:135 - HHH10001001: Connection properties: {user=library_admin, password=****}
+  2017-01-17 10:44:40 INFO  pooling:140 - HHH10001003: Autocommit mode: false
+  2017-01-17 10:44:40 INFO  DriverManagerConnectionProviderImpl:41 - HHH000115: Hibernate connection pool size: 20 (min=1)
+  2017-01-17 10:44:40 INFO  Dialect:157 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+  2017-01-17 10:44:41 INFO  HibernateUserDAO:63 - user inserted
+  2017-01-17 10:45:10 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [
+	name: bookland_jpa
+	...]
+  2017-01-17 10:45:10 INFO  Version:45 - HHH000412: Hibernate Core {5.2.6.Final}
+  2017-01-17 10:45:10 INFO  Environment:213 - HHH000206: hibernate.properties not found
+  2017-01-17 10:45:10 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+  2017-01-17 10:45:10 WARN  pooling:70 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+  2017-01-17 10:45:10 INFO  pooling:126 - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library?useSSL=false]
+  2017-01-17 10:45:10 INFO  pooling:135 - HHH10001001: Connection properties: {user=library_admin, password=****}
+  2017-01-17 10:45:10 INFO  pooling:140 - HHH10001003: Autocommit mode: false
+  2017-01-17 10:45:10 INFO  DriverManagerConnectionProviderImpl:41 - HHH000115: Hibernate connection pool size: 20 (min=1)
+  2017-01-17 10:45:11 INFO  Dialect:157 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+  2017-01-17 10:45:11 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [
+	name: bookland_jpa
+	...]
+  2017-01-17 10:45:11 WARN  pooling:70 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+  2017-01-17 10:45:11 INFO  pooling:126 - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library?useSSL=false]
+  2017-01-17 10:45:11 INFO  pooling:135 - HHH10001001: Connection properties: {user=library_admin, password=****}
+  2017-01-17 10:45:11 INFO  pooling:140 - HHH10001003: Autocommit mode: false
+  2017-01-17 10:45:11 INFO  DriverManagerConnectionProviderImpl:41 - HHH000115: Hibernate connection pool size: 20 (min=1)
+  2017-01-17 10:45:11 INFO  Dialect:157 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+  2017-01-17 10:45:11 INFO  ConnectionManager:45 - Server online!
+  2017-01-17 10:45:27 INFO  QueryTranslatorFactoryInitiator:47 - HHH000397: Using ASTQueryTranslatorFactory
+  2017-01-17 10:45:42 INFO  HibernateUserDAO:168 - Retrieved user list
+  2017-01-17 10:47:29 INFO  QueryTranslatorFactoryInitiator:47 - HHH000397: Using ASTQueryTranslatorFactory
+  2017-01-17 10:55:09 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [
+	name: bookland_jpa
+	...]
+  2017-01-17 10:55:09 INFO  Version:45 - HHH000412: Hibernate Core {5.2.6.Final}
+  2017-01-17 10:55:09 INFO  Environment:213 - HHH000206: hibernate.properties not found
+  2017-01-17 10:55:09 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+  2017-01-17 10:55:09 WARN  pooling:70 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+  2017-01-17 10:55:09 INFO  pooling:126 - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library?useSSL=false]
+  2017-01-17 10:55:09 INFO  pooling:135 - HHH10001001: Connection properties: {user=library_admin, password=****}
+  2017-01-17 10:55:09 INFO  pooling:140 - HHH10001003: Autocommit mode: false
+  2017-01-17 10:55:09 INFO  DriverManagerConnectionProviderImpl:41 - HHH000115: Hibernate connection pool size: 20 (min=1)
+  2017-01-17 10:55:09 INFO  Dialect:157 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+  2017-01-17 10:55:10 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [
+	name: bookland_jpa
+	...]
+  2017-01-17 10:55:10 WARN  pooling:70 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+  2017-01-17 10:55:10 INFO  pooling:126 - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library?useSSL=false]
+  2017-01-17 10:55:10 INFO  pooling:135 - HHH10001001: Connection properties: {user=library_admin, password=****}
+  2017-01-17 10:55:10 INFO  pooling:140 - HHH10001003: Autocommit mode: false
+  2017-01-17 10:55:10 INFO  DriverManagerConnectionProviderImpl:41 - HHH000115: Hibernate connection pool size: 20 (min=1)
+  2017-01-17 10:55:10 INFO  Dialect:157 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+  2017-01-17 10:55:10 INFO  ConnectionManager:45 - Server online!
+  2017-01-17 10:55:30 INFO  QueryTranslatorFactoryInitiator:47 - HHH000397: Using ASTQueryTranslatorFactory
+  2017-01-17 10:55:38 INFO  HibernateUserDAO:168 - Retrieved user list
+  2017-01-17 10:57:03 INFO  QueryTranslatorFactoryInitiator:47 - HHH000397: Using ASTQueryTranslatorFactory
+  2017-01-17 10:58:04 INFO  HibernateUserDAO:168 - Retrieved user list
+  2017-01-17 11:16:02 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [
+	name: bookland_jpa
+	...]
+  2017-01-17 11:16:02 INFO  Version:45 - HHH000412: Hibernate Core {5.2.6.Final}
+  2017-01-17 11:16:02 INFO  Environment:213 - HHH000206: hibernate.properties not found
+  2017-01-17 11:16:02 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+  2017-01-17 11:16:02 WARN  pooling:70 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+  2017-01-17 11:16:02 INFO  pooling:126 - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library?useSSL=false]
+  2017-01-17 11:16:02 INFO  pooling:135 - HHH10001001: Connection properties: {user=library_admin, password=****}
+  2017-01-17 11:16:02 INFO  pooling:140 - HHH10001003: Autocommit mode: false
+  2017-01-17 11:16:02 INFO  DriverManagerConnectionProviderImpl:41 - HHH000115: Hibernate connection pool size: 20 (min=1)
+  2017-01-17 11:16:02 INFO  Dialect:157 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+  2017-01-17 11:16:03 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [
+	name: bookland_jpa
+	...]
+  2017-01-17 11:16:03 WARN  pooling:70 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+  2017-01-17 11:16:03 INFO  pooling:126 - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library?useSSL=false]
+  2017-01-17 11:16:03 INFO  pooling:135 - HHH10001001: Connection properties: {user=library_admin, password=****}
+  2017-01-17 11:16:03 INFO  pooling:140 - HHH10001003: Autocommit mode: false
+  2017-01-17 11:16:03 INFO  DriverManagerConnectionProviderImpl:41 - HHH000115: Hibernate connection pool size: 20 (min=1)
+  2017-01-17 11:16:03 INFO  Dialect:157 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+  2017-01-17 11:16:03 INFO  ConnectionManager:45 - Server online!
+  2017-01-17 11:16:13 INFO  QueryTranslatorFactoryInitiator:47 - HHH000397: Using ASTQueryTranslatorFactory
+  2017-01-17 11:16:24 INFO  HibernateUserDAO:168 - Retrieved user list
+  2017-01-17 11:16:30 INFO  QueryTranslatorFactoryInitiator:47 - HHH000397: Using ASTQueryTranslatorFactory
+  2017-01-17 11:40:02 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [
+	name: bookland_jpa
+	...]
+  2017-01-17 11:40:02 INFO  Version:45 - HHH000412: Hibernate Core {5.2.6.Final}
+  2017-01-17 11:40:02 INFO  Environment:213 - HHH000206: hibernate.properties not found
+  2017-01-17 11:40:02 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+  2017-01-17 11:40:02 WARN  pooling:70 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+  2017-01-17 11:40:02 INFO  pooling:126 - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library?useSSL=false]
+  2017-01-17 11:40:02 INFO  pooling:135 - HHH10001001: Connection properties: {user=library_admin, password=****}
+  2017-01-17 11:40:02 INFO  pooling:140 - HHH10001003: Autocommit mode: false
+  2017-01-17 11:40:02 INFO  DriverManagerConnectionProviderImpl:41 - HHH000115: Hibernate connection pool size: 20 (min=1)
+  2017-01-17 11:40:02 INFO  Dialect:157 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+  2017-01-17 11:40:03 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [
+	name: bookland_jpa
+	...]
+  2017-01-17 11:40:03 WARN  pooling:70 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+  2017-01-17 11:40:03 INFO  pooling:126 - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library?useSSL=false]
+  2017-01-17 11:40:03 INFO  pooling:135 - HHH10001001: Connection properties: {user=library_admin, password=****}
+  2017-01-17 11:40:03 INFO  pooling:140 - HHH10001003: Autocommit mode: false
+  2017-01-17 11:40:03 INFO  DriverManagerConnectionProviderImpl:41 - HHH000115: Hibernate connection pool size: 20 (min=1)
+  2017-01-17 11:40:03 INFO  Dialect:157 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+  2017-01-17 11:40:03 INFO  ConnectionManager:45 - Server online!
+  2017-01-17 11:40:12 INFO  QueryTranslatorFactoryInitiator:47 - HHH000397: Using ASTQueryTranslatorFactory
+  2017-01-17 11:40:18 INFO  HibernateUserDAO:168 - Retrieved user list
+  2017-01-17 11:40:23 INFO  QueryTranslatorFactoryInitiator:47 - HHH000397: Using ASTQueryTranslatorFactory
+  2017-01-17 11:41:21 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [
+	name: bookland_jpa
+	...]
+  2017-01-17 11:41:21 INFO  Version:45 - HHH000412: Hibernate Core {5.2.6.Final}
+  2017-01-17 11:41:21 INFO  Environment:213 - HHH000206: hibernate.properties not found
+  2017-01-17 11:41:21 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+  2017-01-17 11:41:21 WARN  pooling:70 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+  2017-01-17 11:41:21 INFO  pooling:126 - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library?useSSL=false]
+  2017-01-17 11:41:21 INFO  pooling:135 - HHH10001001: Connection properties: {user=library_admin, password=****}
+  2017-01-17 11:41:21 INFO  pooling:140 - HHH10001003: Autocommit mode: false
+  2017-01-17 11:41:21 INFO  DriverManagerConnectionProviderImpl:41 - HHH000115: Hibernate connection pool size: 20 (min=1)
+  2017-01-17 11:41:22 INFO  Dialect:157 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+  2017-01-17 11:41:22 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [
+	name: bookland_jpa
+	...]
+  2017-01-17 11:41:22 WARN  pooling:70 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+  2017-01-17 11:41:22 INFO  pooling:126 - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library?useSSL=false]
+  2017-01-17 11:41:22 INFO  pooling:135 - HHH10001001: Connection properties: {user=library_admin, password=****}
+  2017-01-17 11:41:22 INFO  pooling:140 - HHH10001003: Autocommit mode: false
+  2017-01-17 11:41:22 INFO  DriverManagerConnectionProviderImpl:41 - HHH000115: Hibernate connection pool size: 20 (min=1)
+  2017-01-17 11:41:22 INFO  Dialect:157 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+  2017-01-17 11:41:22 INFO  ConnectionManager:45 - Server online!
+  2017-01-17 11:41:33 INFO  QueryTranslatorFactoryInitiator:47 - HHH000397: Using ASTQueryTranslatorFactory
+  2017-01-17 11:41:37 INFO  HibernateUserDAO:168 - Retrieved user list
+  2017-01-17 11:41:40 INFO  QueryTranslatorFactoryInitiator:47 - HHH000397: Using ASTQueryTranslatorFactory
+  2017-01-17 11:44:05 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [
+	name: bookland_jpa
+	...]
+  2017-01-17 11:44:05 INFO  Version:45 - HHH000412: Hibernate Core {5.2.6.Final}
+  2017-01-17 11:44:05 INFO  Environment:213 - HHH000206: hibernate.properties not found
+  2017-01-17 11:44:05 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+  2017-01-17 11:44:05 WARN  pooling:70 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+  2017-01-17 11:44:05 INFO  pooling:126 - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library?useSSL=false]
+  2017-01-17 11:44:05 INFO  pooling:135 - HHH10001001: Connection properties: {user=library_admin, password=****}
+  2017-01-17 11:44:05 INFO  pooling:140 - HHH10001003: Autocommit mode: false
+  2017-01-17 11:44:05 INFO  DriverManagerConnectionProviderImpl:41 - HHH000115: Hibernate connection pool size: 20 (min=1)
+  2017-01-17 11:44:06 INFO  Dialect:157 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+  2017-01-17 11:44:06 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [
+	name: bookland_jpa
+	...]
+  2017-01-17 11:44:06 WARN  pooling:70 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+  2017-01-17 11:44:06 INFO  pooling:126 - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library?useSSL=false]
+  2017-01-17 11:44:06 INFO  pooling:135 - HHH10001001: Connection properties: {user=library_admin, password=****}
+  2017-01-17 11:44:06 INFO  pooling:140 - HHH10001003: Autocommit mode: false
+  2017-01-17 11:44:06 INFO  DriverManagerConnectionProviderImpl:41 - HHH000115: Hibernate connection pool size: 20 (min=1)
+  2017-01-17 11:44:06 INFO  Dialect:157 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+  2017-01-17 11:44:06 INFO  ConnectionManager:45 - Server online!
+  2017-01-17 11:44:23 INFO  QueryTranslatorFactoryInitiator:47 - HHH000397: Using ASTQueryTranslatorFactory
+  2017-01-17 11:44:27 INFO  HibernateUserDAO:168 - Retrieved user list
+  2017-01-17 11:44:31 INFO  QueryTranslatorFactoryInitiator:47 - HHH000397: Using ASTQueryTranslatorFactory
+  2017-01-17 11:48:40 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [
+	name: bookland_jpa
+	...]
+  2017-01-17 11:48:40 INFO  Version:45 - HHH000412: Hibernate Core {5.2.6.Final}
+  2017-01-17 11:48:40 INFO  Environment:213 - HHH000206: hibernate.properties not found
+  2017-01-17 11:48:40 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+  2017-01-17 11:48:40 WARN  pooling:70 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+  2017-01-17 11:48:40 INFO  pooling:126 - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library?useSSL=false]
+  2017-01-17 11:48:40 INFO  pooling:135 - HHH10001001: Connection properties: {user=library_admin, password=****}
+  2017-01-17 11:48:40 INFO  pooling:140 - HHH10001003: Autocommit mode: false
+  2017-01-17 11:48:40 INFO  DriverManagerConnectionProviderImpl:41 - HHH000115: Hibernate connection pool size: 20 (min=1)
+  2017-01-17 11:48:41 INFO  Dialect:157 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+  2017-01-17 11:48:41 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [
+	name: bookland_jpa
+	...]
+  2017-01-17 11:48:41 WARN  pooling:70 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+  2017-01-17 11:48:41 INFO  pooling:126 - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library?useSSL=false]
+  2017-01-17 11:48:41 INFO  pooling:135 - HHH10001001: Connection properties: {user=library_admin, password=****}
+  2017-01-17 11:48:41 INFO  pooling:140 - HHH10001003: Autocommit mode: false
+  2017-01-17 11:48:41 INFO  DriverManagerConnectionProviderImpl:41 - HHH000115: Hibernate connection pool size: 20 (min=1)
+  2017-01-17 11:48:41 INFO  Dialect:157 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+  2017-01-17 11:48:41 INFO  ConnectionManager:45 - Server online!
+  2017-01-17 11:48:55 INFO  QueryTranslatorFactoryInitiator:47 - HHH000397: Using ASTQueryTranslatorFactory
+  2017-01-17 11:49:01 INFO  HibernateUserDAO:168 - Retrieved user list
+  2017-01-17 11:52:25 INFO  QueryTranslatorFactoryInitiator:47 - HHH000397: Using ASTQueryTranslatorFactory
+  2017-01-17 11:55:26 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [
+	name: bookland_jpa
+	...]
+  2017-01-17 11:55:26 INFO  Version:45 - HHH000412: Hibernate Core {5.2.6.Final}
+  2017-01-17 11:55:26 INFO  Environment:213 - HHH000206: hibernate.properties not found
+  2017-01-17 11:55:26 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+  2017-01-17 11:55:26 WARN  pooling:70 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+  2017-01-17 11:55:26 INFO  pooling:126 - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library?useSSL=false]
+  2017-01-17 11:55:26 INFO  pooling:135 - HHH10001001: Connection properties: {user=library_admin, password=****}
+  2017-01-17 11:55:26 INFO  pooling:140 - HHH10001003: Autocommit mode: false
+  2017-01-17 11:55:26 INFO  DriverManagerConnectionProviderImpl:41 - HHH000115: Hibernate connection pool size: 20 (min=1)
+  2017-01-17 11:55:26 INFO  Dialect:157 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+  2017-01-17 11:55:27 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [
+	name: bookland_jpa
+	...]
+  2017-01-17 11:55:27 WARN  pooling:70 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+  2017-01-17 11:55:27 INFO  pooling:126 - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library?useSSL=false]
+  2017-01-17 11:55:27 INFO  pooling:135 - HHH10001001: Connection properties: {user=library_admin, password=****}
+  2017-01-17 11:55:27 INFO  pooling:140 - HHH10001003: Autocommit mode: false
+  2017-01-17 11:55:27 INFO  DriverManagerConnectionProviderImpl:41 - HHH000115: Hibernate connection pool size: 20 (min=1)
+  2017-01-17 11:55:27 INFO  Dialect:157 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+  2017-01-17 11:55:27 INFO  ConnectionManager:45 - Server online!
+  2017-01-17 11:55:35 INFO  QueryTranslatorFactoryInitiator:47 - HHH000397: Using ASTQueryTranslatorFactory
+  2017-01-17 11:55:41 INFO  HibernateUserDAO:168 - Retrieved user list
+  2017-01-17 11:55:47 INFO  QueryTranslatorFactoryInitiator:47 - HHH000397: Using ASTQueryTranslatorFactory
+  2017-01-17 12:00:24 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [
+	name: bookland_jpa
+	...]
+  2017-01-17 12:00:24 INFO  Version:45 - HHH000412: Hibernate Core {5.2.6.Final}
+  2017-01-17 12:00:24 INFO  Environment:213 - HHH000206: hibernate.properties not found
+  2017-01-17 12:00:24 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+  2017-01-17 12:00:24 WARN  pooling:70 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+  2017-01-17 12:00:24 INFO  pooling:126 - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library?useSSL=false]
+  2017-01-17 12:00:24 INFO  pooling:135 - HHH10001001: Connection properties: {user=library_admin, password=****}
+  2017-01-17 12:00:24 INFO  pooling:140 - HHH10001003: Autocommit mode: false
+  2017-01-17 12:00:24 INFO  DriverManagerConnectionProviderImpl:41 - HHH000115: Hibernate connection pool size: 20 (min=1)
+  2017-01-17 12:00:24 INFO  Dialect:157 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+  2017-01-17 12:00:25 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [
+	name: bookland_jpa
+	...]
+  2017-01-17 12:00:25 WARN  pooling:70 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+  2017-01-17 12:00:25 INFO  pooling:126 - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library?useSSL=false]
+  2017-01-17 12:00:25 INFO  pooling:135 - HHH10001001: Connection properties: {user=library_admin, password=****}
+  2017-01-17 12:00:25 INFO  pooling:140 - HHH10001003: Autocommit mode: false
+  2017-01-17 12:00:25 INFO  DriverManagerConnectionProviderImpl:41 - HHH000115: Hibernate connection pool size: 20 (min=1)
+  2017-01-17 12:00:25 INFO  Dialect:157 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+  2017-01-17 12:00:25 INFO  ConnectionManager:45 - Server online!
+  2017-01-17 12:00:40 INFO  QueryTranslatorFactoryInitiator:47 - HHH000397: Using ASTQueryTranslatorFactory
+  2017-01-17 12:00:49 INFO  HibernateUserDAO:168 - Retrieved user list
+  2017-01-17 12:00:52 INFO  QueryTranslatorFactoryInitiator:47 - HHH000397: Using ASTQueryTranslatorFactory
+  2017-01-17 12:02:10 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [
+	name: bookland_jpa
+	...]
+  2017-01-17 12:02:10 INFO  Version:45 - HHH000412: Hibernate Core {5.2.6.Final}
+  2017-01-17 12:02:10 INFO  Environment:213 - HHH000206: hibernate.properties not found
+  2017-01-17 12:02:10 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+  2017-01-17 12:02:10 WARN  pooling:70 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+  2017-01-17 12:02:10 INFO  pooling:126 - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library?useSSL=false]
+  2017-01-17 12:02:10 INFO  pooling:135 - HHH10001001: Connection properties: {user=library_admin, password=****}
+  2017-01-17 12:02:10 INFO  pooling:140 - HHH10001003: Autocommit mode: false
+  2017-01-17 12:02:10 INFO  DriverManagerConnectionProviderImpl:41 - HHH000115: Hibernate connection pool size: 20 (min=1)
+  2017-01-17 12:02:10 INFO  Dialect:157 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+  2017-01-17 12:02:11 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [
+	name: bookland_jpa
+	...]
+  2017-01-17 12:02:11 WARN  pooling:70 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+  2017-01-17 12:02:11 INFO  pooling:126 - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library?useSSL=false]
+  2017-01-17 12:02:11 INFO  pooling:135 - HHH10001001: Connection properties: {user=library_admin, password=****}
+  2017-01-17 12:02:11 INFO  pooling:140 - HHH10001003: Autocommit mode: false
+  2017-01-17 12:02:11 INFO  DriverManagerConnectionProviderImpl:41 - HHH000115: Hibernate connection pool size: 20 (min=1)
+  2017-01-17 12:02:11 INFO  Dialect:157 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+  2017-01-17 12:02:11 INFO  ConnectionManager:45 - Server online!
+  2017-01-17 12:02:42 INFO  QueryTranslatorFactoryInitiator:47 - HHH000397: Using ASTQueryTranslatorFactory
+  2017-01-17 12:02:49 INFO  HibernateUserDAO:168 - Retrieved user list
+  2017-01-17 12:02:54 INFO  QueryTranslatorFactoryInitiator:47 - HHH000397: Using ASTQueryTranslatorFactory
+  2017-01-17 12:05:29 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [
+	name: bookland_jpa
+	...]
+  2017-01-17 12:05:29 INFO  Version:45 - HHH000412: Hibernate Core {5.2.6.Final}
+  2017-01-17 12:05:29 INFO  Environment:213 - HHH000206: hibernate.properties not found
+  2017-01-17 12:05:29 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+  2017-01-17 12:05:29 WARN  pooling:70 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+  2017-01-17 12:05:29 INFO  pooling:126 - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library?useSSL=false]
+  2017-01-17 12:05:29 INFO  pooling:135 - HHH10001001: Connection properties: {user=library_admin, password=****}
+  2017-01-17 12:05:29 INFO  pooling:140 - HHH10001003: Autocommit mode: false
+  2017-01-17 12:05:29 INFO  DriverManagerConnectionProviderImpl:41 - HHH000115: Hibernate connection pool size: 20 (min=1)
+  2017-01-17 12:05:29 INFO  Dialect:157 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+  2017-01-17 12:05:30 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [
+	name: bookland_jpa
+	...]
+  2017-01-17 12:05:30 WARN  pooling:70 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+  2017-01-17 12:05:30 INFO  pooling:126 - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library?useSSL=false]
+  2017-01-17 12:05:30 INFO  pooling:135 - HHH10001001: Connection properties: {user=library_admin, password=****}
+  2017-01-17 12:05:30 INFO  pooling:140 - HHH10001003: Autocommit mode: false
+  2017-01-17 12:05:30 INFO  DriverManagerConnectionProviderImpl:41 - HHH000115: Hibernate connection pool size: 20 (min=1)
+  2017-01-17 12:05:30 INFO  Dialect:157 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+  2017-01-17 12:05:30 INFO  ConnectionManager:45 - Server online!
+  2017-01-17 12:05:38 INFO  QueryTranslatorFactoryInitiator:47 - HHH000397: Using ASTQueryTranslatorFactory
+  2017-01-17 12:05:38 ERROR HibernateUserDAO:140 - Could not loged user. 
+  javax.persistence.NoResultException: No entity found for query
+	at org.hibernate.query.internal.AbstractProducedQuery.getSingleResult(AbstractProducedQuery.java:1461)
+	at edu.msg.bookland.repository.hibernate.HibernateUserDAO.login(HibernateUserDAO.java:137)
+	at edu.msg.bookland.service.UserService.login(UserService.java:114)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at sun.rmi.server.UnicastServerRef.dispatch(UnicastServerRef.java:324)
+	at sun.rmi.transport.Transport$1.run(Transport.java:200)
+	at sun.rmi.transport.Transport$1.run(Transport.java:197)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at sun.rmi.transport.Transport.serviceCall(Transport.java:196)
+	at sun.rmi.transport.tcp.TCPTransport.handleMessages(TCPTransport.java:568)
+	at sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run0(TCPTransport.java:826)
+	at sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.lambda$run$0(TCPTransport.java:683)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run(TCPTransport.java:682)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+2017-01-17 12:05:38 ERROR JDBCUserDAO:116 - Invalid login
+  2017-01-17 12:05:53 INFO  HibernateUserDAO:168 - Retrieved user list
+  2017-01-17 12:06:24 INFO  HibernateUserDAO:168 - Retrieved user list
+  2017-01-17 12:06:45 INFO  QueryTranslatorFactoryInitiator:47 - HHH000397: Using ASTQueryTranslatorFactory
+  2017-01-17 12:08:02 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [
+	name: bookland_jpa
+	...]
+  2017-01-17 12:08:02 INFO  Version:45 - HHH000412: Hibernate Core {5.2.6.Final}
+  2017-01-17 12:08:02 INFO  Environment:213 - HHH000206: hibernate.properties not found
+  2017-01-17 12:08:02 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+  2017-01-17 12:08:02 WARN  pooling:70 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+  2017-01-17 12:08:02 INFO  pooling:126 - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library?useSSL=false]
+  2017-01-17 12:08:02 INFO  pooling:135 - HHH10001001: Connection properties: {user=library_admin, password=****}
+  2017-01-17 12:08:02 INFO  pooling:140 - HHH10001003: Autocommit mode: false
+  2017-01-17 12:08:02 INFO  DriverManagerConnectionProviderImpl:41 - HHH000115: Hibernate connection pool size: 20 (min=1)
+  2017-01-17 12:08:02 INFO  Dialect:157 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+  2017-01-17 12:08:03 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [
+	name: bookland_jpa
+	...]
+  2017-01-17 12:08:03 WARN  pooling:70 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+  2017-01-17 12:08:03 INFO  pooling:126 - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library?useSSL=false]
+  2017-01-17 12:08:03 INFO  pooling:135 - HHH10001001: Connection properties: {user=library_admin, password=****}
+  2017-01-17 12:08:03 INFO  pooling:140 - HHH10001003: Autocommit mode: false
+  2017-01-17 12:08:03 INFO  DriverManagerConnectionProviderImpl:41 - HHH000115: Hibernate connection pool size: 20 (min=1)
+  2017-01-17 12:08:03 INFO  Dialect:157 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+  2017-01-17 12:08:03 INFO  ConnectionManager:45 - Server online!
+  2017-01-17 12:08:12 INFO  QueryTranslatorFactoryInitiator:47 - HHH000397: Using ASTQueryTranslatorFactory
+  2017-01-17 12:08:18 INFO  HibernateUserDAO:168 - Retrieved user list
+  2017-01-17 12:08:21 INFO  QueryTranslatorFactoryInitiator:47 - HHH000397: Using ASTQueryTranslatorFactory
+  2017-01-17 12:12:15 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [
+	name: bookland_jpa
+	...]
+  2017-01-17 12:12:15 INFO  Version:45 - HHH000412: Hibernate Core {5.2.6.Final}
+  2017-01-17 12:12:15 INFO  Environment:213 - HHH000206: hibernate.properties not found
+  2017-01-17 12:12:15 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+  2017-01-17 12:12:15 WARN  pooling:70 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+  2017-01-17 12:12:15 INFO  pooling:126 - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library?useSSL=false]
+  2017-01-17 12:12:15 INFO  pooling:135 - HHH10001001: Connection properties: {user=library_admin, password=****}
+  2017-01-17 12:12:15 INFO  pooling:140 - HHH10001003: Autocommit mode: false
+  2017-01-17 12:12:15 INFO  DriverManagerConnectionProviderImpl:41 - HHH000115: Hibernate connection pool size: 20 (min=1)
+  2017-01-17 12:12:15 INFO  Dialect:157 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+  2017-01-17 12:12:16 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [
+	name: bookland_jpa
+	...]
+  2017-01-17 12:12:16 WARN  pooling:70 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+  2017-01-17 12:12:16 INFO  pooling:126 - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library?useSSL=false]
+  2017-01-17 12:12:16 INFO  pooling:135 - HHH10001001: Connection properties: {user=library_admin, password=****}
+  2017-01-17 12:12:16 INFO  pooling:140 - HHH10001003: Autocommit mode: false
+  2017-01-17 12:12:16 INFO  DriverManagerConnectionProviderImpl:41 - HHH000115: Hibernate connection pool size: 20 (min=1)
+  2017-01-17 12:12:16 INFO  Dialect:157 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+  2017-01-17 12:12:16 INFO  ConnectionManager:45 - Server online!
+  2017-01-17 12:12:25 INFO  QueryTranslatorFactoryInitiator:47 - HHH000397: Using ASTQueryTranslatorFactory
+  2017-01-17 12:12:30 INFO  HibernateUserDAO:168 - Retrieved user list
+  2017-01-17 12:12:44 INFO  QueryTranslatorFactoryInitiator:47 - HHH000397: Using ASTQueryTranslatorFactory
+=======
 2017-01-17 10:36:00 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [
 	name: bookland_jpa
 	...]
@@ -357,4 +1069,5 @@ Caused by: java.net.BindException: Address already in use: JVM_Bind
   2017-01-17 10:59:50 INFO  HibernateUserDAO:168 - Retrieved user list
   2017-01-17 11:00:36 INFO  HibernateUserDAO:168 - Retrieved user list
   2017-01-17 11:01:44 INFO  HibernateUserDAO:168 - Retrieved user list
+>>>>>>> branch 'develop' of https://github.com/MRoberr/Bookland.git
   

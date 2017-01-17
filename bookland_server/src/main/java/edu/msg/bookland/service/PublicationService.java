@@ -2,6 +2,7 @@ package edu.msg.bookland.service;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -168,18 +169,40 @@ public class PublicationService extends UnicastRemoteObject implements Publicati
 
 	@Override
 	public List<Publication> searchPublicationByRegexp(String regex) throws RemoteException {
+		List<Publication> pubsList=new ArrayList<>();
+		List<Publication> list=new ArrayList<>();
 		try {
-			return pubDAO.searchPublication(regex);
+			pubsList= pubDAO.searchPublication(regex);
+			for(Publication p:pubsList){
+				switch (p.getClass().getSimpleName()) {
+				case "Book":
+					Book b=new Book((Book)p);
+					list.add(b);
+					break;
+				case "Magazine":
+					Magazine m=new Magazine((Magazine)p);
+					list.add(m);
+					break;
+				case "Newspaper":
+					Newspaper n=new Newspaper((Newspaper)p);
+					list.add(n);
+					break;
+				default:
+					break;
+				}
+			}
+			return list;
 		} catch (RepositoryException e) {
 			return null;
 		}
 	}
 
 	public int getPublicationCopiesLeft(String uuid) {
-	/*	try{
-			//pubDAO.getP(St);
-		}*/
-		return 0;
+		try{
+			return pubDAO.getCopiesLeft(uuid);
+		} catch (RepositoryException e) {
+			return -1;
+		}
 	}
 
 	public boolean setPublicationCopiesLeft(String uuid) {
