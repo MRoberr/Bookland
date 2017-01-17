@@ -26,6 +26,15 @@ public class Newspaper extends Publication{
 		borrow = new ArrayList<>();
 	}
 	
+	public Newspaper(Newspaper newspaper) {
+		setUUID(newspaper.getUUID());
+		setCopiesLeft(newspaper.getCopiesLeft());
+		setNumberOfCopies(newspaper.getNumberOfCopies());
+		setPublisher(newspaper.getPublisher());
+		setReleaseDate(newspaper.getReleaseDate());
+		setTitle(newspaper.getTitle());
+	}
+	
 	@Override
 	public String toString() {
 		String ss=super.toString();

@@ -76,7 +76,7 @@ public class PublicationDAOTest {
 		
 		List<User> users = userDAO.getAllUsers();
 
-		System.out.println(users.size());
+		System.out.println("users size: " + users.size());
 		
 		System.out.println(users.get(0).getBorrows().size());
 	}
