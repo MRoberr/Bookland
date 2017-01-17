@@ -28,7 +28,7 @@ public class DataAdministrationController {
 		try {
 			return ConnectionModel.PUBLICATION_SERVICE_RMI.searchPublicationByRegexp(title);
 		} catch (RemoteException e) {
-			LOGGER.error("No connection when searching publications.");
+			LOGGER.error("No connection when searching publications.", e);
 			return null;
 		}
 	}
@@ -43,7 +43,7 @@ public class DataAdministrationController {
 		try {
 			return ConnectionModel.USER_SERVICE_RMI.searchUser(name);
 		} catch (RemoteException e) {
-			LOGGER.error("No connection when searching publications.");
+			LOGGER.error("No connection when searching publications.", e);
 			return null;
 		}
 	}

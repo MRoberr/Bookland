@@ -13,6 +13,7 @@
 		<class>edu.msg.bookland.model.Magazine</class>
 		<class>edu.msg.bookland.model.Newspaper</class>
 		<class>edu.msg.bookland.model.User</class>
+		<class>edu.msg.bookland.model.Borrowing</class>
 
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/library?useSSL=false" />

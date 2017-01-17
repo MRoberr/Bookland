@@ -63,8 +63,8 @@ public class HibernateUserDAO implements UserDAO {
 			LOGGER.info("user inserted");
 		} catch (PersistenceException e) {
 			entityManager.getTransaction().rollback();
-			LOGGER.error("Could not inserd users. ", e);
-			throw new RepositoryException("Could not inser users. ", e);
+			LOGGER.error("Could not insert user.", e);
+			throw new RepositoryException("Could not insert user.", e);
 		}
 		
 

@@ -13,6 +13,7 @@ import edu.msg.bookland.model.Author;
 import edu.msg.bookland.model.Borrowing;
 import edu.msg.bookland.repository.BorrowingDAO;
 import edu.msg.bookland.repository.RepositoryException;
+import edu.msg.bookland.repository.hibernate.HibernateBorrowingDAO;
 
 /**
  * Test the Borrowing data access object for CRUD operations.
@@ -25,7 +26,7 @@ import edu.msg.bookland.repository.RepositoryException;
 public class BorrowingDAOTest {
 	private final String userId = "123";
 	private final String publicationId = "1234";
-	private final BorrowingDAO borrowingDAO = new JDBCBorrowingDAO();
+	private final BorrowingDAO borrowingDAO = new HibernateBorrowingDAO();
 
 	private Borrowing createBorrowing() {
 		Borrowing b = new Borrowing();
@@ -58,6 +59,9 @@ public class BorrowingDAOTest {
 		try {
 			List<Borrowing> list = borrowingDAO.getPublicationsBorrowedByUser(userId);
 			assertTrue(!list.isEmpty());
+			for(Borrowing b:list) {
+				System.out.println(b);
+			}
 		} catch (RepositoryException e) {
 			Assert.fail("Could no get users.");
 		}

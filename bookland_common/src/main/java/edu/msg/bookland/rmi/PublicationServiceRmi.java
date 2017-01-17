@@ -17,7 +17,7 @@ import edu.msg.bookland.model.Publication;
  */
 public interface PublicationServiceRmi extends Remote {
 
-	public static final String RMI_NAME = "Book";
+	public static final String RMI_NAME = "Publication";
 	public static final int RMI_PORT = 1099;
 	
 	/**
