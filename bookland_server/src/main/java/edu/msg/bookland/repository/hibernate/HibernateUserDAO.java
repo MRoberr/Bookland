@@ -1,6 +1,5 @@
 package edu.msg.bookland.repository.hibernate;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +18,6 @@ import edu.msg.bookland.model.User;
 import edu.msg.bookland.model.UserType;
 import edu.msg.bookland.repository.RepositoryException;
 import edu.msg.bookland.repository.UserDAO;
-import edu.msg.bookland.repository.jdbc.JDBCUserDAO;
 
 public class HibernateUserDAO implements UserDAO {
 	private static final Logger LOGGER = Logger.getLogger(HibernateUserDAO.class);
@@ -75,14 +73,12 @@ public class HibernateUserDAO implements UserDAO {
 	@Override
 	public void updateUser(User user) throws RepositoryException {
 		entityManager.getTransaction().begin();
-		// entityManager.refresh(entity);
-
-		User user2 = entityManager.find(User.class, user.getUUID());
-		user2.setEmail(user.getEmail());
-		user2.setLoyaltyIndex(user.getLoyaltyIndex());
-		user2.setName(user.getName());
-		user2.setUserType(user.getUserType());
-		user2.setPassword(user.getPassword());
+		User userDB = entityManager.find(User.class, user.getUUID());
+		userDB.setEmail(user.getEmail());
+		userDB.setLoyaltyIndex(user.getLoyaltyIndex());
+		userDB.setName(user.getName());
+		userDB.setUserType(user.getUserType());
+		userDB.setPassword(user.getPassword());
 		entityManager.getTransaction().commit();
 
 	}
@@ -90,8 +86,8 @@ public class HibernateUserDAO implements UserDAO {
 	@Override
 	public void deleteUser(User user) throws RepositoryException {
 		entityManager.getTransaction().begin();
-		User user2 = entityManager.find(User.class, user.getUUID());
-		entityManager.remove(user2);
+		User userDB = entityManager.find(User.class, user.getUUID());
+		entityManager.remove(userDB);
 		entityManager.getTransaction().commit();
 
 	}
@@ -99,11 +95,11 @@ public class HibernateUserDAO implements UserDAO {
 	@Override
 	public void updateUserWithoutPassword(User user) throws RepositoryException {
 		entityManager.getTransaction().begin();
-		User user2 = entityManager.find(User.class, user.getUUID());
-		user2.setEmail(user.getEmail());
-		user2.setLoyaltyIndex(user.getLoyaltyIndex());
-		user2.setName(user.getName());
-		user2.setUserType(user.getUserType());
+		User userDB = entityManager.find(User.class, user.getUUID());
+		userDB.setEmail(user.getEmail());
+		userDB.setLoyaltyIndex(user.getLoyaltyIndex());
+		userDB.setName(user.getName());
+		userDB.setUserType(user.getUserType());
 		entityManager.getTransaction().commit();
 
 	}
@@ -134,9 +130,10 @@ public class HibernateUserDAO implements UserDAO {
 
 	@Override
 	public void setUserLoyaltyIndex(String uuid) throws RepositoryException {
-		// TODO Auto-generated method stub
-		//loyaltiIndex=-1;
-		
+		entityManager.getTransaction().begin();
+		User userDB = entityManager.find(User.class, uuid);	
+		userDB.setLoyaltyIndex(userDB.getLoyaltyIndex()-1);
+		entityManager.getTransaction().commit();
 	}
 
 }
