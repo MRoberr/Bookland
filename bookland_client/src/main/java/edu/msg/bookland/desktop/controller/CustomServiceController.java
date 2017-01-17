@@ -30,7 +30,7 @@ public class CustomServiceController {
 		try {
 			return ConnectionModel.BORROWING_SERVICE_RMI.borrowPublication(borrowing);
 		} catch (RemoteException e) {
-			LOGGER.error("No connection when searching publications.");
+			LOGGER.error("No connection when searching publications.", e);
 			return false;
 		}
 	}
@@ -45,7 +45,7 @@ public class CustomServiceController {
 		try {
 			return ConnectionModel.BORROWING_SERVICE_RMI.getBorrowByUserUUID(uuid);
 		} catch (RemoteException e) {
-			LOGGER.error("No connection when searching for publications borrowed by the user.");
+			LOGGER.error("No connection when searching for publications borrowed by the user.", e);
 			return null;
 		}
 	}
@@ -60,7 +60,7 @@ public class CustomServiceController {
 		try {
 			return ConnectionModel.BORROWING_SERVICE_RMI.returnPublication(borrowing);
 		} catch (RemoteException e) {
-			LOGGER.error("No connection when returning a borrowed publication.");
+			LOGGER.error("No connection when returning a borrowed publication.", e);
 			return false;
 		}
 	}
