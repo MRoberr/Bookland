@@ -26,8 +26,7 @@ public class HibernateDAOFactory extends DAOFactory {
 
 	@Override
 	public PublicationDAO getPublicationDAO() {
-		// TODO Auto-generated method stub
-		return null;
+		return new HibernatePublicationDAO();
 	}
 
 }
