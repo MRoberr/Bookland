@@ -15,6 +15,7 @@ import edu.msg.bookland.repository.PublicationDAO;
 import edu.msg.bookland.repository.RepositoryException;
 import edu.msg.bookland.repository.jdbc.JDBCUserDAO;
 import edu.msg.bookland.rmi.PublicationServiceRmi;
+import javassist.bytecode.stackmap.BasicBlock.Catch;
 
 public class PublicationService extends UnicastRemoteObject implements PublicationServiceRmi {
 
@@ -176,10 +177,11 @@ public class PublicationService extends UnicastRemoteObject implements Publicati
 	}
 
 	public int getPublicationCopiesLeft(String uuid) {
-	/*	try{
-			//pubDAO.getP(St);
-		}*/
-		return 0;
+		try{
+			return pubDAO.getCopiesLeft(uuid);
+		} catch (RepositoryException e) {
+			return -1;
+		}
 	}
 
 	public boolean setPublicationCopiesLeft(String uuid) {
