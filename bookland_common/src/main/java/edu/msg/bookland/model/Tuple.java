@@ -1,7 +1,13 @@
 package edu.msg.bookland.model;
 
 import java.io.Serializable;
-
+/**
+ * Tuple of a borrowing and a Publication object
+ * 
+ * @author Terez Sipos
+ * @author Simo Zoltan
+ *
+ */
 public class Tuple implements Serializable{	
 	private static final long serialVersionUID = -8678286611552033616L;
 	private Borrowing borrow;
