@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import edu.msg.bookland.model.Publication;
+import edu.msg.bookland.model.Tuple;
 import edu.msg.bookland.model.User;
 import edu.msg.bookland.model.UserType;
 import edu.msg.bookland.repository.DAOFactory;
@@ -75,10 +75,10 @@ public class UserService extends UnicastRemoteObject implements UserServiceRmi {
 	@Override
 	public boolean deleteUser(User user) throws RemoteException {
 		BorrowingService borrow = new BorrowingService();
-		List<Publication> userPubs = borrow.getBorrowByUserUUID(user.getUUID());
-		if (userPubs == null)
-			return false;
 		try {
+			List<Tuple> userPubs = borrow.getBorrowByUserUUID(user.getUUID());
+			if (userPubs == null)
+				return false;
 			userDAO.deleteUser(user);
 			return true;
 		} catch (RepositoryException e) {

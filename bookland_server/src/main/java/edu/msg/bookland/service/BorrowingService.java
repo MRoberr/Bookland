@@ -2,12 +2,14 @@ package edu.msg.bookland.service;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 
 import edu.msg.bookland.model.Borrowing;
 import edu.msg.bookland.model.Publication;
+import edu.msg.bookland.model.Tuple;
 import edu.msg.bookland.repository.BorrowingDAO;
 import edu.msg.bookland.repository.DAOFactory;
 import edu.msg.bookland.repository.RepositoryException;
@@ -94,11 +96,17 @@ public class BorrowingService extends UnicastRemoteObject implements BorrowingSe
 	}
 
 	@Override
-	public List<Publication> getBorrowByUserUUID(String uuid) throws RemoteException {
-		List<Borrowing> borrows;
+	public List<Tuple> getBorrowByUserUUID(String uuid) throws RemoteException {
+		List<Tuple> borrowedPublications=new ArrayList<>();
+		List<Borrowing> borrowList;
 		try {
-			borrows = borrowingDAO.getPublicationsBorrowedByUser(uuid);
-			return null;
+			borrowList = borrowingDAO.getPublicationsBorrowedByUser(uuid);
+			PublicationService pubService=new PublicationService();
+			for(Borrowing borrow:borrowList){
+				Publication p=pubService.getPublicationByUuid(borrow.getPublicationId());
+				borrowedPublications.add(new Tuple(borrow, p));
+			}
+			return borrowedPublications;
 		} catch (RepositoryException e) {
 			LOGGER.error("Failed to insert borrowing");
 			return null;
