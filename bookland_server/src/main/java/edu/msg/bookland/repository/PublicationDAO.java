@@ -27,6 +27,11 @@ public interface PublicationDAO {
 	void deleteMagazine(Magazine magazine) throws RepositoryException;
 	void deleteNewspaper(Newspaper newspaper) throws RepositoryException;
 	
+	//request methods
 	List<Publication> searchPublication(String title) throws RepositoryException;
+	int getCopiesLeft(String uuid) throws RepositoryException;
+	void setCopiesLeft(String uuid) throws RepositoryException; //csookent 1el + throw
+	Publication getPublicationByUuid(String uuid) throws RepositoryException;
+	
 	
 }

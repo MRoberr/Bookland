@@ -45,6 +45,7 @@ public class PublicationDAOTest {
 			book.setUUID("asdq14312");
 			book.setTitle("title hahaha xD");
 			
+			
 //			publicationDAO.insertBook(book);
 			
 			book.setTitle("haha uj");
