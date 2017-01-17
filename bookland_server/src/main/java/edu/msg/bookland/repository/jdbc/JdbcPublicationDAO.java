@@ -631,5 +631,26 @@ public class JdbcPublicationDAO implements PublicationDAO{
 		
 		return null;
 	}
+
+
+	@Override
+	public int getCopiesLeft(String uuid) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+	@Override
+	public void setCopiesLeft(String uuid) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public Publication getPublicationByUuid(String uuid) throws RepositoryException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

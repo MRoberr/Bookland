@@ -190,4 +190,22 @@ public class HibernatePublicationDAO implements PublicationDAO{
 		return pubList;
 	}
 
+	@Override
+	public int getCopiesLeft(String uuid) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void setCopiesLeft(String uuid) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Publication getPublicationByUuid(String uuid) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
