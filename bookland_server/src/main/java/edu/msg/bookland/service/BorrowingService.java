@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 
 import edu.msg.bookland.model.Borrowing;
 import edu.msg.bookland.model.Publication;
+import edu.msg.bookland.model.Tuple;
 import edu.msg.bookland.repository.BorrowingDAO;
 import edu.msg.bookland.repository.DAOFactory;
 import edu.msg.bookland.repository.RepositoryException;
@@ -94,7 +95,7 @@ public class BorrowingService extends UnicastRemoteObject implements BorrowingSe
 	}
 
 	@Override
-	public List<Publication> getBorrowByUserUUID(String uuid) throws RemoteException {
+	public List<Tuple> getBorrowByUserUUID(String uuid) throws RemoteException {
 		List<Borrowing> borrows;
 		try {
 			borrows = borrowingDAO.getPublicationsBorrowedByUser(uuid);
