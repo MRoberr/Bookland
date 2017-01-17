@@ -27,11 +27,23 @@ public class Magazine extends Publication {
 	private static final long serialVersionUID = -5114016015626666976L;
 
 	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "publications_authors", joinColumns=@JoinColumn(name = "publications_uuid"), inverseJoinColumns = @JoinColumn(name = "authors_uuid"))
+	@JoinTable(name = "publications_authors", joinColumns = @JoinColumn(name = "publications_uuid"), inverseJoinColumns = @JoinColumn(name = "authors_uuid"))
 	private List<Author> authors;
 
 	public Magazine() {
 		authors = new ArrayList<Author>();
+	}
+
+	public Magazine(Magazine magazine) {
+		setCopiesLeft(magazine.getCopiesLeft());
+		setNumberOfCopies(magazine.getNumberOfCopies());
+		setPublisher(magazine.getPublisher());
+		setReleaseDate(magazine.getReleaseDate());
+		setTitle(magazine.getTitle());
+		authors = new ArrayList<>();
+		for (Author a : magazine.getAuthors()) {
+			authors.add(new Author(a));
+		}
 	}
 
 	public List<Author> getAuthors() {

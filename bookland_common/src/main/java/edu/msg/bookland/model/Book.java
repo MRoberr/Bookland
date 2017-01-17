@@ -36,6 +36,18 @@ public class Book extends Publication {
 		authors = new ArrayList<Author>();
 	}
 	
+	public Book(Book book){
+		setCopiesLeft(book.getCopiesLeft());
+		setNumberOfCopies(book.getNumberOfCopies());
+		setPublisher(book.getPublisher());
+		setReleaseDate(book.getReleaseDate());
+		setTitle(book.getTitle());
+		authors=new ArrayList<>();
+		for(Author a:book.getAuthors()){
+			authors.add(new Author(a));
+		}
+	}
+	
 	public List<Author> getAuthors() {
 		return authors;
 	}
