@@ -17,9 +17,9 @@ CREATE TABLE `library`.`library_users` (
   PRIMARY KEY (`uuid`),
   UNIQUE INDEX `uuid_UNIQUE` (`uuid` ASC)); 
   
-INSERT INTO `library`.`library_users` (`uuid`, `name`, `email`,`user_type`, `loyalty_index`, `password`) VALUES ('123', 'Robi','alma@fa.com', 'ADMIN', '10', '12345');
-INSERT INTO `library`.`library_users` (`uuid`, `name`, `email`, `user_type`, `loyalty_index`, `password`) VALUES ('145', 'Terez','terez@msg.com', 'READER', '10', '12345');
-INSERT INTO `library`.`library_users` (`uuid`, `name`,  `email`,`user_type`, `loyalty_index`, `password`) VALUES ('146', 'Joco', ' joco@msg.com','READER', '0', '12345');
+INSERT INTO `library`.`library_users` (`uuid`, `name`, `email`,`user_type`, `loyalty_index`, `password`) VALUES ('123', 'Robi','alma@fa.com', 'ADMIN', '10', 'F�sh��e�rK�:W?��Ց.');
+INSERT INTO `library`.`library_users` (`uuid`, `name`, `email`, `user_type`, `loyalty_index`, `password`) VALUES ('145', 'Terez','terez@msg.com', 'READER', '10', 'F�sh��e�rK�:W?��Ց.');
+INSERT INTO `library`.`library_users` (`uuid`, `name`,  `email`,`user_type`, `loyalty_index`, `password`) VALUES ('146', 'Joco', ' joco@msg.com','READER', '0', 'F�sh��e�rK�:W?��Ց.');
  
   
    Drop table if exists  `library`.`authors`;
@@ -50,7 +50,7 @@ INSERT INTO `library`.`publication_type` (`id`, `name`) VALUES ('3', 'newspaper'
   `publisher` VARCHAR(45),  
   `release_date` date,
   `nr_of_copies` INT(5),
-  `copies_left` INT(5),
+  `copies_left` INT(5) Unsigned,
   `type` INT(5),
   PRIMARY KEY (`uuid`),
   FOREIGN KEY (type) 
