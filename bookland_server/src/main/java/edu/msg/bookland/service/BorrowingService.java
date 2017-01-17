@@ -76,7 +76,7 @@ public class BorrowingService extends UnicastRemoteObject implements BorrowingSe
 	}
 
 	/**
-	 * Inserts the given {@link Borrowing} into database.
+	 * Delete the given {@link Borrowing} into database.
 	 * @param borrow 
 	 * the {@link Borrowing} object
 	 * 
