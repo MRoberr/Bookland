@@ -48,7 +48,8 @@ public class PublicationDAOTest {
 //			publicationDAO.insertBook(book);
 			
 			book.setTitle("haha uj");
-			publicationDAO.updateBook(book);
+//			publicationDAO.updateBook(book);
+			publicationDAO.searchPublication("ember");
 			
 		} catch(Exception e) {
 			e.printStackTrace();
