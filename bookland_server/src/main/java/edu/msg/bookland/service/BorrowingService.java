@@ -7,7 +7,10 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import edu.msg.bookland.model.Book;
 import edu.msg.bookland.model.Borrowing;
+import edu.msg.bookland.model.Magazine;
+import edu.msg.bookland.model.Newspaper;
 import edu.msg.bookland.model.Publication;
 import edu.msg.bookland.model.Tuple;
 import edu.msg.bookland.repository.BorrowingDAO;
@@ -32,7 +35,7 @@ public class BorrowingService extends UnicastRemoteObject implements BorrowingSe
 	/**
 	 * initialize borrowingDAO
 	 * 
-	 * @throw ServiceException if can't get a DAO
+	 * @throw ServiceException if can't get a DAO 
 	 */
 	public BorrowingService() throws RemoteException {
 		borrowingDAO = DAOFactory.getDAOFactory().getBorrowingDAO();
@@ -99,12 +102,26 @@ public class BorrowingService extends UnicastRemoteObject implements BorrowingSe
 	public List<Tuple> getBorrowByUserUUID(String uuid) throws RemoteException {
 		List<Tuple> borrowedPublications=new ArrayList<>();
 		List<Borrowing> borrowList;
+		
 		try {
 			borrowList = borrowingDAO.getPublicationsBorrowedByUser(uuid);
 			PublicationService pubService=new PublicationService();
 			for(Borrowing borrow:borrowList){
 				Publication p=pubService.getPublicationByUuid(borrow.getPublicationId());
-				borrowedPublications.add(new Tuple(borrow, p));
+				Borrowing b=new Borrowing((Borrowing)borrow);
+				switch (p.getClass().getSimpleName()) {
+				case "Book":
+					borrowedPublications.add(new Tuple(b,new Book((Book)p)));
+					break;
+				case "Magazine":
+					borrowedPublications.add(new Tuple(b,new Magazine((Magazine)p)));					
+					break;
+				case "Newspaper":
+					borrowedPublications.add(new Tuple(b,new Newspaper((Newspaper)p)));
+					break;
+				default:
+					break;
+				}
 			}
 			return borrowedPublications;
 		} catch (RepositoryException e) {

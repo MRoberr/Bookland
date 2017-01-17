@@ -50,6 +50,16 @@ public class Borrowing implements Serializable {
 	@MapsId("publicationId")
 	@JoinColumn(name = "publications_uuid")
 	private Publication publication;
+	
+	public Borrowing(){
+		
+	}
+	
+	public Borrowing(Borrowing b){
+		borrowingDate=b.getBorrowingDate();
+		deadline=b.getDeadline();
+		
+	}
 
 	public String getUserId() {
 		
