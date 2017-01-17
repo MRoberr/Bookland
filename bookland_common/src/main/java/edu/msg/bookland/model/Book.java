@@ -33,7 +33,9 @@ public class Book extends Publication {
 	private List<Author> authors;
 
 	public Book() {
+		
 		authors = new ArrayList<Author>();
+		borrow = new ArrayList<>();
 	}
 	
 	public List<Author> getAuthors() {

@@ -8,17 +8,22 @@ import org.junit.Test;
 
 import edu.msg.bookland.model.Book;
 import edu.msg.bookland.model.Publication;
+import edu.msg.bookland.model.User;
 import edu.msg.bookland.repository.PublicationDAO;
+import edu.msg.bookland.repository.UserDAO;
 import edu.msg.bookland.repository.hibernate.HibernatePublicationDAO;
+import edu.msg.bookland.repository.hibernate.HibernateUserDAO;
 
 public class PublicationDAOTest {
 	
 	private PublicationDAO publicationDAO;
+	private UserDAO userDAO;
 	
 	{
 		try {
 
 			publicationDAO = new HibernatePublicationDAO();
+			userDAO = new HibernateUserDAO();
 		} catch (Exception e) {
 
 			e.printStackTrace();
@@ -34,7 +39,7 @@ public class PublicationDAOTest {
 
 	}
 
-	@Test
+//	@Test
 	public void testGet() {
 
 		try {
@@ -63,5 +68,16 @@ public class PublicationDAOTest {
 			e.printStackTrace();
 		}
 
+		
+	}
+	
+	@Test
+	public void userBorrowRelationHibernate() {
+		
+		List<User> users = userDAO.getAllUsers();
+
+		System.out.println(users.size());
+		
+		System.out.println(users.get(0).getBorrows().size());
 	}
 }

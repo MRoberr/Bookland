@@ -31,7 +31,9 @@ public class Magazine extends Publication {
 	private List<Author> authors;
 
 	public Magazine() {
+		
 		authors = new ArrayList<Author>();
+		borrow = new ArrayList<>();
 	}
 
 	public List<Author> getAuthors() {

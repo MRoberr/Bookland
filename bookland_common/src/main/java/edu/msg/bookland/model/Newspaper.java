@@ -1,5 +1,6 @@
 package edu.msg.bookland.model;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import javax.persistence.DiscriminatorValue;
@@ -19,6 +20,11 @@ public class Newspaper extends Publication{
 
 	@Transient
 	private static final long serialVersionUID = -3891407649176906111L;
+	
+	public Newspaper() {
+		
+		borrow = new ArrayList<>();
+	}
 	
 	@Override
 	public String toString() {

@@ -3,10 +3,16 @@ package edu.msg.bookland.model;
 import java.io.Serializable;
 import java.sql.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 /**
@@ -19,18 +25,15 @@ import javax.persistence.Transient;
 
 @Entity
 @Table(name = "publication_borrowings")
+
 public class Borrowing implements Serializable {
 	
 	@Transient
 	private static final long serialVersionUID = 482888478185204088L;
 	
-	@Id
-	@Column(name = "user_uuid", nullable = false)
-	private String userId;
+	@EmbeddedId
+	private UserPublicationId userPublicationId;
 	
-	@Id
-	@Column(name = "publications_uuid", nullable = false)
-	private String publicationId;
 	
 	@Column(name = "borrowing_date")
 	private Date borrowingDate;
@@ -38,20 +41,34 @@ public class Borrowing implements Serializable {
 	@Column(name = "deadline")
 	private Date deadline;
 
+	@ManyToOne
+	@MapsId("userId")
+	@JoinColumn(name = "user_uuid")
+	private User user;
+	
+	@ManyToOne
+	@MapsId("publicationId")
+	@JoinColumn(name = "publications_uuid")
+	private Publication publication;
+
 	public String getUserId() {
-		return userId;
+		
+		return userPublicationId.getUserId();
 	}
 
 	public void setUserId(String userId) {
-		this.userId = userId;
+
+		userPublicationId.setUserId(userId);
 	}
 
 	public String getPublicationId() {
-		return publicationId;
+
+		return userPublicationId.getPublicationId();
 	}
 
 	public void setPublicationId(String publicationId) {
-		this.publicationId = publicationId;
+
+		userPublicationId.SetPublicationId(publicationId);
 	}
 
 	public Date getBorrowingDate() {
@@ -69,10 +86,15 @@ public class Borrowing implements Serializable {
 	public void setDeadline(Date deadline) {
 		this.deadline = deadline;
 	}
+	
+	public Publication getPublicatoin() {
+		
+		return publication;
+	}
 
 	@Override
 	public String toString() {
-		return "Borrowing [userId=" + userId + ", publicationId=" + publicationId + ", borrowingDate=" + borrowingDate
+		return "Borrowing [userId=" + userPublicationId.getUserId() + ", publicationId=" + userPublicationId.getPublicationId() + ", borrowingDate=" + borrowingDate
 				+ ", deadline=" + deadline + "]";
 	}
 
