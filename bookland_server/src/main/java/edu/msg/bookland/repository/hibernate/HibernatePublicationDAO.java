@@ -170,7 +170,13 @@ public class HibernatePublicationDAO implements PublicationDAO{
 	}
 
 	@Override
-	public List<Publication> searchBublication(String name) throws RepositoryException {
+	public List<Publication> searchPublication(String name) throws RepositoryException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Publication> getPublicationsByAuthorUUID(String uuid) throws RepositoryException {
 		// TODO Auto-generated method stub
 		return null;
 	}
