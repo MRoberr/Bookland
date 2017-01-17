@@ -13,6 +13,7 @@ import edu.msg.bookland.desktop.view.DataAdministrationView;
 import edu.msg.bookland.desktop.view.MainView;
 import edu.msg.bookland.model.Borrowing;
 import edu.msg.bookland.model.Publication;
+import edu.msg.bookland.model.Tuple;
 import edu.msg.bookland.model.User;
 import edu.msg.bookland.model.UserType;
 
@@ -25,8 +26,10 @@ public class MainController {
 	private String tempStr = "";
 	private List<Publication> tempPublications;
 	private List<User> tempUsers;
-	private User tempUser;
+	private List<Tuple> tempTuples;
 	private Publication tempPublication;
+	private User tempUser;
+	private Tuple tempTuple;
 	private final String exitBackString = " Try again or (-1 exit) (-2 back).";
 	private final String exitString = " Try again or (-1 exit).";
 
@@ -156,8 +159,9 @@ public class MainController {
 				searchUsers();
 				tempUser = getUserFromResult();
 				if (tempUser != null) {
-				//	searchBorrowedPublications();
-				}				
+					searchBorrowedPublications(tempUser.getUUID());
+					tempTuple = getBorrowedPublicationFromResult();
+				}
 			} finally {
 				tempPublication = null;
 				tempPublications = null;
@@ -223,13 +227,17 @@ public class MainController {
 			System.out.println(++tempInt + ": " + p.toString());
 		}
 	}
-	
+
 	private void searchBorrowedPublications(String uuid) {
-		//tempTuple//tempPublications = csc.getPublicationsBorrowedByUser(uuid);
-//		if ((tempPublications == null) || (tempPublications.isEmpty())) {
-//			System.out.println("Couldn't find any publication for user!");
-//			return;
-//		}
+		tempTuples = csc.getPublicationsBorrowedByUser(uuid);
+		if ((tempTuples == null) || (tempTuples.isEmpty())) {
+			System.out.println("Couldn't find any publication for user!");
+			return;
+		}
+		tempInt = 0;
+		for (Tuple t : tempTuples) {
+			System.out.println(++tempInt + ": " + t.toString());
+		}
 	}
 
 	private void searchUsers() {
@@ -262,6 +270,25 @@ public class MainController {
 				return null;
 			}
 		}
+	}
+	
+	private Tuple getBorrowedPublicationFromResult() {
+		if (tempTuples == null) {
+			return null;
+		} else {
+			System.out.println("Select number from the list above.");
+			int cmd = getIntLine();
+			if (cmd == -1) {
+				System.out.println("Exit.");
+				System.exit(0);
+				return null;
+			} else if ((cmd < tempTuples.size()) && (cmd >= 0)) {
+				return tempTuples.get(cmd);
+			} else {
+				System.out.println("Invalid Command." + exitString);
+				return null;
+			}
+		}	
 	}
 
 	private User getUserFromResult() {
