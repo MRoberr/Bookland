@@ -251,8 +251,8 @@ public class JDBCUserDAO implements UserDAO {
 			statement.close();
 			users.close();
 		} catch (SQLException e) {
-			LOGGER.error("Could not retrieve User! ", e);
-			throw new RepositoryException("Could not retrive User!", e);
+			LOGGER.error("Could not retrieve User by id! ", e);
+			throw new RepositoryException("Could not retrive User by id!", e);
 		} finally {
 			if (con != null) {
 				conMan.returnConnection(con);
