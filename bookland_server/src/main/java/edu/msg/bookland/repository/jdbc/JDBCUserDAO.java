@@ -275,11 +275,13 @@ public class JDBCUserDAO implements UserDAO {
 			PreparedStatement statement = con.prepareStatement(query);
 			statement.setString(1, "%" + name + "%");
 			ResultSet users = statement.executeQuery();
-			if (users.next()) {
-				user = new User(users.getString("name"), users.getString("email"),
-						UserType.valueOf(users.getString("user_type")), users.getInt("loyalty_index"));
-				user.setUUID(users.getString("uuid"));
-				userList.add(user);
+			if (!user.getName().equals(null)) {
+				while (users.next()) {
+					user = new User(users.getString("name"), users.getString("email"),
+							UserType.valueOf(users.getString("user_type")), users.getInt("loyalty_index"));
+					user.setUUID(users.getString("uuid"));
+					userList.add(user);
+				}
 			} else {
 				throw new RepositoryException("Could not retrieve User list! ");
 			}
@@ -301,8 +303,8 @@ public class JDBCUserDAO implements UserDAO {
 		Connection con = null;
 		try {
 			con = conMan.getConnection();
-			PreparedStatement preparedStatement = con.prepareStatement(
-					"update library_users set loyalty_index = loyalty_index -1 where uuid=?");
+			PreparedStatement preparedStatement = con
+					.prepareStatement("update library_users set loyalty_index = loyalty_index -1 where uuid=?");
 			preparedStatement.setString(1, uuid);
 
 			preparedStatement.execute();
