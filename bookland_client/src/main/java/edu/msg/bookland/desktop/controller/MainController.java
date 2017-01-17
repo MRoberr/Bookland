@@ -161,10 +161,20 @@ public class MainController {
 				if (tempUser != null) {
 					searchBorrowedPublications(tempUser.getUUID());
 					tempTuple = getBorrowedPublicationFromResult();
+					if (tempTuple != null) {
+						Borrowing borrowing = tempTuple.getBorrow();
+						if (csc.returnPublication(borrowing)) {
+							System.out.println(
+									"Returning of <" + tempTuple.getPublication().getTitle() + "> successful!");
+						} else {
+							System.out.println(
+									"Returning of <" + tempTuple.getPublication().getTitle() + "> not successful!");
+						}
+					}
 				}
 			} finally {
-				tempPublication = null;
-				tempPublications = null;
+				tempTuple = null;
+				tempTuples = null;
 				tempUser = null;
 				tempUsers = null;
 			}
@@ -263,17 +273,19 @@ public class MainController {
 				System.out.println("Exit.");
 				System.exit(0);
 				return null;
-			} else if ((cmd < tempPublications.size()) && (cmd >= 0)) {
-				return tempPublications.get(cmd);
+			} else if ((cmd <= tempPublications.size()) && (cmd > 0)) {
+				return tempPublications.get(--cmd);
 			} else {
 				System.out.println("Invalid Command." + exitString);
 				return null;
 			}
 		}
 	}
-	
+
 	private Tuple getBorrowedPublicationFromResult() {
 		if (tempTuples == null) {
+			return null;
+		} else if ((tempTuples.size()>0) && ((tempTuples.get(0).getBorrow() == null) || (tempTuples.get(0).getPublication() == null)) ){
 			return null;
 		} else {
 			System.out.println("Select number from the list above.");
@@ -282,13 +294,13 @@ public class MainController {
 				System.out.println("Exit.");
 				System.exit(0);
 				return null;
-			} else if ((cmd < tempTuples.size()) && (cmd >= 0)) {
-				return tempTuples.get(cmd);
+			} else if ((cmd <= tempTuples.size()) && (cmd > 0)) {
+				return tempTuples.get(--cmd);
 			} else {
 				System.out.println("Invalid Command." + exitString);
 				return null;
 			}
-		}	
+		}
 	}
 
 	private User getUserFromResult() {
@@ -301,8 +313,8 @@ public class MainController {
 				System.out.println("Exit.");
 				System.exit(0);
 				return null;
-			} else if ((cmd < tempUsers.size()) && (cmd >= 0)) {
-				return tempUsers.get(cmd);
+			} else if ((cmd <= tempUsers.size()) && (cmd > 0)) {
+				return tempUsers.get(--cmd);
 			} else {
 				System.out.println("Invalid Command." + exitString);
 				return null;

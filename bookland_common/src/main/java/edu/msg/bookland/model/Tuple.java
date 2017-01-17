@@ -1,23 +1,23 @@
 package edu.msg.bookland.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.Serializable;
 
-public class Tuple {
-	Borrowing borrow;
-	Publication publication;
-	
-	public Tuple(Borrowing borrow,Publication publication){
-		this.borrow=borrow;
-		this.publication=publication;
+public class Tuple implements Serializable{	
+	private static final long serialVersionUID = -8678286611552033616L;
+	private Borrowing borrow;
+	private Publication publication;
+
+	public Tuple(Borrowing borrow, Publication publication) {
+		this.borrow = borrow;
+		this.publication = publication;
 	}
-	
-	public static void main(String...args){
-		Tuple t=new Tuple(new Borrowing(),new Book());
-		List<Tuple> l=new ArrayList<>();
-		l.add(t);
-		for(Tuple tl:l){
-			System.out.println(tl.borrow.getPublicationId());
-		}
+
+	public Borrowing getBorrow() {
+		return borrow;
 	}
+
+	public Publication getPublication() {
+		return publication;
+	}
+
 }

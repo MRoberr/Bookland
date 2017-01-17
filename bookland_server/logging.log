@@ -1373,4 +1373,137 @@ Caused by: java.net.BindException: Address already in use: JVM_Bind
 	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:192)
 2017-01-16 16:04:30 INFO  JDBCUserDAO:58 - All user selected
   2017-01-16 16:04:30 INFO  JDBCUserDAO:132 - user info updated
+  2017-01-17 09:38:02 INFO  ConnectionManager:43 - Connection pool initialized
+  2017-01-17 09:38:02 INFO  ConnectionManager:45 - Server online!
+  2017-01-17 09:44:34 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [
+	name: bookland_jpa
+	...]
+  2017-01-17 09:44:34 INFO  Version:45 - HHH000412: Hibernate Core {5.2.6.Final}
+  2017-01-17 09:44:34 INFO  Environment:213 - HHH000206: hibernate.properties not found
+  2017-01-17 09:44:35 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+  2017-01-17 09:44:35 WARN  pooling:70 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+  2017-01-17 09:44:35 INFO  pooling:126 - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library?useSSL=false]
+  2017-01-17 09:44:35 INFO  pooling:135 - HHH10001001: Connection properties: {user=library_admin, password=****}
+  2017-01-17 09:44:35 INFO  pooling:140 - HHH10001003: Autocommit mode: false
+  2017-01-17 09:44:35 INFO  DriverManagerConnectionProviderImpl:41 - HHH000115: Hibernate connection pool size: 20 (min=1)
+  2017-01-17 09:44:35 INFO  Dialect:157 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+  2017-01-17 09:44:35 INFO  ConnectionManager:45 - Server online!
+  2017-01-17 09:44:41 INFO  QueryTranslatorFactoryInitiator:47 - HHH000397: Using ASTQueryTranslatorFactory
+  2017-01-17 09:49:59 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [
+	name: bookland_jpa
+	...]
+  2017-01-17 09:49:59 INFO  Version:45 - HHH000412: Hibernate Core {5.2.6.Final}
+  2017-01-17 09:49:59 INFO  Environment:213 - HHH000206: hibernate.properties not found
+  2017-01-17 09:49:59 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+  2017-01-17 09:50:00 WARN  pooling:70 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+  2017-01-17 09:50:00 INFO  pooling:126 - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library?useSSL=false]
+  2017-01-17 09:50:00 INFO  pooling:135 - HHH10001001: Connection properties: {user=library_admin, password=****}
+  2017-01-17 09:50:00 INFO  pooling:140 - HHH10001003: Autocommit mode: false
+  2017-01-17 09:50:00 INFO  DriverManagerConnectionProviderImpl:41 - HHH000115: Hibernate connection pool size: 20 (min=1)
+  2017-01-17 09:50:00 INFO  Dialect:157 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+  2017-01-17 09:50:00 INFO  ConnectionManager:45 - Server online!
+  2017-01-17 09:50:21 INFO  QueryTranslatorFactoryInitiator:47 - HHH000397: Using ASTQueryTranslatorFactory
+  2017-01-17 09:53:08 INFO  ConnectionManager:43 - Connection pool initialized
+  2017-01-17 09:53:08 INFO  ConnectionManager:45 - Server online!
+  2017-01-17 09:53:17 ERROR JDBCUserDAO:188 - Login failed! 
+  java.sql.SQLException: Illegal operation on empty result set.
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:964)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:897)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:886)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:860)
+	at com.mysql.jdbc.ResultSetImpl.checkRowPos(ResultSetImpl.java:790)
+	at com.mysql.jdbc.ResultSetImpl.getStringInternal(ResultSetImpl.java:5228)
+	at com.mysql.jdbc.ResultSetImpl.getString(ResultSetImpl.java:5151)
+	at edu.msg.bookland.repository.jdbc.JDBCUserDAO.login(JDBCUserDAO.java:182)
+	at edu.msg.bookland.service.UserService.login(UserService.java:115)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at sun.rmi.server.UnicastServerRef.dispatch(Unknown Source)
+	at sun.rmi.transport.Transport$1.run(Unknown Source)
+	at sun.rmi.transport.Transport$1.run(Unknown Source)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at sun.rmi.transport.Transport.serviceCall(Unknown Source)
+	at sun.rmi.transport.tcp.TCPTransport.handleMessages(Unknown Source)
+	at sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run0(Unknown Source)
+	at sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.lambda$run$0(Unknown Source)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+2017-01-17 09:53:17 ERROR JDBCUserDAO:117 - Invalid login
+  2017-01-17 09:56:54 ERROR JDBCUserDAO:188 - Login failed! 
+  java.sql.SQLException: Illegal operation on empty result set.
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:964)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:897)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:886)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:860)
+	at com.mysql.jdbc.ResultSetImpl.checkRowPos(ResultSetImpl.java:790)
+	at com.mysql.jdbc.ResultSetImpl.getStringInternal(ResultSetImpl.java:5228)
+	at com.mysql.jdbc.ResultSetImpl.getString(ResultSetImpl.java:5151)
+	at edu.msg.bookland.repository.jdbc.JDBCUserDAO.login(JDBCUserDAO.java:182)
+	at edu.msg.bookland.service.UserService.login(UserService.java:115)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at sun.rmi.server.UnicastServerRef.dispatch(Unknown Source)
+	at sun.rmi.transport.Transport$1.run(Unknown Source)
+	at sun.rmi.transport.Transport$1.run(Unknown Source)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at sun.rmi.transport.Transport.serviceCall(Unknown Source)
+	at sun.rmi.transport.tcp.TCPTransport.handleMessages(Unknown Source)
+	at sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run0(Unknown Source)
+	at sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.lambda$run$0(Unknown Source)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+2017-01-17 09:56:54 ERROR JDBCUserDAO:117 - Invalid login
+  2017-01-17 09:56:57 ERROR JDBCUserDAO:188 - Login failed! 
+  java.sql.SQLException: Illegal operation on empty result set.
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:964)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:897)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:886)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:860)
+	at com.mysql.jdbc.ResultSetImpl.checkRowPos(ResultSetImpl.java:790)
+	at com.mysql.jdbc.ResultSetImpl.getStringInternal(ResultSetImpl.java:5228)
+	at com.mysql.jdbc.ResultSetImpl.getString(ResultSetImpl.java:5151)
+	at edu.msg.bookland.repository.jdbc.JDBCUserDAO.login(JDBCUserDAO.java:182)
+	at edu.msg.bookland.service.UserService.login(UserService.java:115)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at sun.rmi.server.UnicastServerRef.dispatch(Unknown Source)
+	at sun.rmi.transport.Transport$1.run(Unknown Source)
+	at sun.rmi.transport.Transport$1.run(Unknown Source)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at sun.rmi.transport.Transport.serviceCall(Unknown Source)
+	at sun.rmi.transport.tcp.TCPTransport.handleMessages(Unknown Source)
+	at sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run0(Unknown Source)
+	at sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.lambda$run$0(Unknown Source)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+2017-01-17 09:56:57 ERROR JDBCUserDAO:117 - Invalid login
+  2017-01-17 09:57:49 INFO  JDBCBorrowingDAO:120 - Succesfully retrieved borrowings from DB
+  2017-01-17 10:00:23 INFO  ConnectionManager:43 - Connection pool initialized
+  2017-01-17 10:00:23 INFO  ConnectionManager:45 - Server online!
+  2017-01-17 10:00:36 INFO  JDBCBorrowingDAO:120 - Succesfully retrieved borrowings from DB
+  2017-01-17 10:01:17 INFO  JDBCBorrowingDAO:120 - Succesfully retrieved borrowings from DB
+  2017-01-17 10:02:14 INFO  JDBCBorrowingDAO:120 - Succesfully retrieved borrowings from DB
+  2017-01-17 10:03:11 INFO  ConnectionManager:43 - Connection pool initialized
+  2017-01-17 10:03:11 INFO  ConnectionManager:45 - Server online!
+  2017-01-17 10:04:11 INFO  JDBCBorrowingDAO:120 - Succesfully retrieved borrowings from DB
+  2017-01-17 10:06:32 INFO  ConnectionManager:43 - Connection pool initialized
+  2017-01-17 10:06:32 INFO  ConnectionManager:45 - Server online!
+  2017-01-17 10:06:50 INFO  JDBCBorrowingDAO:120 - Succesfully retrieved borrowings from DB
+  2017-01-17 10:06:54 INFO  JDBCBorrowingDAO:82 - Succesfully deleted a borrowing
+  2017-01-17 10:09:57 INFO  JDBCBorrowingDAO:120 - Succesfully retrieved borrowings from DB
   
