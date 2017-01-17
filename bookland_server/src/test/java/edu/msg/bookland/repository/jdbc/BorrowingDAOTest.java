@@ -8,6 +8,8 @@ import org.junit.Assert;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 
 import edu.msg.bookland.model.Author;
 import edu.msg.bookland.model.Borrowing;
@@ -59,7 +61,7 @@ public class BorrowingDAOTest {
 		try {
 			List<Borrowing> list = borrowingDAO.getPublicationsBorrowedByUser(userId);
 			assertTrue(!list.isEmpty());
-			for(Borrowing b:list) {
+			for (Borrowing b : list) {
 				System.out.println(b);
 			}
 		} catch (RepositoryException e) {
@@ -68,26 +70,30 @@ public class BorrowingDAOTest {
 	}
 
 	/**
+	 * U from CRUD. Test Borrowing update.
+	 */
+	@Test
+	public void test2Update() {
+		try {
+			Borrowing borrowing = createBorrowing();
+			borrowing.setDeadline(java.sql.Date.valueOf("2000-01-01"));
+			borrowingDAO.updateBorrowing(borrowing);
+		} catch (RepositoryException e) {
+			Assert.fail("Could no insert Borrowing.");
+		}
+	}
+
+	/**
 	 * D from CRUD. Test Borrowing delete.
 	 */
 	@Test
-	public void test2delete() {
+	public void test3delete() {
 		try {
 			borrowingDAO.deleteBorrowing(createBorrowing());
 			assertTrue(true);
 		} catch (RepositoryException e) {
 			Assert.fail("Could not delete Borrowing.");
 		}
-	}
-	
-	@Test
-	public void testUpdate() {
-		Borrowing borrowing = new Borrowing();
-		borrowing.setUserId("123");
-		borrowing.setPublicationId("1234");
-		borrowing.setDeadline(java.sql.Date.valueOf("2000-01-01"));
-		borrowingDAO.updateBorrowing(borrowing);
-		
 	}
 
 }
