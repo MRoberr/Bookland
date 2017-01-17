@@ -5,7 +5,6 @@ import java.rmi.RemoteException;
 import java.util.List;
 
 import edu.msg.bookland.model.Borrowing;
-import edu.msg.bookland.model.Publication;
 import edu.msg.bookland.model.Tuple;
 
 /**
@@ -18,7 +17,6 @@ public interface BorrowingServiceRmi extends Remote {
 
 	public static final String RMI_NAME = "Borrowing";
 	public static final int RMI_PORT = 1099;
-
 
 	/**
 	 * This method searches for a Borrowing with the specified uuid.

@@ -1,7 +1,6 @@
 package edu.msg.bookland.model;
 
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -22,28 +21,27 @@ import javax.persistence.Transient;
 public class User extends BaseEntity {
 	@Transient
 	private static final long serialVersionUID = 2326611259099577676L;
-	
+
 	@Column(name = "name", nullable = false, unique = true)
 	private String name;
-	
+
 	@Column(name = "password")
 	private String password;
-	
+
 	@Column(name = "user_type")
 	@Enumerated(EnumType.STRING)
 	private UserType userType;
-	
+
 	@Column(name = "loyalty_index")
 	private int loyaltyIndex;
-	
+
 	@Column(name = "email", nullable = false, unique = true)
 	private String email;
 
-
 	public User() {
-		
+
 	}
-	
+
 	public User(String name) {
 		this.name = name;
 		loyaltyIndex = 10;
@@ -56,7 +54,7 @@ public class User extends BaseEntity {
 		this.userType = userType;
 		this.loyaltyIndex = loyaltyIndex;
 		this.email = email;
-	}	
+	}
 
 	public String getName() {
 		return name;

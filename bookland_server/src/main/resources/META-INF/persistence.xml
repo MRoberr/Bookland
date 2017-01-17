@@ -16,8 +16,7 @@
 		<class>edu.msg.bookland.model.Borrowing</class>
 
 		<properties>
-			<property name="javax.persistence.jdbc.url"
-				value="jdbc:mysql://localhost:3306/library?useSSL=false" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/library?useSSL=false" />
 			<property name="javax.persistence.jdbc.user" value="library_admin" />
 			<property name="javax.persistence.jdbc.password" value="library_admin_pass" />
 			<property name="hibernate.default_schema" value="library" />

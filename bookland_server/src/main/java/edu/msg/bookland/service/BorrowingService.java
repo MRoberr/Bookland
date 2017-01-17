@@ -68,7 +68,7 @@ public class BorrowingService extends UnicastRemoteObject implements BorrowingSe
 	 */
 	public boolean updateBorrowing(Borrowing borrow) throws RemoteException {
 		try {
-			// borrowingDAO.up(borrow);
+			borrowingDAO.updateBorrowing(borrow);
 			return true;
 		} catch (RepositoryException e) {
 			LOGGER.error("Failed to insert borrowing");
@@ -77,7 +77,7 @@ public class BorrowingService extends UnicastRemoteObject implements BorrowingSe
 	}
 
 	/**
-	 * Inserts the given {@link Borrowing} into database.
+	 * Delete the given {@link Borrowing} into database.
 	 * @param borrow 
 	 * the {@link Borrowing} object
 	 * 
