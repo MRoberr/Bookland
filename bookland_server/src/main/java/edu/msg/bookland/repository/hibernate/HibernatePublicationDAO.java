@@ -10,12 +10,20 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.CriteriaUpdate;
 import javax.persistence.criteria.Root;
+import javax.swing.plaf.synth.SynthSeparatorUI;
+
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Restrictions;
 
 import edu.msg.bookland.model.Book;
 import edu.msg.bookland.model.Book_;
 import edu.msg.bookland.model.Magazine;
 import edu.msg.bookland.model.Newspaper;
 import edu.msg.bookland.model.Publication;
+import edu.msg.bookland.model.Publication_;
 import edu.msg.bookland.repository.PublicationDAO;
 import edu.msg.bookland.repository.RepositoryException;
 
@@ -23,18 +31,20 @@ public class HibernatePublicationDAO implements PublicationDAO{
 
 	private EntityManagerFactory entityManagerFactory;
 	private EntityManager entityManager;
+	private CriteriaBuilder builder;
+	
 	
 	public HibernatePublicationDAO() {
 
 		entityManagerFactory = Persistence.createEntityManagerFactory("bookland_jpa");
 		entityManager = entityManagerFactory.createEntityManager();
+		builder = entityManager.getCriteriaBuilder();
 			
 	}
 	
 	@Override
 	public List<Book> getAllBooks() throws RepositoryException {
 		
-		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
 		CriteriaQuery<Book> books = builder.createQuery(Book.class);
 		
 		Root<Book> book = books.from(Book.class);
@@ -49,7 +59,6 @@ public class HibernatePublicationDAO implements PublicationDAO{
 	@Override
 	public List<Magazine> getAllMagazines() throws RepositoryException {
 		
-		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
 		CriteriaQuery<Magazine> magazines = builder.createQuery(Magazine.class);
 		
 		Root<Magazine> magazine = magazines.from(Magazine.class);
@@ -64,7 +73,6 @@ public class HibernatePublicationDAO implements PublicationDAO{
 	@Override
 	public List<Newspaper> getAllNewspapers() throws RepositoryException {
 
-		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
 		CriteriaQuery<Newspaper> newspapers = builder.createQuery(Newspaper.class);
 		
 		Root<Newspaper> newspaper = newspapers.from(Newspaper.class);
@@ -79,7 +87,6 @@ public class HibernatePublicationDAO implements PublicationDAO{
 	@Override
 	public List<Publication> getAllPublications() throws RepositoryException {
 
-		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
 		CriteriaQuery<Publication> pubs = builder.createQuery(Publication.class);
 		
 		Root<Publication> pub = pubs.from(Publication.class);
@@ -123,7 +130,6 @@ public class HibernatePublicationDAO implements PublicationDAO{
 //		entityManager.getTransaction().commit();
 		
 		entityManager.getTransaction().begin();
-		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
 		CriteriaUpdate<Book> update = builder.createCriteriaUpdate(Book.class);
 		
 		Root<Book> bookRoot = update.from(Book.class);
@@ -170,9 +176,18 @@ public class HibernatePublicationDAO implements PublicationDAO{
 	}
 
 	@Override
-	public List<Publication> searchBublication(String name) throws RepositoryException {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Publication> searchPublication(String title) throws RepositoryException {
+
+		CriteriaQuery<Publication> pubByTitle = builder.createQuery(Publication.class);
+		Root<Publication> pub = pubByTitle.from(Publication.class);
+		
+		pubByTitle.select(pub);
+		pubByTitle.where(builder.like(pub.get(Publication_.title), '%' + title + '%'));
+		
+		TypedQuery<Publication> pubQuery = entityManager.createQuery(pubByTitle);
+		List<Publication> pubList = pubQuery.getResultList();
+		
+		return pubList;
 	}
 
 }

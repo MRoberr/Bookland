@@ -8,6 +8,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+
 import org.apache.log4j.Logger;
 
 import edu.msg.bookland.model.Author;
@@ -624,8 +626,9 @@ public class JdbcPublicationDAO implements PublicationDAO{
 
 
 	@Override
-	public List<Publication> searchBublication(String name) throws RepositoryException {
-		// TODO Auto-generated method stub
+	public List<Publication> searchPublication(String title) throws RepositoryException {
+
+		
 		return null;
 	}
 	
