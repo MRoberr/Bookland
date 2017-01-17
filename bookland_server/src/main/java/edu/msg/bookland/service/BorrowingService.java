@@ -68,7 +68,7 @@ public class BorrowingService extends UnicastRemoteObject implements BorrowingSe
 	 */
 	public boolean updateBorrowing(Borrowing borrow) throws RemoteException {
 		try {
-			// borrowingDAO.up(borrow);
+			borrowingDAO.updateBorrowing(borrow);
 			return true;
 		} catch (RepositoryException e) {
 			LOGGER.error("Failed to insert borrowing");
