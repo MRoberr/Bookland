@@ -27,6 +27,7 @@ public class Author extends BaseEntity {
 	}
 	
 	public Author(Author a){
+		setUUID(a.getUUID());
 		name=a.getName();
 	}
 	public String getName() {

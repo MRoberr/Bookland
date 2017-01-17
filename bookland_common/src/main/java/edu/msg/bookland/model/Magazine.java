@@ -35,6 +35,7 @@ public class Magazine extends Publication {
 	}
 
 	public Magazine(Magazine magazine) {
+		setUUID(magazine.getUUID());
 		setCopiesLeft(magazine.getCopiesLeft());
 		setNumberOfCopies(magazine.getNumberOfCopies());
 		setPublisher(magazine.getPublisher());

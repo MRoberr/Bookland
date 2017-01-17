@@ -37,6 +37,7 @@ public class Book extends Publication {
 	}
 	
 	public Book(Book book){
+		setUUID(book.getUUID());
 		setCopiesLeft(book.getCopiesLeft());
 		setNumberOfCopies(book.getNumberOfCopies());
 		setPublisher(book.getPublisher());
