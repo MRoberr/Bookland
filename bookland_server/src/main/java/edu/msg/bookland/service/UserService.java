@@ -7,14 +7,14 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import edu.msg.bookland.model.Tuple;
-import edu.msg.bookland.model.User;
-import edu.msg.bookland.model.UserType;
+import edu.msg.bookland.common.model.Tuple;
+import edu.msg.bookland.common.model.UserDTO;
+import edu.msg.bookland.common.model.UserType;
+import edu.msg.bookland.common.rmi.UserServiceRmi;
 import edu.msg.bookland.repository.DAOFactory;
 import edu.msg.bookland.repository.RepositoryException;
 import edu.msg.bookland.repository.UserDAO;
 import edu.msg.bookland.repository.jdbc.JDBCUserDAO;
-import edu.msg.bookland.rmi.UserServiceRmi;
 import edu.msg.bookland.util.PasswordEncrypting;
 
 /**
@@ -40,7 +40,7 @@ public class UserService extends UnicastRemoteObject implements UserServiceRmi {
 	}
 
 	@Override
-	public List<User> getAllUsers() throws RemoteException {
+	public List<UserDTO> getAllUsers() throws RemoteException {
 		try {
 			return userDAO.getAllUsers();
 		} catch (RepositoryException e) {
@@ -50,7 +50,7 @@ public class UserService extends UnicastRemoteObject implements UserServiceRmi {
 	}
 
 	@Override
-	public boolean insertUser(User user) throws RemoteException {
+	public boolean insertUser(UserDTO user) throws RemoteException {
 		try {
 			user.setPassword(PasswordEncrypting.encrypt(user.getPassword(), "user"));
 			userDAO.insertUser(user);
@@ -62,7 +62,7 @@ public class UserService extends UnicastRemoteObject implements UserServiceRmi {
 	}
 
 	@Override
-	public boolean updateUser(User user) throws RemoteException {
+	public boolean updateUser(UserDTO user) throws RemoteException {
 		try {
 			user.setPassword(PasswordEncrypting.encrypt(user.getPassword(), "user"));
 			userDAO.updateUser(user);
@@ -74,7 +74,7 @@ public class UserService extends UnicastRemoteObject implements UserServiceRmi {
 	}
 
 	@Override
-	public boolean deleteUser(User user) throws RemoteException {
+	public boolean deleteUser(UserDTO user) throws RemoteException {
 		BorrowingService borrow = new BorrowingService();
 		try {
 			List<Tuple> userPubs = borrow.getBorrowByUserUUID(user.getUUID());
@@ -89,7 +89,7 @@ public class UserService extends UnicastRemoteObject implements UserServiceRmi {
 	}
 
 	@Override
-	public User getUserByUUUID(String uuid) throws RemoteException {
+	public UserDTO getUserByUUUID(String uuid) throws RemoteException {
 		try {
 			return userDAO.getUserById(uuid);
 		} catch (RepositoryException e) {
@@ -99,12 +99,12 @@ public class UserService extends UnicastRemoteObject implements UserServiceRmi {
 	}
 
 	@Override
-	public List<User> searchUser(String name) throws RemoteException {
-		List<User> usersList=new ArrayList<>();
+	public List<UserDTO> searchUser(String name) throws RemoteException {
+		List<UserDTO> usersList=new ArrayList<>();
 		try {
-			List<User>users= userDAO.searchUserByName(name);
-			for(User u:users){
-				usersList.add(new User(u));
+			List<UserDTO>users= userDAO.searchUserByName(name);
+			for(UserDTO u:users){
+				usersList.add(new UserDTO(u));
 			}
 			return usersList;
 		} catch (RepositoryException e) {

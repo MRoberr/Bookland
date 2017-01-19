@@ -10,7 +10,7 @@ import javax.persistence.TypedQuery;
 
 import org.apache.log4j.Logger;
 
-import edu.msg.bookland.model.Borrowing;
+import edu.msg.bookland.common.model.BorrowingDTO;
 import edu.msg.bookland.repository.BorrowingDAO;
 import edu.msg.bookland.repository.RepositoryException;
 
@@ -21,7 +21,7 @@ public class HibernateBorrowingDAO implements BorrowingDAO {
 	private EntityManager entityManager = entityManagerFactory.createEntityManager();
 
 	@Override
-	public void insertBorrowing(Borrowing borrowing) throws RepositoryException {
+	public void insertBorrowing(BorrowingDTO borrowing) throws RepositoryException {
 		try {
 			entityManager.getTransaction().begin();
 			entityManager.persist(borrowing);
@@ -36,15 +36,15 @@ public class HibernateBorrowingDAO implements BorrowingDAO {
 	}
 
 	@Override
-	public void deleteBorrowing(Borrowing borrowing) throws RepositoryException {
+	public void deleteBorrowing(BorrowingDTO borrowing) throws RepositoryException {
 		try {
 			entityManager.getTransaction().begin();
-			TypedQuery<Borrowing> query = entityManager.createQuery(
+			TypedQuery<BorrowingDTO> query = entityManager.createQuery(
 					"SELECT b FROM Borrowing b WHERE b.userId in :idu " + "and b.publicationId in :idp",
-					Borrowing.class);
+					BorrowingDTO.class);
 			query.setParameter("idu", borrowing.getUserId());
 			query.setParameter("idp", borrowing.getPublicationId());
-			Borrowing borrowingDB = query.getSingleResult();
+			BorrowingDTO borrowingDB = query.getSingleResult();
 			entityManager.remove(borrowingDB);
 			entityManager.getTransaction().commit();
 			LOGGER.info("Deleted borrowing");
@@ -57,12 +57,12 @@ public class HibernateBorrowingDAO implements BorrowingDAO {
 	}
 
 	@Override
-	public List<Borrowing> getPublicationsBorrowedByUser(String userUuid) throws RepositoryException {
-		List<Borrowing> borrowingList;
+	public List<BorrowingDTO> getPublicationsBorrowedByUser(String userUuid) throws RepositoryException {
+		List<BorrowingDTO> borrowingList;
 		try {
 
-			TypedQuery<Borrowing> query = entityManager.createQuery("SELECT b FROM Borrowing b WHERE b.userId in :idu ",
-					Borrowing.class);
+			TypedQuery<BorrowingDTO> query = entityManager.createQuery("SELECT b FROM Borrowing b WHERE b.userId in :idu ",
+					BorrowingDTO.class);
 			query.setParameter("idu", userUuid);
 			borrowingList = query.getResultList();
 
@@ -75,15 +75,15 @@ public class HibernateBorrowingDAO implements BorrowingDAO {
 	}
 
 	@Override
-	public void updateBorrowing(Borrowing borrowing) throws RepositoryException {
+	public void updateBorrowing(BorrowingDTO borrowing) throws RepositoryException {
 		try {
 			entityManager.getTransaction().begin();
-			TypedQuery<Borrowing> query = entityManager.createQuery(
+			TypedQuery<BorrowingDTO> query = entityManager.createQuery(
 					"SELECT b FROM Borrowing b WHERE b.userId in :idu " + "and b.publicationId in :idp",
-					Borrowing.class);
+					BorrowingDTO.class);
 			query.setParameter("idu", borrowing.getUserId());
 			query.setParameter("idp", borrowing.getPublicationId());
-			Borrowing borrowingDB = query.getSingleResult();
+			BorrowingDTO borrowingDB = query.getSingleResult();
 			borrowingDB.setDeadline(borrowing.getDeadline());
 			
 			entityManager.getTransaction().commit();

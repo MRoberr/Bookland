@@ -10,7 +10,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import edu.msg.bookland.model.Author;
+import edu.msg.bookland.common.model.AuthorDTO;
 import edu.msg.bookland.repository.AuthorDAO;
 import edu.msg.bookland.repository.RepositoryException;
 
@@ -37,15 +37,15 @@ public class JDBCAuthorDAO implements AuthorDAO {
 	 * @see edu.msg.bookland.repository.AuthorDAO#getAllAuthors()
 	 */
 	@Override
-	public List<Author> getAllAuthors() {
-		List<Author> authorsList = new ArrayList<Author>();
+	public List<AuthorDTO> getAllAuthors() {
+		List<AuthorDTO> authorsList = new ArrayList<AuthorDTO>();
 		Connection con = null;
 		try {
 			con = connectionManager.getConnection();
 			Statement stat = con.createStatement();
 			ResultSet authors = stat.executeQuery("Select * from authors");
 			while (authors.next()) {
-				Author author = new Author();
+				AuthorDTO author = new AuthorDTO();
 				author.setUUID(authors.getString("uuid"));
 				author.setName(authors.getString("name"));
 				authorsList.add(author);
@@ -71,7 +71,7 @@ public class JDBCAuthorDAO implements AuthorDAO {
 	 * .Author)
 	 */
 	@Override
-	public void insertAuthor(Author author) {
+	public void insertAuthor(AuthorDTO author) {
 		Connection con = null;
 
 		try {
@@ -100,7 +100,7 @@ public class JDBCAuthorDAO implements AuthorDAO {
 	 * .Author)
 	 */
 	@Override
-	public void updateAuthor(Author author) {
+	public void updateAuthor(AuthorDTO author) {
 		Connection con = null;
 		try {
 			con = connectionManager.getConnection();
@@ -128,7 +128,7 @@ public class JDBCAuthorDAO implements AuthorDAO {
 	 * .Author)
 	 */
 	@Override
-	public void deleteAuthor(Author author) {
+	public void deleteAuthor(AuthorDTO author) {
 		Connection con = null;
 		try {
 			con = connectionManager.getConnection();
@@ -155,9 +155,9 @@ public class JDBCAuthorDAO implements AuthorDAO {
 	 */
 
 	@Override
-	public Author getAuthorByUuid(String uuId) {
+	public AuthorDTO getAuthorByUuid(String uuId) {
 		Connection con = null;
-		Author author = new Author();
+		AuthorDTO author = new AuthorDTO();
 		try {
 			con = connectionManager.getConnection();
 			PreparedStatement preparedStatement = con.prepareStatement("select * from authors where uuid = ?");

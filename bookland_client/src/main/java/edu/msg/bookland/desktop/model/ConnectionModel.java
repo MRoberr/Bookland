@@ -7,11 +7,11 @@ import java.rmi.registry.Registry;
 
 import org.apache.log4j.Logger;
 
+import edu.msg.bookland.common.rmi.AuthorServiceRmi;
+import edu.msg.bookland.common.rmi.BorrowingServiceRmi;
+import edu.msg.bookland.common.rmi.PublicationServiceRmi;
+import edu.msg.bookland.common.rmi.UserServiceRmi;
 import edu.msg.bookland.desktop.ConnectionException;
-import edu.msg.bookland.rmi.AuthorServiceRmi;
-import edu.msg.bookland.rmi.BorrowingServiceRmi;
-import edu.msg.bookland.rmi.PublicationServiceRmi;
-import edu.msg.bookland.rmi.UserServiceRmi;
 
 /**
  * 

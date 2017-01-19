@@ -9,8 +9,8 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import edu.msg.bookland.model.User;
-import edu.msg.bookland.model.UserType;
+import edu.msg.bookland.common.model.UserDTO;
+import edu.msg.bookland.common.model.UserType;
 import edu.msg.bookland.repository.DAOFactory;
 import edu.msg.bookland.repository.RepositoryException;
 import edu.msg.bookland.repository.UserDAO;
@@ -29,9 +29,9 @@ import edu.msg.bookland.util.PasswordEncrypting;
 public class UserDaoTest {
 
 	private static UserDAO userDao = DAOFactory.getDAOFactory().getUserDAO();
-	private static User u = new User();
-	private static User u3 = new User();
-	private static User uu = new User();
+	private static UserDTO u = new UserDTO();
+	private static UserDTO u3 = new UserDTO();
+	private static UserDTO uu = new UserDTO();
 
 	// run once, initialize database
 //	@BeforeClass
@@ -107,7 +107,7 @@ public class UserDaoTest {
 	 */
 	@Test
 	public void testSearchUserByName() {
-		List<User> users = userDao.searchUserByName("r");	
+		List<UserDTO> users = userDao.searchUserByName("r");	
 		assertTrue(!users.isEmpty());
 	}
 

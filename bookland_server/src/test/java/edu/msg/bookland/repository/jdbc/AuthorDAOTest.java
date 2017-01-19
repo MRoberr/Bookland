@@ -9,7 +9,7 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
-import edu.msg.bookland.model.Author;
+import edu.msg.bookland.common.model.AuthorDTO;
 import edu.msg.bookland.repository.AuthorDAO;
 import edu.msg.bookland.repository.RepositoryException;
 import edu.msg.bookland.repository.hibernate.HibernateAuthorDAO;
@@ -25,8 +25,8 @@ import edu.msg.bookland.repository.hibernate.HibernateAuthorDAO;
 public class AuthorDAOTest {
 	AuthorDAO authorDAO = new HibernateAuthorDAO();
 
-	private Author createAuthor() {
-		Author a = new Author();
+	private AuthorDTO createAuthor() {
+		AuthorDTO a = new AuthorDTO();
 		a.setUUID("37a97280-bb03-4b65-b84d-7602f6b6a86a");
 		a.setName("testAuthorDAO");
 		return a;
@@ -51,7 +51,7 @@ public class AuthorDAOTest {
 	@Test
 	public void test1GetAllAuthors() {
 		try {
-			List<Author> authors = authorDAO.getAllAuthors();
+			List<AuthorDTO> authors = authorDAO.getAllAuthors();
 			assertTrue(!authors.isEmpty());
 		} catch (RepositoryException e) {
 			Assert.fail("Could no get users.");
@@ -76,7 +76,7 @@ public class AuthorDAOTest {
 	 */
 	@Test
 	public void test3updateAuthor() {
-		Author a = createAuthor();
+		AuthorDTO a = createAuthor();
 		a.setName("testAuthor");
 		try {
 			authorDAO.updateAuthor(a);
@@ -91,7 +91,7 @@ public class AuthorDAOTest {
 	 */
 	@Test
 	public void test4deleteAuthor() {
-		Author a = createAuthor();
+		AuthorDTO a = createAuthor();
 		try {
 			authorDAO.deleteAuthor(a);
 			assertTrue(true);

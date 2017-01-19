@@ -6,12 +6,12 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import edu.msg.bookland.model.Author;
+import edu.msg.bookland.common.model.AuthorDTO;
+import edu.msg.bookland.common.rmi.AuthorServiceRmi;
 import edu.msg.bookland.repository.AuthorDAO;
 import edu.msg.bookland.repository.DAOFactory;
 import edu.msg.bookland.repository.RepositoryException;
 import edu.msg.bookland.repository.jdbc.JDBCUserDAO;
-import edu.msg.bookland.rmi.AuthorServiceRmi;
 
 /**
  * Implement methods of UserServiceRmi. Call methods of DAO and contains
@@ -38,7 +38,7 @@ public class AuthorService extends UnicastRemoteObject implements AuthorServiceR
 	}
 
 	@Override
-	public List<Author> getAllAuthors() throws RemoteException {
+	public List<AuthorDTO> getAllAuthors() throws RemoteException {
 		try {
 			return authorDAO.getAllAuthors();
 		} catch (RepositoryException e) {
@@ -49,7 +49,7 @@ public class AuthorService extends UnicastRemoteObject implements AuthorServiceR
 	}
 
 	@Override
-	public boolean insertAuthor(Author author) throws RemoteException {
+	public boolean insertAuthor(AuthorDTO author) throws RemoteException {
 		try {
 			authorDAO.insertAuthor(author);
 			return true;
@@ -61,7 +61,7 @@ public class AuthorService extends UnicastRemoteObject implements AuthorServiceR
 
 
 	@Override
-	public boolean updateAuthor(Author author) throws RemoteException {
+	public boolean updateAuthor(AuthorDTO author) throws RemoteException {
 		try {
 			authorDAO.updateAuthor(author);
 			return true;
@@ -72,7 +72,7 @@ public class AuthorService extends UnicastRemoteObject implements AuthorServiceR
 	}
 
 	@Override
-	public boolean deleteAuthor(Author author) throws RemoteException {
+	public boolean deleteAuthor(AuthorDTO author) throws RemoteException {
 		// publicationService-getPublicationsByAuthorUUID
 		// if return null can delete
 		try {
@@ -86,7 +86,7 @@ public class AuthorService extends UnicastRemoteObject implements AuthorServiceR
 
 	
 	@Override
-	public List<Author> searchAuthor(String name) throws RemoteException {
+	public List<AuthorDTO> searchAuthor(String name) throws RemoteException {
 		// TODO Auto-generated method stub
 		return null;
 	}

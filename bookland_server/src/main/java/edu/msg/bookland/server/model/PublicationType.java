@@ -1,4 +1,4 @@
-package edu.msg.bookland.model;
+package edu.msg.bookland.server.model;
 
 /**
  * This enum represents all types of Publications in the library.

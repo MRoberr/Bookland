@@ -10,8 +10,8 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import edu.msg.bookland.model.User;
-import edu.msg.bookland.model.UserType;
+import edu.msg.bookland.common.model.UserDTO;
+import edu.msg.bookland.common.model.UserType;
 import edu.msg.bookland.repository.RepositoryException;
 import edu.msg.bookland.repository.UserDAO;
 
@@ -37,15 +37,15 @@ public class JDBCUserDAO implements UserDAO {
 	}
 
 	@Override
-	public List<User> getAllUsers() throws RepositoryException {
-		List<User> list = new ArrayList<User>();
+	public List<UserDTO> getAllUsers() throws RepositoryException {
+		List<UserDTO> list = new ArrayList<UserDTO>();
 		Connection con = null;
 		try {
 			con = conMan.getConnection();
 			Statement statemanet = con.createStatement();
 			ResultSet users = statemanet.executeQuery("select * from library_users");
 			while (users.next()) {
-				User u = new User("");
+				UserDTO u = new UserDTO("");
 				u.setName(users.getString("name"));
 				u.setEmail(users.getString("email"));
 				u.setUserType(UserType.valueOf(users.getString("user_type")));
@@ -68,7 +68,7 @@ public class JDBCUserDAO implements UserDAO {
 	}
 
 	@Override
-	public void insertUser(User user) throws RepositoryException {
+	public void insertUser(UserDTO user) throws RepositoryException {
 		Connection con = null;
 		try {
 			con = conMan.getConnection();
@@ -94,7 +94,7 @@ public class JDBCUserDAO implements UserDAO {
 	}
 
 	@Override
-	public void deleteUser(User user) throws RepositoryException {
+	public void deleteUser(UserDTO user) throws RepositoryException {
 		Connection con = null;
 		try {
 			con = conMan.getConnection();
@@ -115,7 +115,7 @@ public class JDBCUserDAO implements UserDAO {
 	}
 
 	@Override
-	public void updateUser(User user) throws RepositoryException {
+	public void updateUser(UserDTO user) throws RepositoryException {
 		Connection con = null;
 		try {
 			con = conMan.getConnection();
@@ -143,7 +143,7 @@ public class JDBCUserDAO implements UserDAO {
 	}
 
 	@Override
-	public void updateUserWithoutPassword(User user) throws RepositoryException {
+	public void updateUserWithoutPassword(UserDTO user) throws RepositoryException {
 		Connection con = null;
 		try {
 			con = conMan.getConnection();
@@ -197,17 +197,17 @@ public class JDBCUserDAO implements UserDAO {
 	/*
 	 * @see edu.msg.bookland.repository.UserDAO#getUserByName(java.lang.String)
 	 */
-	public User getUserByName(String name) throws RepositoryException {
+	public UserDTO getUserByName(String name) throws RepositoryException {
 		Connection con = null;
 		String query = "select uuid, name, email, user_type, loyalty_index from library_users where name = ?";
-		User user = new User("");
+		UserDTO user = new UserDTO("");
 		try {
 			con = conMan.getConnection();
 			PreparedStatement statement = con.prepareStatement(query);
 			statement.setString(1, name);
 			ResultSet users = statement.executeQuery();
 			if (users.next()) {
-				user = new User(users.getString("name"), users.getString("email"),
+				user = new UserDTO(users.getString("name"), users.getString("email"),
 						UserType.valueOf(users.getString("user_type")), users.getInt("loyalty_index"));
 				user.setUUID(users.getString("uuid"));
 			} else {
@@ -231,17 +231,17 @@ public class JDBCUserDAO implements UserDAO {
 	/*
 	 * @see edu.msg.bookland.repository.UserDAO#getUserById(java.lang.String)
 	 */
-	public User getUserById(String id) throws RepositoryException {
+	public UserDTO getUserById(String id) throws RepositoryException {
 		Connection con = null;
 		String query = "select name, email, user_type, loyalty_index from library_users where uuid = ?";
-		User user = new User("");
+		UserDTO user = new UserDTO("");
 		try {
 			con = conMan.getConnection();
 			PreparedStatement statement = con.prepareStatement(query);
 			statement.setString(1, id);
 			ResultSet users = statement.executeQuery();
 			if (users.next()) {
-				user = new User(users.getString("name"), users.getString("email"),
+				user = new UserDTO(users.getString("name"), users.getString("email"),
 						UserType.valueOf(users.getString("user_type")), users.getInt("loyalty_index"));
 				user.setUUID(id);
 			} else {
@@ -265,11 +265,11 @@ public class JDBCUserDAO implements UserDAO {
 	 * @see
 	 * edu.msg.bookland.repository.UserDAO#searchUserByName(java.lang.String)
 	 */
-	public List<User> searchUserByName(String name) throws RepositoryException {
+	public List<UserDTO> searchUserByName(String name) throws RepositoryException {
 		Connection con = null;
 		String query = "select uuid, name, email, user_type, loyalty_index from library_users where name like ?";
-		User user = new User("");
-		List<User> userList = new ArrayList<User>();
+		UserDTO user = new UserDTO("");
+		List<UserDTO> userList = new ArrayList<UserDTO>();
 		try {
 			con = conMan.getConnection();
 			PreparedStatement statement = con.prepareStatement(query);
@@ -277,7 +277,7 @@ public class JDBCUserDAO implements UserDAO {
 			ResultSet users = statement.executeQuery();
 			if (!user.getName().equals(null)) {
 				while (users.next()) {
-					user = new User(users.getString("name"), users.getString("email"),
+					user = new UserDTO(users.getString("name"), users.getString("email"),
 							UserType.valueOf(users.getString("user_type")), users.getInt("loyalty_index"));
 					user.setUUID(users.getString("uuid"));
 					userList.add(user);

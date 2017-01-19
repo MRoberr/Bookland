@@ -12,11 +12,11 @@ import javax.persistence.EntityManager;
 
 import org.apache.log4j.Logger;
 
-import edu.msg.bookland.model.Author;
-import edu.msg.bookland.model.Book;
-import edu.msg.bookland.model.Magazine;
-import edu.msg.bookland.model.Newspaper;
-import edu.msg.bookland.model.Publication;
+import edu.msg.bookland.common.model.AuthorDTO;
+import edu.msg.bookland.common.model.BookDTO;
+import edu.msg.bookland.common.model.MagazineDTO;
+import edu.msg.bookland.common.model.NewspaperDTO;
+import edu.msg.bookland.common.model.PublicationDTO;
 import edu.msg.bookland.repository.PublicationDAO;
 import edu.msg.bookland.repository.RepositoryException;
 
@@ -33,10 +33,10 @@ public class JdbcPublicationDAO implements PublicationDAO{
 	}
 	
 	
-	public List<Publication> getAllPublications() {
+	public List<PublicationDTO> getAllPublications() {
 		
 		
-		List<Publication> publications = new ArrayList<Publication>();
+		List<PublicationDTO> publications = new ArrayList<PublicationDTO>();
 		Connection connection = null;
 		
 		try {
@@ -76,9 +76,9 @@ public class JdbcPublicationDAO implements PublicationDAO{
 		}
 	}
 
-	public List<Book> getAllBooks() {
+	public List<BookDTO> getAllBooks() {
 
-		List<Book> books = new ArrayList<Book>();
+		List<BookDTO> books = new ArrayList<BookDTO>();
 		Connection connection = null;
 		
 		try {
@@ -101,7 +101,7 @@ public class JdbcPublicationDAO implements PublicationDAO{
 			
 			LOGGER.info("Books query completed");
 			
-			buildListFromQuery(queryResult, connection).forEach(book -> books.add((Book)book));
+			buildListFromQuery(queryResult, connection).forEach(book -> books.add((BookDTO)book));
 			
 			LOGGER.info("Books list build completed");
 			return books;
@@ -120,9 +120,9 @@ public class JdbcPublicationDAO implements PublicationDAO{
 		
 	}
 
-	public List<Magazine> getAllMagazines() {
+	public List<MagazineDTO> getAllMagazines() {
 
-		List<Magazine> magazines = new ArrayList<Magazine>();
+		List<MagazineDTO> magazines = new ArrayList<MagazineDTO>();
 		Connection connection = null;
 		
 		try {
@@ -145,7 +145,7 @@ public class JdbcPublicationDAO implements PublicationDAO{
 			
 			LOGGER.info("Magazines query completed");
 			
-			buildListFromQuery(queryResult, connection).forEach(magazine -> magazines.add((Magazine)magazine));
+			buildListFromQuery(queryResult, connection).forEach(magazine -> magazines.add((MagazineDTO)magazine));
 			
 			LOGGER.info("Magazines list build completed");
 			return magazines;
@@ -163,10 +163,10 @@ public class JdbcPublicationDAO implements PublicationDAO{
 		}
 	}
 
-	public List<Newspaper> getAllNewspapers() {
+	public List<NewspaperDTO> getAllNewspapers() {
 
 
-		List<Newspaper> newspapers = new ArrayList<Newspaper>();
+		List<NewspaperDTO> newspapers = new ArrayList<NewspaperDTO>();
 		Connection connection = null;
 		
 		try {
@@ -189,7 +189,7 @@ public class JdbcPublicationDAO implements PublicationDAO{
 			
 			LOGGER.info("Newspapers query completed");
 			
-			buildListFromQuery(queryResult, connection).forEach(newspaper -> newspapers.add((Newspaper)newspaper));
+			buildListFromQuery(queryResult, connection).forEach(newspaper -> newspapers.add((NewspaperDTO)newspaper));
 			
 			LOGGER.info("Newspapers list build completed");
 			return newspapers;
@@ -207,7 +207,7 @@ public class JdbcPublicationDAO implements PublicationDAO{
 		}
 	}
 
-	public void insertBook(Book book) {
+	public void insertBook(BookDTO book) {
 
 		//ha nem l�tezik az author akkor azt a service r�tegbe kell l�trehozni
 		//nem kapcsol�dnak a dao-k. ink�bb a servicek
@@ -228,7 +228,7 @@ public class JdbcPublicationDAO implements PublicationDAO{
 					+ "(publications_uuid, authors_uuid) "
 					+ "values(?, ?)");
 			
-			for(Author author:book.getAuthors()) {
+			for(AuthorDTO author:book.getAuthors()) {
 				
 				insertBookWriterRelation.setString(1, book.getUUID());
 				insertBookWriterRelation.setString(2, author.getUUID());
@@ -253,7 +253,7 @@ public class JdbcPublicationDAO implements PublicationDAO{
 	}
 	
 
-	public void insertMagazine(Magazine magazine) {
+	public void insertMagazine(MagazineDTO magazine) {
 
 		Connection connection = null;
 		
@@ -268,7 +268,7 @@ public class JdbcPublicationDAO implements PublicationDAO{
 					+ "(publications_uuid, authors_uuid) "
 					+ "values(?, ?)");
 			
-			for(Author author:magazine.getAuthors()) {
+			for(AuthorDTO author:magazine.getAuthors()) {
 				
 				insertMagazineWriterRelation.setString(1, magazine.getUUID());
 				insertMagazineWriterRelation.setString(2, author.getUUID());
@@ -293,7 +293,7 @@ public class JdbcPublicationDAO implements PublicationDAO{
 		
 	}
 
-	public void insertNewspaper(Newspaper newspaper) {
+	public void insertNewspaper(NewspaperDTO newspaper) {
 
 		Connection connection = null;
 		
@@ -317,22 +317,22 @@ public class JdbcPublicationDAO implements PublicationDAO{
 		
 	}
 
-	public void updateBook(Book book) {
+	public void updateBook(BookDTO book) {
 
 		doUpdatePublication(book);		
 	}
 
-	public void updateMagazine(Magazine magazine) {
+	public void updateMagazine(MagazineDTO magazine) {
 		
 		doUpdatePublication(magazine);		
 	}
 
-	public void updateNewspaper(Newspaper newspaper) {
+	public void updateNewspaper(NewspaperDTO newspaper) {
 
 		doUpdatePublication(newspaper);		
 	}
 	
-	public void deleteBook(Book book) {
+	public void deleteBook(BookDTO book) {
 		
 		//csak akkor lehet torolni, ha nincs kikolcsonozve
 		//ezt a service retegbe kell leelenorizni
@@ -376,7 +376,7 @@ public class JdbcPublicationDAO implements PublicationDAO{
 		}
 	}
 
-	public void deleteMagazine(Magazine magazine) {
+	public void deleteMagazine(MagazineDTO magazine) {
 
 		//csak akkor lehet torolni, ha nincs kikolcsonozve
 		//ezt a service retegbe kell leelenorizni
@@ -420,7 +420,7 @@ public class JdbcPublicationDAO implements PublicationDAO{
 		}
 	}
 
-	public void deleteNewspaper(Newspaper newspaper) {
+	public void deleteNewspaper(NewspaperDTO newspaper) {
 
 		Connection connection = null;
 		
@@ -453,9 +453,9 @@ public class JdbcPublicationDAO implements PublicationDAO{
 	}
 
 	
-	private List<Publication> buildListFromQuery(ResultSet queryResult, Connection connection) throws SQLException {
+	private List<PublicationDTO> buildListFromQuery(ResultSet queryResult, Connection connection) throws SQLException {
 		
-		List<Publication> publications = new ArrayList<Publication>();
+		List<PublicationDTO> publications = new ArrayList<PublicationDTO>();
 		
 		while(queryResult.next()) {
 
@@ -465,7 +465,7 @@ public class JdbcPublicationDAO implements PublicationDAO{
 			
 			case "book": {
 				
-				Book book = new Book();
+				BookDTO book = new BookDTO();
 				//create book
 				createPublication(book, queryResult);
 				
@@ -480,7 +480,7 @@ public class JdbcPublicationDAO implements PublicationDAO{
 			
 			case "magazine": {
 				
-				Magazine magazine = new Magazine();
+				MagazineDTO magazine = new MagazineDTO();
 				//create magazine
 				createPublication(magazine, queryResult);
 				
@@ -495,7 +495,7 @@ public class JdbcPublicationDAO implements PublicationDAO{
 			
 			case "newspaper": {
 				
-				Newspaper newspaper = new Newspaper();
+				NewspaperDTO newspaper = new NewspaperDTO();
 				//create newspaper
 				createPublication(newspaper, queryResult);
 									
@@ -511,7 +511,7 @@ public class JdbcPublicationDAO implements PublicationDAO{
 		return publications;
 	}
 	
-	private void createPublication(Publication publication, ResultSet queryResult) throws SQLException{
+	private void createPublication(PublicationDTO publication, ResultSet queryResult) throws SQLException{
 		
 		publication.setUUID(queryResult.getString("uuid"));
 		publication.setTitle(queryResult.getString("title"));
@@ -521,9 +521,9 @@ public class JdbcPublicationDAO implements PublicationDAO{
 		publication.setCopiesLeft(queryResult.getInt("copies_left"));
 	}
 
-	private List<Author> getAuthors(Connection connection, String uuid) throws SQLException {
+	private List<AuthorDTO> getAuthors(Connection connection, String uuid) throws SQLException {
 		
-		List<Author> authors = new ArrayList<Author>();
+		List<AuthorDTO> authors = new ArrayList<AuthorDTO>();
 		
 		PreparedStatement prepStat = connection.prepareStatement(
 				"select a.* " + 
@@ -539,7 +539,7 @@ public class JdbcPublicationDAO implements PublicationDAO{
 		
 		while(currentAuthors.next()) {
 			
-			Author author = new Author();
+			AuthorDTO author = new AuthorDTO();
 			
 			author.setUUID(currentAuthors.getString("uuid"));
 			author.setName(currentAuthors.getString("name"));
@@ -551,7 +551,7 @@ public class JdbcPublicationDAO implements PublicationDAO{
 		return authors;
 	}
 	
-	private void insertPublication(Publication publication, Connection connection) throws SQLException{
+	private void insertPublication(PublicationDTO publication, Connection connection) throws SQLException{
 		
 		PreparedStatement insert = connection.prepareStatement(
 				"insert into publications"
@@ -569,7 +569,7 @@ public class JdbcPublicationDAO implements PublicationDAO{
 		LOGGER.info(publication.getClass().getSimpleName() + " inserted");
 	}
 
-	private void doUpdatePublication(Publication publication){
+	private void doUpdatePublication(PublicationDTO publication){
 		
 		Connection connection = null;
 		
@@ -626,7 +626,7 @@ public class JdbcPublicationDAO implements PublicationDAO{
 
 
 	@Override
-	public List<Publication> searchPublication(String title) throws RepositoryException {
+	public List<PublicationDTO> searchPublication(String title) throws RepositoryException {
 
 		
 		return null;
@@ -648,7 +648,7 @@ public class JdbcPublicationDAO implements PublicationDAO{
 
 
 	@Override
-	public Publication getPublicationByUuid(String uuid) throws RepositoryException {
+	public PublicationDTO getPublicationByUuid(String uuid) throws RepositoryException {
 		// TODO Auto-generated method stub
 		return null;
 	}

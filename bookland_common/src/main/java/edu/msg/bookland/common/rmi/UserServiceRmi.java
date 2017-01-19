@@ -1,11 +1,11 @@
-package edu.msg.bookland.rmi;
+package edu.msg.bookland.common.rmi;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
 
-import edu.msg.bookland.model.User;
-import edu.msg.bookland.model.UserType;
+import edu.msg.bookland.common.model.UserDTO;
+import edu.msg.bookland.common.model.UserType;
 
 /**
  * RMI interface for User CRUD operations and login.
@@ -24,7 +24,7 @@ public interface UserServiceRmi extends Remote {
 	 * @return
 	 * @throws RemoteException
 	 */
-	public List<User> getAllUsers() throws RemoteException; 
+	public List<UserDTO> getAllUsers() throws RemoteException; 
 	
 	/**
 	 * This method inserts a User into DB.
@@ -32,7 +32,7 @@ public interface UserServiceRmi extends Remote {
 	 * @param user
 	 * @throws RemoteException
 	 */
-	public boolean insertUser(User user) throws RemoteException;
+	public boolean insertUser(UserDTO user) throws RemoteException;
 	
 	/**
 	 * This method updates the User by its id.
@@ -40,7 +40,7 @@ public interface UserServiceRmi extends Remote {
 	 * @param user
 	 * @throws RemoteException
 	 */
-	public boolean updateUser(User user) throws RemoteException;
+	public boolean updateUser(UserDTO user) throws RemoteException;
 	
 	/**
 	 * This method deletes the User by its id.
@@ -48,7 +48,7 @@ public interface UserServiceRmi extends Remote {
 	 * @param user
 	 * @throws RemoteException
 	 */
-	public boolean deleteUser(User user) throws RemoteException;
+	public boolean deleteUser(UserDTO user) throws RemoteException;
 	
 	/**
 	 * This method searches for the User with the specified name.
@@ -58,7 +58,7 @@ public interface UserServiceRmi extends Remote {
 	 * @throws RemoteException
 	 */
 	
-	public User getUserByUUUID(String uuid) throws RemoteException; 
+	public UserDTO getUserByUUUID(String uuid) throws RemoteException; 
 	
 	/**
 	 * This method searches for all Users with the specified name.
@@ -67,7 +67,7 @@ public interface UserServiceRmi extends Remote {
 	 * @return list of users found
 	 * @throws RemoteException
 	 */
-	public List<User> searchUser(String name) throws RemoteException;
+	public List<UserDTO> searchUser(String name) throws RemoteException;
 	
 	/**
 	 * This method checks for the given Username and password pair in the DB.

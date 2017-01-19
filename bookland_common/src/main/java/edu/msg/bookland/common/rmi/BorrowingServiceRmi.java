@@ -1,11 +1,11 @@
-package edu.msg.bookland.rmi;
+package edu.msg.bookland.common.rmi;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
 
-import edu.msg.bookland.model.Borrowing;
-import edu.msg.bookland.model.Tuple;
+import edu.msg.bookland.common.model.BorrowingDTO;
+import edu.msg.bookland.common.model.Tuple;
 
 /**
  * RMI interface for Borrow CRUD operations.
@@ -38,7 +38,7 @@ public interface BorrowingServiceRmi extends Remote {
 	 * @return true if publication has been returned correctly, false if not
 	 * @throws RemoteException
 	 */
-	public boolean returnPublication(Borrowing borrow) throws RemoteException;
+	public boolean returnPublication(BorrowingDTO borrow) throws RemoteException;
 
 	/**
 	 * Inserts a new borrow object, if conditions are met. Updates the number of
@@ -49,5 +49,5 @@ public interface BorrowingServiceRmi extends Remote {
 	 * @return true if publication has been borrowed correctly, false if not
 	 * @throws RemoteException
 	 */
-	public boolean borrowPublication(Borrowing borrow) throws RemoteException;
+	public boolean borrowPublication(BorrowingDTO borrow) throws RemoteException;
 }

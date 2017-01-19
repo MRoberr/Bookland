@@ -8,8 +8,8 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.mockito.Mockito;
 
-import edu.msg.bookland.model.User;
-import edu.msg.bookland.model.UserType;
+import edu.msg.bookland.common.model.UserDTO;
+import edu.msg.bookland.common.model.UserType;
 
 /**
  * Integration test of User CRUD.
@@ -35,7 +35,7 @@ public class UserServiceTest {
 //			Mockito.when(user.getPassword()).thenReturn("admin");			
 //			Mockito.when(user.getUserType()).thenReturn(UserType.ADMIN);		
 //			userService.insertUser(user);		
-			User u = new User("");
+			UserDTO u = new UserDTO("");
 			u.setName("admin");
 			u.setEmail("admin@email");
 			u.setUUID(u.getUUID());

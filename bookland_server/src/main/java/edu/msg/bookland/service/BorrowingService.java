@@ -7,17 +7,17 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import edu.msg.bookland.model.Book;
-import edu.msg.bookland.model.Borrowing;
-import edu.msg.bookland.model.Magazine;
-import edu.msg.bookland.model.Newspaper;
-import edu.msg.bookland.model.Publication;
-import edu.msg.bookland.model.Tuple;
+import edu.msg.bookland.common.model.BookDTO;
+import edu.msg.bookland.common.model.BorrowingDTO;
+import edu.msg.bookland.common.model.MagazineDTO;
+import edu.msg.bookland.common.model.NewspaperDTO;
+import edu.msg.bookland.common.model.PublicationDTO;
+import edu.msg.bookland.common.model.Tuple;
+import edu.msg.bookland.common.rmi.BorrowingServiceRmi;
 import edu.msg.bookland.repository.BorrowingDAO;
 import edu.msg.bookland.repository.DAOFactory;
 import edu.msg.bookland.repository.RepositoryException;
 import edu.msg.bookland.repository.jdbc.JDBCUserDAO;
-import edu.msg.bookland.rmi.BorrowingServiceRmi;
 
 /**
  * Implement methods of UserServiceRmi. Call methods of DAO and contains
@@ -42,15 +42,15 @@ public class BorrowingService extends UnicastRemoteObject implements BorrowingSe
 	}
 
 	/**
-	 * Inserts the given {@link Borrowing} into database.
+	 * Inserts the given {@link BorrowingDTO} into database.
 	 * @param borrow 
-	 * the {@link Borrowing} object
+	 * the {@link BorrowingDTO} object
 	 * 
 	 * @return false if insert fails otherwise true
 	 * 
 	 * @throws RemoteException 
 	 */
-	public boolean insertBorrowing(Borrowing borrow) throws RemoteException {
+	public boolean insertBorrowing(BorrowingDTO borrow) throws RemoteException {
 		try {
 			borrowingDAO.insertBorrowing(borrow);
 			return true;
@@ -61,15 +61,15 @@ public class BorrowingService extends UnicastRemoteObject implements BorrowingSe
 	}
 
 	/**
-	 * Update the given {@link Borrowing} into database.
+	 * Update the given {@link BorrowingDTO} into database.
 	 * @param borrow 
-	 * the {@link Borrowing} object
+	 * the {@link BorrowingDTO} object
 	 * 
 	 * @return false if update fails otherwise true
 	 * 
 	 * @throws RemoteException 
 	 */
-	public boolean updateBorrowing(Borrowing borrow) throws RemoteException {
+	public boolean updateBorrowing(BorrowingDTO borrow) throws RemoteException {
 		try {
 			borrowingDAO.updateBorrowing(borrow);
 			return true;
@@ -80,15 +80,15 @@ public class BorrowingService extends UnicastRemoteObject implements BorrowingSe
 	}
 
 	/**
-	 * Delete the given {@link Borrowing} into database.
+	 * Delete the given {@link BorrowingDTO} into database.
 	 * @param borrow 
-	 * the {@link Borrowing} object
+	 * the {@link BorrowingDTO} object
 	 * 
 	 * @return false if delete fails otherwise true
 	 * 
 	 * @throws RemoteException 
 	 */
-	public boolean deleteBorrow(Borrowing borrow) throws RemoteException {
+	public boolean deleteBorrow(BorrowingDTO borrow) throws RemoteException {
 		try {
 			borrowingDAO.deleteBorrowing(borrow);
 			return true;
@@ -101,23 +101,23 @@ public class BorrowingService extends UnicastRemoteObject implements BorrowingSe
 	@Override
 	public List<Tuple> getBorrowByUserUUID(String uuid) throws RemoteException {
 		List<Tuple> borrowedPublications=new ArrayList<>();
-		List<Borrowing> borrowList;
+		List<BorrowingDTO> borrowList;
 		
 		try {
 			borrowList = borrowingDAO.getPublicationsBorrowedByUser(uuid);
 			PublicationService pubService=new PublicationService();
-			for(Borrowing borrow:borrowList){
-				Publication p=pubService.getPublicationByUuid(borrow.getPublicationId());
-				Borrowing b=new Borrowing((Borrowing)borrow);
+			for(BorrowingDTO borrow:borrowList){
+				PublicationDTO p=pubService.getPublicationByUuid(borrow.getPublicationId());
+				BorrowingDTO b=new BorrowingDTO((BorrowingDTO)borrow);
 				switch (p.getClass().getSimpleName()) {
 				case "Book":
-					borrowedPublications.add(new Tuple(b,new Book((Book)p)));
+					borrowedPublications.add(new Tuple(b,new BookDTO((BookDTO)p)));
 					break;
 				case "Magazine":
-					borrowedPublications.add(new Tuple(b,new Magazine((Magazine)p)));					
+					borrowedPublications.add(new Tuple(b,new MagazineDTO((MagazineDTO)p)));					
 					break;
 				case "Newspaper":
-					borrowedPublications.add(new Tuple(b,new Newspaper((Newspaper)p)));
+					borrowedPublications.add(new Tuple(b,new NewspaperDTO((NewspaperDTO)p)));
 					break;
 				default:
 					break;
@@ -131,7 +131,7 @@ public class BorrowingService extends UnicastRemoteObject implements BorrowingSe
 	}
 
 	@Override
-	public boolean returnPublication(Borrowing borrow) throws RemoteException {
+	public boolean returnPublication(BorrowingDTO borrow) throws RemoteException {
 		//to do
 		try {
 			borrowingDAO.deleteBorrowing(borrow);
@@ -143,7 +143,7 @@ public class BorrowingService extends UnicastRemoteObject implements BorrowingSe
 	}
 
 	@Override
-	public boolean borrowPublication(Borrowing borrow) throws RemoteException {
+	public boolean borrowPublication(BorrowingDTO borrow) throws RemoteException {
 		//to do
 		try {
 			borrowingDAO.insertBorrowing(borrow);

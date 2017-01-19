@@ -1,4 +1,4 @@
-package edu.msg.bookland.model;
+package edu.msg.bookland.server.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

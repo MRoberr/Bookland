@@ -6,11 +6,11 @@ import java.rmi.registry.Registry;
 
 import org.apache.log4j.Logger;
 
+import edu.msg.bookland.common.rmi.AuthorServiceRmi;
+import edu.msg.bookland.common.rmi.BorrowingServiceRmi;
+import edu.msg.bookland.common.rmi.PublicationServiceRmi;
+import edu.msg.bookland.common.rmi.UserServiceRmi;
 import edu.msg.bookland.repository.jdbc.ConnectionManager;
-import edu.msg.bookland.rmi.AuthorServiceRmi;
-import edu.msg.bookland.rmi.BorrowingServiceRmi;
-import edu.msg.bookland.rmi.PublicationServiceRmi;
-import edu.msg.bookland.rmi.UserServiceRmi;
 import edu.msg.bookland.service.AuthorService;
 import edu.msg.bookland.service.BorrowingService;
 import edu.msg.bookland.service.PublicationService;

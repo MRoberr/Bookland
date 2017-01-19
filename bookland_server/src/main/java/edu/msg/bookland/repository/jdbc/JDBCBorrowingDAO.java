@@ -9,7 +9,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import edu.msg.bookland.model.Borrowing;
+import edu.msg.bookland.common.model.BorrowingDTO;
 import edu.msg.bookland.repository.BorrowingDAO;
 import edu.msg.bookland.repository.RepositoryException;
 
@@ -38,7 +38,7 @@ public class JDBCBorrowingDAO implements BorrowingDAO {
 	 * .model.Borrowing)
 	 */
 	@Override
-	public void insertBorrowing(Borrowing borrowing) {
+	public void insertBorrowing(BorrowingDTO borrowing) {
 		Connection con = null;
 		try {
 			con = connectionManager.getConnection();
@@ -68,7 +68,7 @@ public class JDBCBorrowingDAO implements BorrowingDAO {
 	 * .model.Borrowing)
 	 */
 	@Override
-	public void deleteBorrowing(Borrowing borrowing) {
+	public void deleteBorrowing(BorrowingDTO borrowing) {
 
 		Connection con = null;
 		try {
@@ -96,10 +96,10 @@ public class JDBCBorrowingDAO implements BorrowingDAO {
 	 * java.lang.String)
 	 */
 	@Override
-	public List<Borrowing> getPublicationsBorrowedByUser(String userUuid) throws RepositoryException {
+	public List<BorrowingDTO> getPublicationsBorrowedByUser(String userUuid) throws RepositoryException {
 
 		Connection con = null;
-		List<Borrowing> borrowingList = null;
+		List<BorrowingDTO> borrowingList = null;
 		try {
 			con = connectionManager.getConnection();
 			borrowingList = new ArrayList<>();
@@ -108,7 +108,7 @@ public class JDBCBorrowingDAO implements BorrowingDAO {
 			preparedStatement.setString(1, userUuid);
 			ResultSet resultset = preparedStatement.executeQuery();
 			while (resultset.next()) {
-				Borrowing borrowing = new Borrowing();
+				BorrowingDTO borrowing = new BorrowingDTO();
 				borrowing.setPublicationId(resultset.getString("publications_uuid"));
 				borrowing.setUserId(resultset.getString("user_uuid"));
 				borrowing.setBorrowingDate(resultset.getDate("borrowing_date"));
@@ -130,7 +130,7 @@ public class JDBCBorrowingDAO implements BorrowingDAO {
 	}
 
 	@Override
-	public void updateBorrowing(Borrowing borrowing) throws RepositoryException {
+	public void updateBorrowing(BorrowingDTO borrowing) throws RepositoryException {
 		Connection con = null;
 		try {
 			con = connectionManager.getConnection();

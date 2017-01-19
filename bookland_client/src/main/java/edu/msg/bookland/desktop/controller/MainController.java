@@ -9,15 +9,15 @@ import java.util.Scanner;
 
 import org.apache.log4j.Logger;
 
+import edu.msg.bookland.common.model.BorrowingDTO;
+import edu.msg.bookland.common.model.PublicationDTO;
+import edu.msg.bookland.common.model.Tuple;
+import edu.msg.bookland.common.model.UserDTO;
+import edu.msg.bookland.common.model.UserType;
 import edu.msg.bookland.desktop.model.ConnectionModel;
 import edu.msg.bookland.desktop.view.CustomServiceView;
 import edu.msg.bookland.desktop.view.DataAdministrationView;
 import edu.msg.bookland.desktop.view.MainView;
-import edu.msg.bookland.model.Borrowing;
-import edu.msg.bookland.model.Publication;
-import edu.msg.bookland.model.Tuple;
-import edu.msg.bookland.model.User;
-import edu.msg.bookland.model.UserType;
 
 public class MainController {
 	private static final Logger LOGGER = Logger.getLogger(MainController.class);
@@ -26,11 +26,11 @@ public class MainController {
 	private Scanner scanner = new Scanner(System.in);
 	private int tempInt = 0;
 	private String tempStr = "";
-	private List<Publication> tempPublications;
-	private List<User> tempUsers;
+	private List<PublicationDTO> tempPublications;
+	private List<UserDTO> tempUsers;
 	private List<Tuple> tempTuples;
-	private Publication tempPublication;
-	private User tempUser;
+	private PublicationDTO tempPublication;
+	private UserDTO tempUser;
 	private Tuple tempTuple;
 	private final String exitBackString = " Try again or (-1 exit) (-2 back).";
 	private final String exitString = " Try again or (-1 exit).";
@@ -136,7 +136,7 @@ public class MainController {
 					searchPublications();
 					tempPublication = getPublicationFromResult();
 					if (tempPublication != null) {
-						Borrowing borrowing = new Borrowing();
+						BorrowingDTO borrowing = new BorrowingDTO();
 						borrowing.setUserId(tempUser.getUUID());
 						borrowing.setPublicationId(tempPublication.getUUID());
 						borrowing.setBorrowingDate(Date.valueOf(LocalDate.now()));
@@ -168,7 +168,7 @@ public class MainController {
 					searchBorrowedPublications(tempUser.getUUID());
 					tempTuple = getBorrowedPublicationFromResult();
 					if (tempTuple != null) {
-						Borrowing borrowing = tempTuple.getBorrow();
+						BorrowingDTO borrowing = tempTuple.getBorrow();
 						if (csc.returnPublication(borrowing)) {
 							System.out.println(
 									"Returning of <" + tempTuple.getPublication().getTitle() + "> successful!");
@@ -239,7 +239,7 @@ public class MainController {
 			return;
 		}
 		tempInt = 0;
-		for (Publication p : tempPublications) {
+		for (PublicationDTO p : tempPublications) {
 			System.out.println(++tempInt + ": " + p.toString());
 		}
 	}
@@ -267,12 +267,12 @@ public class MainController {
 			return;
 		}
 		tempInt = 0;
-		for (User u : tempUsers) {
+		for (UserDTO u : tempUsers) {
 			System.out.println(++tempInt + ": " + u.toString());
 		}
 	}
 
-	private Publication getPublicationFromResult() {
+	private PublicationDTO getPublicationFromResult() {
 		if (tempPublications == null) {
 			return null;
 		} else {
@@ -310,7 +310,7 @@ public class MainController {
 		}
 	}
 
-	private User getUserFromResult() {
+	private UserDTO getUserFromResult() {
 		if (tempUsers == null) {
 			return null;
 		} else {

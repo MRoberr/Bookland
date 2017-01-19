@@ -14,8 +14,8 @@ import javax.persistence.criteria.Root;
 
 import org.apache.log4j.Logger;
 
-import edu.msg.bookland.model.User;
-import edu.msg.bookland.model.UserType;
+import edu.msg.bookland.common.model.UserDTO;
+import edu.msg.bookland.common.model.UserType;
 import edu.msg.bookland.repository.RepositoryException;
 import edu.msg.bookland.repository.UserDAO;
 
@@ -25,9 +25,9 @@ public class HibernateUserDAO implements UserDAO {
 	private EntityManager entityManager = entityManagerFactory.createEntityManager();
 
 	@Override
-	public List<User> getAllUsers() throws RepositoryException {
+	public List<UserDTO> getAllUsers() throws RepositoryException {
 
-		List<User> users = new ArrayList<User>();
+		List<UserDTO> users = new ArrayList<UserDTO>();
 
 		// JPQL
 		// TypedQuery<User> query = entityManager.createQuery("Select u from
@@ -38,12 +38,12 @@ public class HibernateUserDAO implements UserDAO {
 		// Criteria
 		try {
 			CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-			CriteriaQuery<User> criteriaQuery = criteriaBuilder.createQuery(User.class);
+			CriteriaQuery<UserDTO> criteriaQuery = criteriaBuilder.createQuery(UserDTO.class);
 			
-			Root<User> from = criteriaQuery.from(User.class);
+			Root<UserDTO> from = criteriaQuery.from(UserDTO.class);
 			criteriaQuery.select(from);
 			
-			TypedQuery<User> q = entityManager.createQuery(criteriaQuery);
+			TypedQuery<UserDTO> q = entityManager.createQuery(criteriaQuery);
 			users = q.getResultList();
 			LOGGER.info("All user selected");
 		} catch (PersistenceException e) {
@@ -56,7 +56,7 @@ public class HibernateUserDAO implements UserDAO {
 	}
 
 	@Override
-	public void insertUser(User user) throws RepositoryException {
+	public void insertUser(UserDTO user) throws RepositoryException {
 		try {
 			entityManager.getTransaction().begin();
 			entityManager.persist(user);
@@ -72,10 +72,10 @@ public class HibernateUserDAO implements UserDAO {
 	}
 
 	@Override
-	public void updateUser(User user) throws RepositoryException {
+	public void updateUser(UserDTO user) throws RepositoryException {
 		try {
 			entityManager.getTransaction().begin();
-			User userDB = entityManager.find(User.class, user.getUUID());
+			UserDTO userDB = entityManager.find(UserDTO.class, user.getUUID());
 			userDB.setEmail(user.getEmail());
 			userDB.setLoyaltyIndex(user.getLoyaltyIndex());
 			userDB.setName(user.getName());
@@ -93,10 +93,10 @@ public class HibernateUserDAO implements UserDAO {
 	}
 
 	@Override
-	public void deleteUser(User user) throws RepositoryException {
+	public void deleteUser(UserDTO user) throws RepositoryException {
 		try {
 			entityManager.getTransaction().begin();
-			User userDB = entityManager.find(User.class, user.getUUID());
+			UserDTO userDB = entityManager.find(UserDTO.class, user.getUUID());
 			entityManager.remove(userDB);
 			entityManager.getTransaction().commit();
 			LOGGER.info("Deleted user");
@@ -110,10 +110,10 @@ public class HibernateUserDAO implements UserDAO {
 	}
 
 	@Override
-	public void updateUserWithoutPassword(User user) throws RepositoryException {
+	public void updateUserWithoutPassword(UserDTO user) throws RepositoryException {
 		try {
 			entityManager.getTransaction().begin();
-			User userDB = entityManager.find(User.class, user.getUUID());
+			UserDTO userDB = entityManager.find(UserDTO.class, user.getUUID());
 			userDB.setEmail(user.getEmail());
 			userDB.setLoyaltyIndex(user.getLoyaltyIndex());
 			userDB.setName(user.getName());
@@ -130,10 +130,10 @@ public class HibernateUserDAO implements UserDAO {
 
 	@Override
 	public UserType login(String userName, String password) throws RepositoryException {
-		User user = null;
+		UserDTO user = null;
 		try {
-			TypedQuery<User> query = entityManager
-					.createQuery("Select u " + "from User u where u.name LIKE :n and" + " u.password LIKE :p", User.class)
+			TypedQuery<UserDTO> query = entityManager
+					.createQuery("Select u " + "from User u where u.name LIKE :n and" + " u.password LIKE :p", UserDTO.class)
 					.setParameter("n", userName).setParameter("p", password);
 			user = query.getSingleResult();
 			
@@ -146,10 +146,10 @@ public class HibernateUserDAO implements UserDAO {
 
 
 	@Override
-	public User getUserById(String id) throws RepositoryException {
-		User user = null;
+	public UserDTO getUserById(String id) throws RepositoryException {
+		UserDTO user = null;
 	    try {
-	    	user = entityManager.find(User.class, id);
+	    	user = entityManager.find(UserDTO.class, id);
 	    	LOGGER.info("User retrieved by id.");
 	    } catch(PersistenceException e) {
 	    	LOGGER.error("Could not retrieve User by id! ", e);
@@ -160,10 +160,10 @@ public class HibernateUserDAO implements UserDAO {
 	}
 
 	@Override
-	public List<User> searchUserByName(String name) throws RepositoryException {
-		List<User> users = null;
+	public List<UserDTO> searchUserByName(String name) throws RepositoryException {
+		List<UserDTO> users = null;
 		try  {
-			TypedQuery<User> query = entityManager.createQuery("Select u " + "from User u where u.name LIKE :n", User.class)
+			TypedQuery<UserDTO> query = entityManager.createQuery("Select u " + "from User u where u.name LIKE :n", UserDTO.class)
 					.setParameter("n", "%" + name + "%");
 			users = query.getResultList();
 			LOGGER.info("Retrieved user list"+users.size());
@@ -179,7 +179,7 @@ public class HibernateUserDAO implements UserDAO {
 	public void setUserLoyaltyIndex(String uuid) throws RepositoryException {
 		try {
 			entityManager.getTransaction().begin();
-			User userDB = entityManager.find(User.class, uuid);	
+			UserDTO userDB = entityManager.find(UserDTO.class, uuid);	
 			userDB.setLoyaltyIndex(userDB.getLoyaltyIndex()-1);
 			entityManager.getTransaction().commit();
 			LOGGER.info("User's loyalty decreased.");

@@ -5,9 +5,9 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import edu.msg.bookland.common.model.PublicationDTO;
+import edu.msg.bookland.common.model.UserDTO;
 import edu.msg.bookland.desktop.model.ConnectionModel;
-import edu.msg.bookland.model.Publication;
-import edu.msg.bookland.model.User;
 
 /**
  * This is the controller class for different data administration requests.
@@ -24,7 +24,7 @@ public class DataAdministrationController {
 	 * @param title
 	 * @return Publication list
 	 */
-	public List<Publication> getPublications(String title) {
+	public List<PublicationDTO> getPublications(String title) {
 		try {
 			return ConnectionModel.PUBLICATION_SERVICE_RMI.searchPublicationByRegexp(title);
 		} catch (RemoteException e) {
@@ -39,9 +39,9 @@ public class DataAdministrationController {
 	 * @param title
 	 * @return User list
 	 */
-	public List<User> getUsers(String name) {
+	public List<UserDTO> getUsers(String name) {
 		try {
-			List<User> list= ConnectionModel.USER_SERVICE_RMI.searchUser(name);
+			List<UserDTO> list= ConnectionModel.USER_SERVICE_RMI.searchUser(name);
 			return list;
 		} catch (RemoteException e) {
 			LOGGER.error("No connection when searching publications.", e);

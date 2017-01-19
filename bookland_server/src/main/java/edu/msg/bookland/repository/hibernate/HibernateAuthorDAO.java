@@ -13,7 +13,7 @@ import javax.persistence.criteria.Root;
 
 import org.apache.log4j.Logger;
 
-import edu.msg.bookland.model.Author;
+import edu.msg.bookland.common.model.AuthorDTO;
 import edu.msg.bookland.repository.AuthorDAO;
 import edu.msg.bookland.repository.RepositoryException;
 
@@ -27,15 +27,15 @@ public class HibernateAuthorDAO implements AuthorDAO {
 	private EntityManager entityManager;
 
 	@Override
-	public List<Author> getAllAuthors() throws RepositoryException {
-		List<Author> finalList = null;
+	public List<AuthorDTO> getAllAuthors() throws RepositoryException {
+		List<AuthorDTO> finalList = null;
 		try {
 			openConnection();
 			CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-			CriteriaQuery<Author> authors = builder.createQuery(Author.class);
-			Root<Author> author = authors.from(Author.class);
+			CriteriaQuery<AuthorDTO> authors = builder.createQuery(AuthorDTO.class);
+			Root<AuthorDTO> author = authors.from(AuthorDTO.class);
 			authors.select(author);
-			TypedQuery<Author> authorTypeQuery = entityManager.createQuery(authors);
+			TypedQuery<AuthorDTO> authorTypeQuery = entityManager.createQuery(authors);
 			finalList = authorTypeQuery.getResultList();
 			LOGGER.info("Retrieved all authors");
 		} catch (PersistenceException e) {
@@ -49,7 +49,7 @@ public class HibernateAuthorDAO implements AuthorDAO {
 	}
 
 	@Override
-	public void insertAuthor(Author author) throws RepositoryException {
+	public void insertAuthor(AuthorDTO author) throws RepositoryException {
 		try {
 			openConnection();
 			entityManager.getTransaction().begin();
@@ -67,11 +67,11 @@ public class HibernateAuthorDAO implements AuthorDAO {
 	}
 
 	@Override
-	public void updateAuthor(Author author) throws RepositoryException {
+	public void updateAuthor(AuthorDTO author) throws RepositoryException {
 		try {
 			openConnection();
 			entityManager.getTransaction().begin();
-			Author authorDB = entityManager.find(Author.class, author.getUUID());
+			AuthorDTO authorDB = entityManager.find(AuthorDTO.class, author.getUUID());
 			authorDB.setName(author.getName());
 			entityManager.getTransaction().commit();
 			LOGGER.info("Updated author");
@@ -85,11 +85,11 @@ public class HibernateAuthorDAO implements AuthorDAO {
 	}
 
 	@Override
-	public void deleteAuthor(Author author) throws RepositoryException {
+	public void deleteAuthor(AuthorDTO author) throws RepositoryException {
 		try {
 			openConnection();
 			entityManager.getTransaction().begin();
-			Author author2 = entityManager.find(Author.class, author.getUUID());
+			AuthorDTO author2 = entityManager.find(AuthorDTO.class, author.getUUID());
 			entityManager.remove(author2);
 			entityManager.getTransaction().commit();
 			closeConnection();
@@ -106,11 +106,11 @@ public class HibernateAuthorDAO implements AuthorDAO {
 	}
 
 	@Override
-	public Author getAuthorByUuid(String uuId) throws RepositoryException {
-		Author authorDB;
+	public AuthorDTO getAuthorByUuid(String uuId) throws RepositoryException {
+		AuthorDTO authorDB;
 		try {
 			openConnection();
-			authorDB = entityManager.find(Author.class, uuId);
+			authorDB = entityManager.find(AuthorDTO.class, uuId);
 			LOGGER.info("Retrieved author by id");
 		} catch(PersistenceException e) {
 			entityManager.getTransaction().rollback();
