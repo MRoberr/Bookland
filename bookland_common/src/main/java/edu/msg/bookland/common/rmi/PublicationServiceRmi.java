@@ -4,10 +4,10 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
 
-import edu.msg.bookland.common.model.BookDTO;
-import edu.msg.bookland.common.model.MagazineDTO;
-import edu.msg.bookland.common.model.NewspaperDTO;
-import edu.msg.bookland.common.model.PublicationDTO;
+import edu.msg.bookland.common.model.Book;
+import edu.msg.bookland.common.model.Magazine;
+import edu.msg.bookland.common.model.Newspaper;
+import edu.msg.bookland.common.model.Publication;
 
 /**
  * RMI interface for Publication CRUD operations.
@@ -27,7 +27,7 @@ public interface PublicationServiceRmi extends Remote {
 	 * @return Book List
 	 * @throws RemoteException
 	 */
-	public List<BookDTO> getAllBooks() throws RemoteException;
+	public List<Book> getAllBooks() throws RemoteException;
 
 	/**
 	 * This function gets all the Magazines from DB.
@@ -35,7 +35,7 @@ public interface PublicationServiceRmi extends Remote {
 	 * @return Magazine List
 	 * @throws RemoteException
 	 */
-	public List<MagazineDTO> getAllMagazines() throws RemoteException;
+	public List<Magazine> getAllMagazines() throws RemoteException;
 
 	/**
 	 * This function gets all the Newspapers from DB.
@@ -43,7 +43,7 @@ public interface PublicationServiceRmi extends Remote {
 	 * @return Newspaper List
 	 * @throws RemoteException
 	 */
-	public List<NewspaperDTO> getAllNewspapers() throws RemoteException;
+	public List<Newspaper> getAllNewspapers() throws RemoteException;
 
 	/**
 	 * This function gets all the Publications from DB.
@@ -51,7 +51,7 @@ public interface PublicationServiceRmi extends Remote {
 	 * @return Publication List
 	 * @throws RemoteException
 	 */
-	public List<PublicationDTO> getAllPublications() throws RemoteException;
+	public List<Publication> getAllPublications() throws RemoteException;
 
 	/**
 	 * This method inserts a Book into DB.
@@ -60,7 +60,7 @@ public interface PublicationServiceRmi extends Remote {
 	 * @return true, if succeeded
 	 * @throws RemoteException
 	 */
-	public void insertBook(BookDTO book) throws RemoteException;
+	public void insertBook(Book book) throws RemoteException;
 
 	/**
 	 * This method inserts a Magazine into DB.
@@ -69,7 +69,7 @@ public interface PublicationServiceRmi extends Remote {
 	 * @return true, if succeeded
 	 * @throws RemoteException
 	 */
-	public void insertMagazine(MagazineDTO magazine) throws RemoteException;
+	public void insertMagazine(Magazine magazine) throws RemoteException;
 
 	/**
 	 * This method inserts a Newspaper into DB.
@@ -78,7 +78,7 @@ public interface PublicationServiceRmi extends Remote {
 	 * @return true, if succeeded
 	 * @throws RemoteException
 	 */
-	public void insertNewspaper(NewspaperDTO newspaper) throws RemoteException;
+	public void insertNewspaper(Newspaper newspaper) throws RemoteException;
 
 	/**
 	 * This method updates the Book by its id.
@@ -87,7 +87,7 @@ public interface PublicationServiceRmi extends Remote {
 	 * @return true, if succeeded
 	 * @throws RemoteException
 	 */
-	public void updateBook(BookDTO book) throws RemoteException;
+	public void updateBook(Book book) throws RemoteException;
 
 	/**
 	 * This method updates the Magazine by its id.
@@ -96,7 +96,7 @@ public interface PublicationServiceRmi extends Remote {
 	 * @return true, if succeeded
 	 * @throws RemoteException
 	 */
-	public void updateMagazine(MagazineDTO magazine) throws RemoteException;
+	public void updateMagazine(Magazine magazine) throws RemoteException;
 
 	/**
 	 * This method updates the Newspaper by its id.
@@ -105,7 +105,7 @@ public interface PublicationServiceRmi extends Remote {
 	 * @return true, if succeeded
 	 * @throws RemoteException
 	 */
-	public void updateNewspaper(NewspaperDTO newspaper) throws RemoteException;
+	public void updateNewspaper(Newspaper newspaper) throws RemoteException;
 
 	/**
 	 * This method deletes the Book by its id.
@@ -125,7 +125,7 @@ public interface PublicationServiceRmi extends Remote {
 	 * @return Book
 	 * @throws RemoteException
 	 */
-	public List<BookDTO> searchBooks(String title) throws RemoteException;
+	public List<Book> searchBooks(String title) throws RemoteException;
 
 	/**
 	 * This method searches for Magazines with the specified title.
@@ -134,7 +134,7 @@ public interface PublicationServiceRmi extends Remote {
 	 * @return Magazine
 	 * @throws RemoteException
 	 */
-	public List<MagazineDTO> searchMagazins(String title) throws RemoteException;
+	public List<Magazine> searchMagazins(String title) throws RemoteException;
 
 	/**
 	 * This method searches for Newspapers with the specified uuid.
@@ -143,7 +143,7 @@ public interface PublicationServiceRmi extends Remote {
 	 * @return Newspaper
 	 * @throws RemoteException
 	 */
-	public List<NewspaperDTO> searchNewspapers(String title) throws RemoteException;
+	public List<Newspaper> searchNewspapers(String title) throws RemoteException;
 
 	/**
 	 * This method searches for all Publications with the specified title using
@@ -153,6 +153,6 @@ public interface PublicationServiceRmi extends Remote {
 	 * @return Publication List
 	 * @throws RemoteException
 	 */
-	public List<PublicationDTO> searchPublicationsByRegexp(String regex) throws RemoteException;
+	public List<Publication> searchPublicationsByRegexp(String regex) throws RemoteException;
 
 }

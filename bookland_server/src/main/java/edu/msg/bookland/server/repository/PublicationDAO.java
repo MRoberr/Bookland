@@ -2,36 +2,31 @@ package edu.msg.bookland.server.repository;
 
 import java.util.List;
 
-import edu.msg.bookland.common.model.BookDTO;
-import edu.msg.bookland.common.model.MagazineDTO;
-import edu.msg.bookland.common.model.NewspaperDTO;
-import edu.msg.bookland.common.model.PublicationDTO;
+import edu.msg.bookland.common.model.Book;
+import edu.msg.bookland.common.model.Magazine;
+import edu.msg.bookland.common.model.Newspaper;
+import edu.msg.bookland.common.model.Publication;
 
 public interface PublicationDAO {
 
 	
-	List<BookDTO> getAllBooks() throws RepositoryException;
-	List<MagazineDTO> getAllMagazines() throws RepositoryException;
-	List<NewspaperDTO> getAllNewspapers() throws RepositoryException;	
-	List<PublicationDTO> getAllPublications() throws RepositoryException;
+	List<Book> getAllBooks() throws RepositoryException;
+	List<Magazine> getAllMagazines() throws RepositoryException;
+	List<Newspaper> getAllNewspapers() throws RepositoryException;	
+	List<Publication> getAllPublications() throws RepositoryException;
 	
-	void insertBook(BookDTO book) throws RepositoryException;
-	void insertMagazine(MagazineDTO magazine) throws RepositoryException;
-	void insertNewspaper(NewspaperDTO newspaper) throws RepositoryException;
+	void insertBook(Book book) throws RepositoryException;
+	void insertMagazine(Magazine magazine) throws RepositoryException;
+	void insertNewspaper(Newspaper newspaper) throws RepositoryException;
 	
-	void updateBook(BookDTO book) throws RepositoryException;
-	void updateMagazine(MagazineDTO magazine) throws RepositoryException;
-	void updateNewspaper(NewspaperDTO newspaper) throws RepositoryException;
+	void updateBook(Book book) throws RepositoryException;
+	void updateMagazine(Magazine magazine) throws RepositoryException;
+	void updateNewspaper(Newspaper newspaper) throws RepositoryException;
 	
-	void deleteBook(BookDTO book) throws RepositoryException;
-	void deleteMagazine(MagazineDTO magazine) throws RepositoryException;
-	void deleteNewspaper(NewspaperDTO newspaper) throws RepositoryException;
+	void deletePublication(String uuid) throws RepositoryException;
 	
 	//request methods
-	List<PublicationDTO> searchPublication(String title) throws RepositoryException;
+	List<Publication> searchPublication(String title) throws RepositoryException;
 	int getCopiesLeft(String uuid) throws RepositoryException;
-	void setCopiesLeft(String uuid) throws RepositoryException; //csookent 1el + throw
-	PublicationDTO getPublicationByUuid(String uuid) throws RepositoryException;
-	
-	
+	void setCopiesLeft(String uuid) throws RepositoryException; //csookent 1el + throw	
 }

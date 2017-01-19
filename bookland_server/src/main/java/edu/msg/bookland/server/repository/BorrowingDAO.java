@@ -1,8 +1,6 @@
 package edu.msg.bookland.server.repository;
 
-import java.util.List;
-
-import edu.msg.bookland.common.model.BorrowingDTO;
+import edu.msg.bookland.common.model.Borrowing;
 
 /**
  * Defines database methods for BORROWING Model
@@ -11,30 +9,23 @@ import edu.msg.bookland.common.model.BorrowingDTO;
  */
 public interface BorrowingDAO {
 	/**
-	 * This method define insert for {@link BorrowingDTO}
+	 * This method define insert for {@link Borrowing}
 	 * 
 	 * @param borrowing
 	 * @throws RepositoryException
 	 */
-	void insertBorrowing(BorrowingDTO borrowing) throws RepositoryException;
+	void insertBorrowing(Borrowing borrowing) throws RepositoryException;
 
 	/**
-	 * This method define delete for {@link BorrowingDTO}
+	 * This method define delete for {@link Borrowing}
 	 * 
 	 * @param borrowing
 	 * @throws RepositoryException
 	 */
-	void deleteBorrowing(BorrowingDTO borrowing) throws RepositoryException;
+	void deleteBorrowing(Borrowing borrowing) throws RepositoryException;
 
-	/**
-	 * This method define select for {@link BorrowingDTO} with conditon
-	 * 
-	 * @param userUuid
-	 * @return list of Borrowing if exist
-	 * @throws RepositoryException
-	 */
-	List<BorrowingDTO> getPublicationsBorrowedByUser(String userUuid) throws RepositoryException;
-
-	void updateBorrowing(BorrowingDTO borrowing) throws RepositoryException;
+	
+	
+	void updateBorrowing(Borrowing borrowing) throws RepositoryException;
 
 }

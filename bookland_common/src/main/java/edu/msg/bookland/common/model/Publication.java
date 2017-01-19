@@ -11,7 +11,7 @@ import java.util.List;
  * @author Sipos Terez
  *
  */
-public abstract class PublicationDTO extends BaseEntityDTO {
+public abstract class Publication extends BaseEntityDTO {
 
 	private static final long serialVersionUID = 2723956432127785557L;
 
@@ -20,7 +20,7 @@ public abstract class PublicationDTO extends BaseEntityDTO {
 	private int numberOfCopies;
 	private int copiesLeft;
 	protected Date releaseDate;
-	protected List<BorrowingDTO> borrow;
+	protected List<Borrowing> borrow;
 
 	public String getTitle() {
 		return title;

@@ -12,22 +12,22 @@ import java.util.List;
  * @author Sipos Terez
  *
  */
-public class MagazineDTO extends PublicationDTO {
+public class Magazine extends Publication {
 
 	private static final long serialVersionUID = -5114016015626666976L;
 
-	private List<AuthorDTO> authors;
+	private List<Author> authors;
 
-	public MagazineDTO() {
-		authors = new ArrayList<AuthorDTO>();
+	public Magazine() {
+		authors = new ArrayList<Author>();
 		borrow = new ArrayList<>();
 	}
 
-	public List<AuthorDTO> getAuthors() {
+	public List<Author> getAuthors() {
 		return authors;
 	}
 
-	public void addAuthor(AuthorDTO author) {
+	public void addAuthor(Author author) {
 		authors.add(author);
 	}
 

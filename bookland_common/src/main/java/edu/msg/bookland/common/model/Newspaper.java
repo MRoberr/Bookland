@@ -11,13 +11,13 @@ import java.util.Calendar;
  * @author Sipos Terez
  *
  */
-public class NewspaperDTO extends PublicationDTO {
+public class Newspaper extends Publication {
 
 	private static final long serialVersionUID = -3891407649176906111L;
 	
 	//list articlea
 
-	public NewspaperDTO() {
+	public Newspaper() {
 		borrow = new ArrayList<>();
 	}
 

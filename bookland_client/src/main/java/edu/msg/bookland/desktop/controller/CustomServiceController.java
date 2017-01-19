@@ -5,8 +5,8 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import edu.msg.bookland.common.model.BorrowingDTO;
-import edu.msg.bookland.common.model.PublicationDTO;
+import edu.msg.bookland.common.model.Borrowing;
+import edu.msg.bookland.common.model.Publication;
 import edu.msg.bookland.common.model.Tuple;
 import edu.msg.bookland.desktop.model.ConnectionModel;
 
@@ -26,7 +26,7 @@ public class CustomServiceController {
 	 * @param borrowing
 	 * @return true, if borrow successful
 	 */
-	public boolean borrowPublication(BorrowingDTO borrowing) {
+	public boolean borrowPublication(Borrowing borrowing) {
 		try {
 			return ConnectionModel.BORROWING_SERVICE_RMI.borrowPublication(borrowing);
 		} catch (RemoteException e) {
@@ -56,7 +56,7 @@ public class CustomServiceController {
 	 * @param borrowing
 	 * @return true, if return borrow succeeded
 	 */
-	public boolean returnPublication(BorrowingDTO borrowing) {
+	public boolean returnPublication(Borrowing borrowing) {
 		try {
 			return ConnectionModel.BORROWING_SERVICE_RMI.returnPublication(borrowing);
 		} catch (RemoteException e) {

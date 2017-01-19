@@ -11,8 +11,8 @@ import org.junit.runners.MethodSorters;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 
-import edu.msg.bookland.common.model.AuthorDTO;
-import edu.msg.bookland.common.model.BorrowingDTO;
+import edu.msg.bookland.common.model.Author;
+import edu.msg.bookland.common.model.Borrowing;
 import edu.msg.bookland.server.repository.BorrowingDAO;
 import edu.msg.bookland.server.repository.RepositoryException;
 import edu.msg.bookland.server.repository.hibernate.HibernateBorrowingDAO;
@@ -30,8 +30,8 @@ public class BorrowingDAOTest {
 	private final String publicationId = "1234";
 	private final BorrowingDAO borrowingDAO = new HibernateBorrowingDAO();
 
-	private BorrowingDTO createBorrowing() {
-		BorrowingDTO b = new BorrowingDTO();
+	private Borrowing createBorrowing() {
+		Borrowing b = new Borrowing();
 		b.setUserId(userId);
 		b.setPublicationId(publicationId);
 		b.setBorrowingDate(java.sql.Date.valueOf("2016-02-20"));
@@ -59,9 +59,9 @@ public class BorrowingDAOTest {
 	@Test
 	public void test1getPublicationsById() {
 		try {
-			List<BorrowingDTO> list = borrowingDAO.getPublicationsBorrowedByUser(userId);
+			List<Borrowing> list = borrowingDAO.getPublicationsBorrowedByUser(userId);
 			assertTrue(!list.isEmpty());
-			for (BorrowingDTO b : list) {
+			for (Borrowing b : list) {
 				System.out.println(b);
 			}
 		} catch (RepositoryException e) {
@@ -75,7 +75,7 @@ public class BorrowingDAOTest {
 	@Test
 	public void test2Update() {
 		try {
-			BorrowingDTO borrowing = createBorrowing();
+			Borrowing borrowing = createBorrowing();
 			borrowing.setDeadline(java.sql.Date.valueOf("2000-01-01"));
 			borrowingDAO.updateBorrowing(borrowing);
 		} catch (RepositoryException e) {

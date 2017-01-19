@@ -7,10 +7,10 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import edu.msg.bookland.common.model.BookDTO;
-import edu.msg.bookland.common.model.MagazineDTO;
-import edu.msg.bookland.common.model.NewspaperDTO;
-import edu.msg.bookland.common.model.PublicationDTO;
+import edu.msg.bookland.common.model.Book;
+import edu.msg.bookland.common.model.Magazine;
+import edu.msg.bookland.common.model.Newspaper;
+import edu.msg.bookland.common.model.Publication;
 import edu.msg.bookland.common.rmi.PublicationServiceRmi;
 import edu.msg.bookland.server.repository.DAOFactory;
 import edu.msg.bookland.server.repository.PublicationDAO;
@@ -29,7 +29,7 @@ public class PublicationService extends UnicastRemoteObject implements Publicati
 	}
 
 	@Override
-	public List<BookDTO> getAllBooks() throws RemoteException {
+	public List<Book> getAllBooks() throws RemoteException {
 		try {
 			return pubDAO.getAllBooks();
 		} catch (RepositoryException e) {
@@ -39,7 +39,7 @@ public class PublicationService extends UnicastRemoteObject implements Publicati
 	}
 
 	@Override
-	public List<MagazineDTO> getAllMagazines() throws RemoteException {
+	public List<Magazine> getAllMagazines() throws RemoteException {
 		try {
 			return pubDAO.getAllMagazines();
 		} catch (RepositoryException e) {
@@ -49,7 +49,7 @@ public class PublicationService extends UnicastRemoteObject implements Publicati
 	}
 
 	@Override
-	public List<NewspaperDTO> getAllNewspapers() throws RemoteException {
+	public List<Newspaper> getAllNewspapers() throws RemoteException {
 		try {
 			return pubDAO.getAllNewspapers();
 		} catch (RepositoryException e) {
@@ -59,7 +59,7 @@ public class PublicationService extends UnicastRemoteObject implements Publicati
 	}
 
 	@Override
-	public List<PublicationDTO> getAllPublications() throws RemoteException {
+	public List<Publication> getAllPublications() throws RemoteException {
 		try {
 			return pubDAO.getAllPublications();
 		} catch (RepositoryException e) {
@@ -69,7 +69,7 @@ public class PublicationService extends UnicastRemoteObject implements Publicati
 	}
 
 	@Override
-	public boolean insertBook(BookDTO book) throws RemoteException {
+	public boolean insertBook(Book book) throws RemoteException {
 		try {
 			pubDAO.insertBook(book);
 			return true;
@@ -80,7 +80,7 @@ public class PublicationService extends UnicastRemoteObject implements Publicati
 	}
 
 	@Override
-	public boolean insertMagazine(MagazineDTO magazine) throws RemoteException {
+	public boolean insertMagazine(Magazine magazine) throws RemoteException {
 		try {
 			pubDAO.insertMagazine(magazine);
 			return true;
@@ -91,7 +91,7 @@ public class PublicationService extends UnicastRemoteObject implements Publicati
 	}
 
 	@Override
-	public boolean insertNewspaper(NewspaperDTO newspaper) throws RemoteException {
+	public boolean insertNewspaper(Newspaper newspaper) throws RemoteException {
 		try {
 			pubDAO.insertNewspaper(newspaper);
 			return true;
@@ -102,7 +102,7 @@ public class PublicationService extends UnicastRemoteObject implements Publicati
 	}
 
 	@Override
-	public boolean updateBook(BookDTO book) throws RemoteException {
+	public boolean updateBook(Book book) throws RemoteException {
 		try {
 			pubDAO.updateBook(book);
 			return true;
@@ -113,7 +113,7 @@ public class PublicationService extends UnicastRemoteObject implements Publicati
 	}
 
 	@Override
-	public boolean updateMagazine(MagazineDTO magazine) throws RemoteException {
+	public boolean updateMagazine(Magazine magazine) throws RemoteException {
 		try {
 			pubDAO.updateMagazine(magazine);
 			return true;
@@ -124,7 +124,7 @@ public class PublicationService extends UnicastRemoteObject implements Publicati
 	}
 
 	@Override
-	public boolean updateNewspaper(NewspaperDTO newspaper) throws RemoteException {
+	public boolean updateNewspaper(Newspaper newspaper) throws RemoteException {
 		try {
 			pubDAO.updateNewspaper(newspaper);
 			return true;
@@ -135,7 +135,7 @@ public class PublicationService extends UnicastRemoteObject implements Publicati
 	}
 
 	@Override
-	public boolean deleteBook(BookDTO book) throws RemoteException {
+	public boolean deleteBook(Book book) throws RemoteException {
 		try {
 			pubDAO.deleteBook(book);
 			return true;
@@ -146,7 +146,7 @@ public class PublicationService extends UnicastRemoteObject implements Publicati
 	}
 
 	@Override
-	public boolean deleteMagazine(MagazineDTO magazine) throws RemoteException {
+	public boolean deleteMagazine(Magazine magazine) throws RemoteException {
 		try {
 			pubDAO.deleteMagazine(magazine);
 			return true;
@@ -157,7 +157,7 @@ public class PublicationService extends UnicastRemoteObject implements Publicati
 	}
 
 	@Override
-	public boolean deleteNewspaper(NewspaperDTO newspaper) throws RemoteException {
+	public boolean deleteNewspaper(Newspaper newspaper) throws RemoteException {
 		try {
 			pubDAO.deleteNewspaper(newspaper);
 			return true;
@@ -168,23 +168,23 @@ public class PublicationService extends UnicastRemoteObject implements Publicati
 	}
 
 	@Override
-	public List<PublicationDTO> searchPublicationByRegexp(String regex) throws RemoteException {
-		List<PublicationDTO> pubsList=new ArrayList<>();
-		List<PublicationDTO> list=new ArrayList<>();
+	public List<Publication> searchPublicationByRegexp(String regex) throws RemoteException {
+		List<Publication> pubsList=new ArrayList<>();
+		List<Publication> list=new ArrayList<>();
 		try {
 			pubsList= pubDAO.searchPublication(regex);
-			for(PublicationDTO p:pubsList){
+			for(Publication p:pubsList){
 				switch (p.getClass().getSimpleName()) {
 				case "Book":
-					BookDTO b=new BookDTO((BookDTO)p);
+					Book b=new Book((Book)p);
 					list.add(b);
 					break;
 				case "Magazine":
-					MagazineDTO m=new MagazineDTO((MagazineDTO)p);
+					Magazine m=new Magazine((Magazine)p);
 					list.add(m);
 					break;
 				case "Newspaper":
-					NewspaperDTO n=new NewspaperDTO((NewspaperDTO)p);
+					Newspaper n=new Newspaper((Newspaper)p);
 					list.add(n);
 					break;
 				default:
@@ -209,24 +209,24 @@ public class PublicationService extends UnicastRemoteObject implements Publicati
 		return false;
 	}
 
-	public PublicationDTO getPublicationByUuid(String uuid) {
+	public Publication getPublicationByUuid(String uuid) {
 		return null;
 	}
 
 	@Override
-	public BookDTO searchBooks(String title) throws RemoteException {
+	public Book searchBooks(String title) throws RemoteException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public MagazineDTO searchMagazin(String title) throws RemoteException {
+	public Magazine searchMagazin(String title) throws RemoteException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public NewspaperDTO searchNewspapers(String title) throws RemoteException {
+	public Newspaper searchNewspapers(String title) throws RemoteException {
 		// TODO Auto-generated method stub
 		return null;
 	}

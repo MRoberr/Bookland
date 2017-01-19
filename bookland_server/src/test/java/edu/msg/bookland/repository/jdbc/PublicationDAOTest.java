@@ -6,8 +6,8 @@ import javax.persistence.PersistenceException;
 
 import org.junit.Test;
 
-import edu.msg.bookland.common.model.BookDTO;
-import edu.msg.bookland.common.model.PublicationDTO;
+import edu.msg.bookland.common.model.Book;
+import edu.msg.bookland.common.model.Publication;
 import edu.msg.bookland.common.model.UserDTO;
 import edu.msg.bookland.server.repository.PublicationDAO;
 import edu.msg.bookland.server.repository.UserDAO;
@@ -33,7 +33,7 @@ public class PublicationDAOTest {
 	// @Test
 	public void testGetAllPublications() {
 
-		List<PublicationDTO> pubs = publicationDAO.getAllPublications();
+		List<Publication> pubs = publicationDAO.getAllPublications();
 		pubs.forEach(pub -> System.out.println(pub.getTitle()));
 		
 
@@ -48,7 +48,7 @@ public class PublicationDAOTest {
 			publicationDAO.getAllNewspapers();
 			publicationDAO.getAllPublications();
 			
-			BookDTO book = new BookDTO();
+			Book book = new Book();
 			book.setUUID("1klj345n1");
 			book.setTitle("minusz beszuras");
 			book.setCopiesLeft(11);

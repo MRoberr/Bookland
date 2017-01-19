@@ -9,13 +9,13 @@ package edu.msg.bookland.common.model;
  *
  */
 
-public class AuthorDTO extends BaseEntityDTO {
+public class Author extends BaseEntityDTO {
 
 	private static final long serialVersionUID = 3106992709617480273L;
 
 	private String name;
 
-	public AuthorDTO() {
+	public Author() {
 
 	}
 

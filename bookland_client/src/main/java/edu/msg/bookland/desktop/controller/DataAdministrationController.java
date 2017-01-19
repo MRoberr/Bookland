@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import edu.msg.bookland.common.model.PublicationDTO;
+import edu.msg.bookland.common.model.Publication;
 import edu.msg.bookland.common.model.UserDTO;
 import edu.msg.bookland.desktop.model.ConnectionModel;
 
@@ -24,7 +24,7 @@ public class DataAdministrationController {
 	 * @param title
 	 * @return Publication list
 	 */
-	public List<PublicationDTO> getPublications(String title) {
+	public List<Publication> getPublications(String title) {
 		try {
 			return ConnectionModel.PUBLICATION_SERVICE_RMI.searchPublicationByRegexp(title);
 		} catch (RemoteException e) {

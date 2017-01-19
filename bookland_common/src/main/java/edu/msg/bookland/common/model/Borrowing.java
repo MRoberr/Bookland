@@ -12,16 +12,16 @@ import java.sql.Date;
  *
  */
 
-public class BorrowingDTO implements Serializable {
+public class Borrowing implements Serializable {
 
 	private static final long serialVersionUID = 482888478185204088L;
 
 	private Date borrowingDate;
 	private Date deadline;
 	private UserDTO user;
-	private PublicationDTO publication;
+	private Publication publication;
 
-	public BorrowingDTO() {
+	public Borrowing() {
 
 	}
 
@@ -57,7 +57,7 @@ public class BorrowingDTO implements Serializable {
 		this.deadline = deadline;
 	}
 
-	public PublicationDTO getPublicatoin() {
+	public Publication getPublicatoin() {
 		return publication;
 	}
 
@@ -76,11 +76,11 @@ public class BorrowingDTO implements Serializable {
 		this.user = user;
 	}
 
-	public PublicationDTO getPublication() {
+	public Publication getPublication() {
 		return publication;
 	}
 
-	public void setPublication(PublicationDTO publication) {
+	public void setPublication(Publication publication) {
 		this.publication = publication;
 	}
 

@@ -1,7 +1,6 @@
 package edu.msg.bookland.server.repository;
 
 import edu.msg.bookland.server.repository.hibernate.HibernateDAOFactory;
-import edu.msg.bookland.server.repository.jdbc.JDBCDAOFactory;
 
 /**
  * Abstract DAO defines getter for all DAO

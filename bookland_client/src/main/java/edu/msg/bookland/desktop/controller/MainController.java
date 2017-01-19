@@ -9,8 +9,8 @@ import java.util.Scanner;
 
 import org.apache.log4j.Logger;
 
-import edu.msg.bookland.common.model.BorrowingDTO;
-import edu.msg.bookland.common.model.PublicationDTO;
+import edu.msg.bookland.common.model.Borrowing;
+import edu.msg.bookland.common.model.Publication;
 import edu.msg.bookland.common.model.Tuple;
 import edu.msg.bookland.common.model.UserDTO;
 import edu.msg.bookland.common.model.UserType;
@@ -26,10 +26,10 @@ public class MainController {
 	private Scanner scanner = new Scanner(System.in);
 	private int tempInt = 0;
 	private String tempStr = "";
-	private List<PublicationDTO> tempPublications;
+	private List<Publication> tempPublications;
 	private List<UserDTO> tempUsers;
 	private List<Tuple> tempTuples;
-	private PublicationDTO tempPublication;
+	private Publication tempPublication;
 	private UserDTO tempUser;
 	private Tuple tempTuple;
 	private final String exitBackString = " Try again or (-1 exit) (-2 back).";
@@ -136,7 +136,7 @@ public class MainController {
 					searchPublications();
 					tempPublication = getPublicationFromResult();
 					if (tempPublication != null) {
-						BorrowingDTO borrowing = new BorrowingDTO();
+						Borrowing borrowing = new Borrowing();
 						borrowing.setUserId(tempUser.getUUID());
 						borrowing.setPublicationId(tempPublication.getUUID());
 						borrowing.setBorrowingDate(Date.valueOf(LocalDate.now()));
@@ -168,7 +168,7 @@ public class MainController {
 					searchBorrowedPublications(tempUser.getUUID());
 					tempTuple = getBorrowedPublicationFromResult();
 					if (tempTuple != null) {
-						BorrowingDTO borrowing = tempTuple.getBorrow();
+						Borrowing borrowing = tempTuple.getBorrow();
 						if (csc.returnPublication(borrowing)) {
 							System.out.println(
 									"Returning of <" + tempTuple.getPublication().getTitle() + "> successful!");
@@ -239,7 +239,7 @@ public class MainController {
 			return;
 		}
 		tempInt = 0;
-		for (PublicationDTO p : tempPublications) {
+		for (Publication p : tempPublications) {
 			System.out.println(++tempInt + ": " + p.toString());
 		}
 	}
@@ -272,7 +272,7 @@ public class MainController {
 		}
 	}
 
-	private PublicationDTO getPublicationFromResult() {
+	private Publication getPublicationFromResult() {
 		if (tempPublications == null) {
 			return null;
 		} else {

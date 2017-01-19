@@ -12,12 +12,10 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.CriteriaUpdate;
 import javax.persistence.criteria.Root;
 
-import edu.msg.bookland.common.model.BookDTO;
-import edu.msg.bookland.common.model.Book_;
-import edu.msg.bookland.common.model.MagazineDTO;
-import edu.msg.bookland.common.model.NewspaperDTO;
-import edu.msg.bookland.common.model.PublicationDTO;
-import edu.msg.bookland.common.model.Publication_;
+import edu.msg.bookland.common.model.Book;
+import edu.msg.bookland.common.model.Magazine;
+import edu.msg.bookland.common.model.Newspaper;
+import edu.msg.bookland.common.model.Publication;
 import edu.msg.bookland.server.repository.PublicationDAO;
 import edu.msg.bookland.server.repository.RepositoryException;
 
@@ -36,63 +34,63 @@ public class HibernatePublicationDAO implements PublicationDAO {
 	}
 
 	@Override
-	public List<BookDTO> getAllBooks() throws RepositoryException {
+	public List<Book> getAllBooks() throws RepositoryException {
 
-		CriteriaQuery<BookDTO> books = builder.createQuery(BookDTO.class);
+		CriteriaQuery<Book> books = builder.createQuery(Book.class);
 
-		Root<BookDTO> book = books.from(BookDTO.class);
+		Root<Book> book = books.from(Book.class);
 		books.select(book);
 
-		TypedQuery<BookDTO> bookQuery = entityManager.createQuery(books);
-		List<BookDTO> bookList = bookQuery.getResultList();
+		TypedQuery<Book> bookQuery = entityManager.createQuery(books);
+		List<Book> bookList = bookQuery.getResultList();
 
 		return bookList;
 	}
 
 	@Override
-	public List<MagazineDTO> getAllMagazines() throws RepositoryException {
+	public List<Magazine> getAllMagazines() throws RepositoryException {
 
-		CriteriaQuery<MagazineDTO> magazines = builder.createQuery(MagazineDTO.class);
+		CriteriaQuery<Magazine> magazines = builder.createQuery(Magazine.class);
 
-		Root<MagazineDTO> magazine = magazines.from(MagazineDTO.class);
+		Root<Magazine> magazine = magazines.from(Magazine.class);
 		magazines.select(magazine);
 
-		TypedQuery<MagazineDTO> magazineQuery = entityManager.createQuery(magazines);
-		List<MagazineDTO> magazineList = magazineQuery.getResultList();
+		TypedQuery<Magazine> magazineQuery = entityManager.createQuery(magazines);
+		List<Magazine> magazineList = magazineQuery.getResultList();
 
 		return magazineList;
 	}
 
 	@Override
-	public List<NewspaperDTO> getAllNewspapers() throws RepositoryException {
+	public List<Newspaper> getAllNewspapers() throws RepositoryException {
 
-		CriteriaQuery<NewspaperDTO> newspapers = builder.createQuery(NewspaperDTO.class);
+		CriteriaQuery<Newspaper> newspapers = builder.createQuery(Newspaper.class);
 
-		Root<NewspaperDTO> newspaper = newspapers.from(NewspaperDTO.class);
+		Root<Newspaper> newspaper = newspapers.from(Newspaper.class);
 		newspapers.select(newspaper);
 
-		TypedQuery<NewspaperDTO> newspaperQuery = entityManager.createQuery(newspapers);
-		List<NewspaperDTO> newspaperList = newspaperQuery.getResultList();
+		TypedQuery<Newspaper> newspaperQuery = entityManager.createQuery(newspapers);
+		List<Newspaper> newspaperList = newspaperQuery.getResultList();
 
 		return newspaperList;
 	}
 
 	@Override
-	public List<PublicationDTO> getAllPublications() throws RepositoryException {
+	public List<Publication> getAllPublications() throws RepositoryException {
 
-		CriteriaQuery<PublicationDTO> pubs = builder.createQuery(PublicationDTO.class);
+		CriteriaQuery<Publication> pubs = builder.createQuery(Publication.class);
 
-		Root<PublicationDTO> pub = pubs.from(PublicationDTO.class);
+		Root<Publication> pub = pubs.from(Publication.class);
 		pubs.select(pub);
 
-		TypedQuery<PublicationDTO> pubQuery = entityManager.createQuery(pubs);
-		List<PublicationDTO> pubList = pubQuery.getResultList();
+		TypedQuery<Publication> pubQuery = entityManager.createQuery(pubs);
+		List<Publication> pubList = pubQuery.getResultList();
 
 		return pubList;
 	}
 
 	@Override
-	public void insertBook(BookDTO book) throws RepositoryException {
+	public void insertBook(Book book) throws RepositoryException {
 
 		entityManager.getTransaction().begin();
 		entityManager.persist(book);
@@ -100,7 +98,7 @@ public class HibernatePublicationDAO implements PublicationDAO {
 	}
 
 	@Override
-	public void insertMagazine(MagazineDTO magazine) throws RepositoryException {
+	public void insertMagazine(Magazine magazine) throws RepositoryException {
 
 		entityManager.getTransaction().begin();
 		entityManager.persist(magazine);
@@ -108,7 +106,7 @@ public class HibernatePublicationDAO implements PublicationDAO {
 	}
 
 	@Override
-	public void insertNewspaper(NewspaperDTO newspaper) throws RepositoryException {
+	public void insertNewspaper(Newspaper newspaper) throws RepositoryException {
 
 		entityManager.getTransaction().begin();
 		entityManager.persist(newspaper);
@@ -116,16 +114,16 @@ public class HibernatePublicationDAO implements PublicationDAO {
 	}
 
 	@Override
-	public void updateBook(BookDTO book) throws RepositoryException {
+	public void updateBook(Book book) throws RepositoryException {
 		// entityManager.getTransaction().begin();
 		// Book book2 = entityManager.find(Book.class, book.getUUID());
 		// book2.setTitle("asddsad");
 		// entityManager.getTransaction().commit();
 
 		entityManager.getTransaction().begin();
-		CriteriaUpdate<BookDTO> update = builder.createCriteriaUpdate(BookDTO.class);
+		CriteriaUpdate<Book> update = builder.createCriteriaUpdate(Book.class);
 
-		Root<BookDTO> bookRoot = update.from(BookDTO.class);
+		Root<Book> bookRoot = update.from(Book.class);
 
 		update.set(bookRoot.get(Book_.copiesLeft), book.getCopiesLeft());
 		update.set(bookRoot.get(Book_.title), book.getTitle());
@@ -139,46 +137,28 @@ public class HibernatePublicationDAO implements PublicationDAO {
 	}
 
 	@Override
-	public void updateMagazine(MagazineDTO magazine) throws RepositoryException {
+	public void updateMagazine(Magazine magazine) throws RepositoryException {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void updateNewspaper(NewspaperDTO newspaper) throws RepositoryException {
+	public void updateNewspaper(Newspaper newspaper) throws RepositoryException {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void deleteBook(BookDTO book) throws RepositoryException {
-		// TODO Auto-generated method stub
+	public List<Publication> searchPublication(String title) throws RepositoryException {
 
-	}
-
-	@Override
-	public void deleteMagazine(MagazineDTO magazine) throws RepositoryException {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void deleteNewspaper(NewspaperDTO newspaper) throws RepositoryException {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public List<PublicationDTO> searchPublication(String title) throws RepositoryException {
-
-		CriteriaQuery<PublicationDTO> pubByTitle = builder.createQuery(PublicationDTO.class);
-		Root<PublicationDTO> pub = pubByTitle.from(PublicationDTO.class);
+		CriteriaQuery<Publication> pubByTitle = builder.createQuery(Publication.class);
+		Root<Publication> pub = pubByTitle.from(Publication.class);
 		
 		pubByTitle.select(pub);
 		pubByTitle.where(builder.like(pub.get(Publication_.title), '%' + title + '%'));
 		
-		TypedQuery<PublicationDTO> pubQuery = entityManager.createQuery(pubByTitle);
-		List<PublicationDTO> pubList = pubQuery.getResultList();
+		TypedQuery<Publication> pubQuery = entityManager.createQuery(pubByTitle);
+		List<Publication> pubList = pubQuery.getResultList();
 		
 		if(pubList.isEmpty()) {
 		
@@ -193,7 +173,7 @@ public class HibernatePublicationDAO implements PublicationDAO {
 	@Override
 	public int getCopiesLeft(String uuid) {
 
-		PublicationDTO publication = entityManager.find(PublicationDTO.class, uuid);
+		Publication publication = entityManager.find(Publication.class, uuid);
 
 		System.out.println(publication.getCopiesLeft());
 
@@ -205,12 +185,12 @@ public class HibernatePublicationDAO implements PublicationDAO {
 
 		try {
 
-			PublicationDTO pub = entityManager.find(PublicationDTO.class, uuid);
+			Publication pub = entityManager.find(Publication.class, uuid);
 
 			entityManager.getTransaction().begin();
-			CriteriaUpdate<BookDTO> updateCopiesLeft = builder.createCriteriaUpdate(BookDTO.class);
+			CriteriaUpdate<Book> updateCopiesLeft = builder.createCriteriaUpdate(Book.class);
 
-			Root<BookDTO> bookRoot = updateCopiesLeft.from(BookDTO.class);
+			Root<Book> bookRoot = updateCopiesLeft.from(Book.class);
 
 			pub.setCopiesLeft(pub.getCopiesLeft() - 1);
 			updateCopiesLeft.set(bookRoot.get(Book_.copiesLeft), pub.getCopiesLeft());
@@ -227,11 +207,17 @@ public class HibernatePublicationDAO implements PublicationDAO {
 	}
 
 	@Override
-	public PublicationDTO getPublicationByUuid(String uuid) {
+	public Publication getPublicationByUuid(String uuid) {
 
-		PublicationDTO pub = entityManager.find(PublicationDTO.class, uuid);
+		Publication pub = entityManager.find(Publication.class, uuid);
 
 		return pub;
+	}
+
+	@Override
+	public void deletePublication(String uuid) throws RepositoryException {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

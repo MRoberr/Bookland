@@ -13,23 +13,23 @@ import java.util.List;
  *
  */
 
-public class BookDTO extends PublicationDTO {
+public class Book extends Publication {
 
 	private static final long serialVersionUID = -5590379529535305833L;
 
-	private List<AuthorDTO> authors;
+	private List<Author> authors;
 
-	public BookDTO() {
+	public Book() {
 
-		authors = new ArrayList<AuthorDTO>();
+		authors = new ArrayList<Author>();
 		borrow = new ArrayList<>();
 	}
 
-	public List<AuthorDTO> getAuthors() {
+	public List<Author> getAuthors() {
 		return authors;
 	}
 
-	public void addAuthor(AuthorDTO author) {
+	public void addAuthor(Author author) {
 		authors.add(author);
 	}
 

@@ -1,4 +1,4 @@
-package edu.msg.bookland.server.repository;
+package edu.msg.bookland.server.busines_logic;
 
 import java.util.List;
 
@@ -9,45 +9,45 @@ import edu.msg.bookland.common.model.Author;
  * 
  * @author Jozsef Solomon
  */
-public interface AuthorDAO {
+public interface AuthorLogic {
 	/**
 	 * This method define select all for {@link Author}
 	 * 
 	 * @return List of all Authors from DB
-	 * @throws RepositoryException
+	 * @throws BusinesLogicException
 	 */
-	List<Author> getAllAuthors() throws RepositoryException;
+	List<Author> getAllAuthors() throws BusinesLogicException;
 
 	/**
 	 * This method define insert for {@link Author}
 	 * 
 	 * @param author
-	 * @throws RepositoryException
+	 * @throws BusinesLogicException
 	 */
-	void insertAuthor(Author author) throws RepositoryException;
+	void insertAuthor(Author author) throws BusinesLogicException;
 
 	/**
 	 * This method define update for {@link Author}
 	 * 
 	 * @param author
-	 * @throws RepositoryException
+	 * @throws BusinesLogicException
 	 */
-	void updateAuthor(Author author) throws RepositoryException;
+	void updateAuthor(Author author) throws BusinesLogicException;
 
 	/**
 	 * This method define delete for {@link Author}
 	 * 
 	 * @param author
-	 * @throws RepositoryException
+	 * @throws BusinesLogicException
 	 */
-	void deleteAuthor(Author author) throws RepositoryException;
+	void deleteAuthor(Author author) throws BusinesLogicException;
 
 	/**
 	 * This method define select with condition for {@link Author}
 	 * 
 	 * @param uuId-Author uuid
 	 * @return Author if exist
-	 * @throws RepositoryException
+	 * @throws BusinesLogicException
 	 */
-	Author getAuthorByUuid(String uuId) throws RepositoryException;
+	Author getAuthorByUuid(String uuId) throws BusinesLogicException;
 }
