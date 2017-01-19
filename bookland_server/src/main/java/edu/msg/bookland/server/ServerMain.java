@@ -10,7 +10,6 @@ import edu.msg.bookland.common.rmi.AuthorServiceRmi;
 import edu.msg.bookland.common.rmi.BorrowingServiceRmi;
 import edu.msg.bookland.common.rmi.PublicationServiceRmi;
 import edu.msg.bookland.common.rmi.UserServiceRmi;
-import edu.msg.bookland.server.repository.jdbc.ConnectionManager;
 import edu.msg.bookland.server.service.AuthorService;
 import edu.msg.bookland.server.service.BorrowingService;
 import edu.msg.bookland.server.service.PublicationService;
@@ -22,7 +21,7 @@ import edu.msg.bookland.server.service.UserService;
  * @author Jozsef Solomon
  */
 public class ServerMain {
-	private static final Logger LOGGER = Logger.getLogger(ConnectionManager.class);
+	private static final Logger LOGGER = Logger.getLogger(ServerMain.class);
 
 	public static void main(String[] args) {
 		initServer();
