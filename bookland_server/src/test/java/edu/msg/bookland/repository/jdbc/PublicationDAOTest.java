@@ -81,7 +81,7 @@ public class PublicationDAOTest {
 		users.forEach(user -> { 
 			
 		System.out.println(user.getName());
-		System.out.println(user.getBorrows().size());
+		System.out.println(user.getBorrow().size());
 //		user.getBorrows().forEach(borrow -> System.out.println("-----" + borrow.getPublicatoin().getTitle()));
 		});
 	}

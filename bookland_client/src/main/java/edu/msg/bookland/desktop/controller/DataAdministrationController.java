@@ -41,7 +41,9 @@ public class DataAdministrationController {
 	 */
 	public List<User> getUsers(String name) {
 		try {
-			return ConnectionModel.USER_SERVICE_RMI.searchUser(name);
+			List<User> list= ConnectionModel.USER_SERVICE_RMI.searchUser(name);
+			System.out.println(list.get(0).getBorrow().get(0));
+			return list;
 		} catch (RemoteException e) {
 			LOGGER.error("No connection when searching publications.", e);
 			return null;

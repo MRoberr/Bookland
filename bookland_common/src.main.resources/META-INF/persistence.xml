@@ -6,7 +6,7 @@
    http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
 
 	<persistence-unit name="bookland_jpa">
-
+		<class>edu.msg.bookland.model.BaseEntity</class>
 		<class>edu.msg.bookland.model.Author</class>
 		<class>edu.msg.bookland.model.Publication</class>
 		<class>edu.msg.bookland.model.Book</class>
@@ -14,7 +14,8 @@
 		<class>edu.msg.bookland.model.Newspaper</class>
 		<class>edu.msg.bookland.model.User</class>
 		<class>edu.msg.bookland.model.Borrowing</class>
-
+		<class>edu.msg.bookland.model.UserPublicationId</class>
+		
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/library?useSSL=false" />
 			<property name="javax.persistence.jdbc.user" value="library_admin" />

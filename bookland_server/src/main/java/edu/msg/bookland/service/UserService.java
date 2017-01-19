@@ -2,6 +2,7 @@ package edu.msg.bookland.service;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -99,8 +100,13 @@ public class UserService extends UnicastRemoteObject implements UserServiceRmi {
 
 	@Override
 	public List<User> searchUser(String name) throws RemoteException {
+		List<User> usersList=new ArrayList<>();
 		try {
-			return userDAO.searchUserByName(name);
+			List<User>users= userDAO.searchUserByName(name);
+			for(User u:users){
+				usersList.add(new User(u));
+			}
+			return usersList;
 		} catch (RepositoryException e) {
 			LOGGER.error("Failed to get user");
 			return null;

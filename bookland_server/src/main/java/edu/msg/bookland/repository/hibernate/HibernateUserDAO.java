@@ -46,7 +46,6 @@ public class HibernateUserDAO implements UserDAO {
 			TypedQuery<User> q = entityManager.createQuery(criteriaQuery);
 			users = q.getResultList();
 			LOGGER.info("All user selected");
-
 		} catch (PersistenceException e) {
 			LOGGER.error("Could not query Users", e);
 			throw new RepositoryException("Could not query Users", e);
@@ -167,8 +166,8 @@ public class HibernateUserDAO implements UserDAO {
 			TypedQuery<User> query = entityManager.createQuery("Select u " + "from User u where u.name LIKE :n", User.class)
 					.setParameter("n", "%" + name + "%");
 			users = query.getResultList();
-			LOGGER.info("Retrieved user list");
-		} catch(PersistenceException e) {
+			LOGGER.info("Retrieved user list"+users.size());
+			} catch(PersistenceException e) {
 			LOGGER.error("Could not retrieve user list", e);
 			throw new RepositoryException("Could not retrieve user list", e);
 		}

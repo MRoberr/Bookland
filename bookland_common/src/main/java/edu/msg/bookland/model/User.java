@@ -50,6 +50,9 @@ public class User extends BaseEntity {
 
 		borrow = new ArrayList<>();
 	}
+	public void setBorrow(List<Borrowing> borrow) {
+		this.borrow = borrow;
+	}
 
 	public User(String name) {
 		this.name = name;
@@ -63,6 +66,18 @@ public class User extends BaseEntity {
 		this.userType = userType;
 		this.loyaltyIndex = loyaltyIndex;
 		this.email = email;
+	}
+	
+	public User(User u){
+		this();
+		setUUID(u.getUUID());
+		name=u.getName();
+		email=u.getEmail();
+		loyaltyIndex=u.getLoyaltyIndex();
+		userType=u.getUserType();
+		for(Borrowing b:u.getBorrow()){
+			borrow.add(new Borrowing(b));
+		}
 	}
 
 	public String getName() {
@@ -105,8 +120,7 @@ public class User extends BaseEntity {
 		this.email = email;
 	}
 
-	public List<Borrowing> getBorrows() {
-		
+	public List<Borrowing> getBorrow() {		
 		return borrow;
 	}
 	@Override
