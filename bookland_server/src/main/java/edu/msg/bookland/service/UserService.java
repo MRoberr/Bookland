@@ -7,7 +7,6 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import edu.msg.bookland.common.model.Tuple;
 import edu.msg.bookland.common.model.UserDTO;
 import edu.msg.bookland.common.model.UserType;
 import edu.msg.bookland.common.rmi.UserServiceRmi;

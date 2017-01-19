@@ -10,6 +10,7 @@ import edu.msg.bookland.common.model.AuthorDTO;
  * RMI interface for Author CRUD operations.
  * 
  * @author Simo Zoltan
+ * @author Sipos Terez
  *
  */
 public interface AuthorServiceRmi extends Remote {
@@ -32,7 +33,7 @@ public interface AuthorServiceRmi extends Remote {
 	 * @return true, if insert successful
 	 * @throws RemoteException
 	 */
-	public boolean insertAuthor(AuthorDTO author) throws RemoteException;
+	public void insertAuthor(AuthorDTO author) throws RemoteException;
 
 	/**
 	 * This method updates the Author by its id.
@@ -41,7 +42,7 @@ public interface AuthorServiceRmi extends Remote {
 	 * @return true, if update successful
 	 * @throws RemoteException
 	 */
-	public boolean updateAuthor(AuthorDTO author) throws RemoteException;
+	public void updateAuthor(AuthorDTO author) throws RemoteException;
 
 	/**
 	 * This method deletes the Author by its id.
@@ -50,7 +51,7 @@ public interface AuthorServiceRmi extends Remote {
 	 * @return true, if delete succeeded
 	 * @throws RemoteException
 	 */
-	public boolean deleteAuthor(AuthorDTO author) throws RemoteException;
+	public void deleteAuthor(AuthorDTO author) throws RemoteException;
 
 	/**
 	 * This method searches for an Author with the specified name.

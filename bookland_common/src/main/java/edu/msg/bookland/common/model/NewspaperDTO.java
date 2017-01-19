@@ -14,6 +14,8 @@ import java.util.Calendar;
 public class NewspaperDTO extends PublicationDTO {
 
 	private static final long serialVersionUID = -3891407649176906111L;
+	
+	//list articlea
 
 	public NewspaperDTO() {
 		borrow = new ArrayList<>();

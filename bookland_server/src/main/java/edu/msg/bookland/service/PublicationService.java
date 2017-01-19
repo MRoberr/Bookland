@@ -214,7 +214,7 @@ public class PublicationService extends UnicastRemoteObject implements Publicati
 	}
 
 	@Override
-	public BookDTO searchBook(String title) throws RemoteException {
+	public BookDTO searchBooks(String title) throws RemoteException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -226,7 +226,7 @@ public class PublicationService extends UnicastRemoteObject implements Publicati
 	}
 
 	@Override
-	public NewspaperDTO searchNewspaper(String title) throws RemoteException {
+	public NewspaperDTO searchNewspapers(String title) throws RemoteException {
 		// TODO Auto-generated method stub
 		return null;
 	}
