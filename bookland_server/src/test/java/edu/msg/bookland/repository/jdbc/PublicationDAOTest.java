@@ -9,10 +9,10 @@ import org.junit.Test;
 import edu.msg.bookland.common.model.BookDTO;
 import edu.msg.bookland.common.model.PublicationDTO;
 import edu.msg.bookland.common.model.UserDTO;
-import edu.msg.bookland.repository.PublicationDAO;
-import edu.msg.bookland.repository.UserDAO;
-import edu.msg.bookland.repository.hibernate.HibernatePublicationDAO;
-import edu.msg.bookland.repository.hibernate.HibernateUserDAO;
+import edu.msg.bookland.server.repository.PublicationDAO;
+import edu.msg.bookland.server.repository.UserDAO;
+import edu.msg.bookland.server.repository.hibernate.HibernatePublicationDAO;
+import edu.msg.bookland.server.repository.hibernate.HibernateUserDAO;
 
 public class PublicationDAOTest {
 	

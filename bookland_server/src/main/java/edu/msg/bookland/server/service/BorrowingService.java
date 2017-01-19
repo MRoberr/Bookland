@@ -1,4 +1,4 @@
-package edu.msg.bookland.service;
+package edu.msg.bookland.server.service;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -14,10 +14,10 @@ import edu.msg.bookland.common.model.NewspaperDTO;
 import edu.msg.bookland.common.model.PublicationDTO;
 import edu.msg.bookland.common.model.Tuple;
 import edu.msg.bookland.common.rmi.BorrowingServiceRmi;
-import edu.msg.bookland.repository.BorrowingDAO;
-import edu.msg.bookland.repository.DAOFactory;
-import edu.msg.bookland.repository.RepositoryException;
-import edu.msg.bookland.repository.jdbc.JDBCUserDAO;
+import edu.msg.bookland.server.repository.BorrowingDAO;
+import edu.msg.bookland.server.repository.DAOFactory;
+import edu.msg.bookland.server.repository.RepositoryException;
+import edu.msg.bookland.server.repository.jdbc.JDBCUserDAO;
 
 /**
  * Implement methods of UserServiceRmi. Call methods of DAO and contains

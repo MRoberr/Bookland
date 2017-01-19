@@ -10,6 +10,7 @@ import org.mockito.Mockito;
 
 import edu.msg.bookland.common.model.UserDTO;
 import edu.msg.bookland.common.model.UserType;
+import edu.msg.bookland.server.service.UserService;
 
 /**
  * Integration test of User CRUD.

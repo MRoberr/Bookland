@@ -1,4 +1,4 @@
-package edu.msg.bookland.repository;
+package edu.msg.bookland.server.repository;
 
 import java.util.List;
 

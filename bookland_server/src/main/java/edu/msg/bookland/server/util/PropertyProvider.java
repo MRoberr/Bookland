@@ -1,4 +1,4 @@
-package edu.msg.bookland.util;
+package edu.msg.bookland.server.util;
 
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;

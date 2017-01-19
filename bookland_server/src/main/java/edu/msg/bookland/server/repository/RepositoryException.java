@@ -1,4 +1,4 @@
-package edu.msg.bookland.repository;
+package edu.msg.bookland.server.repository;
 
 /**
  * @author Terez Sipos

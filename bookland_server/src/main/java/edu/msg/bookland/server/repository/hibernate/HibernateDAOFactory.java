@@ -1,10 +1,10 @@
-package edu.msg.bookland.repository.hibernate;
+package edu.msg.bookland.server.repository.hibernate;
 
-import edu.msg.bookland.repository.AuthorDAO;
-import edu.msg.bookland.repository.BorrowingDAO;
-import edu.msg.bookland.repository.DAOFactory;
-import edu.msg.bookland.repository.PublicationDAO;
-import edu.msg.bookland.repository.UserDAO;
+import edu.msg.bookland.server.repository.AuthorDAO;
+import edu.msg.bookland.server.repository.BorrowingDAO;
+import edu.msg.bookland.server.repository.DAOFactory;
+import edu.msg.bookland.server.repository.PublicationDAO;
+import edu.msg.bookland.server.repository.UserDAO;
 
 public class HibernateDAOFactory extends DAOFactory {
 

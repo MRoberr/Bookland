@@ -13,9 +13,9 @@ import org.mockito.Mockito;
 
 import edu.msg.bookland.common.model.AuthorDTO;
 import edu.msg.bookland.common.model.BorrowingDTO;
-import edu.msg.bookland.repository.BorrowingDAO;
-import edu.msg.bookland.repository.RepositoryException;
-import edu.msg.bookland.repository.hibernate.HibernateBorrowingDAO;
+import edu.msg.bookland.server.repository.BorrowingDAO;
+import edu.msg.bookland.server.repository.RepositoryException;
+import edu.msg.bookland.server.repository.hibernate.HibernateBorrowingDAO;
 
 /**
  * Test the Borrowing data access object for CRUD operations.

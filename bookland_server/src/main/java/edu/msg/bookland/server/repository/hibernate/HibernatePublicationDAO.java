@@ -1,4 +1,4 @@
-package edu.msg.bookland.repository.hibernate;
+package edu.msg.bookland.server.repository.hibernate;
 
 import java.util.List;
 
@@ -18,8 +18,8 @@ import edu.msg.bookland.common.model.MagazineDTO;
 import edu.msg.bookland.common.model.NewspaperDTO;
 import edu.msg.bookland.common.model.PublicationDTO;
 import edu.msg.bookland.common.model.Publication_;
-import edu.msg.bookland.repository.PublicationDAO;
-import edu.msg.bookland.repository.RepositoryException;
+import edu.msg.bookland.server.repository.PublicationDAO;
+import edu.msg.bookland.server.repository.RepositoryException;
 
 public class HibernatePublicationDAO implements PublicationDAO {
 

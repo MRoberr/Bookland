@@ -11,10 +11,10 @@ import org.junit.Test;
 
 import edu.msg.bookland.common.model.UserDTO;
 import edu.msg.bookland.common.model.UserType;
-import edu.msg.bookland.repository.DAOFactory;
-import edu.msg.bookland.repository.RepositoryException;
-import edu.msg.bookland.repository.UserDAO;
-import edu.msg.bookland.util.PasswordEncrypting;
+import edu.msg.bookland.server.repository.DAOFactory;
+import edu.msg.bookland.server.repository.RepositoryException;
+import edu.msg.bookland.server.repository.UserDAO;
+import edu.msg.bookland.server.util.PasswordEncrypting;
 
 /**
  * 

@@ -1,4 +1,4 @@
-package edu.msg.bookland.repository.hibernate;
+package edu.msg.bookland.server.repository.hibernate;
 
 import java.util.List;
 
@@ -11,8 +11,8 @@ import javax.persistence.TypedQuery;
 import org.apache.log4j.Logger;
 
 import edu.msg.bookland.common.model.BorrowingDTO;
-import edu.msg.bookland.repository.BorrowingDAO;
-import edu.msg.bookland.repository.RepositoryException;
+import edu.msg.bookland.server.repository.BorrowingDAO;
+import edu.msg.bookland.server.repository.RepositoryException;
 
 public class HibernateBorrowingDAO implements BorrowingDAO {
 

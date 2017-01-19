@@ -1,4 +1,4 @@
-package edu.msg.bookland.repository.hibernate;
+package edu.msg.bookland.server.repository.hibernate;
 
 import java.util.List;
 
@@ -14,8 +14,8 @@ import javax.persistence.criteria.Root;
 import org.apache.log4j.Logger;
 
 import edu.msg.bookland.common.model.AuthorDTO;
-import edu.msg.bookland.repository.AuthorDAO;
-import edu.msg.bookland.repository.RepositoryException;
+import edu.msg.bookland.server.repository.AuthorDAO;
+import edu.msg.bookland.server.repository.RepositoryException;
 
 /**
  * 

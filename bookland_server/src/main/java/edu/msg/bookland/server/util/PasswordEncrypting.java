@@ -1,4 +1,4 @@
-package edu.msg.bookland.util;
+package edu.msg.bookland.server.util;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
@@ -6,7 +6,7 @@ import java.security.NoSuchAlgorithmException;
 
 import org.apache.log4j.Logger;
 
-import edu.msg.bookland.repository.RepositoryException;
+import edu.msg.bookland.server.repository.RepositoryException;
 
 /**
  * Singleton class to Encrypt password

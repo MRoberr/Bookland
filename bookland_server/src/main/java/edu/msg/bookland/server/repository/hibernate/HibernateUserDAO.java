@@ -1,4 +1,4 @@
-package edu.msg.bookland.repository.hibernate;
+package edu.msg.bookland.server.repository.hibernate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,8 +16,8 @@ import org.apache.log4j.Logger;
 
 import edu.msg.bookland.common.model.UserDTO;
 import edu.msg.bookland.common.model.UserType;
-import edu.msg.bookland.repository.RepositoryException;
-import edu.msg.bookland.repository.UserDAO;
+import edu.msg.bookland.server.repository.RepositoryException;
+import edu.msg.bookland.server.repository.UserDAO;
 
 public class HibernateUserDAO implements UserDAO {
 	private static final Logger LOGGER = Logger.getLogger(HibernateUserDAO.class);

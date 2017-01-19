@@ -1,4 +1,4 @@
-package edu.msg.bookland;
+package edu.msg.bookland.server;
 
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -10,11 +10,11 @@ import edu.msg.bookland.common.rmi.AuthorServiceRmi;
 import edu.msg.bookland.common.rmi.BorrowingServiceRmi;
 import edu.msg.bookland.common.rmi.PublicationServiceRmi;
 import edu.msg.bookland.common.rmi.UserServiceRmi;
-import edu.msg.bookland.repository.jdbc.ConnectionManager;
-import edu.msg.bookland.service.AuthorService;
-import edu.msg.bookland.service.BorrowingService;
-import edu.msg.bookland.service.PublicationService;
-import edu.msg.bookland.service.UserService;
+import edu.msg.bookland.server.repository.jdbc.ConnectionManager;
+import edu.msg.bookland.server.service.AuthorService;
+import edu.msg.bookland.server.service.BorrowingService;
+import edu.msg.bookland.server.service.PublicationService;
+import edu.msg.bookland.server.service.UserService;
 
 /**
  * Entry point for running Server
