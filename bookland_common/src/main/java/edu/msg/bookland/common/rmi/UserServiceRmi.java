@@ -23,7 +23,8 @@ public interface UserServiceRmi extends Remote {
 	 * This function gets all the Users from DB.
 	 * 
 	 * @return
-	 * @throws RemoteException
+	 * @throws RemoteException, when connection through RMI failed
+	 * @throws ServiceException, when Server could not finish request
 	 */
 	public List<UserDTO> getAllUsers() throws RemoteException, ServiceException; 
 	
@@ -31,7 +32,8 @@ public interface UserServiceRmi extends Remote {
 	 * This method inserts a User into DB.
 	 * 
 	 * @param user
-	 * @throws RemoteException
+	 * @throws RemoteException, when connection through RMI failed
+	 * @throws ServiceException, when Server could not finish request
 	 */
 	public void insertUser(UserDTO user) throws RemoteException, ServiceException;
 	
@@ -39,7 +41,8 @@ public interface UserServiceRmi extends Remote {
 	 * This method updates the User by its id.
 	 * 
 	 * @param user
-	 * @throws RemoteException
+	 * @throws RemoteException, when connection through RMI failed
+	 * @throws ServiceException, when Server could not finish request
 	 */
 	public void updateUser(UserDTO user) throws RemoteException, ServiceException;
 	
@@ -47,7 +50,8 @@ public interface UserServiceRmi extends Remote {
 	 * This method deletes the User by its id.
 	 * 
 	 * @param user
-	 * @throws RemoteException
+	 * @throws RemoteException, when connection through RMI failed
+	 * @throws ServiceException, when Server could not finish request
 	 */
 <<<<<<< HEAD
 	public void deleteUser(String userID) throws RemoteException;
@@ -60,7 +64,8 @@ public interface UserServiceRmi extends Remote {
 	 * 
 	 * @param name
 	 * @return list of users found
-	 * @throws RemoteException
+	 * @throws RemoteException, when connection through RMI failed
+	 * @throws ServiceException, when Server could not finish request
 	 */
 	public List<UserDTO> searchUser(String name) throws RemoteException, ServiceException;
 	
@@ -71,7 +76,7 @@ public interface UserServiceRmi extends Remote {
 	 * @param name
 	 * @param password
 	 * @return the UserType of the logging User
-	 * @throws RemoteException, when connection error occurred
+	 * @throws RemoteException, when connection through RMI failed
 	 * @throws ServiceException, when login failed
 	 */
 	public UserType login(String name, String password) throws RemoteException, ServiceException;

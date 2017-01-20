@@ -11,7 +11,7 @@ import edu.msg.bookland.common.rmi.AuthorServiceRmi;
 import edu.msg.bookland.common.rmi.BorrowingServiceRmi;
 import edu.msg.bookland.common.rmi.PublicationServiceRmi;
 import edu.msg.bookland.common.rmi.UserServiceRmi;
-import edu.msg.bookland.desktop.ConnectionException;
+import edu.msg.bookland.desktop.RequestException;
 
 /**
  * 
@@ -42,7 +42,7 @@ public class ConnectionModel {
 			USER_SERVICE_RMI = (UserServiceRmi) REGISTRY.lookup(UserServiceRmi.RMI_NAME);
 		} catch (RemoteException | NotBoundException e) {
 			LOGGER.error("RMI connection error.");
-			throw new ConnectionException("RMI connection error.");
+			throw new RequestException("RMI connection error.");
 		}
 	}
 }
