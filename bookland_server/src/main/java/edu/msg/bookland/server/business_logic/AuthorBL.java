@@ -1,4 +1,4 @@
-package edu.msg.bookland.server.busines_logic;
+package edu.msg.bookland.server.business_logic;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ import edu.msg.bookland.server.model.Author;
  * 
  * @author Jozsef Solomon
  */
-public interface AuthorLogic {
+public interface AuthorBL {
 	/**
 	 * This method define select all for {@link Author}
 	 * 
@@ -49,5 +49,5 @@ public interface AuthorLogic {
 	 * @return Author if exist
 	 * @throws BusinesLogicException
 	 */
-	Author getAuthorByUuid(String uuId) throws BusinesLogicException;
+	List<Author> searchAuthor(String name) throws BusinesLogicException;
 }

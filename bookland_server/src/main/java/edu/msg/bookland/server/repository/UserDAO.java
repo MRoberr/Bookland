@@ -2,6 +2,7 @@ package edu.msg.bookland.server.repository;
 
 import java.util.List;
 
+import edu.msg.bookland.common.model.UserType;
 import edu.msg.bookland.server.model.*;
 
 /**
@@ -41,7 +42,7 @@ public interface UserDAO {
 	 * @param user
 	 * @throws RepositoryException
 	 */
-	void deleteUser(User user) throws RepositoryException;
+	void deleteUser(String id) throws RepositoryException;
 
 	/**
 	 * This method define update without password {@link User}
@@ -82,5 +83,6 @@ public interface UserDAO {
 	 */
 	List<User> searchUserByName(String name) throws RepositoryException;
 
-	void setUserLoyaltyIndex(String uuid) throws RepositoryException;
+	void decreaseLoyaltyIndex(String uuid) throws RepositoryException;
+	void increaseLoyaltyIndex(String uuid) throws RepositoryException;
 }
