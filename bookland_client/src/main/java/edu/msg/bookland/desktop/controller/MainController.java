@@ -29,10 +29,10 @@ public class MainController {
 	private String tempStr = "";
 	private List<PublicationDTO> tempPublications;
 	private List<UserDTO> tempUsers;
-	//private List<Tuple> tempTuples;
+	private List<BorrowingDTO> tempBorrowings;
 	private PublicationDTO tempPublication;
 	private UserDTO tempUser;
-	//private Tuple tempTuple;
+	private BorrowingDTO tempBorrowing;
 	private final String exitBackString = " Try again or (-1 exit) (-2 back).";
 	private final String exitString = " Try again or (-1 exit).";
 
@@ -167,21 +167,21 @@ public class MainController {
 				tempUser = getUserFromResult();
 				if (tempUser != null) {
 					searchBorrowedPublications(tempUser.getUUID());
-					tempTuple = getBorrowedPublicationFromResult();
-					if (tempTuple != null) {
-						BorrowingDTO borrowing = tempTuple.getBorrow();
+					tempBorrowing = getBorrowedPublicationFromResult();
+					if (tempBorrowing != null) {
+						BorrowingDTO borrowing = tempBorrowing.getBorrow();
 						if (csc.returnPublication(borrowing)) {
 							System.out.println(
-									"Returning of <" + tempTuple.getPublication().getTitle() + "> successful!");
+									"Returning of <" + tempBorrowing.getPublication().getTitle() + "> successful!");
 						} else {
 							System.out.println(
-									"Returning of <" + tempTuple.getPublication().getTitle() + "> not successful!");
+									"Returning of <" + tempBorrowing.getPublication().getTitle() + "> not successful!");
 						}
 					}
 				}
 			} finally {
-				tempTuple = null;
-				tempTuples = null;
+				tempBorrowing = null;
+				tempBorrowings = null;
 				tempUser = null;
 				tempUsers = null;
 			}
@@ -246,16 +246,16 @@ public class MainController {
 	}
 
 	private void searchBorrowedPublications(String uuid) {
-		tempTuples = csc.getPublicationsBorrowedByUser(uuid);
-		if (tempTuples == null) {
+		tempBorrowings = csc.getPublicationsBorrowedByUser(uuid);
+		if (tempBorrowings == null) {
 			System.out.println("Couldn't find any publication for user!");
 			return;
-		} else if ((tempTuples.size()>0) && ((tempTuples.get(0).getBorrow() == null) || (tempTuples.get(0).getPublication() == null)) ){
-			tempTuples = null;
+		} else if ((tempBorrowings.size()>0) && ((tempBorrowings.get(0).getBorrow() == null) || (tempBorrowings.get(0).getPublication() == null)) ){
+			tempBorrowings = null;
 			return;
 		}
 		tempInt = 0;
-		for (Tuple t : tempTuples) {
+		for (Tuple t : tempBorrowings) {
 			System.out.println(++tempInt + ": " + t.getBorrow().toString());
 		}
 	}
@@ -293,7 +293,7 @@ public class MainController {
 	}
 
 	private Tuple getBorrowedPublicationFromResult() {
-		if (tempTuples == null) {
+		if (tempBorrowings == null) {
 			return null;		
 		} else {
 			System.out.println("Select number from the list above.");
@@ -302,8 +302,8 @@ public class MainController {
 				System.out.println("Exit.");
 				System.exit(0);
 				return null;
-			} else if ((cmd <= tempTuples.size()) && (cmd > 0)) {
-				return tempTuples.get(--cmd);
+			} else if ((cmd <= tempBorrowings.size()) && (cmd > 0)) {
+				return tempBorrowings.get(--cmd);
 			} else {
 				System.out.println("Invalid Command." + exitString);
 				return null;
