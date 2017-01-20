@@ -93,4 +93,12 @@ public abstract class Publication extends BaseEntity {
 				+ copiesLeft;
 	}
 
+	public List<Borrowing> getBorrow() {
+		return borrow;
+	}
+
+	public void setBorrow(List<Borrowing> borrow) {
+		this.borrow = borrow;
+	}
+
 }
