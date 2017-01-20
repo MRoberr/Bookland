@@ -6,7 +6,8 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import edu.msg.bookland.common.model.BorrowingDTO;
-import edu.msg.bookland.desktop.ConnectionException;
+import edu.msg.bookland.common.model.ServiceException;
+import edu.msg.bookland.desktop.RequestException;
 import edu.msg.bookland.desktop.model.ConnectionModel;
 
 /**
@@ -18,49 +19,42 @@ import edu.msg.bookland.desktop.model.ConnectionModel;
  */
 public class CustomServiceController {
 	private static final Logger LOGGER = Logger.getLogger(CustomServiceController.class);
-	
+
 	/**
 	 * This method creates a new borrowing.
 	 * 
 	 * @param borrowing
-	 * @return true, if borrow successful
+	 * @throws RequestException
+	 *             when either connection or request at server failed
 	 */
 	public void borrowPublication(BorrowingDTO borrowing) {
 		try {
 			ConnectionModel.BORROWING_SERVICE_RMI.borrowPublication(borrowing);
+		} catch (ServiceException e) {
+			LOGGER.error("Server could not create borrow", e);
+			throw new RequestException(e.getMessage());
 		} catch (RemoteException e) {
-			LOGGER.error("No connection when searching publications.", e);
-			throw new ConnectionException(e.getMessage());
+			LOGGER.error("Connection with server failed at borrow publication.", e);
+			throw new RequestException(e.getMessage());
 		}
 	}
-	
-	/**
-	 * This method gets the users all borrows and borrowed publications.
-	 * 
-	 * @param uuid
-	 * @return Tuple of borrowing and publication
-	 */
-	public List<BorrowingDTO> getPublicationsBorrowedByUser(String uuid) {
-		try {
-			return ConnectionModel.BORROWING_SERVICE_RMI.getBorrowByUserUUID(uuid);
-		} catch (RemoteException e) {
-			LOGGER.error("No connection when searching for publications borrowed by the user.", e);
-			return null;
-		}
-	}
-	
+
 	/**
 	 * Through this method returning of a borrow is achieved.
 	 * 
 	 * @param borrowing
-	 * @return true, if return borrow succeeded
+	 * @throws RequestException
+	 *             when either connection or request at server failed
 	 */
 	public void returnPublication(BorrowingDTO borrowing) {
 		try {
 			ConnectionModel.BORROWING_SERVICE_RMI.returnPublication(borrowing);
+		} catch (ServiceException e) {
+			LOGGER.error("Server could not return borrow", e);
+			throw new RequestException(e.getMessage());
 		} catch (RemoteException e) {
-			LOGGER.error("No connection when returning a borrowed publication.", e);
-			throw new ConnectionException(e.getMessage());
+			LOGGER.error("Connection with server failed at return borrowed publication.", e);
+			throw new RequestException(e.getMessage());
 		}
 	}
 

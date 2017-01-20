@@ -11,7 +11,7 @@ import edu.msg.bookland.common.model.BorrowingDTO;
 import edu.msg.bookland.common.model.PublicationDTO;
 import edu.msg.bookland.common.model.UserDTO;
 import edu.msg.bookland.common.model.UserType;
-import edu.msg.bookland.desktop.ConnectionException;
+import edu.msg.bookland.desktop.RequestException;
 import edu.msg.bookland.desktop.model.ConnectionModel;
 import edu.msg.bookland.desktop.view.CustomServiceView;
 import edu.msg.bookland.desktop.view.DataAdministrationView;
@@ -133,15 +133,15 @@ public class MainController {
 					searchPublications();
 					tempPublication = getPublicationFromResult();
 					if (tempPublication != null) {
-						BorrowingDTO borrowing = new BorrowingDTO();
-						borrowing.setUserId(tempUser.getUUID());
-						borrowing.setPublicationId(tempPublication.getUUID());
-						borrowing.setBorrowingDate(Date.valueOf(LocalDate.now()));
-						borrowing.setDeadline(Date.valueOf(LocalDate.now().plusDays(20)));
+						BorrowingDTO b = new BorrowingDTO();
+						b.setUserId(tempUser.getUUID());
+						b.setPublicationId(tempPublication.getUUID());
+						b.setBorrowingDate(Date.valueOf(LocalDate.now()));
+						b.setDeadline(Date.valueOf(LocalDate.now().plusDays(20)));
 						try {
-							csc.borrowPublication(borrowing);
+							csc.borrowPublication(b);
 							System.out.println("Borrowing successful!");
-						} catch (ConnectionException e) {
+						} catch (RequestException e) {
 							System.out.println("Borrowing not successful!");
 						}
 
@@ -164,14 +164,14 @@ public class MainController {
 				searchUsers();
 				tempUser = getUserFromResult();
 				if (tempUser != null) {
-					searchBorrowedPublications(tempUser.getUUID());
+					searchBorrowedPublications();
 					tempBorrowing = getBorrowedPublicationFromResult();
 					if (tempBorrowing != null) {
 						try {
 							csc.returnPublication(tempBorrowing);
 							System.out.println(
 									"Returning of <" + tempBorrowing.getPublication().getTitle() + "> successful!");
-						} catch (ConnectionException e) {
+						} catch (RequestException e) {
 							System.out.println(
 									"Returning of <" + tempBorrowing.getPublication().getTitle() + "> not successful!");
 						}
@@ -243,8 +243,8 @@ public class MainController {
 		}
 	}
 
-	private void searchBorrowedPublications(String uuid) {
-		tempBorrowings = csc.getPublicationsBorrowedByUser(uuid);
+	private void searchBorrowedPublications() {
+		tempBorrowings = tempUser.getBorrow();
 		if (tempBorrowings == null) {
 			System.out.println("Couldn't find any publication for user!");
 			return;

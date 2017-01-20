@@ -25,7 +25,10 @@ public interface PublicationServiceRmi extends Remote {
 	 * This function gets all Books from DB.
 	 * 
 	 * @return Book List
-	 * @throws RemoteException
+	 * @throws RemoteException,
+	 *             when connection through RMI failed
+	 * @throws ServiceException,
+	 *             when Server could not finish request
 	 */
 	public List<BookDTO> getAllBooks() throws RemoteException, ServiceException;
 
@@ -33,7 +36,10 @@ public interface PublicationServiceRmi extends Remote {
 	 * This function gets all Magazines from DB.
 	 * 
 	 * @return Magazine List
-	 * @throws RemoteException
+	 * @throws RemoteException,
+	 *             when connection through RMI failed
+	 * @throws ServiceException,
+	 *             when Server could not finish request
 	 */
 	public List<MagazineDTO> getAllMagazines() throws RemoteException, ServiceException;
 
@@ -41,7 +47,10 @@ public interface PublicationServiceRmi extends Remote {
 	 * This function gets all Newspapers from DB.
 	 * 
 	 * @return Newspaper List
-	 * @throws RemoteException
+	 * @throws RemoteException,
+	 *             when connection through RMI failed
+	 * @throws ServiceException,
+	 *             when Server could not finish request
 	 */
 	public List<NewspaperDTO> getAllNewspapers() throws RemoteException, ServiceException;
 
@@ -49,7 +58,10 @@ public interface PublicationServiceRmi extends Remote {
 	 * This function gets all Publications from DB.
 	 * 
 	 * @return Publication List
-	 * @throws RemoteException
+	 * @throws RemoteException,
+	 *             when connection through RMI failed
+	 * @throws ServiceException,
+	 *             when Server could not finish request
 	 */
 	public List<PublicationDTO> getAllPublications() throws RemoteException, ServiceException;
 
@@ -57,8 +69,10 @@ public interface PublicationServiceRmi extends Remote {
 	 * This method inserts a Book into DB.
 	 * 
 	 * @param book
-	 * @return true, if succeeded
-	 * @throws RemoteException
+	 * @throws RemoteException,
+	 *             when connection through RMI failed
+	 * @throws ServiceException,
+	 *             when Server could not finish request
 	 */
 	public void insertBook(BookDTO bookDTO) throws RemoteException, ServiceException;
 
@@ -66,8 +80,10 @@ public interface PublicationServiceRmi extends Remote {
 	 * This method inserts a Magazine into DB.
 	 * 
 	 * @param magazineDTO
-	 * @return true, if succeeded
-	 * @throws RemoteException
+	 * @throws RemoteException,
+	 *             when connection through RMI failed
+	 * @throws ServiceException,
+	 *             when Server could not finish request
 	 */
 	public void insertMagazine(MagazineDTO magazineDTO) throws RemoteException, ServiceException;
 
@@ -75,8 +91,10 @@ public interface PublicationServiceRmi extends Remote {
 	 * This method inserts a Newspaper into DB.
 	 * 
 	 * @param newspaperDTO
-	 * @return true, if succeeded
-	 * @throws RemoteException
+	 * @throws RemoteException,
+	 *             when connection through RMI failed
+	 * @throws ServiceException,
+	 *             when Server could not finish request
 	 */
 	public void insertNewspaper(NewspaperDTO newspaperDTO) throws RemoteException, ServiceException;
 
@@ -84,8 +102,10 @@ public interface PublicationServiceRmi extends Remote {
 	 * This method updates the Book by its id.
 	 * 
 	 * @param book
-	 * @return true, if succeeded
-	 * @throws RemoteException
+	 * @throws RemoteException,
+	 *             when connection through RMI failed
+	 * @throws ServiceException,
+	 *             when Server could not finish request
 	 */
 	public void updateBook(BookDTO bookDTO) throws RemoteException, ServiceException;
 
@@ -93,8 +113,10 @@ public interface PublicationServiceRmi extends Remote {
 	 * This method updates the Magazine by its id.
 	 * 
 	 * @param magazineDTO
-	 * @return true, if succeeded
-	 * @throws RemoteException
+	 * @throws RemoteException,
+	 *             when connection through RMI failed
+	 * @throws ServiceException,
+	 *             when Server could not finish request
 	 */
 	public void updateMagazine(MagazineDTO magazineDTO) throws RemoteException, ServiceException;
 
@@ -102,8 +124,10 @@ public interface PublicationServiceRmi extends Remote {
 	 * This method updates the Newspaper by its id.
 	 * 
 	 * @param newspaperDTO
-	 * @return true, if succeeded
-	 * @throws RemoteException
+	 * @throws RemoteException,
+	 *             when connection through RMI failed
+	 * @throws ServiceException,
+	 *             when Server could not finish request
 	 */
 	public void updateNewspaper(NewspaperDTO newspaperDTO) throws RemoteException, ServiceException;
 
@@ -111,8 +135,10 @@ public interface PublicationServiceRmi extends Remote {
 	 * This method deletes the Publciation by its id.
 	 * 
 	 * @param book
-	 * @return true, if succeeded
-	 * @throws RemoteException
+	 * @throws RemoteException,
+	 *             when connection through RMI failed
+	 * @throws ServiceException,
+	 *             when Server could not finish request
 	 */
 	public void deletePublication(String publicationId) throws RemoteException, ServiceException;
 
@@ -120,8 +146,11 @@ public interface PublicationServiceRmi extends Remote {
 	 * This method searches for Books with the specified title.
 	 * 
 	 * @param uuid
-	 * @return Book
-	 * @throws RemoteException
+	 * @return Book List
+	 * @throws RemoteException,
+	 *             when connection through RMI failed
+	 * @throws ServiceException,
+	 *             when Server could not finish request
 	 */
 	public List<BookDTO> searchBooks(String title) throws RemoteException, ServiceException;
 
@@ -129,8 +158,11 @@ public interface PublicationServiceRmi extends Remote {
 	 * This method searches for Magazines with the specified title.
 	 * 
 	 * @param uuid
-	 * @return Magazine
-	 * @throws RemoteException
+	 * @return Magazine List
+	 * @throws RemoteException,
+	 *             when connection through RMI failed
+	 * @throws ServiceException,
+	 *             when Server could not finish request
 	 */
 	public List<MagazineDTO> searchMagazins(String title) throws RemoteException, ServiceException;
 
@@ -138,8 +170,11 @@ public interface PublicationServiceRmi extends Remote {
 	 * This method searches for Newspapers with the specified uuid.
 	 * 
 	 * @param uuid
-	 * @return Newspaper
-	 * @throws RemoteException
+	 * @return Newspaper List
+	 * @throws RemoteException,
+	 *             when connection through RMI failed
+	 * @throws ServiceException,
+	 *             when Server could not finish request
 	 */
 	public List<NewspaperDTO> searchNewspapers(String title) throws RemoteException, ServiceException;
 
@@ -149,7 +184,10 @@ public interface PublicationServiceRmi extends Remote {
 	 * 
 	 * @param regex
 	 * @return Publication List
-	 * @throws RemoteException
+	 * @throws RemoteException,
+	 *             when connection through RMI failed
+	 * @throws ServiceException,
+	 *             when Server could not finish request
 	 */
 	public List<PublicationDTO> searchPublicationsByRegexp(String regex) throws RemoteException, ServiceException;
 
