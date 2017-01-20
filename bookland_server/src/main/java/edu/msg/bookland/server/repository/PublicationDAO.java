@@ -40,8 +40,7 @@ public interface PublicationDAO {
 
 	List<Publication> searchPublication(String title) throws BusinesLogicException;
 
-	int getCopiesLeft(String uuid) throws RepositoryException;
+	void increaseCopiesLeft(String uuid) throws RepositoryException; // ++1
 
-	void setCopiesLeft(String uuid) throws RepositoryException; // csookent 1el
-																// + throw
+	void decreaseCopiesLeft(String uuid) throws RepositoryException;// --1
 }

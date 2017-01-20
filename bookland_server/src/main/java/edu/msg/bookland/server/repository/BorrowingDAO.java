@@ -22,10 +22,10 @@ public interface BorrowingDAO {
 	 * @param borrowing
 	 * @throws RepositoryException
 	 */
-	void deleteBorrowing(Borrowing borrowing) throws RepositoryException;
+	void deleteBorrowing(String userId, String publicationId) throws RepositoryException;
 
 	
-	
-	void updateBorrowing(Borrowing borrowing) throws RepositoryException;
+	Borrowing getBorrowById(String userId, String publicationId) throws RepositoryException;
+	//void updateBorrowing(Borrowing borrowing) throws RepositoryException;
 
 }

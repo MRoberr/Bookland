@@ -11,7 +11,7 @@ import edu.msg.bookland.server.model.Publication;
 /**
  * Business Logic for PublicationService
  * 
- * @author sipost
+ * @author Sipos Terez
  *
  */
 public interface PublicationBL {

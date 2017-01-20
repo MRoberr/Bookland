@@ -1,9 +1,14 @@
 package edu.msg.bookland.server.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -23,17 +28,21 @@ public class Author extends BaseEntity {
 
 	@Column(name = "name", nullable = false, unique = true)
 	private String name;
-	
-	List<Publication> publications;
 
-	public Author(){
-		
-	}
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "publications_authors", joinColumns = @JoinColumn(name = "authors_uuid"), inverseJoinColumns = @JoinColumn(name = "publications_uuid"))
+	private List<Publication> publicationAuthors;
 	
-	public Author(Author a){
-		setUUID(a.getUUID());
-		name=a.getName();
+
+	
+	public Author() {
 	}
+
+	public Author(Author a) {
+		setUUID(a.getUUID());
+		name = a.getName();
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -47,12 +56,12 @@ public class Author extends BaseEntity {
 		return "Author name=" + name;
 	}
 
-	public List<Publication> getPublications() {
-		return publications;
+	public List<Publication> getPublicationAuthors() {
+		return publicationAuthors;
 	}
 
-	public void setPublications(List<Publication> publications) {
-		this.publications = publications;
+	public void setPublicationAuthors(List<Publication> publicationAuthors) {
+		this.publicationAuthors = publicationAuthors;
 	}
 
 }

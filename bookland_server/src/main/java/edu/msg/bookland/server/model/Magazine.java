@@ -25,14 +25,13 @@ public class Magazine extends Publication {
 
 	@Transient
 	private static final long serialVersionUID = -5114016015626666976L;
-
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "publications_authors", joinColumns = @JoinColumn(name = "publications_uuid"), inverseJoinColumns = @JoinColumn(name = "authors_uuid"))
-	private List<Author> authors;
+	
+	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "publicationAuthors")	
+	private List<Author> mAuthors;
 
 	public Magazine() {
 		
-		authors = new ArrayList<Author>();
+		mAuthors = new ArrayList<Author>();
 		borrow = new ArrayList<>();
 	}
 
@@ -43,18 +42,18 @@ public class Magazine extends Publication {
 		setPublisher(magazine.getPublisher());
 		setReleaseDate(magazine.getReleaseDate());
 		setTitle(magazine.getTitle());
-		authors = new ArrayList<>();
+		mAuthors = new ArrayList<>();
 		for (Author a : magazine.getAuthors()) {
-			authors.add(new Author(a));
+			mAuthors.add(new Author(a));
 		}
 	}
 
 	public List<Author> getAuthors() {
-		return authors;
+		return mAuthors;
 	}
 
 	public void addAuthor(Author author) {
-		authors.add(author);
+		mAuthors.add(author);
 	}
 
 	@Override
@@ -64,7 +63,11 @@ public class Magazine extends Publication {
 		date.setTime(releaseDate);
 		int year = date.get(Calendar.YEAR);
 		int month = date.get(Calendar.MONTH);
-		return "Magazine: " + ss + ", releaseDate " + year + "-" + month + ", " + authors;
+		return "Magazine: " + ss + ", releaseDate " + year + "-" + month + ", " + mAuthors;
+	}
+
+	public void setAuthors(List<Author> authors) {
+		this.authors = authors;
 	}
 
 }
