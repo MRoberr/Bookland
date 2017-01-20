@@ -19,24 +19,14 @@ public interface BorrowingServiceRmi extends Remote {
 	public static final String RMI_NAME = "Borrowing";
 
 	/**
-	 * This method searches for a Borrowing with the specified uuid.
-	 * 
-	 * @param uuid
-	 *            - the unique identifier of the given borrow
-	 * @return returns a Borrow object
-	 * @throws RemoteException
-	 */
-	public List<BorrowingDTO> getBorrowByUserUUID(String uuid) throws RemoteException, ServiceException;
-
-	/**
 	 * Deletes the borrowing in the DB. Updates the number of copies left field
 	 * of the publication in the DB. Updates the users trust index, if needed in
 	 * the DB.
 	 * 
 	 * @param borrow
 	 *            - Borrowing object
-	 * @return true if publication has been returned correctly, false if not
-	 * @throws RemoteException
+	 * @throws RemoteException, when connection through RMI failed
+	 * @throws ServiceException, when Server could not finish request
 	 */
 	public void returnPublication(BorrowingDTO borrow) throws RemoteException, ServiceException;
 
@@ -47,7 +37,8 @@ public interface BorrowingServiceRmi extends Remote {
 	 * @param borrow
 	 *            - Borrowing object
 	 * @return true if publication has been borrowed correctly, false if not
-	 * @throws RemoteException
+	 * @throws RemoteException, when connection through RMI failed
+	 * @throws ServiceException, when Server could not finish request
 	 */
 	public void borrowPublication(BorrowingDTO borrow) throws RemoteException, ServiceException;
 }
