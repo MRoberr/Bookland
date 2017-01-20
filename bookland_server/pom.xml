@@ -8,12 +8,6 @@
 	</parent>
 	<artifactId>bookland_server</artifactId>
 
-
-
-
-
-
-
 	<dependencies>
 
 		<dependency>
