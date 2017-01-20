@@ -1,6 +1,6 @@
 package edu.msg.bookland.server.repository;
 
-import edu.msg.bookland.common.model.Borrowing;
+import edu.msg.bookland.server.model.Borrowing;
 
 /**
  * Defines database methods for BORROWING Model

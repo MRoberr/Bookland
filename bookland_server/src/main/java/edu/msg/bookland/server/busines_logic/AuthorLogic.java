@@ -2,7 +2,7 @@ package edu.msg.bookland.server.busines_logic;
 
 import java.util.List;
 
-import edu.msg.bookland.common.model.Author;
+import edu.msg.bookland.server.model.Author;
 
 /**
  * Defines database methods for AUTHOR Model

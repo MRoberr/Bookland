@@ -6,12 +6,11 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import edu.msg.bookland.common.model.Author;
+import edu.msg.bookland.common.model.AuthorDTO;
 import edu.msg.bookland.common.rmi.AuthorServiceRmi;
 import edu.msg.bookland.server.repository.AuthorDAO;
 import edu.msg.bookland.server.repository.DAOFactory;
 import edu.msg.bookland.server.repository.RepositoryException;
-import edu.msg.bookland.server.repository.jdbc.JDBCUserDAO;
 
 /**
  * Implement methods of UserServiceRmi. Call methods of DAO and contains
@@ -38,7 +37,7 @@ public class AuthorService extends UnicastRemoteObject implements AuthorServiceR
 	}
 
 	@Override
-	public List<Author> getAllAuthors() throws RemoteException {
+	public List<AuthorDTO> getAllAuthors() throws RemoteException {
 		try {
 			return authorDAO.getAllAuthors();
 		} catch (RepositoryException e) {
@@ -49,9 +48,9 @@ public class AuthorService extends UnicastRemoteObject implements AuthorServiceR
 	}
 
 	@Override
-	public boolean insertAuthor(Author author) throws RemoteException {
+	public boolean insertAuthor(AuthorDTO authorDTO) throws RemoteException {
 		try {
-			authorDAO.insertAuthor(author);
+			authorDAO.insertAuthor(authorDTO);
 			return true;
 		} catch (RepositoryException e) {
 			LOGGER.error("Failed to insert author");
@@ -61,9 +60,9 @@ public class AuthorService extends UnicastRemoteObject implements AuthorServiceR
 
 
 	@Override
-	public boolean updateAuthor(Author author) throws RemoteException {
+	public boolean updateAuthor(AuthorDTO authorDTO) throws RemoteException {
 		try {
-			authorDAO.updateAuthor(author);
+			authorDAO.updateAuthor(authorDTO);
 			return true;
 		} catch (RepositoryException e) {
 			LOGGER.error("Failed to update author");
@@ -72,11 +71,11 @@ public class AuthorService extends UnicastRemoteObject implements AuthorServiceR
 	}
 
 	@Override
-	public boolean deleteAuthor(Author author) throws RemoteException {
+	public boolean deleteAuthor(AuthorDTO authorDTO) throws RemoteException {
 		// publicationService-getPublicationsByAuthorUUID
 		// if return null can delete
 		try {
-			authorDAO.deleteAuthor(author);
+			authorDAO.deleteAuthor(authorDTO);
 			return true;
 		} catch (RepositoryException e) {
 			LOGGER.error("Failed to delete author");
@@ -86,7 +85,7 @@ public class AuthorService extends UnicastRemoteObject implements AuthorServiceR
 
 	
 	@Override
-	public List<Author> searchAuthor(String name) throws RemoteException {
+	public List<AuthorDTO> searchAuthor(String name) throws RemoteException {
 		// TODO Auto-generated method stub
 		return null;
 	}

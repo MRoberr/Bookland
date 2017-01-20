@@ -13,7 +13,7 @@ import javax.persistence.criteria.Root;
 
 import org.apache.log4j.Logger;
 
-import edu.msg.bookland.common.model.Author;
+import edu.msg.bookland.server.model.Author;
 import edu.msg.bookland.server.repository.AuthorDAO;
 import edu.msg.bookland.server.repository.RepositoryException;
 
