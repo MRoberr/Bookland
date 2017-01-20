@@ -1,13 +1,11 @@
 package edu.msg.bookland.server.business_logic;
 
-import java.util.List;
-
 import edu.msg.bookland.server.model.Borrowing;
 
 /**
- * Defines database methods for BORROWING Model
+ * Business Logic for BorrowingService
  * 
- * @author Jozsef Solomon
+ * @author Sipos Terez
  */
 public interface BorrowingBL {
 	/**
@@ -21,20 +19,13 @@ public interface BorrowingBL {
 	/**
 	 * This method define delete for {@link Borrowing}
 	 * 
-	 * @param borrowing
+	 * @param user uuid
+	 * @param publication uuid
 	 * @throws BusinesLogicException
 	 */
-	void deleteBorrowing(Borrowing borrowing) throws BusinesLogicException;
+	void deleteBorrowing(String userId, String publicationId) throws BusinesLogicException;
 
-	/**
-	 * This method define select for {@link Borrowing} with conditon
-	 * 
-	 * @param userUuid
-	 * @return list of Borrowing if exist
-	 * @throws BusinesLogicException
-	 */
-	List<Borrowing> getPublicationsBorrowedByUser(String userUuid) throws BusinesLogicException;
-
-	void updateBorrowing(Borrowing borrowing) throws BusinesLogicException;
+	
+	//void updateBorrowing(Borrowing borrowing) throws BusinesLogicException;
 
 }
