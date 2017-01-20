@@ -12,7 +12,10 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.CriteriaUpdate;
 import javax.persistence.criteria.Root;
 
-import edu.msg.bookland.server.model.*;
+import edu.msg.bookland.server.model.Book;
+import edu.msg.bookland.server.model.Magazine;
+import edu.msg.bookland.server.model.Newspaper;
+import edu.msg.bookland.server.model.Publication;
 import edu.msg.bookland.server.repository.PublicationDAO;
 import edu.msg.bookland.server.repository.RepositoryException;
 
@@ -21,7 +24,7 @@ public class HibernatePublicationDAO implements PublicationDAO {
 	private EntityManagerFactory entityManagerFactory;
 	private EntityManager entityManager;
 	private CriteriaBuilder builder;
-
+	
 	public HibernatePublicationDAO() {
 
 		entityManagerFactory = Persistence.createEntityManagerFactory("bookland_jpa");
@@ -121,7 +124,7 @@ public class HibernatePublicationDAO implements PublicationDAO {
 		CriteriaUpdate<Book> update = builder.createCriteriaUpdate(Book.class);
 
 		Root<Book> bookRoot = update.from(Book.class);
-
+Book_ a;
 		update.set(bookRoot.get(Book_.copiesLeft), book.getCopiesLeft());
 		update.set(bookRoot.get(Book_.title), book.getTitle());
 		update.set(bookRoot.get(Book_.releaseDate), book.getReleaseDate());

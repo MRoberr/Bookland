@@ -7,17 +7,16 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import edu.msg.bookland.common.model.Book;
 import edu.msg.bookland.common.model.BorrowingDTO;
 import edu.msg.bookland.common.model.MagazineDTO;
 import edu.msg.bookland.common.model.NewspaperDTO;
-import edu.msg.bookland.common.model.Publication;
-import edu.msg.bookland.common.model.Tuple;
 import edu.msg.bookland.common.rmi.BorrowingServiceRmi;
+import edu.msg.bookland.server.model.Book;
+import edu.msg.bookland.server.model.Publication;
+import edu.msg.bookland.server.model.Tuple;
 import edu.msg.bookland.server.repository.BorrowingDAO;
 import edu.msg.bookland.server.repository.DAOFactory;
 import edu.msg.bookland.server.repository.RepositoryException;
-import edu.msg.bookland.server.repository.jdbc.JDBCUserDAO;
 
 /**
  * Implement methods of UserServiceRmi. Call methods of DAO and contains

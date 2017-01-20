@@ -8,9 +8,137 @@
 	</parent>
 	<artifactId>bookland_server</artifactId>
 
+	<build>
+
+
+		
+		<sourceDirectory>${project.basedir}/src/main/java/</sourceDirectory>
+
+		<testSourceDirectory>${project.basedir}/src/test/java/</testSourceDirectory>
 
 
 
+		<resources>
+			<resource>
+				<directory>${project.basedir}/src/main/resources/</directory>
+			</resource>
+			<resource>
+				<directory>${project.build.directory}/metamodel/</directory>
+			</resource>
+		</resources>
+
+		<testResources>
+			<testResource>
+				<directory>${project.basedir}/src/test/resources/</directory>
+			</testResource>
+		</testResources>
+
+
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+
+										<groupId>org.bsc.maven</groupId>
+										<artifactId>maven-processor-plugin</artifactId>
+										<versionRange>[3.0.0,)</versionRange>
+										<goals>
+											<goal>process</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<execute>
+											<runOnIncremental>true</runOnIncremental>
+										</execute>
+									</action>
+								</pluginExecution>
+
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.codehaus.mojo</groupId>
+										<artifactId>build-helper-maven-plugin</artifactId>
+										<versionRange>[1.10,)</versionRange>
+										<goals>
+											<goal>add-source</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<execute>
+											<runOnIncremental>true</runOnIncremental>
+										</execute>
+									</action>
+								</pluginExecution>
+
+
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+
+
+
+		<plugins>
+
+
+			<plugin>
+				<groupId>org.bsc.maven</groupId>
+				<artifactId>maven-processor-plugin</artifactId>
+				<version>3.2.0</version>
+				<executions>
+					<execution>
+						<id>process</id>
+						<goals>
+							<goal>process</goal>
+						</goals>
+						<phase>generate-sources</phase>
+						<configuration>
+							<processors>
+								<processor>org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor</processor>
+							</processors>
+							<outputDirectory>${project.build.directory}/metamodel/</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>org.hibernate</groupId>
+						<artifactId>hibernate-jpamodelgen</artifactId>
+						<version>5.2.6.Final</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>1.12</version>
+				<executions>
+					<execution>
+						<id>add-source</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>add-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>${project.build.directory}/metamodel/</source>
+							</sources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+		</plugins>
+	</build>
 
 
 
@@ -25,8 +153,13 @@
 		<dependency>
 			<groupId>edu.msg.bookland</groupId>
 			<artifactId>bookland_common</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+		</dependency>
+
 
 		<dependency>
 			<groupId>junit</groupId>
@@ -45,6 +178,7 @@
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>1.5.8</version>
 		</dependency>
+		
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-all</artifactId>

@@ -14,8 +14,8 @@ import javax.persistence.criteria.Root;
 
 import org.apache.log4j.Logger;
 
+import edu.msg.bookland.common.model.UserType;
 import edu.msg.bookland.server.model.User;
-import edu.msg.bookland.server.model.UserType;
 import edu.msg.bookland.server.repository.RepositoryException;
 import edu.msg.bookland.server.repository.UserDAO;
 
@@ -29,13 +29,6 @@ public class HibernateUserDAO implements UserDAO {
 
 		List<User> users = new ArrayList<User>();
 
-		// JPQL
-		// TypedQuery<User> query = entityManager.createQuery("Select u from
-		// User u", User.class);
-		// List<User> users = query.getResultList();
-		// return users;
-
-		// Criteria
 		try {
 			CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 			CriteriaQuery<User> criteriaQuery = criteriaBuilder.createQuery(User.class);
@@ -57,9 +50,11 @@ public class HibernateUserDAO implements UserDAO {
 
 	@Override
 	public void insertUser(User user) throws RepositoryException {
+		
 		try {
 			entityManager.getTransaction().begin();
 			entityManager.persist(user);
+			entityManager.detach(user);
 			entityManager.getTransaction().commit();
 			LOGGER.info("user inserted");
 		} catch (PersistenceException e) {
@@ -93,15 +88,21 @@ public class HibernateUserDAO implements UserDAO {
 	}
 
 	@Override
-	public void deleteUser(User user) throws RepositoryException {
+	public void deleteUser(String id) throws RepositoryException {
 		try {
+			
 			entityManager.getTransaction().begin();
-			User userDB = entityManager.find(User.class, user.getUUID());
+			
+			User userDB = entityManager.find(User.class, id);
+			
 			entityManager.remove(userDB);
 			entityManager.getTransaction().commit();
+			
 			LOGGER.info("Deleted user");
 		} catch(PersistenceException e) {
+			
 			entityManager.getTransaction().rollback();
+			
 			LOGGER.error("Could not delete a user. ", e);
 			throw new RepositoryException("Could not delete a user. ", e);
 		}
@@ -187,6 +188,19 @@ public class HibernateUserDAO implements UserDAO {
 			LOGGER.error("Could not decrease user's loyalty", e);
 			throw new RepositoryException("Could not decrease user's loyalty", e);
 		}
+		
+	}
+
+
+	@Override
+	public void decreaseLoyaltyIndex(String uuid) throws RepositoryException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void increaseLoyaltyIndex(String uuid) throws RepositoryException {
+		// TODO Auto-generated method stub
 		
 	}
 
