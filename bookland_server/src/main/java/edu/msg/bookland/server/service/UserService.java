@@ -46,8 +46,8 @@ public class UserService extends UnicastRemoteObject implements UserServiceRmi {
 			users = userBL.getAllUsers();
 			LOGGER.info("Sucessfully received all users");
 		} catch (BusinesLogicException e) {
-			LOGGER.error("Failed to get all users");
-			throw new ServiceException("Failed to get all users");
+			LOGGER.error(e.getMessage());
+			throw new ServiceException(e.getMessage());
 		}
 		return MappingService.usersToDTO(users);
 
@@ -59,8 +59,8 @@ public class UserService extends UnicastRemoteObject implements UserServiceRmi {
 		try {
 			userBL.insertUser(MappingService.DTOToUser(userDTO));
 		} catch (BusinesLogicException e) {
-			LOGGER.error("Failed to insert user");
-			throw new ServiceException("Failed to insert user");
+			LOGGER.error(e.getMessage());
+			throw new ServiceException(e.getMessage());
 
 		}
 	}
@@ -71,8 +71,8 @@ public class UserService extends UnicastRemoteObject implements UserServiceRmi {
 			userBL.updateUser(MappingService.DTOToUser(userDTO));
 			LOGGER.info("Updated user");
 		} catch (BusinesLogicException e) {
-			LOGGER.error("Failed to update user");
-			throw new ServiceException("Failed to update user");
+			LOGGER.error(e.getMessage());
+			throw new ServiceException(e.getMessage());
 		}
 	}
 
@@ -83,8 +83,8 @@ public class UserService extends UnicastRemoteObject implements UserServiceRmi {
 			userBL.deleteUser(userID);
 			LOGGER.info("Deleted user with id");
 		} catch (BusinesLogicException e) {
-			LOGGER.error("Failed to delete user");
-			throw new ServiceException("Failed to delete user");
+			LOGGER.error(e.getMessage());
+			throw new ServiceException(e.getMessage());
 		}
 	}
 
@@ -95,8 +95,8 @@ public class UserService extends UnicastRemoteObject implements UserServiceRmi {
 		try {
 			users = userBL.searchUserByName(name);
 		} catch (BusinesLogicException e) {
-			LOGGER.error("Failed to get users by name");
-			throw new ServiceException("Failed to get users by name");
+			LOGGER.error(e.getMessage());
+			throw new ServiceException(e.getMessage());
 		}
 		
 		return MappingService.usersToDTO(users);
@@ -108,8 +108,8 @@ public class UserService extends UnicastRemoteObject implements UserServiceRmi {
 		try {
 			return userBL.login(name, password);
 		} catch (BusinesLogicException e) {
-			LOGGER.error("Invalid login");
-			throw new ServiceException("Invalid login");
+			LOGGER.error(e.getMessage());
+			throw new ServiceException(e.getMessage());
 
 		}
 	}
