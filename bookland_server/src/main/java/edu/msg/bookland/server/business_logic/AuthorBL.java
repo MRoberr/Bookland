@@ -2,14 +2,25 @@ package edu.msg.bookland.server.business_logic;
 
 import java.util.List;
 
+import edu.msg.bookland.server.business_logic.basic.BasicAuthorBL;
 import edu.msg.bookland.server.model.Author;
 
 /**
- * Defines database methods for AUTHOR Model
+ * Business Logic for AuthorService
  * 
- * @author Jozsef Solomon
+ * @author Sipos Terez
  */
 public interface AuthorBL {
+
+	/**
+	 * static method to get an instance
+	 * 
+	 * @return BasicAuthorBL instance
+	 */
+	public static AuthorBL getInstance() {
+		return new BasicAuthorBL();
+	}
+
 	/**
 	 * This method define select all for {@link Author}
 	 * 
@@ -37,16 +48,16 @@ public interface AuthorBL {
 	/**
 	 * This method define delete for {@link Author}
 	 * 
-	 * @param author
+	 * @param author id
 	 * @throws BusinesLogicException
 	 */
-	void deleteAuthor(Author author) throws BusinesLogicException;
+	void deleteAuthor(String id) throws BusinesLogicException;
 
 	/**
 	 * This method define select with condition for {@link Author}
 	 * 
-	 * @param uuId-Author uuid
-	 * @return Author if exist
+	 * @param Author name
+	 * @return Author List if exist
 	 * @throws BusinesLogicException
 	 */
 	List<Author> searchAuthor(String name) throws BusinesLogicException;

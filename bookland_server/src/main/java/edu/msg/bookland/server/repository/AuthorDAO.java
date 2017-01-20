@@ -40,7 +40,7 @@ public interface AuthorDAO {
 	 * @param author
 	 * @throws RepositoryException
 	 */
-	void deleteAuthor(Author author) throws RepositoryException;
+	void deleteAuthor(String id) throws RepositoryException;
 
 	/**
 	 * This method define select with condition for {@link Author}
@@ -50,4 +50,6 @@ public interface AuthorDAO {
 	 * @throws RepositoryException
 	 */
 	Author getAuthorByUuid(String uuId) throws RepositoryException;
+	
+	List<Author> searchAuthor(String name) throws RepositoryException;
 }

@@ -1,5 +1,7 @@
 package edu.msg.bookland.server.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -21,6 +23,8 @@ public class Author extends BaseEntity {
 
 	@Column(name = "name", nullable = false, unique = true)
 	private String name;
+	
+	List<Publication> publications;
 
 	public Author(){
 		
@@ -41,6 +45,14 @@ public class Author extends BaseEntity {
 	@Override
 	public String toString() {
 		return "Author name=" + name;
+	}
+
+	public List<Publication> getPublications() {
+		return publications;
+	}
+
+	public void setPublications(List<Publication> publications) {
+		this.publications = publications;
 	}
 
 }
