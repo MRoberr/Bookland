@@ -11,7 +11,6 @@ import edu.msg.bookland.common.rmi.AuthorServiceRmi;
 import edu.msg.bookland.server.repository.AuthorDAO;
 import edu.msg.bookland.server.repository.DAOFactory;
 import edu.msg.bookland.server.repository.RepositoryException;
-import edu.msg.bookland.server.repository.jdbc.JDBCUserDAO;
 
 /**
  * Implement methods of UserServiceRmi. Call methods of DAO and contains
