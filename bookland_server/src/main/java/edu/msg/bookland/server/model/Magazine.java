@@ -67,4 +67,8 @@ public class Magazine extends Publication {
 		return "Magazine: " + ss + ", releaseDate " + year + "-" + month + ", " + authors;
 	}
 
+	public void setAuthors(List<Author> authors) {
+		this.authors = authors;
+	}
+
 }

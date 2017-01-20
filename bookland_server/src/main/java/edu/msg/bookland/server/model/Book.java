@@ -68,4 +68,8 @@ public class Book extends Publication {
 		return "Book: " + ss + ", releaseDate " + year + ", " + authors;
 	}
 
+	public void setAuthors(List<Author> authors) {
+		this.authors = authors;
+	}
+
 }
