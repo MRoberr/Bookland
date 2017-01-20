@@ -7,7 +7,11 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import edu.msg.bookland.common.model.AuthorDTO;
+import edu.msg.bookland.common.model.ServiceException;
 import edu.msg.bookland.common.rmi.AuthorServiceRmi;
+import edu.msg.bookland.server.business_logic.AuthorBL;
+import edu.msg.bookland.server.business_logic.BusinesLogicException;
+import edu.msg.bookland.server.model.Author;
 import edu.msg.bookland.server.repository.AuthorDAO;
 import edu.msg.bookland.server.repository.DAOFactory;
 import edu.msg.bookland.server.repository.RepositoryException;
@@ -23,8 +27,8 @@ public class AuthorService extends UnicastRemoteObject implements AuthorServiceR
 
 	private static final long serialVersionUID = -8599068126799700304L;
 
-	private static final Logger LOGGER = Logger.getLogger(JDBCUserDAO.class);
-	private AuthorDAO authorDAO;
+	private static final Logger LOGGER = Logger.getLogger(AuthorService.class);
+	private AuthorBL authorBL;
 
 	/**
 	 * initialize authorDAO
@@ -32,61 +36,62 @@ public class AuthorService extends UnicastRemoteObject implements AuthorServiceR
 	 * @throw ServiceException if can't get a DAO
 	 */
 	public AuthorService() throws RemoteException {
-		authorDAO = DAOFactory.getDAOFactory().getAuthorDAO();
-
+		authorBL = AuthorBL.getInstance();
 	}
 
 	@Override
 	public List<AuthorDTO> getAllAuthors() throws RemoteException {
+		List<Author> authors;
 		try {
-			return authorDAO.getAllAuthors();
-		} catch (RepositoryException e) {
-			LOGGER.error("Failed to get all authors");
-			return null;
+			authors = authorBL.getAllAuthors();
+		} catch (BusinesLogicException e) {
+			LOGGER.error(e.getMessage());
+			throw new ServiceException(e.getMessage());
 		}
-
+		return MappingService.authorsToDTO(authors);
 	}
 
 	@Override
-	public boolean insertAuthor(AuthorDTO authorDTO) throws RemoteException {
+	public void insertAuthor(AuthorDTO authorDTO) throws RemoteException {
+		
 		try {
-			authorDAO.insertAuthor(authorDTO);
-			return true;
-		} catch (RepositoryException e) {
-			LOGGER.error("Failed to insert author");
-			return false;
-		}
-	}
+			authorBL.insertAuthor(MappingService.DTOToAuthor(authorDTO));
 
-
-	@Override
-	public boolean updateAuthor(AuthorDTO authorDTO) throws RemoteException {
-		try {
-			authorDAO.updateAuthor(authorDTO);
-			return true;
-		} catch (RepositoryException e) {
-			LOGGER.error("Failed to update author");
-			return false;
+		} catch (BusinesLogicException e) {
+			LOGGER.error(e.getMessage());
+			throw new ServiceException(e.getMessage());
 		}
 	}
 
 	@Override
-	public boolean deleteAuthor(AuthorDTO authorDTO) throws RemoteException {
-		// publicationService-getPublicationsByAuthorUUID
-		// if return null can delete
+	public void updateAuthor(AuthorDTO authorDTO) throws RemoteException {
 		try {
-			authorDAO.deleteAuthor(authorDTO);
-			return true;
-		} catch (RepositoryException e) {
-			LOGGER.error("Failed to delete author");
-			return false;
+			authorBL.updateAuthor(MappingService.DTOToAuthor(authorDTO));
+		} catch (BusinesLogicException e) {
+			LOGGER.error(e.getMessage());
+			throw new ServiceException(e.getMessage());	
 		}
 	}
 
-	
+	@Override
+	public void deleteAuthor(String authorID) throws RemoteException {
+		try {
+			authorBL.deleteAuthor(authorID);
+		} catch (BusinesLogicException e) {
+			LOGGER.error(e.getMessage());
+			throw new ServiceException(e.getMessage());	
+		}
+	}
+
 	@Override
 	public List<AuthorDTO> searchAuthor(String name) throws RemoteException {
-		// TODO Auto-generated method stub
-		return null;
+		List<Author> authors;
+		try {
+			authors = authorBL.searchAuthor(name);
+		} catch (BusinesLogicException e) {
+			LOGGER.error(e.getMessage());
+			throw new ServiceException(e.getMessage());
+		}
+		return MappingService.authorsToDTO(authors);
 	}
 }
