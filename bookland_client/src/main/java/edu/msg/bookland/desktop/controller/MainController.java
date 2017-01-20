@@ -28,10 +28,10 @@ public class MainController {
 	private String tempStr = "";
 	private List<Publication> tempPublications;
 	private List<UserDTO> tempUsers;
-	private List<Tuple> tempTuples;
+	//private List<Tuple> tempTuples;
 	private Publication tempPublication;
 	private UserDTO tempUser;
-	private Tuple tempTuple;
+	//private Tuple tempTuple;
 	private final String exitBackString = " Try again or (-1 exit) (-2 back).";
 	private final String exitString = " Try again or (-1 exit).";
 
