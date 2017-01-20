@@ -49,8 +49,7 @@ public interface UserServiceRmi extends Remote {
 	 * @throws RemoteException
 	 */
 	public void deleteUser(UserDTO user) throws RemoteException;
-	
-		
+			
 	/**
 	 * This method searches for all Users with the specified name.
 	 * 

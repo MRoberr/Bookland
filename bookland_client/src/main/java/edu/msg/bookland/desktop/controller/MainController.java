@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
 
 import edu.msg.bookland.common.model.BorrowingDTO;
 import edu.msg.bookland.common.model.Publication;
+import edu.msg.bookland.common.model.PublicationDTO;
 import edu.msg.bookland.common.model.Tuple;
 import edu.msg.bookland.common.model.UserDTO;
 import edu.msg.bookland.common.model.UserType;
@@ -26,10 +27,10 @@ public class MainController {
 	private Scanner scanner = new Scanner(System.in);
 	private int tempInt = 0;
 	private String tempStr = "";
-	private List<Publication> tempPublications;
+	private List<PublicationDTO> tempPublications;
 	private List<UserDTO> tempUsers;
 	//private List<Tuple> tempTuples;
-	private Publication tempPublication;
+	private PublicationDTO tempPublication;
 	private UserDTO tempUser;
 	//private Tuple tempTuple;
 	private final String exitBackString = " Try again or (-1 exit) (-2 back).";
