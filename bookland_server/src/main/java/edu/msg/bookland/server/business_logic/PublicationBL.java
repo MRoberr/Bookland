@@ -1,4 +1,4 @@
-package edu.msg.bookland.server.busines_logic;
+package edu.msg.bookland.server.business_logic;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ import edu.msg.bookland.server.model.Newspaper;
 import edu.msg.bookland.server.model.Publication;
 
 
-public interface PublicationLogic {
+public interface PublicationBL {
 
 	
 	List<Book> getAllBooks() throws BusinesLogicException;
@@ -28,7 +28,6 @@ public interface PublicationLogic {
 	
 	//request methods
 	List<Publication> searchPublication(String title) throws BusinesLogicException;
-	int getCopiesLeft(String uuid) throws BusinesLogicException;
 	void setCopiesLeft(String uuid) throws BusinesLogicException; //csookent 1el + throw
 	
 	Publication getPublicationByUuid(String uuid) throws BusinesLogicException;

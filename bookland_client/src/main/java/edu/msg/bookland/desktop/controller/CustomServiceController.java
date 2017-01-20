@@ -6,8 +6,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import edu.msg.bookland.common.model.BorrowingDTO;
-import edu.msg.bookland.common.model.Publication;
-import edu.msg.bookland.common.model.Tuple;
+import edu.msg.bookland.desktop.ConnectionException;
 import edu.msg.bookland.desktop.model.ConnectionModel;
 
 /**
@@ -26,12 +25,12 @@ public class CustomServiceController {
 	 * @param borrowing
 	 * @return true, if borrow successful
 	 */
-	public boolean borrowPublication(BorrowingDTO borrowing) {
+	public void borrowPublication(BorrowingDTO borrowing) {
 		try {
-			return ConnectionModel.BORROWING_SERVICE_RMI.borrowPublication(borrowing);
+			ConnectionModel.BORROWING_SERVICE_RMI.borrowPublication(borrowing);
 		} catch (RemoteException e) {
 			LOGGER.error("No connection when searching publications.", e);
-			return false;
+			throw new ConnectionException(e.getMessage());
 		}
 	}
 	
@@ -41,7 +40,7 @@ public class CustomServiceController {
 	 * @param uuid
 	 * @return Tuple of borrowing and publication
 	 */
-	public List<Tuple> getPublicationsBorrowedByUser(String uuid) {
+	public List<BorrowingDTO> getPublicationsBorrowedByUser(String uuid) {
 		try {
 			return ConnectionModel.BORROWING_SERVICE_RMI.getBorrowByUserUUID(uuid);
 		} catch (RemoteException e) {
@@ -56,12 +55,12 @@ public class CustomServiceController {
 	 * @param borrowing
 	 * @return true, if return borrow succeeded
 	 */
-	public boolean returnPublication(BorrowingDTO borrowing) {
+	public void returnPublication(BorrowingDTO borrowing) {
 		try {
-			return ConnectionModel.BORROWING_SERVICE_RMI.returnPublication(borrowing);
+			ConnectionModel.BORROWING_SERVICE_RMI.returnPublication(borrowing);
 		} catch (RemoteException e) {
 			LOGGER.error("No connection when returning a borrowed publication.", e);
-			return false;
+			throw new ConnectionException(e.getMessage());
 		}
 	}
 
