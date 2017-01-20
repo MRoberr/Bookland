@@ -1,4 +1,4 @@
-package edu.msg.bookland.server.busines_logic;
+package edu.msg.bookland.server.business_logic;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ import edu.msg.bookland.server.model.Borrowing;
  * 
  * @author Jozsef Solomon
  */
-public interface BorrowingLogic {
+public interface BorrowingBL {
 	/**
 	 * This method define insert for {@link Borrowing}
 	 * 

@@ -1,4 +1,4 @@
-package edu.msg.bookland.server.busines_logic;
+package edu.msg.bookland.server.business_logic;
 
 /**
  * @author Terez Sipos
