@@ -1,5 +1,7 @@
 package edu.msg.bookland.server.business_logic;
 
+import edu.msg.bookland.server.business_logic.basic.BasicArticleBL;
+import edu.msg.bookland.server.business_logic.basic.BasicBorrowingBL;
 import edu.msg.bookland.server.model.Borrowing;
 
 /**
@@ -8,6 +10,15 @@ import edu.msg.bookland.server.model.Borrowing;
  * @author Sipos Terez
  */
 public interface BorrowingBL {
+	
+	/**
+	 * static method to get an instance
+	 * 
+	 * @return BasicArticleBL instance
+	 */
+	public static BorrowingBL getInstance() {
+		return new BasicBorrowingBL();
+	}
 	/**
 	 * This method define insert for {@link Borrowing}
 	 * 

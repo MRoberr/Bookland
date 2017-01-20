@@ -2,11 +2,12 @@ package edu.msg.bookland.server.business_logic;
 
 import java.util.List;
 
-import edu.msg.bookland.server.business_logic.basic.BasicAuthorBL;
-import edu.msg.bookland.server.model.Author;
+import edu.msg.bookland.server.business_logic.basic.BasicArticleBL;
+import edu.msg.bookland.server.business_logic.basic.BasicArticleBL;
+import edu.msg.bookland.server.model.Article;
 
 /**
- * Business Logic for AuthorService
+ * Business Logic for ArticleService
  * 
  * @author Sipos Terez
  */
@@ -15,52 +16,52 @@ public interface ArticleBL {
 	/**
 	 * static method to get an instance
 	 * 
-	 * @return BasicAuthorBL instance
+	 * @return BasicArticleBL instance
 	 */
-	public static AuthorBL getInstance() {
-		return new BasicAuthorBL();
+	public static ArticleBL getInstance() {
+		return new BasicArticleBL();
 	}
 
 	/**
-	 * This method define select all for {@link Author}
+	 * This method define select all for {@link Article}
 	 * 
-	 * @return List of all Authors from DB
+	 * @return List of all Articles from DB
 	 * @throws BusinesLogicException
 	 */
-	List<Author> getAllAuthors() throws BusinesLogicException;
+	List<Article> getAllArticles() throws BusinesLogicException;
 
 	/**
-	 * This method define insert for {@link Author}
-	 * 
-	 * @param author
-	 * @throws BusinesLogicException
-	 */
-	void insertAuthor(Author author) throws BusinesLogicException;
-
-	/**
-	 * This method define update for {@link Author}
+	 * This method define insert for {@link Article}
 	 * 
 	 * @param author
 	 * @throws BusinesLogicException
 	 */
-	void updateAuthor(Author author) throws BusinesLogicException;
+	void insertArticle(Article author) throws BusinesLogicException;
 
 	/**
-	 * This method define delete for {@link Author}
+	 * This method define update for {@link Article}
+	 * 
+	 * @param author
+	 * @throws BusinesLogicException
+	 */
+	void updateArticle(Article author) throws BusinesLogicException;
+
+	/**
+	 * This method define delete for {@link Article}
 	 * 
 	 * @param author
 	 *            id
 	 * @throws BusinesLogicException
 	 */
-	void deleteAuthor(String id) throws BusinesLogicException;
+	void deleteArticle(String id) throws BusinesLogicException;
 
 	/**
-	 * This method define select with condition for {@link Author}
+	 * This method define select with condition for {@link Article}
 	 * 
-	 * @param Author
+	 * @param Article
 	 *            name
-	 * @return Author List if exist
+	 * @return Article List if exist
 	 * @throws BusinesLogicException
 	 */
-	List<Author> searchAuthor(String name) throws BusinesLogicException;
+	List<Article> searchArticle(String name) throws BusinesLogicException;
 }
