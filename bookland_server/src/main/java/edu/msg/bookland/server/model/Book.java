@@ -67,7 +67,7 @@ public class Book extends Publication {
 	}
 
 	public void setAuthors(List<Author> authors) {
-		this.authors = authors;
+		this.bAuthors = authors;
 	}
 
 }

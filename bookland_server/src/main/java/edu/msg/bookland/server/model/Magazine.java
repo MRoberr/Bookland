@@ -7,8 +7,6 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Transient;
 
@@ -67,7 +65,7 @@ public class Magazine extends Publication {
 	}
 
 	public void setAuthors(List<Author> authors) {
-		this.authors = authors;
+		this.mAuthors = authors;
 	}
 
 }

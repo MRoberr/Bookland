@@ -43,4 +43,12 @@ public class Article extends BaseEntity {
 	public void setTitle(String title) {
 		this.title = title;
 	}
+
+	public String getPublicationUuid() {
+		return publicationUuid;
+	}
+
+	public void setPublicationUuid(String publicationUuid) {
+		this.publicationUuid = publicationUuid;
+	}
 }

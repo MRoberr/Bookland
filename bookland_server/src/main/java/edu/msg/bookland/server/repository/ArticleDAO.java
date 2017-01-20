@@ -7,7 +7,7 @@ import edu.msg.bookland.server.model.Article;
 /**
  * Defines database methods for Article Model
  * 
- * @Article Jozsef Solomon
+ * @Article Sipos Terez
  */
 public interface ArticleDAO {
 	/**
@@ -51,5 +51,12 @@ public interface ArticleDAO {
 	 */
 	Article getArticleByUuid(String uuId) throws RepositoryException;
 	
-	List<Article> searchArticle(String name) throws RepositoryException;
+	/**
+	 * This method define select with condition for {@link Article}
+	 * 
+	 * @param title-Article title
+	 * @return List Article if exist
+	 * @throws RepositoryException
+	 */
+	List<Article> searchArticle(String title) throws RepositoryException;
 }
