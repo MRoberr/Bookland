@@ -2,7 +2,7 @@ package edu.msg.bookland.server.busines_logic;
 
 import java.util.List;
 
-import edu.msg.bookland.common.model.Borrowing;
+import edu.msg.bookland.server.model.Borrowing;
 
 /**
  * Defines database methods for BORROWING Model

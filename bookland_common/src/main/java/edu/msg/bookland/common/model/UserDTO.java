@@ -22,13 +22,13 @@ public class UserDTO extends BaseEntityDTO {
 	private UserType userType;
 	private int loyaltyIndex;
 	private String email;
-	private List<Borrowing> borrow;
+	private List<BorrowingDTO> borrow;
 
 	public UserDTO() {
 		borrow = new ArrayList<>();
 	}
 
-	public void setBorrow(List<Borrowing> borrow) {
+	public void setBorrow(List<BorrowingDTO> borrow) {
 		this.borrow = borrow;
 	}
 
@@ -86,7 +86,7 @@ public class UserDTO extends BaseEntityDTO {
 		this.email = email;
 	}
 
-	public List<Borrowing> getBorrow() {
+	public List<BorrowingDTO> getBorrow() {
 		return borrow;
 	}
 

@@ -12,10 +12,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.CriteriaUpdate;
 import javax.persistence.criteria.Root;
 
-import edu.msg.bookland.common.model.Book;
-import edu.msg.bookland.common.model.Magazine;
-import edu.msg.bookland.common.model.Newspaper;
-import edu.msg.bookland.common.model.Publication;
+import edu.msg.bookland.server.model.*;
 import edu.msg.bookland.server.repository.PublicationDAO;
 import edu.msg.bookland.server.repository.RepositoryException;
 
@@ -206,7 +203,6 @@ public class HibernatePublicationDAO implements PublicationDAO {
 
 	}
 
-	@Override
 	public Publication getPublicationByUuid(String uuid) {
 
 		Publication pub = entityManager.find(Publication.class, uuid);

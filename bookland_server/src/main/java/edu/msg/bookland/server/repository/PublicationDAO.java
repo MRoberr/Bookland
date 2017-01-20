@@ -2,11 +2,7 @@ package edu.msg.bookland.server.repository;
 
 import java.util.List;
 
-import edu.msg.bookland.common.model.Book;
-import edu.msg.bookland.common.model.Magazine;
-import edu.msg.bookland.common.model.Newspaper;
-import edu.msg.bookland.common.model.Publication;
-
+import edu.msg.bookland.server.model.*;
 public interface PublicationDAO {
 
 	

@@ -8,7 +8,7 @@ import javax.persistence.TypedQuery;
 
 import org.apache.log4j.Logger;
 
-import edu.msg.bookland.common.model.Borrowing;
+import edu.msg.bookland.server.model.Borrowing;
 import edu.msg.bookland.server.repository.BorrowingDAO;
 import edu.msg.bookland.server.repository.RepositoryException;
 

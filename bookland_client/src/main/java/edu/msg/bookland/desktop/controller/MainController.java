@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 import org.apache.log4j.Logger;
 
-import edu.msg.bookland.common.model.Borrowing;
+import edu.msg.bookland.common.model.BorrowingDTO;
 import edu.msg.bookland.common.model.Publication;
 import edu.msg.bookland.common.model.Tuple;
 import edu.msg.bookland.common.model.UserDTO;
@@ -136,7 +136,7 @@ public class MainController {
 					searchPublications();
 					tempPublication = getPublicationFromResult();
 					if (tempPublication != null) {
-						Borrowing borrowing = new Borrowing();
+						BorrowingDTO borrowing = new BorrowingDTO();
 						borrowing.setUserId(tempUser.getUUID());
 						borrowing.setPublicationId(tempPublication.getUUID());
 						borrowing.setBorrowingDate(Date.valueOf(LocalDate.now()));
@@ -168,7 +168,7 @@ public class MainController {
 					searchBorrowedPublications(tempUser.getUUID());
 					tempTuple = getBorrowedPublicationFromResult();
 					if (tempTuple != null) {
-						Borrowing borrowing = tempTuple.getBorrow();
+						BorrowingDTO borrowing = tempTuple.getBorrow();
 						if (csc.returnPublication(borrowing)) {
 							System.out.println(
 									"Returning of <" + tempTuple.getPublication().getTitle() + "> successful!");

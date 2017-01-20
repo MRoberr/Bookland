@@ -8,8 +8,8 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import edu.msg.bookland.common.model.Book;
-import edu.msg.bookland.common.model.Magazine;
-import edu.msg.bookland.common.model.Newspaper;
+import edu.msg.bookland.common.model.MagazineDTO;
+import edu.msg.bookland.common.model.NewspaperDTO;
 import edu.msg.bookland.common.model.Publication;
 import edu.msg.bookland.common.rmi.PublicationServiceRmi;
 import edu.msg.bookland.server.repository.DAOFactory;
@@ -39,7 +39,7 @@ public class PublicationService extends UnicastRemoteObject implements Publicati
 	}
 
 	@Override
-	public List<Magazine> getAllMagazines() throws RemoteException {
+	public List<MagazineDTO> getAllMagazines() throws RemoteException {
 		try {
 			return pubDAO.getAllMagazines();
 		} catch (RepositoryException e) {
@@ -49,7 +49,7 @@ public class PublicationService extends UnicastRemoteObject implements Publicati
 	}
 
 	@Override
-	public List<Newspaper> getAllNewspapers() throws RemoteException {
+	public List<NewspaperDTO> getAllNewspapers() throws RemoteException {
 		try {
 			return pubDAO.getAllNewspapers();
 		} catch (RepositoryException e) {
@@ -69,7 +69,7 @@ public class PublicationService extends UnicastRemoteObject implements Publicati
 	}
 
 	@Override
-	public boolean insertBook(Book book) throws RemoteException {
+	public boolean insertBook(Book bookDTO) throws RemoteException {
 		try {
 			pubDAO.insertBook(book);
 			return true;
@@ -80,9 +80,9 @@ public class PublicationService extends UnicastRemoteObject implements Publicati
 	}
 
 	@Override
-	public boolean insertMagazine(Magazine magazine) throws RemoteException {
+	public boolean insertMagazine(MagazineDTO magazineDTO) throws RemoteException {
 		try {
-			pubDAO.insertMagazine(magazine);
+			pubDAO.insertMagazine(magazineDTO);
 			return true;
 		} catch (RepositoryException e) {
 			LOGGER.error("Can't insert Magazine");
@@ -91,9 +91,9 @@ public class PublicationService extends UnicastRemoteObject implements Publicati
 	}
 
 	@Override
-	public boolean insertNewspaper(Newspaper newspaper) throws RemoteException {
+	public boolean insertNewspaper(NewspaperDTO newspaperDTO) throws RemoteException {
 		try {
-			pubDAO.insertNewspaper(newspaper);
+			pubDAO.insertNewspaper(newspaperDTO);
 			return true;
 		} catch (RepositoryException e) {
 			LOGGER.error("Can't insert Newspaper");
@@ -102,7 +102,7 @@ public class PublicationService extends UnicastRemoteObject implements Publicati
 	}
 
 	@Override
-	public boolean updateBook(Book book) throws RemoteException {
+	public boolean updateBook(Book bookDTO) throws RemoteException {
 		try {
 			pubDAO.updateBook(book);
 			return true;
@@ -113,9 +113,9 @@ public class PublicationService extends UnicastRemoteObject implements Publicati
 	}
 
 	@Override
-	public boolean updateMagazine(Magazine magazine) throws RemoteException {
+	public boolean updateMagazine(MagazineDTO magazineDTO) throws RemoteException {
 		try {
-			pubDAO.updateMagazine(magazine);
+			pubDAO.updateMagazine(magazineDTO);
 			return true;
 		} catch (RepositoryException e) {
 			LOGGER.error("Can't update Magazine");
@@ -124,9 +124,9 @@ public class PublicationService extends UnicastRemoteObject implements Publicati
 	}
 
 	@Override
-	public boolean updateNewspaper(Newspaper newspaper) throws RemoteException {
+	public boolean updateNewspaper(NewspaperDTO newspaperDTO) throws RemoteException {
 		try {
-			pubDAO.updateNewspaper(newspaper);
+			pubDAO.updateNewspaper(newspaperDTO);
 			return true;
 		} catch (RepositoryException e) {
 			LOGGER.error("Can't update Newspaper");
@@ -135,7 +135,7 @@ public class PublicationService extends UnicastRemoteObject implements Publicati
 	}
 
 	@Override
-	public boolean deleteBook(Book book) throws RemoteException {
+	public boolean deleteBook(Book bookDTO) throws RemoteException {
 		try {
 			pubDAO.deleteBook(book);
 			return true;
@@ -146,9 +146,9 @@ public class PublicationService extends UnicastRemoteObject implements Publicati
 	}
 
 	@Override
-	public boolean deleteMagazine(Magazine magazine) throws RemoteException {
+	public boolean deleteMagazine(MagazineDTO magazineDTO) throws RemoteException {
 		try {
-			pubDAO.deleteMagazine(magazine);
+			pubDAO.deleteMagazine(magazineDTO);
 			return true;
 		} catch (RepositoryException e) {
 			LOGGER.error("Can't delete Magazine");
@@ -157,9 +157,9 @@ public class PublicationService extends UnicastRemoteObject implements Publicati
 	}
 
 	@Override
-	public boolean deleteNewspaper(Newspaper newspaper) throws RemoteException {
+	public boolean deleteNewspaper(NewspaperDTO newspaperDTO) throws RemoteException {
 		try {
-			pubDAO.deleteNewspaper(newspaper);
+			pubDAO.deleteNewspaper(newspaperDTO);
 			return true;
 		} catch (RepositoryException e) {
 			LOGGER.error("Can't delete Newspaper");
@@ -180,11 +180,11 @@ public class PublicationService extends UnicastRemoteObject implements Publicati
 					list.add(b);
 					break;
 				case "Magazine":
-					Magazine m=new Magazine((Magazine)p);
+					MagazineDTO m=new MagazineDTO((MagazineDTO)p);
 					list.add(m);
 					break;
 				case "Newspaper":
-					Newspaper n=new Newspaper((Newspaper)p);
+					NewspaperDTO n=new NewspaperDTO((NewspaperDTO)p);
 					list.add(n);
 					break;
 				default:
@@ -220,13 +220,13 @@ public class PublicationService extends UnicastRemoteObject implements Publicati
 	}
 
 	@Override
-	public Magazine searchMagazin(String title) throws RemoteException {
+	public MagazineDTO searchMagazin(String title) throws RemoteException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Newspaper searchNewspapers(String title) throws RemoteException {
+	public NewspaperDTO searchNewspapers(String title) throws RemoteException {
 		// TODO Auto-generated method stub
 		return null;
 	}
