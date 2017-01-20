@@ -48,7 +48,7 @@ public interface UserServiceRmi extends Remote {
 	 * @param user
 	 * @throws RemoteException
 	 */
-	public void deleteUser(UserDTO user) throws RemoteException;
+	public void deleteUser(String userID) throws RemoteException;
 			
 	/**
 	 * This method searches for all Users with the specified name.

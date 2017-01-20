@@ -3,10 +3,12 @@ package edu.msg.bookland.server.service;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import edu.msg.bookland.common.model.BorrowingDTO;
 import edu.msg.bookland.common.model.UserDTO;
 import edu.msg.bookland.common.model.UserType;
 import edu.msg.bookland.common.rmi.UserServiceRmi;
@@ -15,7 +17,6 @@ import edu.msg.bookland.server.model.User;
 import edu.msg.bookland.server.repository.DAOFactory;
 import edu.msg.bookland.server.repository.RepositoryException;
 import edu.msg.bookland.server.repository.UserDAO;
-import edu.msg.bookland.server.repository.jdbc.JDBCUserDAO;
 import edu.msg.bookland.server.util.PasswordEncrypting;
 
 /**
@@ -43,112 +44,141 @@ public class UserService extends UnicastRemoteObject implements UserServiceRmi {
 
 	@Override
 	public List<UserDTO> getAllUsers() throws RemoteException {
-		List<User> users;
+		List<User> users = null;
+		List<UserDTO> usersDTO;
 		try {
+			// a listat Businessbol kapom!!!
 			users = userDAO.getAllUsers();
-
-		} catch (RepositoryException e) {
+			LOGGER.info("Sucessfully received all users");
+		} catch (RepositoryException e) { // Exception kicserelni
 			LOGGER.error("Failed to get all users");
-			return null;
+			throw new ServiceException("Failed to get all users");
 		}
-		//if size null, nem kell atakalitani
-		List<UserDTO> usersDTO = new ArrayList<>();
-		for (User u : users) {
-			UserDTO userDTO = new UserDTO();
-			userDTO.setName(u.getName());
-			userDTO.setEmail(u.getEmail());
-			userDTO.setLoyaltyIndex(u.getLoyaltyIndex());
-			userDTO.setUUID(u.getUUID());
-			userDTO.setUserType(u.getUserType());
-			List<Borrowing> borrowings = u.getBorrow();
-			List<BorrowingDTO> borrowingsDTO
+		if (users != null && users.size() > 0) {
+			usersDTO = new ArrayList<>();
+			for (User u : users) {
+				UserDTO userDTO = new UserDTO();
+				userDTO.setName(u.getName());
+				userDTO.setEmail(u.getEmail());
+				userDTO.setLoyaltyIndex(u.getLoyaltyIndex());
+				userDTO.setUUID(u.getUUID());
+				userDTO.setUserType(u.getUserType());
+				List<Borrowing> borrowings = u.getBorrow();
+				List<BorrowingDTO> borrowingsDTO = new ArrayList<>();
+
+				for (Borrowing b : borrowings) {
+					BorrowingDTO borrowingDTO = new BorrowingDTO();
+					borrowingDTO.setUserId(b.getUserId());
+					borrowingDTO.setPublicationId(b.getPublicationId());
+					borrowingDTO.setBorrowingDate(b.getBorrowingDate());
+					borrowingDTO.setDeadline(b.getDeadline());
+					borrowingsDTO.add(borrowingDTO);
+				}
+				userDTO.setBorrow(borrowingsDTO);
+			}
+
+			return usersDTO;
+		} else {
+			return Collections.emptyList();
 		}
 	}
 
 	@Override
-	public boolean insertUser(UserDTO user) throws RemoteException {
+	public void insertUser(UserDTO userDTO) throws RemoteException {
+		User user = new User();
+		user.setUUID(userDTO.getUUID());
+		user.setName(userDTO.getName());
+		user.setPassword(userDTO.getPassword());
+		user.setLoyaltyIndex(userDTO.getLoyaltyIndex());
+		user.setEmail(userDTO.getEmail());
+		user.setUserType(userDTO.getUserType());
+
 		try {
-			user.setPassword(PasswordEncrypting.encrypt(user.getPassword(), "user"));
 			userDAO.insertUser(user);
-			return true;
 		} catch (RepositoryException e) {
 			LOGGER.error("Failed to insert user");
-			return false;
+			throw new ServiceException("Failed to insert user");
+
 		}
 	}
 
 	@Override
-	public boolean updateUser(UserDTO user) throws RemoteException {
+	public void updateUser(UserDTO userDTO) throws RemoteException {
+		User user = new User();
+		user.setUUID(userDTO.getUUID());
+		user.setName(userDTO.getName());
+		user.setLoyaltyIndex(userDTO.getLoyaltyIndex());
+		user.setEmail(userDTO.getEmail());
+		user.setUserType(userDTO.getUserType());
+
 		try {
-			user.setPassword(PasswordEncrypting.encrypt(user.getPassword(), "user"));
 			userDAO.updateUser(user);
-			return true;
+			LOGGER.info("Updated user");
 		} catch (RepositoryException e) {
 			LOGGER.error("Failed to update user");
-			return false;
+			throw new ServiceException("Failed to update user");
 		}
 	}
 
 	@Override
-	public boolean deleteUser(UserDTO user) throws RemoteException {
-		BorrowingService borrow = new BorrowingService();
+	public void deleteUser(String userID) throws RemoteException {
+
 		try {
-			List<Tuple> userPubs = borrow.getBorrowByUserUUID(user.getUUID());
-			if (userPubs == null)
-				return false;
-			userDAO.deleteUser(user);
-			return true;
+			// userLogic.deleteUser(userID);
+			LOGGER.info("Deleted user with id");
 		} catch (RepositoryException e) {
 			LOGGER.error("Failed to delete user");
-			return false;
-		}
-	}
-
-	@Override
-	public UserDTO getUserByUUUID(String uuid) throws RemoteException {
-		try {
-			return userDAO.getUserById(uuid);
-		} catch (RepositoryException e) {
-			LOGGER.error("Failed to get user");
-			return null;
+			throw new ServiceException("Failed to delete user");
 		}
 	}
 
 	@Override
 	public List<UserDTO> searchUser(String name) throws RemoteException {
-		List<UserDTO> usersList = new ArrayList<>();
+		List<UserDTO> usersDTO;
+		List<User> users = null;
 		try {
-			List<UserDTO> users = userDAO.searchUserByName(name);
-			for (UserDTO u : users) {
-				usersList.add(new UserDTO(u));
-			}
-			return usersList;
+			users = userDAO.searchUserByName(name);
 		} catch (RepositoryException e) {
 			LOGGER.error("Failed to get user");
-			return null;
+		}
+
+		if (users != null && users.size() > 0) {
+			usersDTO = new ArrayList<>();
+			for (User u : users) {
+				UserDTO userDTO = new UserDTO();
+				userDTO.setName(u.getName());
+				userDTO.setEmail(u.getEmail());
+				userDTO.setLoyaltyIndex(u.getLoyaltyIndex());
+				userDTO.setUUID(u.getUUID());
+				userDTO.setUserType(u.getUserType());
+				List<Borrowing> borrowings = u.getBorrow();
+				List<BorrowingDTO> borrowingsDTO = new ArrayList<>();
+
+				for (Borrowing b : borrowings) {
+					BorrowingDTO borrowingDTO = new BorrowingDTO();
+					borrowingDTO.setUserId(b.getUserId());
+					borrowingDTO.setPublicationId(b.getPublicationId());
+					borrowingDTO.setBorrowingDate(b.getBorrowingDate());
+					borrowingDTO.setDeadline(b.getDeadline());
+					borrowingsDTO.add(borrowingDTO);
+				}
+				userDTO.setBorrow(borrowingsDTO);
+			}
+
+			return usersDTO;
+		} else {
+			return Collections.emptyList();
 		}
 	}
 
 	@Override
 	public UserType login(String name, String password) throws RemoteException {
 		try {
-			String pass = PasswordEncrypting.encrypt(password, "user");
 			return userDAO.login(name, pass);
 		} catch (RepositoryException e) {
 			LOGGER.error("Invalid login");
-			return null;
+			
 		}
-	}
-
-	/**
-	 * This method decreases the loyalty index of the user specified by uuid
-	 * 
-	 * @param uuid
-	 * @return
-	 */
-	public boolean setUserLoyaltyIndex(String uuid) {
-		return false;
-
 	}
 
 }
