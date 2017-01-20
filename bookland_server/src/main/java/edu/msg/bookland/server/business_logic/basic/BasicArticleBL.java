@@ -4,7 +4,7 @@ import java.util.List;
 
 import edu.msg.bookland.server.business_logic.ArticleBL;
 import edu.msg.bookland.server.business_logic.BusinesLogicException;
-import edu.msg.bookland.server.model.Author;
+import edu.msg.bookland.server.model.Article;
 import edu.msg.bookland.server.repository.ArticleDAO;
 
 /**
@@ -16,31 +16,31 @@ import edu.msg.bookland.server.repository.ArticleDAO;
 public class BasicArticleBL implements ArticleBL {
 
 	@Override
-	public List<Author> getAllAuthors() throws BusinesLogicException {
+	public List<Article> getAllArticles() throws BusinesLogicException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void insertAuthor(Author author) throws BusinesLogicException {
+	public void insertArticle(Article article) throws BusinesLogicException {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void updateAuthor(Author author) throws BusinesLogicException {
+	public void updateArticle(Article article) throws BusinesLogicException {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void deleteAuthor(String id) throws BusinesLogicException {
+	public void deleteArticle(String id) throws BusinesLogicException {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public List<Author> searchAuthor(String name) throws BusinesLogicException {
+	public List<Article> searchArticle(String title) throws BusinesLogicException {
 		// TODO Auto-generated method stub
 		return null;
 	}

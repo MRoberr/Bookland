@@ -3,13 +3,12 @@ package edu.msg.bookland.server.business_logic;
 import java.util.List;
 
 import edu.msg.bookland.server.business_logic.basic.BasicArticleBL;
-import edu.msg.bookland.server.business_logic.basic.BasicArticleBL;
 import edu.msg.bookland.server.model.Article;
 
 /**
  * Business Logic for ArticleService
  * 
- * @author Sipos Terez
+ * @article Sipos Terez
  */
 public interface ArticleBL {
 
@@ -33,23 +32,23 @@ public interface ArticleBL {
 	/**
 	 * This method define insert for {@link Article}
 	 * 
-	 * @param author
+	 * @param article
 	 * @throws BusinesLogicException
 	 */
-	void insertArticle(Article author) throws BusinesLogicException;
+	void insertArticle(Article article) throws BusinesLogicException;
 
 	/**
 	 * This method define update for {@link Article}
 	 * 
-	 * @param author
+	 * @param article
 	 * @throws BusinesLogicException
 	 */
-	void updateArticle(Article author) throws BusinesLogicException;
+	void updateArticle(Article article) throws BusinesLogicException;
 
 	/**
 	 * This method define delete for {@link Article}
 	 * 
-	 * @param author
+	 * @param article
 	 *            id
 	 * @throws BusinesLogicException
 	 */
@@ -59,9 +58,9 @@ public interface ArticleBL {
 	 * This method define select with condition for {@link Article}
 	 * 
 	 * @param Article
-	 *            name
+	 *            title
 	 * @return Article List if exist
 	 * @throws BusinesLogicException
 	 */
-	List<Article> searchArticle(String name) throws BusinesLogicException;
+	List<Article> searchArticle(String title) throws BusinesLogicException;
 }
