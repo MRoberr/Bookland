@@ -7,8 +7,6 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Transient;
 
@@ -28,13 +26,13 @@ public class Book extends Publication {
 	private static final long serialVersionUID = -5590379529535305833L;
 	
 	
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "publications_authors", joinColumns=@JoinColumn(name = "publications_uuid"), inverseJoinColumns = @JoinColumn(name = "authors_uuid"))
-	private List<Author> authors;
+
+	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "publicationAuthors")	
+	private List<Author> bAuthors;
 
 	public Book() {
 		
-		authors = new ArrayList<Author>();
+		bAuthors = new ArrayList<Author>();
 		borrow = new ArrayList<>();
 	}
 	
@@ -45,18 +43,18 @@ public class Book extends Publication {
 		setPublisher(book.getPublisher());
 		setReleaseDate(book.getReleaseDate());
 		setTitle(book.getTitle());
-		authors=new ArrayList<>();
+		bAuthors=new ArrayList<>();
 		for(Author a:book.getAuthors()){
-			authors.add(new Author(a));
+			bAuthors.add(new Author(a));
 		}
 	}
 	
 	public List<Author> getAuthors() {
-		return authors;
+		return bAuthors;
 	}
 
 	public void addAuthor(Author author) {
-		authors.add(author);
+		bAuthors.add(author);
 	}
 
 	@Override
@@ -65,7 +63,7 @@ public class Book extends Publication {
 		Calendar date = Calendar.getInstance();
 		date.setTime(releaseDate);
 		int year = date.get(Calendar.YEAR);
-		return "Book: " + ss + ", releaseDate " + year + ", " + authors;
+		return "Book: " + ss + ", releaseDate " + year + ", " + bAuthors;
 	}
 
 }
