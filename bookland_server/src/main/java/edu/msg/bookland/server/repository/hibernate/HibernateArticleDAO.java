@@ -38,7 +38,9 @@ public class HibernateArticleDAO implements ArticleDAO {
 		entityManager = entityManagerFactory.createEntityManager();
 		builder = entityManager.getCriteriaBuilder();
 	}
-
+/*
+ * @see edu.msg.bookland.server.repository.ArticleDAO#getAllArticles()
+ */
 	@Override
 	public List<Article> getAllArticles() throws RepositoryException {
 		try {
@@ -54,7 +56,9 @@ public class HibernateArticleDAO implements ArticleDAO {
 			throw new RepositoryException("Could not get all articles", e);
 		}
 	}
-
+/*
+ * @see edu.msg.bookland.server.repository.ArticleDAO#insertArticle(edu.msg.bookland.server.model.Article)
+ */
 	@Override
 	public void insertArticle(Article article) throws RepositoryException {
 		try {
@@ -69,7 +73,9 @@ public class HibernateArticleDAO implements ArticleDAO {
 		}
 
 	}
-
+/*
+ * @see edu.msg.bookland.server.repository.ArticleDAO#updateArticle(edu.msg.bookland.server.model.Article)
+ */
 	@Override
 	public void updateArticle(Article article) throws RepositoryException {
 		try {
@@ -89,7 +95,9 @@ public class HibernateArticleDAO implements ArticleDAO {
 			throw new RepositoryException("Could not update an article", e);
 		}
 	}
-
+/*
+ * @see edu.msg.bookland.server.repository.ArticleDAO#deleteArticle(java.lang.String)
+ */
 	@Override
 	public void deleteArticle(String id) throws RepositoryException {
 		try {
@@ -103,7 +111,9 @@ public class HibernateArticleDAO implements ArticleDAO {
 			throw new RepositoryException("Could not delete author by id", e);
 		}
 	}
-
+/*
+ * @see edu.msg.bookland.server.repository.ArticleDAO#getArticleByUuid(java.lang.String)
+ */
 	@Override
 	public Article getArticleByUuid(String uuId) throws RepositoryException {
 		try {
@@ -116,7 +126,9 @@ public class HibernateArticleDAO implements ArticleDAO {
 			throw new RepositoryException("Could not retrieve an article by id", e);
 		}
 	}
-
+/*
+ * @see edu.msg.bookland.server.repository.ArticleDAO#searchArticle(java.lang.String)
+ */
 	@Override
 	public List<Article> searchArticle(String title) throws RepositoryException {
 		try {

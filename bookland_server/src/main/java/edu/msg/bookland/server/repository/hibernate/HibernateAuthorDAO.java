@@ -39,7 +39,9 @@ public class HibernateAuthorDAO implements AuthorDAO {
 		entityManager = entityManagerFactory.createEntityManager();
 		builder = entityManager.getCriteriaBuilder();
 	}
-
+/*
+ * @see edu.msg.bookland.server.repository.AuthorDAO#getAllAuthors()
+ */
 	@Override
 	public List<Author> getAllAuthors() throws RepositoryException {
 		try {
@@ -55,7 +57,9 @@ public class HibernateAuthorDAO implements AuthorDAO {
 			throw new RepositoryException("Could not get all authors", e);
 		}
 	}
-
+/*
+ * @see edu.msg.bookland.server.repository.AuthorDAO#insertAuthor(edu.msg.bookland.server.model.Author)
+ */
 	@Override
 	public void insertAuthor(Author author) throws RepositoryException {
 		try {
@@ -69,7 +73,9 @@ public class HibernateAuthorDAO implements AuthorDAO {
 			throw new RepositoryException("Could not instert an author", e);
 		}
 	}
-
+/*
+ * @see edu.msg.bookland.server.repository.AuthorDAO#updateAuthor(edu.msg.bookland.server.model.Author)
+ */
 	@Override
 	public void updateAuthor(Author author) throws RepositoryException {
 		try {
@@ -88,7 +94,9 @@ public class HibernateAuthorDAO implements AuthorDAO {
 			throw new RepositoryException("Could not update an author", e);
 		}
 	}
-
+/*
+ * @see edu.msg.bookland.server.repository.AuthorDAO#getAuthorByUuid(java.lang.String)
+ */
 	@Override
 	public Author getAuthorByUuid(String uuId) throws RepositoryException {
 		try {
@@ -101,7 +109,9 @@ public class HibernateAuthorDAO implements AuthorDAO {
 			throw new RepositoryException("Could not retrieve an author by id", e);
 		}
 	}
-
+/*
+ * @see edu.msg.bookland.server.repository.AuthorDAO#deleteAuthor(java.lang.String)
+ */
 	@Override
 	public void deleteAuthor(String id) throws RepositoryException {
 		try {
@@ -115,7 +125,9 @@ public class HibernateAuthorDAO implements AuthorDAO {
 			throw new RepositoryException("Could not delete author by id", e);
 		}
 	}
-
+/*
+ * @see edu.msg.bookland.server.repository.AuthorDAO#searchAuthor(java.lang.String)
+ */
 	@Override
 	public List<Author> searchAuthor(String name) throws RepositoryException {
 		try {
