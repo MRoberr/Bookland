@@ -52,7 +52,7 @@ public interface AuthorServiceRmi extends Remote {
 	 * @throws RemoteException, when connection through RMI failed
 	 * @throws ServiceException, when Server could not finish request
 	 */
-	public void deleteAuthor(AuthorDTO authorDTO) throws RemoteException, ServiceException;
+	public void deleteAuthor(String authorID) throws RemoteException, ServiceException;
 
 	/**
 	 * This method searches for an Author with the specified name.
