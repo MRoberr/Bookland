@@ -2,8 +2,10 @@ package edu.msg.bookland.server.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -24,6 +26,8 @@ public class Author extends BaseEntity {
 	@Column(name = "name", nullable = false, unique = true)
 	private String name;
 	
+	
+	@ManyToMany(cascade=CascadeType.ALL, mappedBy="authors")  
 	List<Publication> publications;
 
 	public Author(){
