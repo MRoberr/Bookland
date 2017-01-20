@@ -3,6 +3,7 @@ package edu.msg.bookland.server.business_logic;
 import java.util.List;
 
 import edu.msg.bookland.common.model.UserType;
+import edu.msg.bookland.server.business_logic.basic.BasicUserBL;
 import edu.msg.bookland.server.model.User;
 
 /**
@@ -11,6 +12,15 @@ import edu.msg.bookland.server.model.User;
  * @author Sipos Terez
  */
 public interface UserBL {
+	
+	/**
+	 * static method to get an instance
+	 * 
+	 * @return BasicUserBL instance
+	 */
+	public static UserBL getInstance(){
+		return  new BasicUserBL();
+	} 
 	/**
 	 * This method define select all for {@link User}
 	 * 

@@ -21,6 +21,9 @@ public class BasicUserBL implements UserBL {
 	private static final Logger LOGGER = Logger.getLogger(BasicUserBL.class);
 	private UserDAO userDAO = DAOFactory.getDAOFactory().getUserDAO();
 
+	/*
+	 * @see edu.msg.bookland.server.business_logic.UserBL#getAllUsers()
+	 */
 	@Override
 	public List<User> getAllUsers() throws BusinesLogicException {
 		try {
@@ -31,6 +34,11 @@ public class BasicUserBL implements UserBL {
 		}
 	}
 
+	/*
+	 * @see
+	 * edu.msg.bookland.server.business_logic.UserBL#insertUser(edu.msg.bookland
+	 * .server.model.User)
+	 */
 	@Override
 	public void insertUser(User user) throws BusinesLogicException {
 		try {
@@ -41,6 +49,11 @@ public class BasicUserBL implements UserBL {
 		}
 	}
 
+	/*
+	 * @see
+	 * edu.msg.bookland.server.business_logic.UserBL#updateUser(edu.msg.bookland
+	 * .server.model.User)
+	 */
 	@Override
 	public void updateUser(User user) throws BusinesLogicException {
 		try {
@@ -51,8 +64,11 @@ public class BasicUserBL implements UserBL {
 		}
 	}
 
-	/**
+	/*
 	 * Can't delete user if have any borrowed object
+	 * 
+	 * @see edu.msg.bookland.server.business_logic.UserBL#deleteUser(java.lang.
+	 * String)
 	 */
 	@Override
 	public void deleteUser(String id) throws BusinesLogicException {
@@ -70,6 +86,11 @@ public class BasicUserBL implements UserBL {
 		}
 	}
 
+	/*
+	 * @see
+	 * edu.msg.bookland.server.business_logic.UserBL#updateUserWithoutPassword(
+	 * edu.msg.bookland.server.model.User)
+	 */
 	@Override
 	public void updateUserWithoutPassword(User user) throws BusinesLogicException {
 		try {
@@ -80,6 +101,11 @@ public class BasicUserBL implements UserBL {
 		}
 	}
 
+	/*
+	 * @see
+	 * edu.msg.bookland.server.business_logic.UserBL#login(java.lang.String,
+	 * java.lang.String)
+	 */
 	@Override
 	public UserType login(String userName, String password) throws BusinesLogicException {
 		try {
@@ -90,6 +116,11 @@ public class BasicUserBL implements UserBL {
 		}
 	}
 
+	/*
+	 * @see
+	 * edu.msg.bookland.server.business_logic.UserBL#searchUserByName(java.lang.
+	 * String)
+	 */
 	@Override
 	public List<User> searchUserByName(String name) throws BusinesLogicException {
 		try {
