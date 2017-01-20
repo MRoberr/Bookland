@@ -1,7 +1,6 @@
 package edu.msg.bookland.desktop.controller;
 
 import java.rmi.RemoteException;
-import java.util.List;
 
 import org.apache.log4j.Logger;
 

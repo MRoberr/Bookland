@@ -13,6 +13,7 @@ import edu.msg.bookland.desktop.model.ConnectionModel;
  * This is the controller class for different data administration requests.
  * 
  * @author Simo Zoltan
+ * @author Szocs Csilla
  *
  */
 public class DataAdministrationController {
