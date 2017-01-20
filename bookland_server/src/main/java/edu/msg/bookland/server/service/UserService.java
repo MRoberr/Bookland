@@ -14,6 +14,7 @@ import edu.msg.bookland.common.model.UserDTO;
 import edu.msg.bookland.common.model.UserType;
 import edu.msg.bookland.common.rmi.UserServiceRmi;
 import edu.msg.bookland.server.business_logic.BusinesLogicException;
+import edu.msg.bookland.server.business_logic.UserBL;
 import edu.msg.bookland.server.model.Borrowing;
 import edu.msg.bookland.server.model.User;
 import edu.msg.bookland.server.repository.DAOFactory;
@@ -22,8 +23,7 @@ import edu.msg.bookland.server.repository.UserDAO;
 import edu.msg.bookland.server.util.PasswordEncrypting;
 
 /**
- * Implement methods of UserServiceRmi. Call methods of DAO and contains
- * Business Logic
+ * Implement methods of UserServiceRmi. Call methods of Business layer
  * 
  * @author Jozsef Solomon
  * @author Terez Sipos
@@ -33,70 +33,31 @@ public class UserService extends UnicastRemoteObject implements UserServiceRmi {
 	private static final long serialVersionUID = -2602148302307548346L;
 
 	private static final Logger LOGGER = Logger.getLogger(UserService.class);
-	private UserDAO userDAO;
+	private UserBL userBL;
 
-	/**
-	 * initialize UserDAO
-	 * 
-	 * @throw ServiceException if can't get a DAO
-	 */
 	public UserService() throws RemoteException {
-		userDAO = DAOFactory.getDAOFactory().getUserDAO();
+		userBL = UserBL.getInstance();
 	}
 
 	@Override
-	public List<UserDTO> getAllUsers() throws RemoteException {
+	public List<UserDTO> getAllUsers() throws RemoteException, ServiceException {
 		List<User> users = null;
-		List<UserDTO> usersDTO;
 		try {
-			// a listat Businessbol kapom!!!
-			users = userDAO.getAllUsers();
+			users = userBL.getAllUsers();
 			LOGGER.info("Sucessfully received all users");
-		} catch (BusinesLogicException e) { // Exception kicserelni
+		} catch (BusinesLogicException e) {
 			LOGGER.error("Failed to get all users");
 			throw new ServiceException("Failed to get all users");
 		}
-		if (users != null && users.size() > 0) {
-			usersDTO = new ArrayList<>();
-			for (User u : users) {
-				UserDTO userDTO = new UserDTO();
-				userDTO.setName(u.getName());
-				userDTO.setEmail(u.getEmail());
-				userDTO.setLoyaltyIndex(u.getLoyaltyIndex());
-				userDTO.setUUID(u.getUUID());
-				userDTO.setUserType(u.getUserType());
-				List<Borrowing> borrowings = u.getBorrow();
-				List<BorrowingDTO> borrowingsDTO = new ArrayList<>();
+		return MappingService.usersToDTO(users);
 
-				for (Borrowing b : borrowings) {
-					BorrowingDTO borrowingDTO = new BorrowingDTO();
-					borrowingDTO.setUserId(b.getUserId());
-					borrowingDTO.setPublicationId(b.getPublicationId());
-					borrowingDTO.setBorrowingDate(b.getBorrowingDate());
-					borrowingDTO.setDeadline(b.getDeadline());
-					borrowingsDTO.add(borrowingDTO);
-				}
-				userDTO.setBorrow(borrowingsDTO);
-			}
-
-			return usersDTO;
-		} else {
-			return Collections.emptyList();
-		}
 	}
 
 	@Override
-	public void insertUser(UserDTO userDTO) throws RemoteException {
-		User user = new User();
-		user.setUUID(userDTO.getUUID());
-		user.setName(userDTO.getName());
-		user.setPassword(userDTO.getPassword());
-		user.setLoyaltyIndex(userDTO.getLoyaltyIndex());
-		user.setEmail(userDTO.getEmail());
-		user.setUserType(userDTO.getUserType());
+	public void insertUser(UserDTO userDTO) throws RemoteException, ServiceException {
 
 		try {
-			userDAO.insertUser(user);
+			userBL.insertUser(MappingService.DTOToUser(userDTO));
 		} catch (BusinesLogicException e) {
 			LOGGER.error("Failed to insert user");
 			throw new ServiceException("Failed to insert user");
@@ -105,16 +66,9 @@ public class UserService extends UnicastRemoteObject implements UserServiceRmi {
 	}
 
 	@Override
-	public void updateUser(UserDTO userDTO) throws RemoteException {
-		User user = new User();
-		user.setUUID(userDTO.getUUID());
-		user.setName(userDTO.getName());
-		user.setLoyaltyIndex(userDTO.getLoyaltyIndex());
-		user.setEmail(userDTO.getEmail());
-		user.setUserType(userDTO.getUserType());
-
+	public void updateUser(UserDTO userDTO) throws RemoteException, ServiceException {
 		try {
-			userDAO.updateUser(user);
+			userBL.updateUser(MappingService.DTOToUser(userDTO));
 			LOGGER.info("Updated user");
 		} catch (BusinesLogicException e) {
 			LOGGER.error("Failed to update user");
@@ -123,10 +77,10 @@ public class UserService extends UnicastRemoteObject implements UserServiceRmi {
 	}
 
 	@Override
-	public void deleteUser(String userID) throws RemoteException {
+	public void deleteUser(String userID) throws RemoteException, ServiceException {
 
 		try {
-			// userLogic.deleteUser(userID);
+			userBL.deleteUser(userID);
 			LOGGER.info("Deleted user with id");
 		} catch (BusinesLogicException e) {
 			LOGGER.error("Failed to delete user");
@@ -135,52 +89,28 @@ public class UserService extends UnicastRemoteObject implements UserServiceRmi {
 	}
 
 	@Override
-	public List<UserDTO> searchUser(String name) throws RemoteException {
-		List<UserDTO> usersDTO;
+	public List<UserDTO> searchUser(String name) throws RemoteException, ServiceException {
+		
 		List<User> users = null;
 		try {
-			users = userDAO.searchUserByName(name);
+			users = userBL.searchUserByName(name);
 		} catch (BusinesLogicException e) {
-			LOGGER.error("Failed to get user");
+			LOGGER.error("Failed to get users by name");
+			throw new ServiceException("Failed to get users by name");
 		}
+		
+		return MappingService.usersToDTO(users);
 
-		if (users != null && users.size() > 0) {
-			usersDTO = new ArrayList<>();
-			for (User u : users) {
-				UserDTO userDTO = new UserDTO();
-				userDTO.setName(u.getName());
-				userDTO.setEmail(u.getEmail());
-				userDTO.setLoyaltyIndex(u.getLoyaltyIndex());
-				userDTO.setUUID(u.getUUID());
-				userDTO.setUserType(u.getUserType());
-				List<Borrowing> borrowings = u.getBorrow();
-				List<BorrowingDTO> borrowingsDTO = new ArrayList<>();
-
-				for (Borrowing b : borrowings) {
-					BorrowingDTO borrowingDTO = new BorrowingDTO();
-					borrowingDTO.setUserId(b.getUserId());
-					borrowingDTO.setPublicationId(b.getPublicationId());
-					borrowingDTO.setBorrowingDate(b.getBorrowingDate());
-					borrowingDTO.setDeadline(b.getDeadline());
-					borrowingsDTO.add(borrowingDTO);
-				}
-				userDTO.setBorrow(borrowingsDTO);
-			}
-
-			return usersDTO;
-		} else {
-			return Collections.emptyList();
-		}
 	}
 
 	@Override
-	public UserType login(String name, String password) throws RemoteException {
+	public UserType login(String name, String password) throws RemoteException, ServiceException {
 		try {
-			return userDAO.login(name, password);
+			return userBL.login(name, password);
 		} catch (BusinesLogicException e) {
 			LOGGER.error("Invalid login");
 			throw new ServiceException("Invalid login");
-			
+
 		}
 	}
 
