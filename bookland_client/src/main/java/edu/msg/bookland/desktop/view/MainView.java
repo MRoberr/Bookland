@@ -1,5 +1,11 @@
 package edu.msg.bookland.desktop.view;
 
+/**
+ * View for main menus.
+ * 
+ * @author Simo Zoltan
+ *
+ */
 public abstract class MainView {
 
 	public static void menuForUser() {

@@ -1,6 +1,13 @@
 
 package edu.msg.bookland.desktop.view;
 
+/**
+ * View for data administration menu.
+ * 
+ * @author Simo Zoltan
+ * @author Szocs Csilla
+ *
+ */
 public abstract class DataAdministrationView {	
 	
 	public static void menuForAdminDataA() {
