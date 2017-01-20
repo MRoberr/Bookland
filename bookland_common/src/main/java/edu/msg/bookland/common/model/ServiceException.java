@@ -1,4 +1,4 @@
-package edu.msg.bookland.server.service;
+package edu.msg.bookland.common.model;
 
 /**
  * @author Terez Sipos

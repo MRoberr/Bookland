@@ -7,21 +7,17 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
-import org.apache.log4j.Logger;
-
 import edu.msg.bookland.common.model.BorrowingDTO;
-import edu.msg.bookland.common.model.Publication;
 import edu.msg.bookland.common.model.PublicationDTO;
-import edu.msg.bookland.common.model.Tuple;
 import edu.msg.bookland.common.model.UserDTO;
 import edu.msg.bookland.common.model.UserType;
+import edu.msg.bookland.desktop.ConnectionException;
 import edu.msg.bookland.desktop.model.ConnectionModel;
 import edu.msg.bookland.desktop.view.CustomServiceView;
 import edu.msg.bookland.desktop.view.DataAdministrationView;
 import edu.msg.bookland.desktop.view.MainView;
 
 public class MainController {
-	private static final Logger LOGGER = Logger.getLogger(MainController.class);
 	private CustomServiceController csc = new CustomServiceController();
 	private DataAdministrationController dac = new DataAdministrationController();
 	private Scanner scanner = new Scanner(System.in);
@@ -142,16 +138,18 @@ public class MainController {
 						borrowing.setPublicationId(tempPublication.getUUID());
 						borrowing.setBorrowingDate(Date.valueOf(LocalDate.now()));
 						borrowing.setDeadline(Date.valueOf(LocalDate.now().plusDays(20)));
-						if (csc.borrowPublication(borrowing)) {
+						try {
+							csc.borrowPublication(borrowing);
 							System.out.println("Borrowing successful!");
-						} else {
+						} catch (ConnectionException e) {
 							System.out.println("Borrowing not successful!");
 						}
+
 					}
 				}
-			}catch (Exception e) {
-					e.printStackTrace();
-				
+			} catch (Exception e) {
+				e.printStackTrace();
+
 			} finally {
 				tempPublication = null;
 				tempPublications = null;
@@ -169,11 +167,11 @@ public class MainController {
 					searchBorrowedPublications(tempUser.getUUID());
 					tempBorrowing = getBorrowedPublicationFromResult();
 					if (tempBorrowing != null) {
-						BorrowingDTO borrowing = tempBorrowing.getBorrow();
-						if (csc.returnPublication(borrowing)) {
+						try {
+							csc.returnPublication(tempBorrowing);
 							System.out.println(
 									"Returning of <" + tempBorrowing.getPublication().getTitle() + "> successful!");
-						} else {
+						} catch (ConnectionException e) {
 							System.out.println(
 									"Returning of <" + tempBorrowing.getPublication().getTitle() + "> not successful!");
 						}
@@ -240,7 +238,7 @@ public class MainController {
 			return;
 		}
 		tempInt = 0;
-		for (Publication p : tempPublications) {
+		for (PublicationDTO p : tempPublications) {
 			System.out.println(++tempInt + ": " + p.toString());
 		}
 	}
@@ -250,13 +248,14 @@ public class MainController {
 		if (tempBorrowings == null) {
 			System.out.println("Couldn't find any publication for user!");
 			return;
-		} else if ((tempBorrowings.size()>0) && ((tempBorrowings.get(0).getBorrow() == null) || (tempBorrowings.get(0).getPublication() == null)) ){
+		} else if ((tempBorrowings.size() > 0)
+				&& ((tempBorrowings.get(0).getUser() == null) || (tempBorrowings.get(0).getPublication() == null))) {
 			tempBorrowings = null;
 			return;
 		}
 		tempInt = 0;
-		for (Tuple t : tempBorrowings) {
-			System.out.println(++tempInt + ": " + t.getBorrow().toString());
+		for (BorrowingDTO b : tempBorrowings) {
+			System.out.println(++tempInt + ": " + b.getPublication().getTitle().toString());
 		}
 	}
 
@@ -273,7 +272,7 @@ public class MainController {
 		}
 	}
 
-	private Publication getPublicationFromResult() {
+	private PublicationDTO getPublicationFromResult() {
 		if (tempPublications == null) {
 			return null;
 		} else {
@@ -292,9 +291,9 @@ public class MainController {
 		}
 	}
 
-	private Tuple getBorrowedPublicationFromResult() {
+	private BorrowingDTO getBorrowedPublicationFromResult() {
 		if (tempBorrowings == null) {
-			return null;		
+			return null;
 		} else {
 			System.out.println("Select number from the list above.");
 			int cmd = getIntLine();

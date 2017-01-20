@@ -4,6 +4,7 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
 
+import edu.msg.bookland.common.model.ServiceException;
 import edu.msg.bookland.common.model.UserDTO;
 import edu.msg.bookland.common.model.UserType;
 
@@ -24,7 +25,7 @@ public interface UserServiceRmi extends Remote {
 	 * @return
 	 * @throws RemoteException
 	 */
-	public List<UserDTO> getAllUsers() throws RemoteException; 
+	public List<UserDTO> getAllUsers() throws RemoteException, ServiceException; 
 	
 	/**
 	 * This method inserts a User into DB.
@@ -32,7 +33,7 @@ public interface UserServiceRmi extends Remote {
 	 * @param user
 	 * @throws RemoteException
 	 */
-	public void insertUser(UserDTO user) throws RemoteException;
+	public void insertUser(UserDTO user) throws RemoteException, ServiceException;
 	
 	/**
 	 * This method updates the User by its id.
@@ -40,7 +41,7 @@ public interface UserServiceRmi extends Remote {
 	 * @param user
 	 * @throws RemoteException
 	 */
-	public void updateUser(UserDTO user) throws RemoteException;
+	public void updateUser(UserDTO user) throws RemoteException, ServiceException;
 	
 	/**
 	 * This method deletes the User by its id.
@@ -48,7 +49,7 @@ public interface UserServiceRmi extends Remote {
 	 * @param user
 	 * @throws RemoteException
 	 */
-	public void deleteUser(UserDTO user) throws RemoteException;
+	public void deleteUser(UserDTO user) throws RemoteException, ServiceException;
 			
 	/**
 	 * This method searches for all Users with the specified name.
@@ -57,7 +58,7 @@ public interface UserServiceRmi extends Remote {
 	 * @return list of users found
 	 * @throws RemoteException
 	 */
-	public List<UserDTO> searchUser(String name) throws RemoteException;
+	public List<UserDTO> searchUser(String name) throws RemoteException, ServiceException;
 	
 	/**
 	 * This method checks for the given Username and password pair in the DB.
@@ -69,6 +70,6 @@ public interface UserServiceRmi extends Remote {
 	 * @throws RemoteException, when connection error occurred
 	 * @throws ServiceException, when login failed
 	 */
-	public UserType login(String name, String password) throws RemoteException;
+	public UserType login(String name, String password) throws RemoteException, ServiceException;
 
 }

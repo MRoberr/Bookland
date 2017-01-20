@@ -56,10 +56,6 @@ public class BorrowingDTO implements Serializable {
 		this.deadline = deadline;
 	}
 
-	public PublicationDTO getPublicatoin() {
-		return publication;
-	}
-
 	@Override
 	public String toString() {
 		return "Borrowing [userId=" + user.getUUID() + ", publicationId=" + publication.getUUID() + ", borrowingDate="
