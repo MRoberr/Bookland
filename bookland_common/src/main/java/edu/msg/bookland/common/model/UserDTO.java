@@ -12,7 +12,6 @@ import java.util.List;
  * @author Sipos Terez
  *
  */
-
 public class UserDTO extends BaseEntityDTO {
 
 	private static final long serialVersionUID = 2326611259099577676L;

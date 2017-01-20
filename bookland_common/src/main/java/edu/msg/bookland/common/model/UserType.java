@@ -7,7 +7,6 @@ package edu.msg.bookland.common.model;
  * @author Sipos Terez
  *
  */
-
 public enum UserType {
 
 	ADMIN, READER, SUPER_USER
