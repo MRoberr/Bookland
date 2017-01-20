@@ -10,6 +10,8 @@ import org.apache.log4j.Logger;
 import edu.msg.bookland.common.model.UserDTO;
 import edu.msg.bookland.common.model.UserType;
 import edu.msg.bookland.common.rmi.UserServiceRmi;
+import edu.msg.bookland.server.model.Borrowing;
+import edu.msg.bookland.server.model.User;
 import edu.msg.bookland.server.repository.DAOFactory;
 import edu.msg.bookland.server.repository.RepositoryException;
 import edu.msg.bookland.server.repository.UserDAO;
@@ -20,13 +22,14 @@ import edu.msg.bookland.server.util.PasswordEncrypting;
  * Implement methods of UserServiceRmi. Call methods of DAO and contains
  * Business Logic
  * 
+ * @author Jozsef Solomon
  * @author Terez Sipos
  */
 public class UserService extends UnicastRemoteObject implements UserServiceRmi {
 
 	private static final long serialVersionUID = -2602148302307548346L;
 
-	private static final Logger LOGGER = Logger.getLogger(JDBCUserDAO.class);
+	private static final Logger LOGGER = Logger.getLogger(UserService.class);
 	private UserDAO userDAO;
 
 	/**
@@ -40,11 +43,25 @@ public class UserService extends UnicastRemoteObject implements UserServiceRmi {
 
 	@Override
 	public List<UserDTO> getAllUsers() throws RemoteException {
+		List<User> users;
 		try {
-			return userDAO.getAllUsers();
+			users = userDAO.getAllUsers();
+
 		} catch (RepositoryException e) {
 			LOGGER.error("Failed to get all users");
 			return null;
+		}
+		//if size null, nem kell atakalitani
+		List<UserDTO> usersDTO = new ArrayList<>();
+		for (User u : users) {
+			UserDTO userDTO = new UserDTO();
+			userDTO.setName(u.getName());
+			userDTO.setEmail(u.getEmail());
+			userDTO.setLoyaltyIndex(u.getLoyaltyIndex());
+			userDTO.setUUID(u.getUUID());
+			userDTO.setUserType(u.getUserType());
+			List<Borrowing> borrowings = u.getBorrow();
+			List<BorrowingDTO> borrowingsDTO
 		}
 	}
 
@@ -99,10 +116,10 @@ public class UserService extends UnicastRemoteObject implements UserServiceRmi {
 
 	@Override
 	public List<UserDTO> searchUser(String name) throws RemoteException {
-		List<UserDTO> usersList=new ArrayList<>();
+		List<UserDTO> usersList = new ArrayList<>();
 		try {
-			List<UserDTO>users= userDAO.searchUserByName(name);
-			for(UserDTO u:users){
+			List<UserDTO> users = userDAO.searchUserByName(name);
+			for (UserDTO u : users) {
 				usersList.add(new UserDTO(u));
 			}
 			return usersList;

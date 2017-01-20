@@ -11,6 +11,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import edu.msg.bookland.common.model.UserType;
+
 /**
  * User class.
  * 
