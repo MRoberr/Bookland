@@ -12,7 +12,6 @@ import java.util.List;
  * @author Sipos Terez
  *
  */
-
 public class BookDTO extends PublicationDTO {
 
 	private static final long serialVersionUID = -5590379529535305833L;

@@ -16,7 +16,6 @@ import edu.msg.bookland.common.model.AuthorDTO;
 public interface AuthorServiceRmi extends Remote {
 
 	public static final String RMI_NAME = "Author";
-	public static final int RMI_PORT = 10099;
 
 	/**
 	 * This function gets all the Authors from DB.

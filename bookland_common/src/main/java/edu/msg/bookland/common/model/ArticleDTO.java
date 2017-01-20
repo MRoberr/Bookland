@@ -1,6 +1,5 @@
 package edu.msg.bookland.common.model;
 
-
 /**
  * This is the ArticleDTO class corresponding to Article in ServerModel
  * 

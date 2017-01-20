@@ -19,10 +19,9 @@ import edu.msg.bookland.common.model.PublicationDTO;
 public interface PublicationServiceRmi extends Remote {
 
 	public static final String RMI_NAME = "Publication";
-	public static final int RMI_PORT = 10099;
 
 	/**
-	 * This function gets all the Books from DB.
+	 * This function gets all Books from DB.
 	 * 
 	 * @return Book List
 	 * @throws RemoteException
@@ -30,7 +29,7 @@ public interface PublicationServiceRmi extends Remote {
 	public List<BookDTO> getAllBooks() throws RemoteException;
 
 	/**
-	 * This function gets all the Magazines from DB.
+	 * This function gets all Magazines from DB.
 	 * 
 	 * @return Magazine List
 	 * @throws RemoteException
@@ -38,7 +37,7 @@ public interface PublicationServiceRmi extends Remote {
 	public List<MagazineDTO> getAllMagazines() throws RemoteException;
 
 	/**
-	 * This function gets all the Newspapers from DB.
+	 * This function gets all Newspapers from DB.
 	 * 
 	 * @return Newspaper List
 	 * @throws RemoteException
@@ -46,7 +45,7 @@ public interface PublicationServiceRmi extends Remote {
 	public List<NewspaperDTO> getAllNewspapers() throws RemoteException;
 
 	/**
-	 * This function gets all the Publications from DB.
+	 * This function gets all Publications from DB.
 	 * 
 	 * @return Publication List
 	 * @throws RemoteException
@@ -108,7 +107,7 @@ public interface PublicationServiceRmi extends Remote {
 	public void updateNewspaper(NewspaperDTO newspaperDTO) throws RemoteException;
 
 	/**
-	 * This method deletes the Book by its id.
+	 * This method deletes the Publciation by its id.
 	 * 
 	 * @param book
 	 * @return true, if succeeded
@@ -116,8 +115,6 @@ public interface PublicationServiceRmi extends Remote {
 	 */
 	public void deletePublication(String publicationId) throws RemoteException;
 
-	
-	
 	/**
 	 * This method searches for Books with the specified title.
 	 * 

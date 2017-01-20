@@ -16,7 +16,6 @@ import edu.msg.bookland.common.model.BorrowingDTO;
 public interface BorrowingServiceRmi extends Remote {
 
 	public static final String RMI_NAME = "Borrowing";
-	public static final int RMI_PORT = 10099;
 
 	/**
 	 * This method searches for a Borrowing with the specified uuid.

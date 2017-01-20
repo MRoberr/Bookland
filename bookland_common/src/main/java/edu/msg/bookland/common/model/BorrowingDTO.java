@@ -11,7 +11,6 @@ import java.sql.Date;
  * @author Sipos Terez
  *
  */
-
 public class BorrowingDTO implements Serializable {
 
 	private static final long serialVersionUID = 482888478185204088L;
@@ -63,9 +62,8 @@ public class BorrowingDTO implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Borrowing [userId=" + user.getUUID() + ", publicationId="
-				+ publication.getUUID() + ", borrowingDate=" + borrowingDate + ", deadline=" + deadline
-				+ "]";
+		return "Borrowing [userId=" + user.getUUID() + ", publicationId=" + publication.getUUID() + ", borrowingDate="
+				+ borrowingDate + ", deadline=" + deadline + "]";
 	}
 
 	public UserDTO getUser() {
