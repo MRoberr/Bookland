@@ -2,7 +2,6 @@ package edu.msg.bookland.server.service;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -20,9 +19,7 @@ import edu.msg.bookland.server.model.Book;
 import edu.msg.bookland.server.model.Magazine;
 import edu.msg.bookland.server.model.Newspaper;
 import edu.msg.bookland.server.model.Publication;
-import edu.msg.bookland.server.repository.DAOFactory;
-import edu.msg.bookland.server.repository.PublicationDAO;
-import edu.msg.bookland.server.repository.RepositoryException;
+
 
 public class PublicationService extends UnicastRemoteObject implements PublicationServiceRmi {
 

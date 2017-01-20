@@ -2,22 +2,21 @@ package edu.msg.bookland.server.service;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.ArrayList;
-import java.util.List;
+
 
 import org.apache.log4j.Logger;
 
-import edu.msg.bookland.common.model.Book;
+
 import edu.msg.bookland.common.model.BorrowingDTO;
-import edu.msg.bookland.common.model.MagazineDTO;
-import edu.msg.bookland.common.model.NewspaperDTO;
-import edu.msg.bookland.common.model.Publication;
-import edu.msg.bookland.common.model.Tuple;
+
+
+import edu.msg.bookland.common.model.ServiceException;
+
 import edu.msg.bookland.common.rmi.BorrowingServiceRmi;
-import edu.msg.bookland.server.repository.BorrowingDAO;
-import edu.msg.bookland.server.repository.DAOFactory;
-import edu.msg.bookland.server.repository.RepositoryException;
-import edu.msg.bookland.server.repository.jdbc.JDBCUserDAO;
+import edu.msg.bookland.server.business_logic.BorrowingBL;
+import edu.msg.bookland.server.business_logic.BusinesLogicException;
+import edu.msg.bookland.server.model.Borrowing;
+
 
 /**
  * Implement methods of UserServiceRmi. Call methods of DAO and contains
@@ -29,8 +28,8 @@ import edu.msg.bookland.server.repository.jdbc.JDBCUserDAO;
 public class BorrowingService extends UnicastRemoteObject implements BorrowingServiceRmi {
 
 	private static final long serialVersionUID = 7771473351628284744L;
-	private static final Logger LOGGER = Logger.getLogger(JDBCUserDAO.class);
-	private BorrowingDAO borrowingDAO;
+	private static final Logger LOGGER = Logger.getLogger(BorrowingService.class);
+	private BorrowingBL borrowingBL;
 
 	/**
 	 * initialize borrowingDAO
@@ -38,120 +37,34 @@ public class BorrowingService extends UnicastRemoteObject implements BorrowingSe
 	 * @throw ServiceException if can't get a DAO 
 	 */
 	public BorrowingService() throws RemoteException {
-		borrowingDAO = DAOFactory.getDAOFactory().getBorrowingDAO();
-	}
-
-	/**
-	 * Inserts the given {@link BorrowingDTO} into database.
-	 * @param borrow 
-	 * the {@link BorrowingDTO} object
-	 * 
-	 * @return false if insert fails otherwise true
-	 * 
-	 * @throws RemoteException 
-	 */
-	public boolean insertBorrowing(BorrowingDTO borrow) throws RemoteException {
-		try {
-			borrowingDAO.insertBorrowing(borrow);
-			return true;
-		} catch (RepositoryException e) {
-			LOGGER.error("Failed to insert borrowing");
-			return false;
-		}
-	}
-
-	/**
-	 * Update the given {@link BorrowingDTO} into database.
-	 * @param borrow 
-	 * the {@link BorrowingDTO} object
-	 * 
-	 * @return false if update fails otherwise true
-	 * 
-	 * @throws RemoteException 
-	 */
-	public boolean updateBorrowing(BorrowingDTO borrow) throws RemoteException {
-		try {
-			borrowingDAO.updateBorrowing(borrow);
-			return true;
-		} catch (RepositoryException e) {
-			LOGGER.error("Failed to insert borrowing");
-			return false;
-		}
-	}
-
-	/**
-	 * Delete the given {@link BorrowingDTO} into database.
-	 * @param borrow 
-	 * the {@link BorrowingDTO} object
-	 * 
-	 * @return false if delete fails otherwise true
-	 * 
-	 * @throws RemoteException 
-	 */
-	public boolean deleteBorrow(BorrowingDTO borrow) throws RemoteException {
-		try {
-			borrowingDAO.deleteBorrowing(borrow);
-			return true;
-		} catch (RepositoryException e) {
-			LOGGER.error("Failed to insert borrowing");
-			return false;
-		}
+		borrowingBL = BorrowingBL.getInstance();
 	}
 
 	@Override
-	public List<Tuple> getBorrowByUserUUID(String uuid) throws RemoteException {
-		List<Tuple> borrowedPublications=new ArrayList<>();
-		List<BorrowingDTO> borrowList;
+	public void returnPublication(BorrowingDTO borrow) throws RemoteException, ServiceException {
+	
+		try {
+			borrowingBL.deleteBorrowing(borrow.getUserId(), borrow.getPublicationId());
+		} catch (BusinesLogicException e) {
+			LOGGER.error(e.getMessage());
+			throw new ServiceException(e.getMessage());
+		}
+
 		
-		try {
-			borrowList = borrowingDAO.getPublicationsBorrowedByUser(uuid);
-			PublicationService pubService=new PublicationService();
-			for(BorrowingDTO borrow:borrowList){
-				Publication p=pubService.getPublicationByUuid(borrow.getPublicationId());
-				BorrowingDTO b=new BorrowingDTO((BorrowingDTO)borrow);
-				switch (p.getClass().getSimpleName()) {
-				case "Book":
-					borrowedPublications.add(new Tuple(b,new Book((Book)p)));
-					break;
-				case "Magazine":
-					borrowedPublications.add(new Tuple(b,new MagazineDTO((MagazineDTO)p)));					
-					break;
-				case "Newspaper":
-					borrowedPublications.add(new Tuple(b,new NewspaperDTO((NewspaperDTO)p)));
-					break;
-				default:
-					break;
-				}
-			}
-			return borrowedPublications;
-		} catch (RepositoryException e) {
-			LOGGER.error("Failed to insert borrowing");
-			return null;
-		}
 	}
 
 	@Override
-	public boolean returnPublication(BorrowingDTO borrow) throws RemoteException {
-		//to do
+	public void borrowPublication(BorrowingDTO borrow) throws RemoteException, ServiceException {
+		Borrowing borrowing = MappingService.DTOToBorrow(borrow);
 		try {
-			borrowingDAO.deleteBorrowing(borrow);
-			return true;
-		} catch (RepositoryException e) {
-			LOGGER.error("Failed to insert borrowing");
-			return false;
+			borrowingBL.insertBorrowing(borrowing);
+		} catch (BusinesLogicException e) {
+			LOGGER.error(e.getMessage());
+			throw new ServiceException(e.getMessage());
 		}
+
+		
 	}
 
-	@Override
-	public boolean borrowPublication(BorrowingDTO borrow) throws RemoteException {
-		//to do
-		try {
-			borrowingDAO.insertBorrowing(borrow);
-			return true;
-		} catch (RepositoryException e) {
-			LOGGER.error("Failed to insert borrowing");
-			return false;
-		}
-	}
-
+	
 }

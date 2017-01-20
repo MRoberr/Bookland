@@ -189,4 +189,14 @@ public class MappingService {
 		pub.setCopiesLeft(d.getCopiesLeft());
 		return pub;
 	}
+
+	public static Borrowing DTOToBorrow(BorrowingDTO borrowingDTO) {
+		Borrowing borrowing = new Borrowing();
+		borrowing.setUserId(borrowing.getUserId());
+		borrowing.setPublicationId(borrowingDTO.getPublicationId());
+		borrowing.setDeadline(borrowing.getDeadline());
+		borrowing.setBorrowingDate(borrowingDTO.getBorrowingDate());
+		return borrowing;
+		
+	}
 }

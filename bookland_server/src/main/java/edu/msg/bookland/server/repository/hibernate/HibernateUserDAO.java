@@ -14,8 +14,9 @@ import javax.persistence.criteria.Root;
 
 import org.apache.log4j.Logger;
 
+import edu.msg.bookland.common.model.UserType;
 import edu.msg.bookland.server.model.User;
-import edu.msg.bookland.server.model.UserType;
+
 import edu.msg.bookland.server.repository.RepositoryException;
 import edu.msg.bookland.server.repository.UserDAO;
 
@@ -93,10 +94,10 @@ public class HibernateUserDAO implements UserDAO {
 	}
 
 	@Override
-	public void deleteUser(User user) throws RepositoryException {
+	public void deleteUser(String id) throws RepositoryException {
 		try {
 			entityManager.getTransaction().begin();
-			User userDB = entityManager.find(User.class, user.getUUID());
+			User userDB = entityManager.find(User.class, id);
 			entityManager.remove(userDB);
 			entityManager.getTransaction().commit();
 			LOGGER.info("Deleted user");
@@ -175,7 +176,7 @@ public class HibernateUserDAO implements UserDAO {
 		return users;
 	}
 
-	@Override
+
 	public void setUserLoyaltyIndex(String uuid) throws RepositoryException {
 		try {
 			entityManager.getTransaction().begin();
@@ -189,5 +190,25 @@ public class HibernateUserDAO implements UserDAO {
 		}
 		
 	}
+
+	@Override
+	public void decreaseLoyaltyIndex(String uuid) throws RepositoryException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void increaseLoyaltyIndex(String uuid) throws RepositoryException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
+	
+
+	
+
+
+	
 
 }

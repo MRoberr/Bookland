@@ -2,25 +2,17 @@ package edu.msg.bookland.server.service;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import edu.msg.bookland.common.model.BorrowingDTO;
 import edu.msg.bookland.common.model.ServiceException;
 import edu.msg.bookland.common.model.UserDTO;
 import edu.msg.bookland.common.model.UserType;
 import edu.msg.bookland.common.rmi.UserServiceRmi;
 import edu.msg.bookland.server.business_logic.BusinesLogicException;
 import edu.msg.bookland.server.business_logic.UserBL;
-import edu.msg.bookland.server.model.Borrowing;
 import edu.msg.bookland.server.model.User;
-import edu.msg.bookland.server.repository.DAOFactory;
-import edu.msg.bookland.server.repository.RepositoryException;
-import edu.msg.bookland.server.repository.UserDAO;
-import edu.msg.bookland.server.util.PasswordEncrypting;
 
 /**
  * Implement methods of UserServiceRmi. Call methods of Business layer
