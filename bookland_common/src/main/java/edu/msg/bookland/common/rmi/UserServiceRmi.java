@@ -53,11 +53,7 @@ public interface UserServiceRmi extends Remote {
 	 * @throws RemoteException, when connection through RMI failed
 	 * @throws ServiceException, when Server could not finish request
 	 */
-<<<<<<< HEAD
-	public void deleteUser(String userID) throws RemoteException;
-=======
-	public void deleteUser(UserDTO user) throws RemoteException, ServiceException;
->>>>>>> branch 'develop2v' of https://github.com/MRoberr/Bookland.git
+	public void deleteUser(String userID) throws RemoteException, ServiceException;
 			
 	/**
 	 * This method searches for all Users with the specified name.

@@ -9,9 +9,11 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import edu.msg.bookland.common.model.BorrowingDTO;
+import edu.msg.bookland.common.model.ServiceException;
 import edu.msg.bookland.common.model.UserDTO;
 import edu.msg.bookland.common.model.UserType;
 import edu.msg.bookland.common.rmi.UserServiceRmi;
+import edu.msg.bookland.server.business_logic.BusinesLogicException;
 import edu.msg.bookland.server.model.Borrowing;
 import edu.msg.bookland.server.model.User;
 import edu.msg.bookland.server.repository.DAOFactory;
@@ -50,7 +52,7 @@ public class UserService extends UnicastRemoteObject implements UserServiceRmi {
 			// a listat Businessbol kapom!!!
 			users = userDAO.getAllUsers();
 			LOGGER.info("Sucessfully received all users");
-		} catch (RepositoryException e) { // Exception kicserelni
+		} catch (BusinesLogicException e) { // Exception kicserelni
 			LOGGER.error("Failed to get all users");
 			throw new ServiceException("Failed to get all users");
 		}
@@ -95,7 +97,7 @@ public class UserService extends UnicastRemoteObject implements UserServiceRmi {
 
 		try {
 			userDAO.insertUser(user);
-		} catch (RepositoryException e) {
+		} catch (BusinesLogicException e) {
 			LOGGER.error("Failed to insert user");
 			throw new ServiceException("Failed to insert user");
 
@@ -114,7 +116,7 @@ public class UserService extends UnicastRemoteObject implements UserServiceRmi {
 		try {
 			userDAO.updateUser(user);
 			LOGGER.info("Updated user");
-		} catch (RepositoryException e) {
+		} catch (BusinesLogicException e) {
 			LOGGER.error("Failed to update user");
 			throw new ServiceException("Failed to update user");
 		}
@@ -126,7 +128,7 @@ public class UserService extends UnicastRemoteObject implements UserServiceRmi {
 		try {
 			// userLogic.deleteUser(userID);
 			LOGGER.info("Deleted user with id");
-		} catch (RepositoryException e) {
+		} catch (BusinesLogicException e) {
 			LOGGER.error("Failed to delete user");
 			throw new ServiceException("Failed to delete user");
 		}
@@ -138,7 +140,7 @@ public class UserService extends UnicastRemoteObject implements UserServiceRmi {
 		List<User> users = null;
 		try {
 			users = userDAO.searchUserByName(name);
-		} catch (RepositoryException e) {
+		} catch (BusinesLogicException e) {
 			LOGGER.error("Failed to get user");
 		}
 
@@ -174,9 +176,10 @@ public class UserService extends UnicastRemoteObject implements UserServiceRmi {
 	@Override
 	public UserType login(String name, String password) throws RemoteException {
 		try {
-			return userDAO.login(name, pass);
-		} catch (RepositoryException e) {
+			return userDAO.login(name, password);
+		} catch (BusinesLogicException e) {
 			LOGGER.error("Invalid login");
+			throw new ServiceException("Invalid login");
 			
 		}
 	}
