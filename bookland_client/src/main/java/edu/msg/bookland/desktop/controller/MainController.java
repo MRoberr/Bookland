@@ -17,10 +17,21 @@ import edu.msg.bookland.desktop.view.CustomServiceView;
 import edu.msg.bookland.desktop.view.DataAdministrationView;
 import edu.msg.bookland.desktop.view.MainView;
 
+/**
+ * This is the console client main class for library project Bookland.
+ * 
+ * @author Simo Zoltan
+ * @author Szocs Csilla
+ *
+ */
 public class MainController {
 	private CustomServiceController csc = new CustomServiceController();
 	private DataAdministrationController dac = new DataAdministrationController();
 	private Scanner scanner = new Scanner(System.in);
+
+	/**
+	 * Temporary instance variables for communicating between functions
+	 */
 	private int tempInt = 0;
 	private String tempStr = "";
 	private List<PublicationDTO> tempPublications;
@@ -29,9 +40,16 @@ public class MainController {
 	private PublicationDTO tempPublication;
 	private UserDTO tempUser;
 	private BorrowingDTO tempBorrowing;
+
+	/**
+	 * Constant messages
+	 */
 	private final String exitBackString = " Try again or (-1 exit) (-2 back).";
 	private final String exitString = " Try again or (-1 exit).";
 
+	/**
+	 * Start console application with constructor
+	 */
 	public MainController() {
 		while (true) {
 			consoleLogin();
@@ -59,6 +77,9 @@ public class MainController {
 		return cmd;
 	}
 
+	/**
+	 * Controller for login
+	 */
 	private void consoleLogin() {
 		System.out.println("Please enter your name and password!");
 		try {
@@ -83,6 +104,28 @@ public class MainController {
 		}
 	}
 
+	/**
+	 * Controller for users logged in as READER
+	 */
+	private void handleUserCommand() {
+		int cmd = getIntLine();
+		switch (cmd) {
+		case -1:
+			System.out.println("Exit.");
+			System.exit(0);
+			break;
+		case 1:
+			searchPublications();
+			break;
+		default:
+			System.out.println("Invalid Command." + exitString);
+			break;
+		}
+	}
+
+	/**
+	 * Controller for users logged in as ADMIN
+	 */
 	private void handleAdminCommand() {
 		int cmd = getIntLine();
 		switch (cmd) {
@@ -114,6 +157,11 @@ public class MainController {
 		}
 	}
 
+	/**
+	 * Controller for Custom Service
+	 * 
+	 * @return number 0 by default and -2 for implementing GO BACK/UP
+	 */
 	private int handleAdminCustomService() {
 		int cmd = getIntLine();
 		switch (cmd) {
@@ -191,6 +239,11 @@ public class MainController {
 		return 0;
 	}
 
+	/**
+	 * Controller for Data Administration
+	 * 
+	 * @return number 0 by default and -2 for implementing GO BACK/UP
+	 */
 	private int handleAdminDataAdministration() {
 		int cmd = getIntLine();
 		switch (cmd) {
@@ -213,22 +266,9 @@ public class MainController {
 		return 0;
 	}
 
-	private void handleUserCommand() {
-		int cmd = getIntLine();
-		switch (cmd) {
-		case -1:
-			System.out.println("Exit.");
-			System.exit(0);
-			break;
-		case 1:
-			searchPublications();
-			break;
-		default:
-			System.out.println("Invalid Command." + exitString);
-			break;
-		}
-	}
-
+	/**
+	 * Auxiliary for retrieving Publications by title
+	 */
 	private void searchPublications() {
 		System.out.println("Enter publication title!");
 		tempStr = getLine();
@@ -243,6 +283,9 @@ public class MainController {
 		}
 	}
 
+	/**
+	 * Auxiliary for retrieving a User's Borrowings
+	 */
 	private void searchBorrowedPublications() {
 		tempBorrowings = tempUser.getBorrow();
 		if (tempBorrowings == null) {
@@ -259,6 +302,9 @@ public class MainController {
 		}
 	}
 
+	/**
+	 * Auxiliary for retrieving Users by name
+	 */
 	private void searchUsers() {
 		tempStr = getLine();
 		tempUsers = dac.getUsers(tempStr);
@@ -272,6 +318,11 @@ public class MainController {
 		}
 	}
 
+	/**
+	 * Controller for Publication selection from retrieved list
+	 * 
+	 * @return selected Publication
+	 */
 	private PublicationDTO getPublicationFromResult() {
 		if (tempPublications == null) {
 			return null;
@@ -291,6 +342,11 @@ public class MainController {
 		}
 	}
 
+	/**
+	 * Controller for Borrowing selection from retrieved list
+	 * 
+	 * @return selected Borrowing
+	 */
 	private BorrowingDTO getBorrowedPublicationFromResult() {
 		if (tempBorrowings == null) {
 			return null;
@@ -310,6 +366,11 @@ public class MainController {
 		}
 	}
 
+	/**
+	 * Controller for User selection from retrieved list
+	 * 
+	 * @return selected User
+	 */
 	private UserDTO getUserFromResult() {
 		if (tempUsers == null) {
 			return null;
