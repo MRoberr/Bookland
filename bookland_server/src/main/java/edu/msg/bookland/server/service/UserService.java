@@ -48,6 +48,7 @@ public class UserService extends UnicastRemoteObject implements UserServiceRmi {
 	@Override
 	public void insertUser(UserDTO userDTO) throws RemoteException, ServiceException {
 
+		
 		try {
 			userBL.insertUser(MappingService.DTOToUser(userDTO));
 		} catch (BusinesLogicException e) {
