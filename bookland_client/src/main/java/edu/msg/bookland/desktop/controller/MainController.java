@@ -73,7 +73,7 @@ public class MainController {
 			try {
 				cmd = scanner.nextInt();
 			} catch (InputMismatchException e) {
-				System.out.println(exitString);
+				System.out.println(exitBackString);
 				scanner.next();
 			}
 		}
@@ -96,18 +96,27 @@ public class MainController {
 	private void handleLogin() {
 		System.out.println(textLangProvider.INSTANCE.getProperty("loginEnterNameAndPass"));
 		try {
-			UserType login = lc.userLogin(getLine(), getLine());
+			tempStr = getLine();
+			if (tempStr.equals("-1")) {
+				System.out.println(textLangProvider.INSTANCE.getProperty("exitProg"));
+				System.exit(0);
+			}
+			UserType login = lc.userLogin(tempStr, getLine());
 			if (login.equals(UserType.READER)) {
 				System.out.println("=" + textLangProvider.INSTANCE.getProperty("operationLoggedInAsReader"));
 				while (true) {
 					MainView.menuForUser();
-					handleUserCommand();
+					if (handleUserCommand() == -2) {
+						break;
+					}
 				}
 			} else if (login.equals(UserType.ADMIN)) {
 				System.out.println("=" + textLangProvider.INSTANCE.getProperty("operationLoggedInAsAdmin"));
 				while (true) {
 					MainView.menuInitForAdmin();
-					handleAdminCommand();
+					if (handleAdminCommand() == -2) {
+						break;
+					}
 				}
 			}
 		} catch (RequestException e) {
@@ -148,13 +157,15 @@ public class MainController {
 	/**
 	 * Controller for users logged in as READER
 	 */
-	private void handleUserCommand() {
+	private int handleUserCommand() {
 		int cmd = getIntLine();
 		switch (cmd) {
 		case -1:
 			System.out.println(textLangProvider.INSTANCE.getProperty("exitProg"));
 			System.exit(0);
 			break;
+		case -2:
+			return -2;
 		case 1:
 			searchPublications();
 			break;
@@ -162,21 +173,24 @@ public class MainController {
 			chooseLanguage();
 			break;
 		default:
-			System.out.println(exitString);
+			System.out.println(exitBackString);
 			break;
 		}
+		return 0;
 	}
 
 	/**
 	 * Controller for users logged in as ADMIN
 	 */
-	private void handleAdminCommand() {
+	private int handleAdminCommand() {
 		int cmd = getIntLine();
 		switch (cmd) {
 		case -1:
 			System.out.println(textLangProvider.INSTANCE.getProperty("exitProg"));
 			System.exit(0);
 			break;
+		case -2:
+			return -2;
 		case 1:
 			while (true) {
 				System.out.println("=" + textLangProvider.INSTANCE.getProperty("operationCustomService") + "=");
@@ -199,9 +213,10 @@ public class MainController {
 			chooseLanguage();
 			break;
 		default:
-			System.out.println(exitString);
+			System.out.println(exitBackString);
 			break;
 		}
+		return 0;
 	}
 
 	/**
