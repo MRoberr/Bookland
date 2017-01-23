@@ -54,7 +54,6 @@ public class HibernateUserDAO implements UserDAO {
 		try {
 			entityManager.getTransaction().begin();
 			entityManager.persist(user);
-			entityManager.detach(user);
 			entityManager.getTransaction().commit();
 			LOGGER.info("user inserted");
 		} catch (PersistenceException e) {

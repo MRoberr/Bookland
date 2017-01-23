@@ -132,7 +132,7 @@ public class BasicPublicationBL implements PublicationBL {
 	@Override
 	public void updateBook(Book book) throws BusinesLogicException {
 		try {
-			publicationDAO.updateBook(book);
+			publicationDAO.updatePublication(book);
 		} catch (RepositoryException e) {
 			LOGGER.error("Can't update Book!");
 			throw new BusinesLogicException(e.getMessage(), e);
@@ -147,7 +147,7 @@ public class BasicPublicationBL implements PublicationBL {
 	@Override
 	public void updateMagazine(Magazine magazine) throws BusinesLogicException {
 		try {
-			publicationDAO.updateMagazine(magazine);
+			publicationDAO.updatePublication(magazine);
 		} catch (RepositoryException e) {
 			LOGGER.error("Can't update Magazine!");
 			throw new BusinesLogicException(e.getMessage(), e);
@@ -162,7 +162,7 @@ public class BasicPublicationBL implements PublicationBL {
 	@Override
 	public void updateNewspaper(Newspaper newspaper) throws BusinesLogicException {
 		try {
-			publicationDAO.updateNewspaper(newspaper);
+			publicationDAO.updatePublication(newspaper);
 		} catch (RepositoryException e) {
 			LOGGER.error("Can't update Newspaper!");
 			throw new BusinesLogicException(e.getMessage(), e);
