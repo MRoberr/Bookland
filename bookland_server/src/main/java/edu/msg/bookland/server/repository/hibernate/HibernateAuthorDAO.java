@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
@@ -39,9 +40,10 @@ public class HibernateAuthorDAO implements AuthorDAO {
 		entityManager = entityManagerFactory.createEntityManager();
 		builder = entityManager.getCriteriaBuilder();
 	}
-/*
- * @see edu.msg.bookland.server.repository.AuthorDAO#getAllAuthors()
- */
+
+	/*
+	 * @see edu.msg.bookland.server.repository.AuthorDAO#getAllAuthors()
+	 */
 	@Override
 	public List<Author> getAllAuthors() throws RepositoryException {
 		try {
@@ -52,14 +54,19 @@ public class HibernateAuthorDAO implements AuthorDAO {
 			List<Author> authorList = authorQuery.getResultList();
 			LOGGER.info("All authors sellected!");
 			return authorList;
+		} catch (NoResultException e) {
+			LOGGER.error("Can't find any Author.");
+			throw new RepositoryException("Can't find any Author.", e);
 		} catch (PersistenceException e) {
 			LOGGER.error("Could not get all authors", e);
 			throw new RepositoryException("Could not get all authors", e);
 		}
 	}
-/*
- * @see edu.msg.bookland.server.repository.AuthorDAO#insertAuthor(edu.msg.bookland.server.model.Author)
- */
+
+	/*
+	 * @see edu.msg.bookland.server.repository.AuthorDAO#insertAuthor(edu.msg.
+	 * bookland.server.model.Author)
+	 */
 	@Override
 	public void insertAuthor(Author author) throws RepositoryException {
 		try {
@@ -73,9 +80,11 @@ public class HibernateAuthorDAO implements AuthorDAO {
 			throw new RepositoryException("Could not instert an author", e);
 		}
 	}
-/*
- * @see edu.msg.bookland.server.repository.AuthorDAO#updateAuthor(edu.msg.bookland.server.model.Author)
- */
+
+	/*
+	 * @see edu.msg.bookland.server.repository.AuthorDAO#updateAuthor(edu.msg.
+	 * bookland.server.model.Author)
+	 */
 	@Override
 	public void updateAuthor(Author author) throws RepositoryException {
 		try {
@@ -94,24 +103,32 @@ public class HibernateAuthorDAO implements AuthorDAO {
 			throw new RepositoryException("Could not update an author", e);
 		}
 	}
-/*
- * @see edu.msg.bookland.server.repository.AuthorDAO#getAuthorByUuid(java.lang.String)
- */
+
+	/*
+	 * @see
+	 * edu.msg.bookland.server.repository.AuthorDAO#getAuthorByUuid(java.lang.
+	 * String)
+	 */
 	@Override
 	public Author getAuthorByUuid(String uuId) throws RepositoryException {
 		try {
 			Author a = entityManager.find(Author.class, uuId);
 			LOGGER.info("Retrieved author by id");
 			return a;
+		} catch (NoResultException e) {
+			LOGGER.error("Can't find author with specifield Id <"+uuId+">");
+			throw new RepositoryException("Can't find author with specifield userId.", e);
 		} catch (PersistenceException e) {
 			entityManager.getTransaction().rollback();
 			LOGGER.error("Could not retrieve an author by id", e);
 			throw new RepositoryException("Could not retrieve an author by id", e);
 		}
 	}
-/*
- * @see edu.msg.bookland.server.repository.AuthorDAO#deleteAuthor(java.lang.String)
- */
+
+	/*
+	 * @see edu.msg.bookland.server.repository.AuthorDAO#deleteAuthor(java.lang.
+	 * String)
+	 */
 	@Override
 	public void deleteAuthor(String id) throws RepositoryException {
 		try {
@@ -125,9 +142,11 @@ public class HibernateAuthorDAO implements AuthorDAO {
 			throw new RepositoryException("Could not delete author by id", e);
 		}
 	}
-/*
- * @see edu.msg.bookland.server.repository.AuthorDAO#searchAuthor(java.lang.String)
- */
+
+	/*
+	 * @see edu.msg.bookland.server.repository.AuthorDAO#searchAuthor(java.lang.
+	 * String)
+	 */
 	@Override
 	public List<Author> searchAuthor(String name) throws RepositoryException {
 		try {
@@ -139,6 +158,9 @@ public class HibernateAuthorDAO implements AuthorDAO {
 			List<Author> authorList = authorQuery.getResultList();
 			LOGGER.info("Search Author done");
 			return authorList;
+		} catch (NoResultException e) {
+			LOGGER.error("Can't find author with name <" + name + ">.");
+			throw new RepositoryException("Can't find author with name <" + name + ">.", e);
 		} catch (PersistenceException e) {
 			LOGGER.error("Could not find author by name <" + name + ">", e);
 			throw new RepositoryException("Could not find author by name <" + name + ">", e);
