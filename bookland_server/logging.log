@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 2017-01-19 08:49:39 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [
 	name: bookland_jpa
 	...]
@@ -2510,3 +2511,5 @@ org.hibernate.PropertyNotFoundException: no appropriate constructor in class: ed
   2017-01-23 15:29:27 INFO  Dialect:157 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
   2017-01-23 15:29:27 INFO  QueryTranslatorFactoryInitiator:47 - HHH000397: Using ASTQueryTranslatorFactory
   
+=======
+>>>>>>> branch 'develop2v' of https://github.com/MRoberr/Bookland

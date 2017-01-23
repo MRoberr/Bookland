@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import edu.msg.bookland.common.model.ArticleDTO;
 import edu.msg.bookland.common.model.AuthorDTO;
 import edu.msg.bookland.common.model.BookDTO;
 import edu.msg.bookland.common.model.BorrowingDTO;
@@ -11,6 +12,7 @@ import edu.msg.bookland.common.model.MagazineDTO;
 import edu.msg.bookland.common.model.NewspaperDTO;
 import edu.msg.bookland.common.model.PublicationDTO;
 import edu.msg.bookland.common.model.UserDTO;
+import edu.msg.bookland.server.model.Article;
 import edu.msg.bookland.server.model.Author;
 import edu.msg.bookland.server.model.Book;
 import edu.msg.bookland.server.model.Borrowing;
@@ -198,5 +200,29 @@ public class MappingService {
 		borrowing.setBorrowingDate(borrowingDTO.getBorrowingDate());
 		return borrowing;
 		
+	}
+
+	public static List<ArticleDTO> articleToDTO(List<Article> articles){
+		List<ArticleDTO> articlesDTO = new ArrayList<>();
+		if(articles !=null && articles.size() > 0) {
+			for(Article a: articles) {
+				ArticleDTO articleDTO = new ArticleDTO();
+				articleDTO.setUUID(a.getUUID());
+				articleDTO.setTitle(a.getTitle());
+				List<Publication> tempPub = new ArrayList<>(1);
+				tempPub.add(a.getPublication());
+				articleDTO.setPublicationDTO((publicationToDTOGen(tempPub)).get(1));
+				articlesDTO.add(articleDTO);
+			}
+		}
+		return articlesDTO;
+	}
+
+	public static Article DTOToArticle(ArticleDTO articleDTO) {
+		Article article = new Article();
+		article.setUUID(articleDTO.getUUID());
+		article.setTitle(articleDTO.getTitle());
+		article.setPublication(DTOToPublication(articleDTO.getPublicationDTO()));
+		return article;		
 	}
 }

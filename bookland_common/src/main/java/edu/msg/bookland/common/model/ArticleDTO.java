@@ -1,5 +1,7 @@
 package edu.msg.bookland.common.model;
 
+
+
 /**
  * This is the ArticleDTO class corresponding to Article in ServerModel
  * 
@@ -11,6 +13,8 @@ public class ArticleDTO extends BaseEntityDTO {
 	private static final long serialVersionUID = -5384319391418339346L;
 
 	private String title;
+	
+	private PublicationDTO publicationDTO;
 
 	public ArticleDTO() {
 
@@ -27,5 +31,13 @@ public class ArticleDTO extends BaseEntityDTO {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public PublicationDTO getPublicationDTO() {
+		return publicationDTO;
+	}
+
+	public void setPublicationDTO(PublicationDTO publicationDTO) {
+		this.publicationDTO = publicationDTO;
 	}
 }

@@ -1,6 +1,5 @@
 package edu.msg.bookland.desktop.controller;
 
-import java.rmi.RemoteException;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.InputMismatchException;
@@ -10,11 +9,9 @@ import java.util.Scanner;
 
 import edu.msg.bookland.common.model.BorrowingDTO;
 import edu.msg.bookland.common.model.PublicationDTO;
-import edu.msg.bookland.common.model.ServiceException;
 import edu.msg.bookland.common.model.UserDTO;
 import edu.msg.bookland.common.model.UserType;
 import edu.msg.bookland.desktop.RequestException;
-import edu.msg.bookland.desktop.model.ConnectionModel;
 import edu.msg.bookland.desktop.util.textLangProvider;
 import edu.msg.bookland.desktop.view.CustomServiceView;
 import edu.msg.bookland.desktop.view.DataAdministrationView;
@@ -28,6 +25,7 @@ import edu.msg.bookland.desktop.view.MainView;
  *
  */
 public class MainController {
+	private LoginController lc = new LoginController();
 	private CustomServiceController csc = new CustomServiceController();
 	private DataAdministrationController dac = new DataAdministrationController();
 	private Scanner scanner = new Scanner(System.in);
@@ -47,16 +45,17 @@ public class MainController {
 	/**
 	 * Constant messages
 	 */
-	private final String exitBackString = textLangProvider.INSTANCE.getProperty("exitBackStr");
-	private final String exitString = textLangProvider.INSTANCE.getProperty("exitStr");
+	private String exitBackString = textLangProvider.INSTANCE.getProperty("exitBackStr");
+	private String exitString = textLangProvider.INSTANCE.getProperty("exitStr");
 
 	/**
 	 * Start console application with constructor
 	 */
 	public MainController() {
-		chooseLanguage();
-		while (true) {
-			consoleLogin();
+		if (chooseLanguage() == 0) {
+			while (true) {
+				handleLogin();
+			}
 		}
 	}
 
@@ -80,68 +79,70 @@ public class MainController {
 		}
 		return cmd;
 	}
-	
+
 	/**
 	 * Controller for internationalization/language choose
 	 */
-	private void chooseLanguage() {
+	private int chooseLanguage() {
 		MainView.menuForLanguage();
-		handleLanguageCommand();				
+		while (true) {
+			return handleLanguageCommand();
+		}
 	}
 
 	/**
 	 * Controller for login
 	 */
-	private void consoleLogin() {
+	private void handleLogin() {
 		System.out.println(textLangProvider.INSTANCE.getProperty("loginEnterNameAndPass"));
 		try {
-			UserType login = ConnectionModel.USER_SERVICE_RMI.login(getLine(), getLine());
+			UserType login = lc.userLogin(getLine(), getLine());
 			if (login.equals(UserType.READER)) {
-				System.out.println("Logged in as user=");
+				System.out.println("=" + textLangProvider.INSTANCE.getProperty("operationLoggedInAsReader"));
 				while (true) {
 					MainView.menuForUser();
 					handleUserCommand();
 				}
 			} else if (login.equals(UserType.ADMIN)) {
-				System.out.println("Logged in as admin=");
+				System.out.println("=" + textLangProvider.INSTANCE.getProperty("operationLoggedInAsAdmin"));
 				while (true) {
 					MainView.menuInitForAdmin();
 					handleAdminCommand();
 				}
 			}
-		} catch (ServiceException e) {
-			System.out.println(textLangProvider.INSTANCE.getProperty("loginInvalidUsernameOrPassword")+"\n");
-		} catch (RemoteException e) {
-			System.out.println("Connection error, login failed.");
-		} 
+		} catch (RequestException e) {
+			System.out.println(textLangProvider.INSTANCE.getProperty("errorReason") + " " + e.getMessage() + "\n");
+		}
 	}
 
 	/**
 	 * Controller for language change
 	 */
-	private void handleLanguageCommand() {
+	private int handleLanguageCommand() {
 		int cmd = getIntLine();
 		switch (cmd) {
 		case -1:
 			System.out.println(textLangProvider.INSTANCE.getProperty("exitProg"));
 			System.exit(0);
-			break;
-		case 1:		
+			return -1;
+		case 1:
 			textLangProvider.INSTANCE.setLocale(new Locale("En", "en"));
 			System.out.println(textLangProvider.INSTANCE.getProperty("languageChoosen"));
-			break;			
-		case 2:		
+			break;
+		case 2:
 			textLangProvider.INSTANCE.setLocale(new Locale("Hu", "hu"));
 			System.out.println(textLangProvider.INSTANCE.getProperty("languageChoosen"));
 			break;
-		case 3:		
+		case 3:
 			textLangProvider.INSTANCE.setLocale(new Locale("Ro", "ro"));
 			System.out.println(textLangProvider.INSTANCE.getProperty("languageChoosen"));
 			break;
 		default:
 			System.out.println(exitString);
-			break;		
 		}
+		exitString = textLangProvider.INSTANCE.getProperty("exitStr");
+		exitBackString = textLangProvider.INSTANCE.getProperty("exitBackStr");
+		return 0;
 	}
 
 	/**
@@ -178,7 +179,7 @@ public class MainController {
 			break;
 		case 1:
 			while (true) {
-				System.out.println("=CustomService=");
+				System.out.println("=" + textLangProvider.INSTANCE.getProperty("operationCustomService") + "=");
 				CustomServiceView.menuForAdminCustomS();
 				if (handleAdminCustomService() == -2) {
 					break;
@@ -187,7 +188,7 @@ public class MainController {
 			break;
 		case 2:
 			while (true) {
-				System.out.println("=DataAdministration=");
+				System.out.println("=" + textLangProvider.INSTANCE.getProperty("operationDataAdministration") + "=");
 				DataAdministrationView.menuForAdminDataA();
 				if (handleAdminDataAdministration() == -2) {
 					break;
@@ -218,7 +219,7 @@ public class MainController {
 			System.exit(0);
 			break;
 		case 1:
-			System.out.println("Borrow publication=");
+			System.out.println(textLangProvider.INSTANCE.getProperty("operationBorrowPublication") + "=");
 			try {
 				searchUsers();
 				tempUser = getUserFromResult();
@@ -227,15 +228,17 @@ public class MainController {
 					tempPublication = getPublicationFromResult();
 					if (tempPublication != null) {
 						BorrowingDTO b = new BorrowingDTO();
-						b.setUserId(tempUser.getUUID());
-						b.setPublicationId(tempPublication.getUUID());
+						b.setUser(tempUser);
+						b.setPublication(tempPublication);
 						b.setBorrowingDate(Date.valueOf(LocalDate.now()));
 						b.setDeadline(Date.valueOf(LocalDate.now().plusDays(20)));
 						try {
 							csc.borrowPublication(b);
-							System.out.println("Borrowing successful!");
+							System.out.println(textLangProvider.INSTANCE.getProperty("borrowOk"));
 						} catch (RequestException e) {
-							System.out.println("Borrowing not successful!");
+							System.out.println(textLangProvider.INSTANCE.getProperty("borrowNotOk"));
+							System.out.println(
+									textLangProvider.INSTANCE.getProperty("errorReason") + " " + e.getMessage());
 						}
 
 					}
@@ -251,7 +254,7 @@ public class MainController {
 			}
 			break;
 		case 2:
-			System.out.println("Return publication=");
+			System.out.println(textLangProvider.INSTANCE.getProperty("operationReturnPublication") + "=");
 			try {
 				searchUsers();
 				tempUser = getUserFromResult();
@@ -261,11 +264,11 @@ public class MainController {
 					if (tempBorrowing != null) {
 						try {
 							csc.returnPublication(tempBorrowing);
-							System.out.println(
-									"Returning of <" + tempBorrowing.getPublication().getTitle() + "> successful!");
+							System.out.println(textLangProvider.INSTANCE.getProperty("returnOk"));
 						} catch (RequestException e) {
+							System.out.println(textLangProvider.INSTANCE.getProperty("returnNotOk"));
 							System.out.println(
-									"Returning of <" + tempBorrowing.getPublication().getTitle() + "> not successful!");
+									textLangProvider.INSTANCE.getProperty("errorReason") + " " + e.getMessage());
 						}
 					}
 				}
@@ -299,15 +302,30 @@ public class MainController {
 			break;
 		case 1:
 			while (true) {
-				System.out.println("=User managment=");
+				System.out.println(textLangProvider.INSTANCE.getProperty("operationUserManagement") + "=");
 				DataAdministrationView.menuForAdminDataAUsers();
-				if (handleAdminComm() == -2) {
+				if (handleAdminDataAUserComm() == -2) {
 					break;
 				}
 			}
 			break;
 		case 2:
-			System.out.println("");
+			while (true) {
+				System.out.println(textLangProvider.INSTANCE.getProperty("operationAuthorManagement") + "=");
+				DataAdministrationView.menuForAdminDataAAuthors();
+				if (handleAdminDataAAuthorComm() == -2) {
+					break;
+				}
+			}
+			break;
+		case 3:
+			while (true) {
+				System.out.println(textLangProvider.INSTANCE.getProperty("operationPublicationManagement") + "=");
+				DataAdministrationView.menuForAdminDataAPublications();
+				if (handleAdminDataAPublicationComm() == -2) {
+					break;
+				}
+			}
 			break;
 		default:
 			System.out.println(exitBackString);
@@ -316,13 +334,18 @@ public class MainController {
 		return 0;
 	}
 
-	private int handleAdminComm() {
+	/**
+	 * Controller for User Data Administration
+	 * 
+	 * @return number 0 by default and -2 for implementing GO BACK/UP
+	 */
+	private int handleAdminDataAUserComm() {
 		int cmd = getIntLine();
 		switch (cmd) {
 		case -2:
 			return -2;
 		case -1:
-			System.out.println("Exit.");
+			System.out.println(textLangProvider.INSTANCE.getProperty("exitProg"));
 			System.exit(0);
 			break;
 		case 1:
@@ -425,20 +448,75 @@ public class MainController {
 	}
 
 	/**
+	 * Controller for Author Data Administration
+	 * 
+	 * @return number 0 by default and -2 for implementing GO BACK/UP
+	 */
+	private int handleAdminDataAAuthorComm() {
+		int cmd = getIntLine();
+		switch (cmd) {
+		case -2:
+			return -2;
+		case -1:
+			System.out.println(textLangProvider.INSTANCE.getProperty("exitProg"));
+			System.exit(0);
+			break;
+		case 1:
+			break;
+		default:
+			System.out.println(exitBackString);
+			break;
+		}
+		return 0;
+	}
+
+	/**
+	 * Controller for Publication Data Administration
+	 * 
+	 * @return number 0 by default and -2 for implementing GO BACK/UP
+	 */
+	private int handleAdminDataAPublicationComm() {
+		int cmd = getIntLine();
+		switch (cmd) {
+		case -2:
+			return -2;
+		case -1:
+			System.out.println(textLangProvider.INSTANCE.getProperty("exitProg"));
+			System.exit(0);
+			break;
+		case 1:
+			break;
+		default:
+			System.out.println(exitBackString);
+			break;
+		}
+		return 0;
+	}
+
+	/**
 	 * Auxiliary for retrieving Publications by title
 	 */
 	private void searchPublications() {
-		System.out.println("Enter publication title!");
+		System.out.println(textLangProvider.INSTANCE.getProperty("enterPublicationTitle"));
 		tempStr = getLine();
-		tempPublications = dac.getPublications(tempStr);
-		if (tempPublications == null) {
-			System.out.println("Couldn't find any publication with title <" + tempStr + ">!");
+		while (tempStr.length() < 3) {
+			System.out.println(textLangProvider.INSTANCE.getProperty("searchLenghtToShort"));
+			System.out.println(textLangProvider.INSTANCE.getProperty("enterPublicationTitle"));
+			tempStr = getLine();
+		}
+		try {
+			tempPublications = dac.getPublications(tempStr);
+		} catch (RequestException e) {
+			System.out
+					.println(textLangProvider.INSTANCE.getProperty("couldNotFindPublication") + " <" + tempStr + ">!");
+			System.out.println(textLangProvider.INSTANCE.getProperty("errorReason") + " " + e.getMessage());
 			return;
 		}
 		tempInt = 0;
 		for (PublicationDTO p : tempPublications) {
 			System.out.println(++tempInt + ": " + p.toString());
 		}
+
 	}
 
 	/**
@@ -447,7 +525,8 @@ public class MainController {
 	private void searchBorrowedPublications() {
 		tempBorrowings = tempUser.getBorrow();
 		if (tempBorrowings == null) {
-			System.out.println("Couldn't find any publication for user!");
+			System.out.println(textLangProvider.INSTANCE.getProperty("couldNotFindBorrowedPublication") + " <"
+					+ tempUser.getName() + ">!");
 			return;
 		} else if ((tempBorrowings.size() > 0)
 				&& ((tempBorrowings.get(0).getUser() == null) || (tempBorrowings.get(0).getPublication() == null))) {
@@ -464,11 +543,18 @@ public class MainController {
 	 * Auxiliary for retrieving Users by name
 	 */
 	private void searchUsers() {
-		System.out.println("Enter user name!");
+		System.out.println(textLangProvider.INSTANCE.getProperty("enterUserName"));
 		tempStr = getLine();
-		tempUsers = dac.getUsers(tempStr);
-		if ((tempUsers == null) || (tempUsers.isEmpty())) {
-			System.out.println("Couldn't find any user with name <" + tempStr + ">!");
+		while (tempStr.length() < 3) {
+			System.out.println(textLangProvider.INSTANCE.getProperty("searchLenghtToShort"));
+			System.out.println(textLangProvider.INSTANCE.getProperty("enterUserName"));
+			tempStr = getLine();
+		}			
+		try {
+			tempUsers = dac.getUsers(tempStr);
+		} catch (RequestException e) {
+			System.out.println(textLangProvider.INSTANCE.getProperty("couldNotFindUsers") + " <" + tempStr + ">!");
+			System.out.println(textLangProvider.INSTANCE.getProperty("errorReason") + " " + e.getMessage());
 			return;
 		}
 		tempInt = 0;
@@ -483,7 +569,7 @@ public class MainController {
 	 * @return selected Publication
 	 */
 	private PublicationDTO getPublicationFromResult() {
-		if (tempPublications == null) {
+		if (tempPublications == null || tempPublications.isEmpty()) {
 			return null;
 		} else {
 			System.out.println(textLangProvider.INSTANCE.getProperty("selectNrFromList"));
@@ -507,7 +593,7 @@ public class MainController {
 	 * @return selected Borrowing
 	 */
 	private BorrowingDTO getBorrowedPublicationFromResult() {
-		if (tempBorrowings == null) {
+		if (tempBorrowings == null || tempBorrowings.isEmpty()) {
 			return null;
 		} else {
 			System.out.println(textLangProvider.INSTANCE.getProperty("selectNrFromList"));
@@ -531,7 +617,7 @@ public class MainController {
 	 * @return selected User
 	 */
 	private UserDTO getUserFromResult() {
-		if (tempUsers == null) {
+		if (tempUsers == null || tempUsers.isEmpty()) {
 			return null;
 		} else {
 			System.out.println(textLangProvider.INSTANCE.getProperty("selectNrFromList"));

@@ -48,6 +48,10 @@ public class UserService extends UnicastRemoteObject implements UserServiceRmi {
 	@Override
 	public void insertUser(UserDTO userDTO) throws RemoteException, ServiceException {
 
+		StringBuilder validationMessage = ValidationService.checkUser(userDTO);
+		if (validationMessage.length() > 0) {
+			throw new ServiceException(validationMessage.toString());
+		}
 		try {
 			userBL.insertUser(MappingService.DTOToUser(userDTO));
 		} catch (BusinesLogicException e) {
@@ -59,6 +63,11 @@ public class UserService extends UnicastRemoteObject implements UserServiceRmi {
 
 	@Override
 	public void updateUser(UserDTO userDTO) throws RemoteException, ServiceException {
+
+		StringBuilder validationMessage = ValidationService.checkUser(userDTO);
+		if (validationMessage.length() > 0) {
+			throw new ServiceException(validationMessage.toString());
+		}
 		try {
 			userBL.updateUser(MappingService.DTOToUser(userDTO));
 			LOGGER.info("Updated user");
@@ -70,6 +79,17 @@ public class UserService extends UnicastRemoteObject implements UserServiceRmi {
 
 	@Override
 	public void deleteUser(String userID) throws RemoteException, ServiceException {
+		int id;
+
+		try {
+			id = Integer.parseInt(userID);
+		} catch (NumberFormatException e) {
+			throw new ServiceException("Id is not a number");
+		}
+
+		if (id <= 0) {
+			throw new ServiceException("id most be a positive number");
+		}
 
 		try {
 			userBL.deleteUser(userID);
@@ -82,7 +102,7 @@ public class UserService extends UnicastRemoteObject implements UserServiceRmi {
 
 	@Override
 	public List<UserDTO> searchUser(String name) throws RemoteException, ServiceException {
-		
+
 		List<User> users = null;
 		try {
 			users = userBL.searchUserByName(name);
@@ -90,13 +110,19 @@ public class UserService extends UnicastRemoteObject implements UserServiceRmi {
 			LOGGER.error(e.getMessage());
 			throw new ServiceException(e.getMessage());
 		}
-		
+
 		return MappingService.usersToDTO(users);
 
 	}
 
 	@Override
 	public UserType login(String name, String password) throws RemoteException, ServiceException {
+
+		StringBuilder validationMessage = ValidationService.checkNameAndPassword(name, password);
+		if (validationMessage.length() > 0) {
+			throw new ServiceException(validationMessage.toString());
+		}
+
 		try {
 			return userBL.login(name, password);
 		} catch (BusinesLogicException e) {

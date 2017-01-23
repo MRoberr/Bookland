@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceException;
+import javax.persistence.RollbackException;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaDelete;
@@ -14,6 +15,7 @@ import javax.persistence.criteria.CriteriaUpdate;
 import javax.persistence.criteria.Root;
 
 import org.apache.log4j.Logger;
+import org.hibernate.exception.ConstraintViolationException;
 
 import edu.msg.bookland.server.model.Article;
 import edu.msg.bookland.server.model.Article_;
@@ -38,9 +40,10 @@ public class HibernateArticleDAO implements ArticleDAO {
 		entityManager = entityManagerFactory.createEntityManager();
 		builder = entityManager.getCriteriaBuilder();
 	}
-/*
- * @see edu.msg.bookland.server.repository.ArticleDAO#getAllArticles()
- */
+
+	/*
+	 * @see edu.msg.bookland.server.repository.ArticleDAO#getAllArticles()
+	 */
 	@Override
 	public List<Article> getAllArticles() throws RepositoryException {
 		try {
@@ -49,6 +52,10 @@ public class HibernateArticleDAO implements ArticleDAO {
 			articles.select(article);
 			TypedQuery<Article> articleQuery = entityManager.createQuery(articles);
 			List<Article> articleList = articleQuery.getResultList();
+			if (articleList.isEmpty()) {
+				LOGGER.error("Can't find any Article.");
+				throw new RepositoryException("Can't find any Article.");
+			}
 			LOGGER.info("All articles sellected!");
 			return articleList;
 		} catch (PersistenceException e) {
@@ -56,9 +63,11 @@ public class HibernateArticleDAO implements ArticleDAO {
 			throw new RepositoryException("Could not get all articles", e);
 		}
 	}
-/*
- * @see edu.msg.bookland.server.repository.ArticleDAO#insertArticle(edu.msg.bookland.server.model.Article)
- */
+
+	/*
+	 * @see edu.msg.bookland.server.repository.ArticleDAO#insertArticle(edu.msg.
+	 * bookland.server.model.Article)
+	 */
 	@Override
 	public void insertArticle(Article article) throws RepositoryException {
 		try {
@@ -66,6 +75,18 @@ public class HibernateArticleDAO implements ArticleDAO {
 			entityManager.persist(article);
 			entityManager.getTransaction().commit();
 			LOGGER.info("Article inserted");
+		} catch (RollbackException e) {
+			Throwable t = e.getCause();
+			while ((t != null) && !(t instanceof ConstraintViolationException)) {
+				t = t.getCause();
+			}
+			if (t instanceof ConstraintViolationException) {
+				LOGGER.error("This article allready exist", e);
+				throw new RepositoryException("Can't find author with specifield Id.", e);
+			} else {
+				LOGGER.error("Could not instert this article", e.getCause());
+				throw new RepositoryException("Could not instert this article", e);
+			}
 		} catch (PersistenceException e) {
 			entityManager.getTransaction().rollback();
 			LOGGER.error("Could not instert an article", e);
@@ -73,9 +94,11 @@ public class HibernateArticleDAO implements ArticleDAO {
 		}
 
 	}
-/*
- * @see edu.msg.bookland.server.repository.ArticleDAO#updateArticle(edu.msg.bookland.server.model.Article)
- */
+
+	/*
+	 * @see edu.msg.bookland.server.repository.ArticleDAO#updateArticle(edu.msg.
+	 * bookland.server.model.Article)
+	 */
 	@Override
 	public void updateArticle(Article article) throws RepositoryException {
 		try {
@@ -89,15 +112,30 @@ public class HibernateArticleDAO implements ArticleDAO {
 			entityManager.createQuery(update).executeUpdate();
 			entityManager.getTransaction().commit();
 			LOGGER.info("Updated article");
+		} catch (RollbackException e) {
+			Throwable t = e.getCause();
+			while ((t != null) && !(t instanceof ConstraintViolationException)) {
+				t = t.getCause();
+			}
+			if (t instanceof ConstraintViolationException) {
+				LOGGER.error("This title allready exist", e);
+				throw new RepositoryException("Can't find author with specifield Id.", e);
+			} else {
+				LOGGER.error("Could not update this article", e.getCause());
+				throw new RepositoryException("Could not update this article", e);
+			}
 		} catch (PersistenceException e) {
 			entityManager.getTransaction().rollback();
 			LOGGER.error("Could not update an article", e);
 			throw new RepositoryException("Could not update an article", e);
 		}
 	}
-/*
- * @see edu.msg.bookland.server.repository.ArticleDAO#deleteArticle(java.lang.String)
- */
+
+	/*
+	 * @see
+	 * edu.msg.bookland.server.repository.ArticleDAO#deleteArticle(java.lang.
+	 * String)
+	 */
 	@Override
 	public void deleteArticle(String id) throws RepositoryException {
 		try {
@@ -111,13 +149,20 @@ public class HibernateArticleDAO implements ArticleDAO {
 			throw new RepositoryException("Could not delete author by id", e);
 		}
 	}
-/*
- * @see edu.msg.bookland.server.repository.ArticleDAO#getArticleByUuid(java.lang.String)
- */
+
+	/*
+	 * @see
+	 * edu.msg.bookland.server.repository.ArticleDAO#getArticleByUuid(java.lang.
+	 * String)
+	 */
 	@Override
 	public Article getArticleByUuid(String uuId) throws RepositoryException {
 		try {
 			Article a = entityManager.find(Article.class, uuId);
+			if (a == null) {
+				LOGGER.error("Could not found an article by id.");
+				throw new RepositoryException("Could not found an article by id.");
+			}
 			LOGGER.info("Retrieved article by id");
 			return a;
 		} catch (PersistenceException e) {
@@ -126,9 +171,12 @@ public class HibernateArticleDAO implements ArticleDAO {
 			throw new RepositoryException("Could not retrieve an article by id", e);
 		}
 	}
-/*
- * @see edu.msg.bookland.server.repository.ArticleDAO#searchArticle(java.lang.String)
- */
+
+	/*
+	 * @see
+	 * edu.msg.bookland.server.repository.ArticleDAO#searchArticle(java.lang.
+	 * String)
+	 */
 	@Override
 	public List<Article> searchArticle(String title) throws RepositoryException {
 		try {
@@ -138,11 +186,15 @@ public class HibernateArticleDAO implements ArticleDAO {
 			articleByName.where(builder.like(article.get(Article_.title), '%' + title + '%'));
 			TypedQuery<Article> articleQuery = entityManager.createQuery(articleByName);
 			List<Article> articleList = articleQuery.getResultList();
+			if (articleList.isEmpty()) {
+				LOGGER.error("Could not find article by name <" + title + ">.");
+				throw new RepositoryException("Could not find article by name <" + title + ">.");
+			}
 			LOGGER.info("Search Article done");
 			return articleList;
 		} catch (PersistenceException e) {
-			LOGGER.error("Could not find article by name <" + title + ">", e);
-			throw new RepositoryException("Could not find article by name <" + title + ">", e);
+			LOGGER.error("Could not find article.", e);
+			throw new RepositoryException("Could not find article.", e);
 		}
 	}
 
