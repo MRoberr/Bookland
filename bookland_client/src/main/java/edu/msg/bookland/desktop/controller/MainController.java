@@ -84,7 +84,7 @@ public class MainController {
 	 */
 	private void chooseLanguage() {
 		MainView.menuForLanguage();
-		handleLanguageCommand();	
+		handleLanguageCommand();
 	}
 
 	/**
@@ -139,7 +139,7 @@ public class MainController {
 			break;
 		}
 		exitString = textLangProvider.INSTANCE.getProperty("exitStr");
-		exitBackString = textLangProvider.INSTANCE.getProperty("exitBackStr");	
+		exitBackString = textLangProvider.INSTANCE.getProperty("exitBackStr");
 	}
 
 	/**
@@ -310,20 +310,20 @@ public class MainController {
 			while (true) {
 				System.out.println(textLangProvider.INSTANCE.getProperty("operationAuthorManagement") + "=");
 				DataAdministrationView.menuForAdminDataAAuthors();
-				// if (handleAdminDataAAuthorComm() == -2) {
-				// break;
-				// }
+				if (handleAdminDataAAuthorComm() == -2) {
+					break;
+				}
 			}
-			// break;
+			break;
 		case 3:
 			while (true) {
 				System.out.println(textLangProvider.INSTANCE.getProperty("operationPublicationManagement") + "=");
 				DataAdministrationView.menuForAdminDataAPublications();
-				// if (handleAdminDataAPublicationComm() == -2) {
-				// break;
-				// }
+				if (handleAdminDataAPublicationComm() == -2) {
+					break;
+				}
 			}
-			// break;
+			break;
 		default:
 			System.out.println(exitBackString);
 			break;
@@ -331,6 +331,11 @@ public class MainController {
 		return 0;
 	}
 
+	/**
+	 * Controller for User Data Administration
+	 * 
+	 * @return number 0 by default and -2 for implementing GO BACK/UP
+	 */
 	private int handleAdminDataAUserComm() {
 		int cmd = getIntLine();
 		switch (cmd) {
@@ -440,6 +445,52 @@ public class MainController {
 	}
 
 	/**
+	 * Controller for Author Data Administration
+	 * 
+	 * @return number 0 by default and -2 for implementing GO BACK/UP
+	 */
+	private int handleAdminDataAAuthorComm() {
+		int cmd = getIntLine();
+		switch (cmd) {
+		case -2:
+			return -2;
+		case -1:
+			System.out.println(textLangProvider.INSTANCE.getProperty("exitProg"));
+			System.exit(0);
+			break;
+		case 1:
+			break;
+		default:
+			System.out.println(exitBackString);
+			break;
+		}
+		return 0;
+	}
+
+	/**
+	 * Controller for Publication Data Administration
+	 * 
+	 * @return number 0 by default and -2 for implementing GO BACK/UP
+	 */
+	private int handleAdminDataAPublicationComm() {
+		int cmd = getIntLine();
+		switch (cmd) {
+		case -2:
+			return -2;
+		case -1:
+			System.out.println(textLangProvider.INSTANCE.getProperty("exitProg"));
+			System.exit(0);
+			break;
+		case 1:
+			break;
+		default:
+			System.out.println(exitBackString);
+			break;
+		}
+		return 0;
+	}
+
+	/**
 	 * Auxiliary for retrieving Publications by title
 	 */
 	private void searchPublications() {
@@ -505,7 +556,7 @@ public class MainController {
 	 * @return selected Publication
 	 */
 	private PublicationDTO getPublicationFromResult() {
-		if (tempPublications == null) {
+		if (tempPublications == null || tempPublications.isEmpty()) {
 			return null;
 		} else {
 			System.out.println(textLangProvider.INSTANCE.getProperty("selectNrFromList"));
@@ -529,7 +580,7 @@ public class MainController {
 	 * @return selected Borrowing
 	 */
 	private BorrowingDTO getBorrowedPublicationFromResult() {
-		if (tempBorrowings == null) {
+		if (tempBorrowings == null || tempBorrowings.isEmpty()) {
 			return null;
 		} else {
 			System.out.println(textLangProvider.INSTANCE.getProperty("selectNrFromList"));
@@ -553,7 +604,7 @@ public class MainController {
 	 * @return selected User
 	 */
 	private UserDTO getUserFromResult() {
-		if (tempUsers == null) {
+		if (tempUsers == null || tempUsers.isEmpty()) {
 			return null;
 		} else {
 			System.out.println(textLangProvider.INSTANCE.getProperty("selectNrFromList"));
