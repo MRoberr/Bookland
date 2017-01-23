@@ -1,6 +1,5 @@
 package edu.msg.bookland.desktop.controller;
 
-import java.rmi.RemoteException;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.InputMismatchException;
@@ -10,11 +9,9 @@ import java.util.Scanner;
 
 import edu.msg.bookland.common.model.BorrowingDTO;
 import edu.msg.bookland.common.model.PublicationDTO;
-import edu.msg.bookland.common.model.ServiceException;
 import edu.msg.bookland.common.model.UserDTO;
 import edu.msg.bookland.common.model.UserType;
 import edu.msg.bookland.desktop.RequestException;
-import edu.msg.bookland.desktop.model.ConnectionModel;
 import edu.msg.bookland.desktop.util.textLangProvider;
 import edu.msg.bookland.desktop.view.CustomServiceView;
 import edu.msg.bookland.desktop.view.DataAdministrationView;
@@ -28,6 +25,7 @@ import edu.msg.bookland.desktop.view.MainView;
  *
  */
 public class MainController {
+	private LoginController lc = new LoginController();
 	private CustomServiceController csc = new CustomServiceController();
 	private DataAdministrationController dac = new DataAdministrationController();
 	private Scanner scanner = new Scanner(System.in);
@@ -56,7 +54,7 @@ public class MainController {
 	public MainController() {
 		chooseLanguage();
 		while (true) {
-			consoleLogin();
+			handleLogin();
 		}
 	}
 
@@ -92,27 +90,25 @@ public class MainController {
 	/**
 	 * Controller for login
 	 */
-	private void consoleLogin() {
+	private void handleLogin() {
 		System.out.println(textLangProvider.INSTANCE.getProperty("loginEnterNameAndPass"));
 		try {
-			UserType login = ConnectionModel.USER_SERVICE_RMI.login(getLine(), getLine());
+			UserType login = lc.userLogin(getLine(), getLine());
 			if (login.equals(UserType.READER)) {
-				System.out.println("Logged in as user=");
+				System.out.println("=" + textLangProvider.INSTANCE.getProperty("operationLoggedInAsReader"));
 				while (true) {
 					MainView.menuForUser();
 					handleUserCommand();
 				}
 			} else if (login.equals(UserType.ADMIN)) {
-				System.out.println("Logged in as admin=");
+				System.out.println("=" + textLangProvider.INSTANCE.getProperty("operationLoggedInAsAdmin"));
 				while (true) {
 					MainView.menuInitForAdmin();
 					handleAdminCommand();
 				}
 			}
-		} catch (ServiceException e) {
-			System.out.println(textLangProvider.INSTANCE.getProperty("loginInvalidUsernameOrPassword") + "\n");
-		} catch (RemoteException e) {
-			System.out.println("Connection error, login failed.");
+		} catch (RequestException e) {
+			System.out.println("Reason: " + e.getMessage());
 		}
 	}
 
@@ -218,7 +214,7 @@ public class MainController {
 			System.exit(0);
 			break;
 		case 1:
-			System.out.println("Borrow publication=");
+			System.out.println(textLangProvider.INSTANCE.getProperty("operationBorrowPublication") + "=");
 			try {
 				searchUsers();
 				tempUser = getUserFromResult();
@@ -227,15 +223,16 @@ public class MainController {
 					tempPublication = getPublicationFromResult();
 					if (tempPublication != null) {
 						BorrowingDTO b = new BorrowingDTO();
-						b.setUserId(tempUser.getUUID());
-						b.setPublicationId(tempPublication.getUUID());
+						b.setUser(tempUser);
+						b.setPublication(tempPublication);
 						b.setBorrowingDate(Date.valueOf(LocalDate.now()));
 						b.setDeadline(Date.valueOf(LocalDate.now().plusDays(20)));
 						try {
 							csc.borrowPublication(b);
-							System.out.println("Borrowing successful!");
+							System.out.println(textLangProvider.INSTANCE.getProperty("borrowOk"));
 						} catch (RequestException e) {
-							System.out.println("Borrowing not successful!");
+							System.out.println(textLangProvider.INSTANCE.getProperty("borrowNotOk"));
+							System.out.println("Reason:" + e.getMessage());
 						}
 
 					}
@@ -251,7 +248,7 @@ public class MainController {
 			}
 			break;
 		case 2:
-			System.out.println("Return publication=");
+			System.out.println(textLangProvider.INSTANCE.getProperty("operationReturnPublication") + "=");
 			try {
 				searchUsers();
 				tempUser = getUserFromResult();
@@ -261,11 +258,10 @@ public class MainController {
 					if (tempBorrowing != null) {
 						try {
 							csc.returnPublication(tempBorrowing);
-							System.out.println(
-									"Returning of <" + tempBorrowing.getPublication().getTitle() + "> successful!");
+							System.out.println(textLangProvider.INSTANCE.getProperty("returnOk"));
 						} catch (RequestException e) {
-							System.out.println(
-									"Returning of <" + tempBorrowing.getPublication().getTitle() + "> not successful!");
+							System.out.println(textLangProvider.INSTANCE.getProperty("returnNotOk"));
+							System.out.println("Reason:" + e.getMessage());
 						}
 					}
 				}
@@ -299,31 +295,31 @@ public class MainController {
 			break;
 		case 1:
 			while (true) {
-				System.out.println("User managment=");
+				System.out.println(textLangProvider.INSTANCE.getProperty("operationUserManagement") + "=");
 				DataAdministrationView.menuForAdminDataAUsers();
 				if (handleAdminDataAUserComm() == -2) {
 					break;
 				}
 			}
-//			break;
+			// break;
 		case 2:
 			while (true) {
-				System.out.println("Author managment=");
+				System.out.println(textLangProvider.INSTANCE.getProperty("operationAuthorManagement") + "=");
 				DataAdministrationView.menuForAdminDataAAuthors();
-//				if (handleAdminDataAAuthorComm() == -2) {
-//					break;
-//				}
+				// if (handleAdminDataAAuthorComm() == -2) {
+				// break;
+				// }
 			}
-//			break;
+			// break;
 		case 3:
 			while (true) {
-				System.out.println("User managment=");
+				System.out.println(textLangProvider.INSTANCE.getProperty("operationPublicationManagement") + "=");
 				DataAdministrationView.menuForAdminDataAPublications();
-//				if (handleAdminDataAPublicationComm() == -2) {
-//					break;
-//				}
+				// if (handleAdminDataAPublicationComm() == -2) {
+				// break;
+				// }
 			}
-//			break;
+			// break;
 		default:
 			System.out.println(exitBackString);
 			break;
@@ -445,14 +441,17 @@ public class MainController {
 	private void searchPublications() {
 		System.out.println("Enter publication title!");
 		tempStr = getLine();
-		tempPublications = dac.getPublications(tempStr);
-		if (tempPublications == null) {
+		try {
+			tempPublications = dac.getPublications(tempStr);
+		} catch (RequestException e) {
 			System.out.println("Couldn't find any publication with title <" + tempStr + ">!");
-			return;
+			System.out.println("Reason: " + e.getMessage());
 		}
-		tempInt = 0;
-		for (PublicationDTO p : tempPublications) {
-			System.out.println(++tempInt + ": " + p.toString());
+		if (tempPublications != null) {
+			tempInt = 0;
+			for (PublicationDTO p : tempPublications) {
+				System.out.println(++tempInt + ": " + p.toString());
+			}
 		}
 	}
 
