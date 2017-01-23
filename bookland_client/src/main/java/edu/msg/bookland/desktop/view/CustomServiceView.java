@@ -11,9 +11,9 @@ import edu.msg.bookland.desktop.util.textLangProvider;
 public abstract class CustomServiceView {
 
 	public static void menuForAdminCustomS() {
-		System.out.println("Please choose an option!");
-		System.out.println("1 -Borrow publication");
-		System.out.println("2 -Return publication");
+		System.out.println(getProperty("chooseAnOption"));
+		System.out.println("1 -" + getProperty("operationBorrowPublication"));
+		System.out.println("2 -" + getProperty("operationReturnPublication"));
 	}
 	
 	private static String getProperty(String s) {

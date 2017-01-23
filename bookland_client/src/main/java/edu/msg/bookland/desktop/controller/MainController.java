@@ -108,7 +108,7 @@ public class MainController {
 				}
 			}
 		} catch (RequestException e) {
-			System.out.println("Reason: " + e.getMessage());
+			System.out.println(textLangProvider.INSTANCE.getProperty("errorReason") + " " + e.getMessage());
 		}
 	}
 
@@ -232,7 +232,8 @@ public class MainController {
 							System.out.println(textLangProvider.INSTANCE.getProperty("borrowOk"));
 						} catch (RequestException e) {
 							System.out.println(textLangProvider.INSTANCE.getProperty("borrowNotOk"));
-							System.out.println("Reason:" + e.getMessage());
+							System.out.println(
+									textLangProvider.INSTANCE.getProperty("errorReason") + " " + e.getMessage());
 						}
 
 					}
@@ -261,7 +262,8 @@ public class MainController {
 							System.out.println(textLangProvider.INSTANCE.getProperty("returnOk"));
 						} catch (RequestException e) {
 							System.out.println(textLangProvider.INSTANCE.getProperty("returnNotOk"));
-							System.out.println("Reason:" + e.getMessage());
+							System.out.println(
+									textLangProvider.INSTANCE.getProperty("errorReason") + " " + e.getMessage());
 						}
 					}
 				}
@@ -439,20 +441,21 @@ public class MainController {
 	 * Auxiliary for retrieving Publications by title
 	 */
 	private void searchPublications() {
-		System.out.println("Enter publication title!");
+		System.out.println(textLangProvider.INSTANCE.getProperty("enterPublicationTitle"));
 		tempStr = getLine();
 		try {
 			tempPublications = dac.getPublications(tempStr);
 		} catch (RequestException e) {
-			System.out.println("Couldn't find any publication with title <" + tempStr + ">!");
-			System.out.println("Reason: " + e.getMessage());
+			System.out
+					.println(textLangProvider.INSTANCE.getProperty("couldNotFindPublication") + " <" + tempStr + ">!");
+			System.out.println(textLangProvider.INSTANCE.getProperty("errorReason") + " " + e.getMessage());
+			return;
 		}
-		if (tempPublications != null) {
-			tempInt = 0;
-			for (PublicationDTO p : tempPublications) {
-				System.out.println(++tempInt + ": " + p.toString());
-			}
+		tempInt = 0;
+		for (PublicationDTO p : tempPublications) {
+			System.out.println(++tempInt + ": " + p.toString());
 		}
+
 	}
 
 	/**
@@ -461,7 +464,8 @@ public class MainController {
 	private void searchBorrowedPublications() {
 		tempBorrowings = tempUser.getBorrow();
 		if (tempBorrowings == null) {
-			System.out.println("Couldn't find any publication for user!");
+			System.out.println(textLangProvider.INSTANCE.getProperty("couldNotFindBorrowedPublication") + " <"
+					+ tempUser.getName() + ">!");
 			return;
 		} else if ((tempBorrowings.size() > 0)
 				&& ((tempBorrowings.get(0).getUser() == null) || (tempBorrowings.get(0).getPublication() == null))) {
@@ -478,11 +482,13 @@ public class MainController {
 	 * Auxiliary for retrieving Users by name
 	 */
 	private void searchUsers() {
-		System.out.println("Enter user name!");
+		System.out.println(textLangProvider.INSTANCE.getProperty("enterUserName"));
 		tempStr = getLine();
-		tempUsers = dac.getUsers(tempStr);
-		if ((tempUsers == null) || (tempUsers.isEmpty())) {
-			System.out.println("Couldn't find any user with name <" + tempStr + ">!");
+		try {
+			tempUsers = dac.getUsers(tempStr);
+		} catch (RequestException e) {
+			System.out.println(textLangProvider.INSTANCE.getProperty("couldNotFindUsers") + " <" + tempStr + ">!");
+			System.out.println(textLangProvider.INSTANCE.getProperty("errorReason") + " " + e.getMessage());
 			return;
 		}
 		tempInt = 0;
