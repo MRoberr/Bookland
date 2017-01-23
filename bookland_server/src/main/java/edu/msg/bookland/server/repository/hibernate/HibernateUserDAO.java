@@ -176,7 +176,6 @@ public class HibernateUserDAO implements UserDAO {
 		return users;
 	}
 
-	@Override
 	public void setUserLoyaltyIndex(String uuid) throws RepositoryException {
 		try {
 			entityManager.getTransaction().begin();
@@ -188,7 +187,6 @@ public class HibernateUserDAO implements UserDAO {
 			LOGGER.error("Could not decrease user's loyalty", e);
 			throw new RepositoryException("Could not decrease user's loyalty", e);
 		}
-		
 	}
 
 
