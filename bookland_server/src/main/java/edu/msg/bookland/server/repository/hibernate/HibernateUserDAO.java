@@ -68,7 +68,7 @@ public class HibernateUserDAO implements UserDAO {
 			}
 			if (t instanceof ConstraintViolationException) {
 				LOGGER.error("This user allready exist", e);
-				throw new RepositoryException(e.getMessage(), e);
+				throw new RepositoryException(t.getCause().getMessage(), e);
 			} else {
 				LOGGER.error("Could not instert this user", e.getCause());
 				throw new RepositoryException("Could not instert this user", e);
@@ -100,7 +100,7 @@ public class HibernateUserDAO implements UserDAO {
 			}
 			if (t instanceof ConstraintViolationException) {
 				LOGGER.error("This user allready exist", e);
-				throw new RepositoryException(e.getMessage(), e);
+				throw new RepositoryException(t.getCause().getMessage(), e);
 			} else {
 				LOGGER.error("Could not update this user", e.getCause());
 				throw new RepositoryException("Could not update this user", e);
@@ -146,7 +146,7 @@ public class HibernateUserDAO implements UserDAO {
 			}
 			if (t instanceof ConstraintViolationException) {
 				LOGGER.error("This user allready exist", e);
-				throw new RepositoryException(e.getMessage(), e);
+				throw new RepositoryException(t.getCause().getMessage(), e);
 			} else {
 				LOGGER.error("Could not update this user", e.getCause());
 				throw new RepositoryException("Could not update this user", e);

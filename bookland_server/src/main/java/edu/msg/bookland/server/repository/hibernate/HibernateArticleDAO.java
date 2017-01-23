@@ -25,7 +25,7 @@ import edu.msg.bookland.server.repository.RepositoryException;
 /**
  * ArticleDAO implemented with Hibernate and used JPA and Criteria Api
  * 
- * @article Sipos Terez
+ * @author Sipos Terez
  */
 public class HibernateArticleDAO implements ArticleDAO {
 
@@ -82,7 +82,7 @@ public class HibernateArticleDAO implements ArticleDAO {
 			}
 			if (t instanceof ConstraintViolationException) {
 				LOGGER.error("This article allready exist", e);
-				throw new RepositoryException("This article allready exist", e);
+				throw new RepositoryException("Can't find author with specifield Id.", e);
 			} else {
 				LOGGER.error("Could not instert this article", e.getCause());
 				throw new RepositoryException("Could not instert this article", e);
@@ -119,7 +119,7 @@ public class HibernateArticleDAO implements ArticleDAO {
 			}
 			if (t instanceof ConstraintViolationException) {
 				LOGGER.error("This title allready exist", e);
-				throw new RepositoryException("This title allready exist", e);
+				throw new RepositoryException("Can't find author with specifield Id.", e);
 			} else {
 				LOGGER.error("Could not update this article", e.getCause());
 				throw new RepositoryException("Could not update this article", e);
@@ -159,6 +159,10 @@ public class HibernateArticleDAO implements ArticleDAO {
 	public Article getArticleByUuid(String uuId) throws RepositoryException {
 		try {
 			Article a = entityManager.find(Article.class, uuId);
+			if (a == null) {
+				LOGGER.error("Could not found an article by id.");
+				throw new RepositoryException("Could not found an article by id.");
+			}
 			LOGGER.info("Retrieved article by id");
 			return a;
 		} catch (PersistenceException e) {
@@ -182,11 +186,15 @@ public class HibernateArticleDAO implements ArticleDAO {
 			articleByName.where(builder.like(article.get(Article_.title), '%' + title + '%'));
 			TypedQuery<Article> articleQuery = entityManager.createQuery(articleByName);
 			List<Article> articleList = articleQuery.getResultList();
+			if (articleList.isEmpty()) {
+				LOGGER.error("Could not find article by name <" + title + ">.");
+				throw new RepositoryException("Could not find article by name <" + title + ">.");
+			}
 			LOGGER.info("Search Article done");
 			return articleList;
 		} catch (PersistenceException e) {
-			LOGGER.error("Could not find article by name <" + title + ">", e);
-			throw new RepositoryException("Could not find article by name <" + title + ">", e);
+			LOGGER.error("Could not find article.", e);
+			throw new RepositoryException("Could not find article.", e);
 		}
 	}
 
