@@ -103,7 +103,7 @@ public class HibernateArticleDAO implements ArticleDAO {
 		try {
 			CriteriaDelete<Article> delete = builder.createCriteriaDelete(Article.class);
 			Root<Article> authorRoot = delete.from(Article.class);
-			delete.where(builder.equal(authorRoot.get(Article_.uuId), id));
+//			delete.where(builder.equal(authorRoot.get(Article_.uuId), id));
 			entityManager.createQuery(delete).executeUpdate();
 			LOGGER.info("Delete author done");
 		} catch (PersistenceException e) {
