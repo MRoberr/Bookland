@@ -17,9 +17,9 @@ CREATE TABLE `library`.`library_users` (
   PRIMARY KEY (`uuid`),
   UNIQUE INDEX `uuid_UNIQUE` (`uuid` ASC)); 
   
-INSERT INTO `library`.`library_users` (`uuid`, `name`, `email`,`user_type`, `loyalty_index`, `password`) VALUES ('123', 'Robi','alma@fa.com', 'ADMIN', '10', 'F�sh��e�rK�:W?��Ց.');
-INSERT INTO `library`.`library_users` (`uuid`, `name`, `email`, `user_type`, `loyalty_index`, `password`) VALUES ('145', 'Terez','terez@msg.com', 'READER', '10', 'F�sh��e�rK�:W?��Ց.');
-INSERT INTO `library`.`library_users` (`uuid`, `name`,  `email`,`user_type`, `loyalty_index`, `password`) VALUES ('146', 'Joco', ' joco@msg.com','READER', '0', 'F�sh��e�rK�:W?��Ց.');
+INSERT INTO `library`.`library_users` (`uuid`, `name`, `email`,`user_type`, `loyalty_index`, `password`) VALUES ('123', 'Robi','alma@fa.com', 'ADMIN', '10', '���N�@�c�0�GW��d>');
+INSERT INTO `library`.`library_users` (`uuid`, `name`, `email`, `user_type`, `loyalty_index`, `password`) VALUES ('145', 'Terez','terez@msg.com', 'READER', '10', '���N�@�c�0�GW��d>');
+INSERT INTO `library`.`library_users` (`uuid`, `name`,  `email`,`user_type`, `loyalty_index`, `password`) VALUES ('146', 'Joco', ' joco@msg.com','READER', '0', '���N�@�c�0�GW��d>');
  
   
    Drop table if exists  `library`.`authors`;
@@ -43,6 +43,9 @@ INSERT INTO `library`.`publication_type` (`id`, `name`) VALUES ('2', 'magazine')
 INSERT INTO `library`.`publication_type` (`id`, `name`) VALUES ('3', 'newspaper');
 
 
+
+
+
  Drop table if exists  `library`.`publications`;
   CREATE TABLE `library`.`publications` (
   `uuid` VARCHAR(80) NOT NULL,
@@ -58,9 +61,27 @@ INSERT INTO `library`.`publication_type` (`id`, `name`) VALUES ('3', 'newspaper'
     ON DELETE CASCADE,
   UNIQUE INDEX `uuid_UNIQUE` (`uuid` ASC)); 
   
+  
+  
 INSERT INTO `library`.`publications` (`uuid`, `title`, `publisher`, `release_date`, `nr_of_copies`, `copies_left`, `type`) VALUES ('5234', 'Arany Ember', 'Korvin kiado', '2010-10-5', '5', '5', '1');
 INSERT INTO `library`.`publications` (`uuid`, `title`, `publisher`, `release_date`, `nr_of_copies`, `copies_left`, `type`) VALUES ('2134', 'Napi hirek', 'Hirlap', '2000-12-12', '2', '2', '3');
 INSERT INTO `library`.`publications` (`uuid`, `title`, `publisher`, `release_date`, `nr_of_copies`, `copies_left`, `type`) VALUES ('1234', 'Nok lapja', 'Nok kiadoja', '2016-01-10', '10', '10', '2');
+
+
+Drop table if exists `library`.`articles`;
+CREATE TABLE `library`.`articles` (
+  `uuid` VARCHAR(80) NOT NULL,
+  `publication_uuid` VARCHAR(80),
+  `title` VARCHAR(45) NOT NULL UNIQUE,
+PRIMARY KEY (`uuid`),
+FOREIGN KEY (publication_uuid) 
+	REFERENCES `library`.`publications`(uuid)
+    ON DELETE CASCADE);	
+
+INSERT INTO `library`.`articles` (`uuid`,`publication_uuid` , `title`) VALUES ('12345', '2134','elso cikk');
+INSERT INTO `library`.`articles` (`uuid`,`publication_uuid` , `title`) VALUES ('124345', '2134','masodik cikk');
+INSERT INTO `library`.`articles` (`uuid`,`publication_uuid` , `title`) VALUES ('123456', '2134','harmadik cikk');
+
 
   
   Drop table if exists  `library`.`publications_authors`;
