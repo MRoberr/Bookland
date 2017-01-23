@@ -12,24 +12,25 @@
 
 
 		
-		<sourceDirectory>${project.basedir}/src/main/java/</sourceDirectory>
+		<sourceDirectory>${project.basedir}/src/main/java</sourceDirectory>
 
-		<testSourceDirectory>${project.basedir}/src/test/java/</testSourceDirectory>
+		<testSourceDirectory>${project.basedir}/src/test/java</testSourceDirectory>
 
 
 
 		<resources>
 			<resource>
-				<directory>${project.basedir}/src/main/resources/</directory>
+				<directory>${project.basedir}/src/main/resources</directory>
 			</resource>
 			<resource>
-				<directory>${project.build.directory}/metamodel/</directory>
+				<directory>${project.build.directory}/target</directory>
 			</resource>
+
 		</resources>
 
 		<testResources>
 			<testResource>
-				<directory>${project.basedir}/src/test/resources/</directory>
+				<directory>${project.basedir}/src/test/resources</directory>
 			</testResource>
 		</testResources>
 
@@ -104,7 +105,7 @@
 							<processors>
 								<processor>org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor</processor>
 							</processors>
-							<outputDirectory>${project.build.directory}/metamodel/</outputDirectory>
+							<outputDirectory>${project.build.directory}/metamodel</outputDirectory>
 						</configuration>
 					</execution>
 				</executions>
@@ -116,6 +117,7 @@
 					</dependency>
 				</dependencies>
 			</plugin>
+
 
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
@@ -130,7 +132,7 @@
 						</goals>
 						<configuration>
 							<sources>
-								<source>${project.build.directory}/metamodel/</source>
+								<source>${project.build.directory}/metamodel</source>
 							</sources>
 						</configuration>
 					</execution>
