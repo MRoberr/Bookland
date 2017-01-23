@@ -30,7 +30,7 @@ public class BasicAuthorBL implements AuthorBL {
 			return authorDAO.getAllAuthors();
 		} catch (RepositoryException e) {
 			LOGGER.error("Can't get all Authors!");
-			throw new BusinesLogicException("Can't get all Authors!", e);
+			throw new BusinesLogicException(e.getMessage(), e);
 		}
 	}
 
@@ -45,7 +45,7 @@ public class BasicAuthorBL implements AuthorBL {
 			authorDAO.insertAuthor(author);
 		} catch (RepositoryException e) {
 			LOGGER.error("Can't insert Author!");
-			throw new BusinesLogicException("Can't insert Author!", e);
+			throw new BusinesLogicException(e.getMessage(), e);
 		}
 	}
 
@@ -75,7 +75,7 @@ public class BasicAuthorBL implements AuthorBL {
 			return authorDAO.searchAuthor(name);
 		} catch (RepositoryException e) {
 			LOGGER.error("Can't get Authors!");
-			throw new BusinesLogicException("Can't get Authors!", e);
+			throw new BusinesLogicException(e.getMessage(), e);
 		}
 	}
 
@@ -97,7 +97,7 @@ public class BasicAuthorBL implements AuthorBL {
 			}
 		} catch (RepositoryException e) {
 			LOGGER.error("Can't delete Author!");
-			throw new BusinesLogicException("Can't delete Author!", e);
+			throw new BusinesLogicException(e.getMessage(), e);
 		}
 	}
 

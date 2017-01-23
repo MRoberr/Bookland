@@ -7,6 +7,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceException;
+import javax.persistence.RollbackException;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaDelete;
@@ -15,6 +16,7 @@ import javax.persistence.criteria.CriteriaUpdate;
 import javax.persistence.criteria.Root;
 
 import org.apache.log4j.Logger;
+import org.hibernate.exception.ConstraintViolationException;
 
 import edu.msg.bookland.server.model.Author;
 import edu.msg.bookland.server.model.Author_;
@@ -52,11 +54,12 @@ public class HibernateAuthorDAO implements AuthorDAO {
 			authors.select(Author);
 			TypedQuery<Author> authorQuery = entityManager.createQuery(authors);
 			List<Author> authorList = authorQuery.getResultList();
+			if (authorList.isEmpty()) {
+				LOGGER.error("Can't find any Author.");
+				throw new RepositoryException("Can't find any Author.");
+			}
 			LOGGER.info("All authors sellected!");
 			return authorList;
-		} catch (NoResultException e) {
-			LOGGER.error("Can't find any Author.");
-			throw new RepositoryException("Can't find any Author.", e);
 		} catch (PersistenceException e) {
 			LOGGER.error("Could not get all authors", e);
 			throw new RepositoryException("Could not get all authors", e);
@@ -71,12 +74,24 @@ public class HibernateAuthorDAO implements AuthorDAO {
 	public void insertAuthor(Author author) throws RepositoryException {
 		try {
 			entityManager.getTransaction().begin();
+			author.getUUID();
 			entityManager.persist(author);
 			entityManager.getTransaction().commit();
 			LOGGER.info("Author inserted");
+		} catch (RollbackException e) {
+			Throwable t = e.getCause();
+			while ((t != null) && !(t instanceof ConstraintViolationException)) {
+				t = t.getCause();
+			}
+			if (t instanceof ConstraintViolationException) {
+				LOGGER.error("This author allready exist", e);
+				throw new RepositoryException("This author allready exist", e);
+			} else {
+				LOGGER.error("Could not instert this author", e.getCause());
+				throw new RepositoryException("Could not instert this author", e);
+			}
 		} catch (PersistenceException e) {
-			entityManager.getTransaction().rollback();
-			LOGGER.error("Could not instert an author", e);
+			LOGGER.error("Could not instert an author", e.getCause());
 			throw new RepositoryException("Could not instert an author", e);
 		}
 	}
@@ -97,6 +112,18 @@ public class HibernateAuthorDAO implements AuthorDAO {
 			entityManager.createQuery(update).executeUpdate();
 			entityManager.getTransaction().commit();
 			LOGGER.info("Updated author");
+		} catch (RollbackException e) {
+			Throwable t = e.getCause();
+			while ((t != null) && !(t instanceof ConstraintViolationException)) {
+				t = t.getCause();
+			}
+			if (t instanceof ConstraintViolationException) {
+				LOGGER.error("This name allready exist", e);
+				throw new RepositoryException("This name allready exist", e);
+			} else {
+				LOGGER.error("Could not update this author", e.getCause());
+				throw new RepositoryException("Could not update this author", e);
+			}
 		} catch (PersistenceException e) {
 			entityManager.getTransaction().rollback();
 			LOGGER.error("Could not update an author", e);
@@ -114,10 +141,14 @@ public class HibernateAuthorDAO implements AuthorDAO {
 		try {
 			Author a = entityManager.find(Author.class, uuId);
 			LOGGER.info("Retrieved author by id");
+			if (a == null) {
+				LOGGER.error("Can't find author with specifield Id <" + uuId + ">");
+				throw new RepositoryException("Can't find author with specifield Id.");
+			}
 			return a;
 		} catch (NoResultException e) {
-			LOGGER.error("Can't find author with specifield Id <"+uuId+">");
-			throw new RepositoryException("Can't find author with specifield userId.", e);
+			LOGGER.error("Can't find author with specifield Id <" + uuId + ">");
+			throw new RepositoryException("Can't find author with specifield Id.", e);
 		} catch (PersistenceException e) {
 			entityManager.getTransaction().rollback();
 			LOGGER.error("Could not retrieve an author by id", e);
