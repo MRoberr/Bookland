@@ -80,13 +80,13 @@ public class MainController {
 		}
 		return cmd;
 	}
-	
+
 	/**
 	 * Controller for internationalization/language choose
 	 */
 	private void chooseLanguage() {
 		MainView.menuForLanguage();
-		handleLanguageCommand();				
+		handleLanguageCommand();
 	}
 
 	/**
@@ -110,10 +110,10 @@ public class MainController {
 				}
 			}
 		} catch (ServiceException e) {
-			System.out.println(textLangProvider.INSTANCE.getProperty("loginInvalidUsernameOrPassword")+"\n");
+			System.out.println(textLangProvider.INSTANCE.getProperty("loginInvalidUsernameOrPassword") + "\n");
 		} catch (RemoteException e) {
 			System.out.println("Connection error, login failed.");
-		} 
+		}
 	}
 
 	/**
@@ -126,21 +126,21 @@ public class MainController {
 			System.out.println(textLangProvider.INSTANCE.getProperty("exitProg"));
 			System.exit(0);
 			break;
-		case 1:		
+		case 1:
 			textLangProvider.INSTANCE.setLocale(new Locale("En", "en"));
 			System.out.println(textLangProvider.INSTANCE.getProperty("languageChoosen"));
-			break;			
-		case 2:		
+			break;
+		case 2:
 			textLangProvider.INSTANCE.setLocale(new Locale("Hu", "hu"));
 			System.out.println(textLangProvider.INSTANCE.getProperty("languageChoosen"));
 			break;
-		case 3:		
+		case 3:
 			textLangProvider.INSTANCE.setLocale(new Locale("Ro", "ro"));
 			System.out.println(textLangProvider.INSTANCE.getProperty("languageChoosen"));
 			break;
 		default:
 			System.out.println(exitString);
-			break;		
+			break;
 		}
 	}
 
@@ -178,7 +178,7 @@ public class MainController {
 			break;
 		case 1:
 			while (true) {
-				System.out.println("=CustomService=");
+				System.out.println("=" + textLangProvider.INSTANCE.getProperty("operationCustomService") + "=");
 				CustomServiceView.menuForAdminCustomS();
 				if (handleAdminCustomService() == -2) {
 					break;
@@ -187,7 +187,7 @@ public class MainController {
 			break;
 		case 2:
 			while (true) {
-				System.out.println("=DataAdministration=");
+				System.out.println("=" + textLangProvider.INSTANCE.getProperty("operationDataAdministration") + "=");
 				DataAdministrationView.menuForAdminDataA();
 				if (handleAdminDataAdministration() == -2) {
 					break;
@@ -299,16 +299,31 @@ public class MainController {
 			break;
 		case 1:
 			while (true) {
-				System.out.println("=User managment=");
+				System.out.println("User managment=");
 				DataAdministrationView.menuForAdminDataAUsers();
-				if (handleAdminComm() == -2) {
+				if (handleAdminDataAUserComm() == -2) {
 					break;
 				}
 			}
-			break;
+//			break;
 		case 2:
-			System.out.println("");
-			break;
+			while (true) {
+				System.out.println("Author managment=");
+				DataAdministrationView.menuForAdminDataAAuthors();
+//				if (handleAdminDataAAuthorComm() == -2) {
+//					break;
+//				}
+			}
+//			break;
+		case 3:
+			while (true) {
+				System.out.println("User managment=");
+				DataAdministrationView.menuForAdminDataAPublications();
+//				if (handleAdminDataAPublicationComm() == -2) {
+//					break;
+//				}
+			}
+//			break;
 		default:
 			System.out.println(exitBackString);
 			break;
@@ -316,13 +331,13 @@ public class MainController {
 		return 0;
 	}
 
-	private int handleAdminComm() {
+	private int handleAdminDataAUserComm() {
 		int cmd = getIntLine();
 		switch (cmd) {
 		case -2:
 			return -2;
 		case -1:
-			System.out.println("Exit.");
+			System.out.println(textLangProvider.INSTANCE.getProperty("exitProg"));
 			System.exit(0);
 			break;
 		case 1:

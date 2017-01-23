@@ -1,6 +1,8 @@
 
 package edu.msg.bookland.desktop.view;
 
+import edu.msg.bookland.desktop.util.textLangProvider;
+
 /**
  * View for data administration menu.
  * 
@@ -51,6 +53,10 @@ public abstract class DataAdministrationView {
 		System.out.println("3 -Update Publication");
 		System.out.println("4 -Delete Publication");
 		//System.out.println("5 -Show all Publications");
+	}
+	
+	private static String getProperty(String s) {
+		return textLangProvider.INSTANCE.getProperty(s);
 	}
 	
 }
