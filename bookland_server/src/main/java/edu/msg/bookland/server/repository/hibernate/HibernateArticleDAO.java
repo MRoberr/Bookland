@@ -84,7 +84,7 @@ public class HibernateArticleDAO implements ArticleDAO {
 
 			Root<Article> articleRoot = update.from(Article.class);
 			update.set(articleRoot.get(Article_.title), article.getTitle());
-			update.set(articleRoot.get(Article_.publicationUuid), article.getPublicationUuid());
+			update.set(articleRoot.get(Article_.publication), article.getPublication());
 			update.where(builder.equal(articleRoot.get(Article_.uuId), article.getUUID()));
 			entityManager.createQuery(update).executeUpdate();
 			entityManager.getTransaction().commit();

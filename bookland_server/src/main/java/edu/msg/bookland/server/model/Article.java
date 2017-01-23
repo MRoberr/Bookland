@@ -25,7 +25,7 @@ public class Article extends BaseEntity {
 
 	@ManyToOne
 	@JoinColumn(name = "publications_uuid")
-	private Publication publicationUuid;
+	private Publication publication;
 
 	public Article() {
 
@@ -44,11 +44,11 @@ public class Article extends BaseEntity {
 		this.title = title;
 	}
 
-	public Publication getPublicationUuid() {
-		return publicationUuid;
+	public Publication getPublication() {
+		return publication;
 	}
 
-	public void setPublicationUuid(Publication publicationUuid) {
-		this.publicationUuid = publicationUuid;
+	public void setPublication(Publication publication) {
+		this.publication = publication;
 	}
 }

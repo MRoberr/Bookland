@@ -30,7 +30,7 @@ public class BasicUserBL implements UserBL {
 			return userDAO.getAllUsers();
 		} catch (RepositoryException e) {
 			LOGGER.error("Can't get all User!");
-			throw new BusinesLogicException("Can't get all User!", e);
+			throw new BusinesLogicException(e.getMessage(), e);
 		}
 	}
 
@@ -45,7 +45,7 @@ public class BasicUserBL implements UserBL {
 			userDAO.insertUser(user);
 		} catch (RepositoryException e) {
 			LOGGER.error("Can't insert User!");
-			throw new BusinesLogicException("Can't insert User!", e);
+			throw new BusinesLogicException(e.getMessage(), e);
 		}
 	}
 
@@ -60,7 +60,7 @@ public class BasicUserBL implements UserBL {
 			userDAO.updateUser(user);
 		} catch (RepositoryException e) {
 			LOGGER.error("Can't update User!");
-			throw new BusinesLogicException("Can't update User!", e);
+			throw new BusinesLogicException(e.getMessage(), e);
 		}
 	}
 
@@ -82,7 +82,7 @@ public class BasicUserBL implements UserBL {
 			}
 		} catch (RepositoryException e) {
 			LOGGER.error("Can't delete User!");
-			throw new BusinesLogicException("Can't delete User!", e);
+			throw new BusinesLogicException(e.getMessage(), e);
 		}
 	}
 
@@ -97,7 +97,7 @@ public class BasicUserBL implements UserBL {
 			userDAO.updateUserWithoutPassword(user);
 		} catch (RepositoryException e) {
 			LOGGER.error("Can't update User!");
-			throw new BusinesLogicException("Can't update User!", e);
+			throw new BusinesLogicException(e.getMessage(), e);
 		}
 	}
 
@@ -112,7 +112,7 @@ public class BasicUserBL implements UserBL {
 			return userDAO.login(userName, password);
 		} catch (RepositoryException e) {
 			LOGGER.error("Can't login!");
-			throw new BusinesLogicException("Can't login!", e);
+			throw new BusinesLogicException(e.getMessage(), e);
 		}
 	}
 
@@ -127,7 +127,7 @@ public class BasicUserBL implements UserBL {
 			return userDAO.searchUserByName(name);
 		} catch (RepositoryException e) {
 			LOGGER.error("Can't get Users!");
-			throw new BusinesLogicException("Can't get Users!", e);
+			throw new BusinesLogicException(e.getMessage(), e);
 		}
 	}
 }
