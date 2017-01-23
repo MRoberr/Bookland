@@ -369,7 +369,7 @@ public class HibernatePublicationDAO implements PublicationDAO {
 
 		entityManager.getTransaction().begin();
 		CriteriaUpdate<Book> updateCopiesLeft = builder.createCriteriaUpdate(Book.class);
-
+ 
 		Root<Book> bookRoot = updateCopiesLeft.from(Book.class);
 
 		pub.setCopiesLeft(pub.getCopiesLeft() + value);
