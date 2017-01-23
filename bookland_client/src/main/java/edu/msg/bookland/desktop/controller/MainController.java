@@ -45,8 +45,8 @@ public class MainController {
 	/**
 	 * Constant messages
 	 */
-	private final String exitBackString = textLangProvider.INSTANCE.getProperty("exitBackStr");
-	private final String exitString = textLangProvider.INSTANCE.getProperty("exitStr");
+	private String exitBackString = textLangProvider.INSTANCE.getProperty("exitBackStr");
+	private String exitString = textLangProvider.INSTANCE.getProperty("exitStr");
 
 	/**
 	 * Start console application with constructor
@@ -84,7 +84,7 @@ public class MainController {
 	 */
 	private void chooseLanguage() {
 		MainView.menuForLanguage();
-		handleLanguageCommand();
+		handleLanguageCommand();	
 	}
 
 	/**
@@ -138,6 +138,8 @@ public class MainController {
 			System.out.println(exitString);
 			break;
 		}
+		exitString = textLangProvider.INSTANCE.getProperty("exitStr");
+		exitBackString = textLangProvider.INSTANCE.getProperty("exitBackStr");	
 	}
 
 	/**
@@ -303,7 +305,7 @@ public class MainController {
 					break;
 				}
 			}
-			// break;
+			break;
 		case 2:
 			while (true) {
 				System.out.println(textLangProvider.INSTANCE.getProperty("operationAuthorManagement") + "=");
