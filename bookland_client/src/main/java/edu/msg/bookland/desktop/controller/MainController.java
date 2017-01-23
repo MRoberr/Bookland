@@ -52,9 +52,10 @@ public class MainController {
 	 * Start console application with constructor
 	 */
 	public MainController() {
-		chooseLanguage();
-		while (true) {
-			handleLogin();
+		if (chooseLanguage() == 0) {
+			while (true) {
+				handleLogin();
+			}
 		}
 	}
 
@@ -82,9 +83,11 @@ public class MainController {
 	/**
 	 * Controller for internationalization/language choose
 	 */
-	private void chooseLanguage() {
+	private int chooseLanguage() {
 		MainView.menuForLanguage();
-		handleLanguageCommand();
+		while (true) {
+			return handleLanguageCommand();
+		}
 	}
 
 	/**
@@ -115,13 +118,13 @@ public class MainController {
 	/**
 	 * Controller for language change
 	 */
-	private void handleLanguageCommand() {
+	private int handleLanguageCommand() {
 		int cmd = getIntLine();
 		switch (cmd) {
 		case -1:
 			System.out.println(textLangProvider.INSTANCE.getProperty("exitProg"));
 			System.exit(0);
-			break;
+			return -1;
 		case 1:
 			textLangProvider.INSTANCE.setLocale(new Locale("En", "en"));
 			System.out.println(textLangProvider.INSTANCE.getProperty("languageChoosen"));
@@ -136,10 +139,10 @@ public class MainController {
 			break;
 		default:
 			System.out.println(exitString);
-			break;
 		}
 		exitString = textLangProvider.INSTANCE.getProperty("exitStr");
 		exitBackString = textLangProvider.INSTANCE.getProperty("exitBackStr");
+		return 0;
 	}
 
 	/**
