@@ -11,6 +11,7 @@ import edu.msg.bookland.server.model.User;
 import edu.msg.bookland.server.repository.DAOFactory;
 import edu.msg.bookland.server.repository.RepositoryException;
 import edu.msg.bookland.server.repository.UserDAO;
+import edu.msg.bookland.server.util.PasswordEncrypting;
 
 /**
  * Implementation of {@link UserBL}
@@ -20,6 +21,7 @@ import edu.msg.bookland.server.repository.UserDAO;
 public class BasicUserBL implements UserBL {
 	private static final Logger LOGGER = Logger.getLogger(BasicUserBL.class);
 	private UserDAO userDAO = DAOFactory.getDAOFactory().getUserDAO();
+	private static final String SALT = "user";
 
 	/*
 	 * @see edu.msg.bookland.server.business_logic.UserBL#getAllUsers()
@@ -42,6 +44,7 @@ public class BasicUserBL implements UserBL {
 	@Override
 	public void insertUser(User user) throws BusinesLogicException {
 		try {
+			user.setPassword(PasswordEncrypting.encrypt(user.getPassword(), SALT));
 			userDAO.insertUser(user);
 		} catch (RepositoryException e) {
 			LOGGER.error("Can't insert User!");
@@ -57,6 +60,7 @@ public class BasicUserBL implements UserBL {
 	@Override
 	public void updateUser(User user) throws BusinesLogicException {
 		try {
+			user.setPassword(PasswordEncrypting.encrypt(user.getPassword(), SALT));
 			userDAO.updateUser(user);
 		} catch (RepositoryException e) {
 			LOGGER.error("Can't update User!");
@@ -109,7 +113,7 @@ public class BasicUserBL implements UserBL {
 	@Override
 	public UserType login(String userName, String password) throws BusinesLogicException {
 		try {
-			return userDAO.login(userName, password);
+			return userDAO.login(userName, PasswordEncrypting.encrypt(password, SALT));
 		} catch (RepositoryException e) {
 			LOGGER.error("Can't login!");
 			throw new BusinesLogicException(e.getMessage(), e);
