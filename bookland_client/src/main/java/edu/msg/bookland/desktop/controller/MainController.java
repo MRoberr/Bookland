@@ -5,14 +5,17 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.InputMismatchException;
 import java.util.List;
+import java.util.Locale;
 import java.util.Scanner;
 
 import edu.msg.bookland.common.model.BorrowingDTO;
 import edu.msg.bookland.common.model.PublicationDTO;
+import edu.msg.bookland.common.model.ServiceException;
 import edu.msg.bookland.common.model.UserDTO;
 import edu.msg.bookland.common.model.UserType;
 import edu.msg.bookland.desktop.RequestException;
 import edu.msg.bookland.desktop.model.ConnectionModel;
+import edu.msg.bookland.desktop.util.textLangProvider;
 import edu.msg.bookland.desktop.view.CustomServiceView;
 import edu.msg.bookland.desktop.view.DataAdministrationView;
 import edu.msg.bookland.desktop.view.MainView;
@@ -44,13 +47,14 @@ public class MainController {
 	/**
 	 * Constant messages
 	 */
-	private final String exitBackString = " Try again or (-1 exit) (-2 back).";
-	private final String exitString = " Try again or (-1 exit).";
+	private final String exitBackString = textLangProvider.INSTANCE.getProperty("exitBackStr");
+	private final String exitString = textLangProvider.INSTANCE.getProperty("exitStr");
 
 	/**
 	 * Start console application with constructor
 	 */
 	public MainController() {
+		chooseLanguage();
 		while (true) {
 			consoleLogin();
 		}
@@ -70,23 +74,29 @@ public class MainController {
 			try {
 				cmd = scanner.nextInt();
 			} catch (InputMismatchException e) {
-				System.out.println("Incorrect command." + exitString);
+				System.out.println(exitString);
 				scanner.next();
 			}
 		}
 		return cmd;
+	}
+	
+	/**
+	 * Controller for internationalization/language choose
+	 */
+	private void chooseLanguage() {
+		MainView.menuForLanguage();
+		handleLanguageCommand();				
 	}
 
 	/**
 	 * Controller for login
 	 */
 	private void consoleLogin() {
-		System.out.println("Please enter your name and password!");
+		System.out.println(textLangProvider.INSTANCE.getProperty("loginEnterNameAndPass"));
 		try {
 			UserType login = ConnectionModel.USER_SERVICE_RMI.login(getLine(), getLine());
-			if (login == null) {
-				System.out.println("Invalid user name or password, try again!\n");
-			} else if (login.equals(UserType.READER)) {
+			if (login.equals(UserType.READER)) {
 				System.out.println("Logged in as user=");
 				while (true) {
 					MainView.menuForUser();
@@ -99,8 +109,38 @@ public class MainController {
 					handleAdminCommand();
 				}
 			}
+		} catch (ServiceException e) {
+			System.out.println(textLangProvider.INSTANCE.getProperty("loginInvalidUsernameOrPassword")+"\n");
 		} catch (RemoteException e) {
 			System.out.println("Connection error, login failed.");
+		} 
+	}
+
+	/**
+	 * Controller for language change
+	 */
+	private void handleLanguageCommand() {
+		int cmd = getIntLine();
+		switch (cmd) {
+		case -1:
+			System.out.println(textLangProvider.INSTANCE.getProperty("exitProg"));
+			System.exit(0);
+			break;
+		case 1:		
+			textLangProvider.INSTANCE.setLocale(new Locale("En", "en"));
+			System.out.println(textLangProvider.INSTANCE.getProperty("languageChoosen"));
+			break;			
+		case 2:		
+			textLangProvider.INSTANCE.setLocale(new Locale("Hu", "hu"));
+			System.out.println(textLangProvider.INSTANCE.getProperty("languageChoosen"));
+			break;
+		case 3:		
+			textLangProvider.INSTANCE.setLocale(new Locale("Ro", "ro"));
+			System.out.println(textLangProvider.INSTANCE.getProperty("languageChoosen"));
+			break;
+		default:
+			System.out.println(exitString);
+			break;		
 		}
 	}
 
@@ -111,14 +151,17 @@ public class MainController {
 		int cmd = getIntLine();
 		switch (cmd) {
 		case -1:
-			System.out.println("Exit.");
+			System.out.println(textLangProvider.INSTANCE.getProperty("exitProg"));
 			System.exit(0);
 			break;
 		case 1:
 			searchPublications();
 			break;
+		case 2:
+			chooseLanguage();
+			break;
 		default:
-			System.out.println("Invalid Command." + exitString);
+			System.out.println(exitString);
 			break;
 		}
 	}
@@ -130,7 +173,7 @@ public class MainController {
 		int cmd = getIntLine();
 		switch (cmd) {
 		case -1:
-			System.out.println("Exit.");
+			System.out.println(textLangProvider.INSTANCE.getProperty("exitProg"));
 			System.exit(0);
 			break;
 		case 1:
@@ -151,8 +194,11 @@ public class MainController {
 				}
 			}
 			break;
+		case 3:
+			chooseLanguage();
+			break;
 		default:
-			System.out.println("Invalid Command." + exitString);
+			System.out.println(exitString);
 			break;
 		}
 	}
@@ -168,13 +214,12 @@ public class MainController {
 		case -2:
 			return -2;
 		case -1:
-			System.out.println("Exit.");
+			System.out.println(textLangProvider.INSTANCE.getProperty("exitProg"));
 			System.exit(0);
 			break;
 		case 1:
 			System.out.println("Borrow publication=");
 			try {
-				System.out.println("Enter user name!");
 				searchUsers();
 				tempUser = getUserFromResult();
 				if (tempUser != null) {
@@ -208,7 +253,6 @@ public class MainController {
 		case 2:
 			System.out.println("Return publication=");
 			try {
-				System.out.println("Enter user name!");
 				searchUsers();
 				tempUser = getUserFromResult();
 				if (tempUser != null) {
@@ -233,7 +277,7 @@ public class MainController {
 			}
 			break;
 		default:
-			System.out.println("Invalid Command." + exitBackString);
+			System.out.println(exitBackString);
 			break;
 		}
 		return 0;
@@ -250,7 +294,7 @@ public class MainController {
 		case -2:
 			return -2;
 		case -1:
-			System.out.println("");
+			System.out.println(textLangProvider.INSTANCE.getProperty("exitProg"));
 			System.exit(0);
 			break;
 		case 1:
@@ -266,7 +310,7 @@ public class MainController {
 			System.out.println("");
 			break;
 		default:
-			System.out.println("Invalid Command." + exitBackString);
+			System.out.println(exitBackString);
 			break;
 		}
 		return 0;
@@ -291,7 +335,7 @@ public class MainController {
 			deleteUser();
 			break;
 		default:
-
+			System.out.println(exitBackString);
 			break;
 		}
 		return 0;
@@ -420,6 +464,7 @@ public class MainController {
 	 * Auxiliary for retrieving Users by name
 	 */
 	private void searchUsers() {
+		System.out.println("Enter user name!");
 		tempStr = getLine();
 		tempUsers = dac.getUsers(tempStr);
 		if ((tempUsers == null) || (tempUsers.isEmpty())) {
@@ -441,16 +486,16 @@ public class MainController {
 		if (tempPublications == null) {
 			return null;
 		} else {
-			System.out.println("Select number from the list above.");
+			System.out.println(textLangProvider.INSTANCE.getProperty("selectNrFromList"));
 			int cmd = getIntLine();
 			if (cmd == -1) {
-				System.out.println("Exit.");
+				System.out.println(textLangProvider.INSTANCE.getProperty("exitProg"));
 				System.exit(0);
 				return null;
 			} else if ((cmd <= tempPublications.size()) && (cmd > 0)) {
 				return tempPublications.get(--cmd);
 			} else {
-				System.out.println("Invalid Command." + exitString);
+				System.out.println(exitString);
 				return null;
 			}
 		}
@@ -465,16 +510,16 @@ public class MainController {
 		if (tempBorrowings == null) {
 			return null;
 		} else {
-			System.out.println("Select number from the list above.");
+			System.out.println(textLangProvider.INSTANCE.getProperty("selectNrFromList"));
 			int cmd = getIntLine();
 			if (cmd == -1) {
-				System.out.println("Exit.");
+				System.out.println(textLangProvider.INSTANCE.getProperty("exitProg"));
 				System.exit(0);
 				return null;
 			} else if ((cmd <= tempBorrowings.size()) && (cmd > 0)) {
 				return tempBorrowings.get(--cmd);
 			} else {
-				System.out.println("Invalid Command." + exitString);
+				System.out.println(exitString);
 				return null;
 			}
 		}
@@ -489,16 +534,16 @@ public class MainController {
 		if (tempUsers == null) {
 			return null;
 		} else {
-			System.out.println("Select number from the list above.");
+			System.out.println(textLangProvider.INSTANCE.getProperty("selectNrFromList"));
 			int cmd = getIntLine();
 			if (cmd == -1) {
-				System.out.println("Exit.");
+				System.out.println(textLangProvider.INSTANCE.getProperty("exitProg"));
 				System.exit(0);
 				return null;
 			} else if ((cmd <= tempUsers.size()) && (cmd > 0)) {
 				return tempUsers.get(--cmd);
 			} else {
-				System.out.println("Invalid Command." + exitString);
+				System.out.println(exitString);
 				return null;
 			}
 		}
