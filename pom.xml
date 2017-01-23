@@ -12,16 +12,30 @@
 		<module>bookland_common</module>
 		<module>bookland_client</module>
 	</modules>
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<maven.compiler.source>1.8</maven.compiler.source>
 	</properties>
-	<dependencies>
-		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>1.2.17</version>
-		</dependency>
-	</dependencies>
+
+	<dependencyManagement>
+
+		<dependencies>
+			<dependency>
+				<groupId>log4j</groupId>
+				<artifactId>log4j</artifactId>
+				<version>1.2.17</version>
+			</dependency>
+
+			<dependency>
+				<groupId>edu.msg.bookland</groupId>
+				<artifactId>bookland_common</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+			</dependency>
+
+		</dependencies>
+
+	</dependencyManagement>
+
 </project>

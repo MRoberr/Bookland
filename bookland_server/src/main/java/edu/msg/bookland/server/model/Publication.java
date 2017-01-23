@@ -23,7 +23,7 @@ import javax.persistence.Transient;
 @Entity
 @Table(name = "publications")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.INTEGER)
+@DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.STRING)
 public abstract class Publication extends BaseEntity {
 
 	@Transient

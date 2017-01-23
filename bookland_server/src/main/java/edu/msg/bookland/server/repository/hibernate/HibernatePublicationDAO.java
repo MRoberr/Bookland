@@ -113,10 +113,10 @@ public class HibernatePublicationDAO implements PublicationDAO {
 
 	@Override
 	public void updateBook(Book book) throws RepositoryException {
-		// entityManager.getTransaction().begin();
-		// Book book2 = entityManager.find(Book.class, book.getUUID());
-		// book2.setTitle("asddsad");
-		// entityManager.getTransaction().commit();
+		 entityManager.getTransaction().begin();
+		 Book book2 = entityManager.find(Book.class, book.getUUID());
+		 book2.setTitle("asddsad");
+		 entityManager.getTransaction().commit();
 
 		entityManager.getTransaction().begin();
 		CriteriaUpdate<Book> update = builder.createCriteriaUpdate(Book.class);

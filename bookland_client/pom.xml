@@ -9,12 +9,17 @@
 	<artifactId>bookland_client</artifactId>
 
 	<dependencies>
+
 		<dependency>
 			<groupId>edu.msg.bookland</groupId>
 			<artifactId>bookland_common</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
-		
+
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+		</dependency>
+
 	</dependencies>
 
 </project>
