@@ -41,4 +41,8 @@ public class MagazineDTO extends PublicationDTO {
 		return "Magazine: " + ss + ", releaseDate " + year + "-" + month + ", " + authors;
 	}
 
+	public void setAuthors(List<AuthorDTO> authors) {
+		this.authors = authors;
+	}
+
 }

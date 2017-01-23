@@ -2,9 +2,11 @@ package edu.msg.bookland.server.model;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
 /**
@@ -20,6 +22,10 @@ public class Newspaper extends Publication{
 
 	@Transient
 	private static final long serialVersionUID = -3891407649176906111L;
+	
+
+	@OneToMany(mappedBy = "publicationUuid")	
+	List<Article> articles;
 	
 	public Newspaper() {		
 		borrow = new ArrayList<>();
@@ -43,6 +49,14 @@ public class Newspaper extends Publication{
 		int month = date.get(Calendar.MONTH); 
 		int day = date.get(Calendar.DAY_OF_MONTH); 
 		return "Newspaper: "+ ss+", releaseDate "+year+"-"+month+"-"+day ;
+	}
+
+	public List<Article> getArticles() {
+		return articles;
+	}
+
+	public void setArticles(List<Article> articles) {
+		this.articles = articles;
 	}
 
 }

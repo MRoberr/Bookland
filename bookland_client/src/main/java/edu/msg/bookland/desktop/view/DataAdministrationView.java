@@ -12,18 +12,17 @@ public abstract class DataAdministrationView {
 	
 	public static void menuForAdminDataA() {
 		System.out.println("Please choose an option!");
-		System.out.println("1 -Publication management");
+		System.out.println("1 -User management");
 		System.out.println("2 -Author management");
-		System.out.println("3 -User management");
+		System.out.println("3 -Publication management");
 		//System.out.println("4 -Borrowing management");
 	}
 	
 	public static void menuForAdminDataAUsers() {
 		System.out.println("Please choose an option!");
-		System.out.println("1 -Search for User");
-		System.out.println("2 -Insert User");
-		System.out.println("3 -Update User");
-		System.out.println("4 -Delete User");
+		System.out.println("1 -Insert User");
+		System.out.println("2 -Update User");
+		System.out.println("3 -Delete User");
 		//System.out.println("5 -Show all Users");
 	}
 	

@@ -1631,4 +1631,268 @@ Caused by: com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationExce
   2017-01-19 13:39:37 INFO  ConnectionManager:45 - Server online!
   2017-01-19 13:39:43 INFO  QueryTranslatorFactoryInitiator:47 - HHH000397: Using ASTQueryTranslatorFactory
   2017-01-19 13:39:48 INFO  HibernateUserDAO:169 - Retrieved user list3
+  2017-01-20 13:08:47 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [
+	name: bookland_jpa
+	...]
+  2017-01-20 13:08:47 INFO  Version:45 - HHH000412: Hibernate Core {5.2.6.Final}
+  2017-01-20 13:08:47 INFO  Environment:213 - HHH000206: hibernate.properties not found
+  2017-01-20 13:08:47 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+  2017-01-20 13:08:47 WARN  pooling:70 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+  2017-01-20 13:08:47 INFO  pooling:126 - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library?useSSL=false]
+  2017-01-20 13:08:47 INFO  pooling:135 - HHH10001001: Connection properties: {user=library_admin, password=****}
+  2017-01-20 13:08:47 INFO  pooling:140 - HHH10001003: Autocommit mode: false
+  2017-01-20 13:08:47 INFO  DriverManagerConnectionProviderImpl:41 - HHH000115: Hibernate connection pool size: 20 (min=1)
+  2017-01-20 13:08:47 INFO  Dialect:157 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+  2017-01-20 13:11:00 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [
+	name: bookland_jpa
+	...]
+  2017-01-20 13:11:00 INFO  Version:45 - HHH000412: Hibernate Core {5.2.6.Final}
+  2017-01-20 13:11:00 INFO  Environment:213 - HHH000206: hibernate.properties not found
+  2017-01-20 13:11:00 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+  2017-01-20 13:11:00 WARN  pooling:70 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+  2017-01-20 13:11:00 INFO  pooling:126 - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library?useSSL=false]
+  2017-01-20 13:11:00 INFO  pooling:135 - HHH10001001: Connection properties: {user=library_admin, password=****}
+  2017-01-20 13:11:00 INFO  pooling:140 - HHH10001003: Autocommit mode: false
+  2017-01-20 13:11:00 INFO  DriverManagerConnectionProviderImpl:41 - HHH000115: Hibernate connection pool size: 20 (min=1)
+  2017-01-20 13:11:01 INFO  Dialect:157 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+  2017-01-20 13:11:01 WARN  RootClass:285 - HHH000038: Composite-id class does not override equals(): edu.msg.bookland.server.model.UserPublicationId
+  2017-01-20 13:11:01 WARN  RootClass:288 - HHH000039: Composite-id class does not override hashCode(): edu.msg.bookland.server.model.UserPublicationId
+  2017-01-20 13:11:01 INFO  QueryTranslatorFactoryInitiator:47 - HHH000397: Using ASTQueryTranslatorFactory
+  2017-01-20 13:11:30 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [
+	name: bookland_jpa
+	...]
+  2017-01-20 13:11:30 INFO  Version:45 - HHH000412: Hibernate Core {5.2.6.Final}
+  2017-01-20 13:11:30 INFO  Environment:213 - HHH000206: hibernate.properties not found
+  2017-01-20 13:11:30 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+  2017-01-20 13:11:30 WARN  pooling:70 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+  2017-01-20 13:11:30 INFO  pooling:126 - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library?useSSL=false]
+  2017-01-20 13:11:30 INFO  pooling:135 - HHH10001001: Connection properties: {user=library_admin, password=****}
+  2017-01-20 13:11:30 INFO  pooling:140 - HHH10001003: Autocommit mode: false
+  2017-01-20 13:11:30 INFO  DriverManagerConnectionProviderImpl:41 - HHH000115: Hibernate connection pool size: 20 (min=1)
+  2017-01-20 13:11:30 INFO  Dialect:157 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+  2017-01-20 13:11:30 WARN  RootClass:285 - HHH000038: Composite-id class does not override equals(): edu.msg.bookland.server.model.UserPublicationId
+  2017-01-20 13:11:30 WARN  RootClass:288 - HHH000039: Composite-id class does not override hashCode(): edu.msg.bookland.server.model.UserPublicationId
+  2017-01-20 13:11:31 INFO  QueryTranslatorFactoryInitiator:47 - HHH000397: Using ASTQueryTranslatorFactory
+  2017-01-20 14:00:30 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [
+	name: bookland_jpa
+	...]
+  2017-01-20 14:00:30 INFO  Version:45 - HHH000412: Hibernate Core {5.2.6.Final}
+  2017-01-20 14:00:30 INFO  Environment:213 - HHH000206: hibernate.properties not found
+  2017-01-20 14:00:30 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+  2017-01-20 14:00:30 WARN  pooling:70 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+  2017-01-20 14:00:30 INFO  pooling:126 - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library?useSSL=false]
+  2017-01-20 14:00:31 INFO  pooling:135 - HHH10001001: Connection properties: {user=library_admin, password=****}
+  2017-01-20 14:00:31 INFO  pooling:140 - HHH10001003: Autocommit mode: false
+  2017-01-20 14:00:31 INFO  DriverManagerConnectionProviderImpl:41 - HHH000115: Hibernate connection pool size: 20 (min=1)
+  2017-01-20 14:00:31 INFO  Dialect:157 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+  2017-01-20 14:00:31 WARN  RootClass:285 - HHH000038: Composite-id class does not override equals(): edu.msg.bookland.server.model.UserPublicationId
+  2017-01-20 14:00:31 WARN  RootClass:288 - HHH000039: Composite-id class does not override hashCode(): edu.msg.bookland.server.model.UserPublicationId
+  2017-01-20 14:00:31 INFO  QueryTranslatorFactoryInitiator:47 - HHH000397: Using ASTQueryTranslatorFactory
+  2017-01-20 14:03:07 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [
+	name: bookland_jpa
+	...]
+  2017-01-20 14:03:07 INFO  Version:45 - HHH000412: Hibernate Core {5.2.6.Final}
+  2017-01-20 14:03:07 INFO  Environment:213 - HHH000206: hibernate.properties not found
+  2017-01-20 14:03:07 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+  2017-01-20 14:03:07 WARN  pooling:70 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+  2017-01-20 14:03:07 INFO  pooling:126 - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library?useSSL=false]
+  2017-01-20 14:03:07 INFO  pooling:135 - HHH10001001: Connection properties: {user=library_admin, password=****}
+  2017-01-20 14:03:07 INFO  pooling:140 - HHH10001003: Autocommit mode: false
+  2017-01-20 14:03:07 INFO  DriverManagerConnectionProviderImpl:41 - HHH000115: Hibernate connection pool size: 20 (min=1)
+  2017-01-20 14:03:07 INFO  Dialect:157 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+  2017-01-20 14:03:07 WARN  RootClass:285 - HHH000038: Composite-id class does not override equals(): edu.msg.bookland.server.model.UserPublicationId
+  2017-01-20 14:03:07 WARN  RootClass:288 - HHH000039: Composite-id class does not override hashCode(): edu.msg.bookland.server.model.UserPublicationId
+  2017-01-20 14:03:08 INFO  QueryTranslatorFactoryInitiator:47 - HHH000397: Using ASTQueryTranslatorFactory
+  2017-01-20 14:03:33 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [
+	name: bookland_jpa
+	...]
+  2017-01-20 14:03:33 INFO  Version:45 - HHH000412: Hibernate Core {5.2.6.Final}
+  2017-01-20 14:03:33 INFO  Environment:213 - HHH000206: hibernate.properties not found
+  2017-01-20 14:03:33 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+  2017-01-20 14:03:33 WARN  pooling:70 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+  2017-01-20 14:03:33 INFO  pooling:126 - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library?useSSL=false]
+  2017-01-20 14:03:33 INFO  pooling:135 - HHH10001001: Connection properties: {user=library_admin, password=****}
+  2017-01-20 14:03:33 INFO  pooling:140 - HHH10001003: Autocommit mode: false
+  2017-01-20 14:03:33 INFO  DriverManagerConnectionProviderImpl:41 - HHH000115: Hibernate connection pool size: 20 (min=1)
+  2017-01-20 14:03:33 INFO  Dialect:157 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+  2017-01-20 14:03:34 WARN  RootClass:285 - HHH000038: Composite-id class does not override equals(): edu.msg.bookland.server.model.UserPublicationId
+  2017-01-20 14:03:34 WARN  RootClass:288 - HHH000039: Composite-id class does not override hashCode(): edu.msg.bookland.server.model.UserPublicationId
+  2017-01-20 14:03:34 INFO  QueryTranslatorFactoryInitiator:47 - HHH000397: Using ASTQueryTranslatorFactory
+  2017-01-20 14:06:33 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [
+	name: bookland_jpa
+	...]
+  2017-01-20 14:06:33 INFO  Version:45 - HHH000412: Hibernate Core {5.2.6.Final}
+  2017-01-20 14:06:33 INFO  Environment:213 - HHH000206: hibernate.properties not found
+  2017-01-20 14:06:33 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+  2017-01-20 14:06:33 WARN  pooling:70 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+  2017-01-20 14:06:33 INFO  pooling:126 - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library?useSSL=false]
+  2017-01-20 14:06:33 INFO  pooling:135 - HHH10001001: Connection properties: {user=library_admin, password=****}
+  2017-01-20 14:06:33 INFO  pooling:140 - HHH10001003: Autocommit mode: false
+  2017-01-20 14:06:33 INFO  DriverManagerConnectionProviderImpl:41 - HHH000115: Hibernate connection pool size: 20 (min=1)
+  2017-01-20 14:06:33 INFO  Dialect:157 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+  2017-01-20 14:06:34 WARN  RootClass:285 - HHH000038: Composite-id class does not override equals(): edu.msg.bookland.server.model.UserPublicationId
+  2017-01-20 14:06:34 WARN  RootClass:288 - HHH000039: Composite-id class does not override hashCode(): edu.msg.bookland.server.model.UserPublicationId
+  2017-01-20 14:06:34 INFO  QueryTranslatorFactoryInitiator:47 - HHH000397: Using ASTQueryTranslatorFactory
+  2017-01-20 14:07:17 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [
+	name: bookland_jpa
+	...]
+  2017-01-20 14:07:17 INFO  Version:45 - HHH000412: Hibernate Core {5.2.6.Final}
+  2017-01-20 14:07:17 INFO  Environment:213 - HHH000206: hibernate.properties not found
+  2017-01-20 14:07:17 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+  2017-01-20 14:07:17 WARN  pooling:70 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+  2017-01-20 14:07:17 INFO  pooling:126 - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library?useSSL=false]
+  2017-01-20 14:07:17 INFO  pooling:135 - HHH10001001: Connection properties: {user=library_admin, password=****}
+  2017-01-20 14:07:17 INFO  pooling:140 - HHH10001003: Autocommit mode: false
+  2017-01-20 14:07:17 INFO  DriverManagerConnectionProviderImpl:41 - HHH000115: Hibernate connection pool size: 20 (min=1)
+  2017-01-20 14:07:17 INFO  Dialect:157 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+  2017-01-20 14:07:17 WARN  RootClass:285 - HHH000038: Composite-id class does not override equals(): edu.msg.bookland.server.model.UserPublicationId
+  2017-01-20 14:07:17 WARN  RootClass:288 - HHH000039: Composite-id class does not override hashCode(): edu.msg.bookland.server.model.UserPublicationId
+  2017-01-20 14:07:18 INFO  QueryTranslatorFactoryInitiator:47 - HHH000397: Using ASTQueryTranslatorFactory
+  2017-01-20 14:08:18 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [
+	name: bookland_jpa
+	...]
+  2017-01-20 14:08:18 INFO  Version:45 - HHH000412: Hibernate Core {5.2.6.Final}
+  2017-01-20 14:08:18 INFO  Environment:213 - HHH000206: hibernate.properties not found
+  2017-01-20 14:08:18 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+  2017-01-20 14:08:18 WARN  pooling:70 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+  2017-01-20 14:08:18 INFO  pooling:126 - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library?useSSL=false]
+  2017-01-20 14:08:18 INFO  pooling:135 - HHH10001001: Connection properties: {user=library_admin, password=****}
+  2017-01-20 14:08:18 INFO  pooling:140 - HHH10001003: Autocommit mode: false
+  2017-01-20 14:08:18 INFO  DriverManagerConnectionProviderImpl:41 - HHH000115: Hibernate connection pool size: 20 (min=1)
+  2017-01-20 14:08:18 INFO  Dialect:157 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+  2017-01-20 14:08:19 WARN  RootClass:285 - HHH000038: Composite-id class does not override equals(): edu.msg.bookland.server.model.UserPublicationId
+  2017-01-20 14:08:19 WARN  RootClass:288 - HHH000039: Composite-id class does not override hashCode(): edu.msg.bookland.server.model.UserPublicationId
+  2017-01-20 14:08:19 INFO  QueryTranslatorFactoryInitiator:47 - HHH000397: Using ASTQueryTranslatorFactory
+  2017-01-20 14:10:45 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [
+	name: bookland_jpa
+	...]
+  2017-01-20 14:10:45 INFO  Version:45 - HHH000412: Hibernate Core {5.2.6.Final}
+  2017-01-20 14:10:45 INFO  Environment:213 - HHH000206: hibernate.properties not found
+  2017-01-20 14:10:45 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+  2017-01-20 14:10:45 WARN  pooling:70 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+  2017-01-20 14:10:45 INFO  pooling:126 - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library?useSSL=false]
+  2017-01-20 14:10:45 INFO  pooling:135 - HHH10001001: Connection properties: {user=library_admin, password=****}
+  2017-01-20 14:10:45 INFO  pooling:140 - HHH10001003: Autocommit mode: false
+  2017-01-20 14:10:45 INFO  DriverManagerConnectionProviderImpl:41 - HHH000115: Hibernate connection pool size: 20 (min=1)
+  2017-01-20 14:10:45 INFO  Dialect:157 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+  2017-01-20 14:10:46 WARN  RootClass:285 - HHH000038: Composite-id class does not override equals(): edu.msg.bookland.server.model.UserPublicationId
+  2017-01-20 14:10:46 WARN  RootClass:288 - HHH000039: Composite-id class does not override hashCode(): edu.msg.bookland.server.model.UserPublicationId
+  2017-01-20 14:10:46 INFO  QueryTranslatorFactoryInitiator:47 - HHH000397: Using ASTQueryTranslatorFactory
+  2017-01-20 14:11:36 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [
+	name: bookland_jpa
+	...]
+  2017-01-20 14:11:36 INFO  Version:45 - HHH000412: Hibernate Core {5.2.6.Final}
+  2017-01-20 14:11:36 INFO  Environment:213 - HHH000206: hibernate.properties not found
+  2017-01-20 14:11:36 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+  2017-01-20 14:11:36 WARN  pooling:70 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+  2017-01-20 14:11:36 INFO  pooling:126 - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library?useSSL=false]
+  2017-01-20 14:11:36 INFO  pooling:135 - HHH10001001: Connection properties: {user=library_admin, password=****}
+  2017-01-20 14:11:36 INFO  pooling:140 - HHH10001003: Autocommit mode: false
+  2017-01-20 14:11:36 INFO  DriverManagerConnectionProviderImpl:41 - HHH000115: Hibernate connection pool size: 20 (min=1)
+  2017-01-20 14:11:36 INFO  Dialect:157 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+  2017-01-20 14:11:36 WARN  RootClass:285 - HHH000038: Composite-id class does not override equals(): edu.msg.bookland.server.model.UserPublicationId
+  2017-01-20 14:11:36 WARN  RootClass:288 - HHH000039: Composite-id class does not override hashCode(): edu.msg.bookland.server.model.UserPublicationId
+  2017-01-20 14:11:37 INFO  QueryTranslatorFactoryInitiator:47 - HHH000397: Using ASTQueryTranslatorFactory
+  2017-01-20 14:12:36 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [
+	name: bookland_jpa
+	...]
+  2017-01-20 14:12:36 INFO  Version:45 - HHH000412: Hibernate Core {5.2.6.Final}
+  2017-01-20 14:12:36 INFO  Environment:213 - HHH000206: hibernate.properties not found
+  2017-01-20 14:12:36 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+  2017-01-20 14:12:36 WARN  pooling:70 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+  2017-01-20 14:12:36 INFO  pooling:126 - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library?useSSL=false]
+  2017-01-20 14:12:36 INFO  pooling:135 - HHH10001001: Connection properties: {user=library_admin, password=****}
+  2017-01-20 14:12:36 INFO  pooling:140 - HHH10001003: Autocommit mode: false
+  2017-01-20 14:12:36 INFO  DriverManagerConnectionProviderImpl:41 - HHH000115: Hibernate connection pool size: 20 (min=1)
+  2017-01-20 14:12:36 INFO  Dialect:157 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+  2017-01-20 14:12:37 WARN  RootClass:285 - HHH000038: Composite-id class does not override equals(): edu.msg.bookland.server.model.UserPublicationId
+  2017-01-20 14:12:37 WARN  RootClass:288 - HHH000039: Composite-id class does not override hashCode(): edu.msg.bookland.server.model.UserPublicationId
+  2017-01-20 14:12:37 INFO  QueryTranslatorFactoryInitiator:47 - HHH000397: Using ASTQueryTranslatorFactory
+  2017-01-20 14:14:16 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [
+	name: bookland_jpa
+	...]
+  2017-01-20 14:14:16 INFO  Version:45 - HHH000412: Hibernate Core {5.2.6.Final}
+  2017-01-20 14:14:16 INFO  Environment:213 - HHH000206: hibernate.properties not found
+  2017-01-20 14:14:16 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+  2017-01-20 14:14:16 WARN  pooling:70 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+  2017-01-20 14:14:16 INFO  pooling:126 - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library?useSSL=false]
+  2017-01-20 14:14:16 INFO  pooling:135 - HHH10001001: Connection properties: {user=library_admin, password=****}
+  2017-01-20 14:14:16 INFO  pooling:140 - HHH10001003: Autocommit mode: false
+  2017-01-20 14:14:16 INFO  DriverManagerConnectionProviderImpl:41 - HHH000115: Hibernate connection pool size: 20 (min=1)
+  2017-01-20 14:14:16 INFO  Dialect:157 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+  2017-01-20 14:14:17 WARN  RootClass:285 - HHH000038: Composite-id class does not override equals(): edu.msg.bookland.server.model.UserPublicationId
+  2017-01-20 14:14:17 WARN  RootClass:288 - HHH000039: Composite-id class does not override hashCode(): edu.msg.bookland.server.model.UserPublicationId
+  2017-01-20 14:14:17 INFO  QueryTranslatorFactoryInitiator:47 - HHH000397: Using ASTQueryTranslatorFactory
+  2017-01-20 14:15:29 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [
+	name: bookland_jpa
+	...]
+  2017-01-20 14:15:29 INFO  Version:45 - HHH000412: Hibernate Core {5.2.6.Final}
+  2017-01-20 14:15:29 INFO  Environment:213 - HHH000206: hibernate.properties not found
+  2017-01-20 14:15:29 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+  2017-01-20 14:15:29 WARN  pooling:70 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+  2017-01-20 14:15:29 INFO  pooling:126 - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library?useSSL=false]
+  2017-01-20 14:15:29 INFO  pooling:135 - HHH10001001: Connection properties: {user=library_admin, password=****}
+  2017-01-20 14:15:29 INFO  pooling:140 - HHH10001003: Autocommit mode: false
+  2017-01-20 14:15:29 INFO  DriverManagerConnectionProviderImpl:41 - HHH000115: Hibernate connection pool size: 20 (min=1)
+  2017-01-20 14:15:29 INFO  Dialect:157 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+  2017-01-20 14:15:30 WARN  RootClass:285 - HHH000038: Composite-id class does not override equals(): edu.msg.bookland.server.model.UserPublicationId
+  2017-01-20 14:15:30 WARN  RootClass:288 - HHH000039: Composite-id class does not override hashCode(): edu.msg.bookland.server.model.UserPublicationId
+  2017-01-20 14:15:30 INFO  QueryTranslatorFactoryInitiator:47 - HHH000397: Using ASTQueryTranslatorFactory
+  2017-01-20 14:25:42 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [
+	name: bookland_jpa
+	...]
+  2017-01-20 14:25:43 INFO  Version:45 - HHH000412: Hibernate Core {5.2.6.Final}
+  2017-01-20 14:25:43 INFO  Environment:213 - HHH000206: hibernate.properties not found
+  2017-01-20 14:25:43 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+  2017-01-20 14:25:43 WARN  pooling:70 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+  2017-01-20 14:25:43 INFO  pooling:126 - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library?useSSL=false]
+  2017-01-20 14:25:43 INFO  pooling:135 - HHH10001001: Connection properties: {user=library_admin, password=****}
+  2017-01-20 14:25:43 INFO  pooling:140 - HHH10001003: Autocommit mode: false
+  2017-01-20 14:25:43 INFO  DriverManagerConnectionProviderImpl:41 - HHH000115: Hibernate connection pool size: 20 (min=1)
+  2017-01-20 14:25:43 INFO  Dialect:157 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+  2017-01-20 14:25:43 WARN  RootClass:285 - HHH000038: Composite-id class does not override equals(): edu.msg.bookland.server.model.UserPublicationId
+  2017-01-20 14:25:43 WARN  RootClass:288 - HHH000039: Composite-id class does not override hashCode(): edu.msg.bookland.server.model.UserPublicationId
+  2017-01-20 14:25:44 INFO  QueryTranslatorFactoryInitiator:47 - HHH000397: Using ASTQueryTranslatorFactory
+  2017-01-20 14:27:38 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [
+	name: bookland_jpa
+	...]
+  2017-01-20 14:27:38 INFO  Version:45 - HHH000412: Hibernate Core {5.2.6.Final}
+  2017-01-20 14:27:38 INFO  Environment:213 - HHH000206: hibernate.properties not found
+  2017-01-20 14:27:38 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+  2017-01-20 14:27:38 WARN  pooling:70 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+  2017-01-20 14:27:38 INFO  pooling:126 - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library?useSSL=false]
+  2017-01-20 14:27:38 INFO  pooling:135 - HHH10001001: Connection properties: {user=library_admin, password=****}
+  2017-01-20 14:27:38 INFO  pooling:140 - HHH10001003: Autocommit mode: false
+  2017-01-20 14:27:38 INFO  DriverManagerConnectionProviderImpl:41 - HHH000115: Hibernate connection pool size: 20 (min=1)
+  2017-01-20 14:27:39 INFO  Dialect:157 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+  2017-01-20 14:27:39 WARN  RootClass:285 - HHH000038: Composite-id class does not override equals(): edu.msg.bookland.server.model.UserPublicationId
+  2017-01-20 14:27:39 WARN  RootClass:288 - HHH000039: Composite-id class does not override hashCode(): edu.msg.bookland.server.model.UserPublicationId
+  2017-01-20 14:27:39 INFO  QueryTranslatorFactoryInitiator:47 - HHH000397: Using ASTQueryTranslatorFactory
+  2017-01-20 14:28:13 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [
+	name: bookland_jpa
+	...]
+  2017-01-20 14:28:13 INFO  Version:45 - HHH000412: Hibernate Core {5.2.6.Final}
+  2017-01-20 14:28:13 INFO  Environment:213 - HHH000206: hibernate.properties not found
+  2017-01-20 14:28:13 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+  2017-01-20 14:28:13 WARN  pooling:70 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+  2017-01-20 14:28:13 INFO  pooling:126 - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library?useSSL=false]
+  2017-01-20 14:28:13 INFO  pooling:135 - HHH10001001: Connection properties: {user=library_admin, password=****}
+  2017-01-20 14:28:13 INFO  pooling:140 - HHH10001003: Autocommit mode: false
+  2017-01-20 14:28:13 INFO  DriverManagerConnectionProviderImpl:41 - HHH000115: Hibernate connection pool size: 20 (min=1)
+  2017-01-20 14:28:14 INFO  Dialect:157 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+  2017-01-20 14:28:14 WARN  RootClass:285 - HHH000038: Composite-id class does not override equals(): edu.msg.bookland.server.model.UserPublicationId
+  2017-01-20 14:28:14 WARN  RootClass:288 - HHH000039: Composite-id class does not override hashCode(): edu.msg.bookland.server.model.UserPublicationId
+  2017-01-20 14:28:14 INFO  QueryTranslatorFactoryInitiator:47 - HHH000397: Using ASTQueryTranslatorFactory
+  2017-01-20 16:47:53 INFO  LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [
+	name: bookland_jpa
+	...]
+  2017-01-20 16:47:54 INFO  Version:45 - HHH000412: Hibernate Core {5.2.6.Final}
+  2017-01-20 16:47:54 INFO  Environment:213 - HHH000206: hibernate.properties not found
+  2017-01-20 16:47:54 INFO  Version:66 - HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+  2017-01-20 16:47:54 WARN  pooling:70 - HHH10001002: Using Hibernate built-in connection pool (not for production use!)
+  2017-01-20 16:47:54 INFO  pooling:126 - HHH10001005: using driver [com.mysql.jdbc.Driver] at URL [jdbc:mysql://localhost:3306/library?useSSL=false]
+  2017-01-20 16:47:54 INFO  pooling:135 - HHH10001001: Connection properties: {user=library_admin, password=****}
+  2017-01-20 16:47:54 INFO  pooling:140 - HHH10001003: Autocommit mode: false
+  2017-01-20 16:47:54 INFO  DriverManagerConnectionProviderImpl:41 - HHH000115: Hibernate connection pool size: 20 (min=1)
+  2017-01-20 16:47:54 INFO  Dialect:157 - HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
   

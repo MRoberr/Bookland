@@ -41,4 +41,8 @@ public class BookDTO extends PublicationDTO {
 		return "Book: " + ss + ", releaseDate " + year + ", " + authors;
 	}
 
+	public void setAuthors(List<AuthorDTO> authors) {
+		this.authors = authors;
+	}
+
 }

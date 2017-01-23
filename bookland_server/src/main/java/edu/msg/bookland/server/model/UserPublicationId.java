@@ -42,5 +42,30 @@ public class UserPublicationId implements Serializable{
 		
 		return publicationId;
 	}
+	
+	@Override
+	public int hashCode() {
+		
+		return (int)userId.hashCode() + (int)publicationId.hashCode();
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+
+		if (obj == this) { 
+			return true;
+		}
+		
+		if (obj == null) {
+			return false;
+
+		}
+        if (!(obj instanceof UserPublicationId)) {
+        	return false;
+        }
+        
+        UserPublicationId pk = (UserPublicationId) obj;
+        return pk.userId.equals(userId) && pk.publicationId.equals(publicationId);
+	}
 
 }

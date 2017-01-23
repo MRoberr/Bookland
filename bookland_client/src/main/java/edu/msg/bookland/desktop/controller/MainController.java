@@ -250,11 +250,17 @@ public class MainController {
 		case -2:
 			return -2;
 		case -1:
-			System.out.println("Exit.");
+			System.out.println("");
 			System.exit(0);
 			break;
 		case 1:
-			System.out.println("");
+			while (true) {
+				System.out.println("=User managment=");
+				DataAdministrationView.menuForAdminDataAUsers();
+				if (handleAdminComm() == -2) {
+					break;
+				}
+			}
 			break;
 		case 2:
 			System.out.println("");
@@ -264,6 +270,114 @@ public class MainController {
 			break;
 		}
 		return 0;
+	}
+
+	private int handleAdminComm() {
+		int cmd = getIntLine();
+		switch (cmd) {
+		case -2:
+			return -2;
+		case -1:
+			System.out.println("Exit.");
+			System.exit(0);
+			break;
+		case 1:
+			createNewUser();
+			break;
+		case 2:
+			updateUser();
+			break;
+		case 3:
+			deleteUser();
+			break;
+		default:
+
+			break;
+		}
+		return 0;
+	}
+
+	private void updateUser() {
+		System.out.println("search user by name: ");
+		String selectedName = getLine();
+		List<UserDTO> userList = dac.getUsers(selectedName);
+		System.out.println("select user: ");
+		for (int i = 0; i < userList.size(); ++i) {
+			System.out.println(i + 1 + " " + userList.get(i).getName());
+		}
+		int number = getIntLine();
+		UserDTO user = userList.get(number - 1);
+
+		System.out.println("1 - update just the name");
+		System.out.println("2 - update just the email");
+		System.out.println("3 - update just the password");
+		System.out.println("4 - update all");
+		int cmd = getIntLine();
+		switch (cmd) {
+		case 1:
+			System.out.println("enter new name");
+			String newName = getLine();
+			user.setName(newName);
+			break;
+		case 2:
+			System.out.println("enter new email: ");
+			String newEmail = getLine();
+			user.setEmail(newEmail);
+			break;
+		case 3:
+			System.out.println("enter new password: ");
+			String newPassword = getLine();
+			user.setPassword(newPassword);
+			break;
+		case 4:
+			System.out.println("enter new name: ");
+			user.setName(getLine());
+			System.out.println("enter new email: ");
+			user.setEmail(getLine());
+			System.out.println("enter new password: ");
+			user.setPassword(getLine());
+			break;
+		default:
+			break;
+		}
+
+		dac.updateUser(user);
+
+	}
+
+	private void deleteUser() {
+		System.out.println("search user by name: ");
+		String selectedName = getLine();
+		List<UserDTO> userList = dac.getUsers(selectedName);
+		System.out.println("select user: ");
+		for (int i = 0; i < userList.size(); ++i) {
+			System.out.println(i + 1 + " " + userList.get(i).getName());
+		}
+		int number = getIntLine();
+		UserDTO user = userList.get(number - 1);
+
+		dac.deleteUser(user.getUUID());
+	}
+
+	private void createNewUser() {
+		UserDTO user = new UserDTO();
+		System.out.println("Enter name");
+		user.setName(getLine());
+		System.out.println("Enter email");
+		user.setEmail(getLine());
+		System.out.println("Enter password");
+		user.setPassword(getLine());
+		int loyaltyIndex = 10;
+		user.setLoyaltyIndex(loyaltyIndex);
+		UserType userType = UserType.READER;
+		user.setUserType(userType);
+		try {
+			dac.createNewUser(user);
+			System.out.println("Create successfull ");
+		} catch (RequestException e) {
+			System.out.println("Create not succsessfull");
+		}
+
 	}
 
 	/**

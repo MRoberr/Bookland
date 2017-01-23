@@ -34,14 +34,14 @@ public class HibernateBorrowingDAO implements BorrowingDAO {
 	}
 
 	@Override
-	public void deleteBorrowing(Borrowing borrowing) throws RepositoryException {
+	public void deleteBorrowing(String userId, String publicationId)throws RepositoryException {
 		try {
 			entityManager.getTransaction().begin();
 			TypedQuery<Borrowing> query = entityManager.createQuery(
 					"SELECT b FROM Borrowing b WHERE b.userId in :idu " + "and b.publicationId in :idp",
 					Borrowing.class);
-			query.setParameter("idu", borrowing.getUserId());
-			query.setParameter("idp", borrowing.getPublicationId());
+			query.setParameter("idu", userId);
+			query.setParameter("idp", publicationId);
 			Borrowing borrowingDB = query.getSingleResult();
 			entityManager.remove(borrowingDB);
 			entityManager.getTransaction().commit();
@@ -54,7 +54,6 @@ public class HibernateBorrowingDAO implements BorrowingDAO {
 
 	}
 
-	@Override
 	public void updateBorrowing(Borrowing borrowing) throws RepositoryException {
 		try {
 			entityManager.getTransaction().begin();
@@ -74,6 +73,14 @@ public class HibernateBorrowingDAO implements BorrowingDAO {
 			throw new RepositoryException("Could not update a borrowing. ", e);
 		}
 
+	}
+
+	
+
+	@Override
+	public Borrowing getBorrowById(String userId, String publicationId) throws RepositoryException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

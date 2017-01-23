@@ -46,5 +46,12 @@ public abstract class DAOFactory {
 	 * @return PublicationDAO
 	 */
 	public abstract PublicationDAO getPublicationDAO();
+	
+	/**
+	 * Define getter for {@link ArticleDAO}
+	 * 
+	 * @return ArticleDAO
+	 */
+	public abstract ArticleDAO getArticleDAO();
 
 }

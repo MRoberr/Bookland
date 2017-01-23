@@ -89,7 +89,7 @@ public class BasicAuthorBL implements AuthorBL {
 	@Override
 	public void deleteAuthor(String id) throws BusinesLogicException {
 		try {
-			if (authorDAO.getAuthorByUuid(id).getPublications().isEmpty()) {
+			if (authorDAO.getAuthorByUuid(id).getPublicationAuthors().isEmpty()) {
 				authorDAO.deleteAuthor(id);
 			} else {
 				LOGGER.error("This author have Pubications, you Can't delete Author!");
