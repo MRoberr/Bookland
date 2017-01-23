@@ -21,8 +21,9 @@ public class RandomTests {
 //			dao.getAllPublications().forEach(p -> System.out.println(p.getTitle()));
 //			dao.searchPublication("em").forEach(e -> System.out.println(e.getClass().getSimpleName()));
 //			dao.deletePublication("1234");
-			dao.searchBook("a");
-			
+//			dao.searchBook("a");
+			System.out.print("asdasd1");
+			System.out.println("\b ");
 		} catch (Exception e) {
 
 			e.printStackTrace();
