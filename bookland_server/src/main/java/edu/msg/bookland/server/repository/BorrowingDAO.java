@@ -24,8 +24,23 @@ public interface BorrowingDAO {
 	 */
 	void deleteBorrowing(String userId, String publicationId) throws RepositoryException;
 
-	
+	/**
+	 * This method return a Borrowing object specifield by User id and Publication Id
+	 * 
+	 * @param userId
+	 * @param publicationId
+	 * @return Borrowing object if exist
+	 * @throws RepositoryException
+	 */
 	Borrowing getBorrowById(String userId, String publicationId) throws RepositoryException;
-	//void updateBorrowing(Borrowing borrowing) throws RepositoryException;
+	
+	/**
+	 * This method define update for Borrowing object
+	 * Borrowing is specified by User Id and Publication Id, can't update the identifiers
+	 * 
+	 * @param borrowing
+	 * @throws RepositoryException
+	 */
+	void updateBorrowing(Borrowing borrowing) throws RepositoryException;
 
 }

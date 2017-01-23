@@ -45,11 +45,20 @@ public interface AuthorDAO {
 	/**
 	 * This method define select with condition for {@link Author}
 	 * 
-	 * @param uuId-Author uuid
+	 * @param uuId-Author
+	 *            uuid
 	 * @return Author if exist
 	 * @throws RepositoryException
 	 */
 	Author getAuthorByUuid(String uuId) throws RepositoryException;
-	
+
+	/**
+	 * This method define select with condition of contains name for
+	 * {@link Author}
+	 * 
+	 * @param name
+	 * @return list of Authors
+	 * @throws RepositoryException
+	 */
 	List<Author> searchAuthor(String name) throws RepositoryException;
 }
