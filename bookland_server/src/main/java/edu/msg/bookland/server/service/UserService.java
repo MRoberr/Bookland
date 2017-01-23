@@ -2,6 +2,7 @@ package edu.msg.bookland.server.service;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -64,7 +65,7 @@ public class UserService extends UnicastRemoteObject implements UserServiceRmi {
 	@Override
 	public void updateUser(UserDTO userDTO) throws RemoteException, ServiceException {
 
-		StringBuilder validationMessage = ValidationService.checkUser(userDTO);
+		StringBuilder validationMessage = ValidationService.checkUserForUpdate(userDTO);
 		if (validationMessage.length() > 0) {
 			throw new ServiceException(validationMessage.toString());
 		}
@@ -103,7 +104,7 @@ public class UserService extends UnicastRemoteObject implements UserServiceRmi {
 	@Override
 	public List<UserDTO> searchUser(String name) throws RemoteException, ServiceException {
 
-		List<User> users = null;
+		List<User> users = new ArrayList<>();
 		try {
 			users = userBL.searchUserByName(name);
 		} catch (BusinesLogicException e) {
