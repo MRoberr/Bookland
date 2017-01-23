@@ -24,7 +24,7 @@ public class Newspaper extends Publication{
 	private static final long serialVersionUID = -3891407649176906111L;
 	
 
-	@OneToMany(mappedBy = "publicationUuid")	
+	@OneToMany(mappedBy = "publication")	
 	List<Article> articles;
 	
 	public Newspaper() {		
