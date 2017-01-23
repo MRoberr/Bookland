@@ -85,7 +85,7 @@ public class HibernateAuthorDAO implements AuthorDAO {
 			}
 			if (t instanceof ConstraintViolationException) {
 				LOGGER.error("This author allready exist", e);
-				throw new RepositoryException("This author allready exist", e);
+				throw new RepositoryException(t.getCause().getMessage(), e);
 			} else {
 				LOGGER.error("Could not instert this author", e.getCause());
 				throw new RepositoryException("Could not instert this author", e);
@@ -119,7 +119,7 @@ public class HibernateAuthorDAO implements AuthorDAO {
 			}
 			if (t instanceof ConstraintViolationException) {
 				LOGGER.error("This name allready exist", e);
-				throw new RepositoryException("This name allready exist", e);
+				throw new RepositoryException(t.getCause().getMessage(), e);
 			} else {
 				LOGGER.error("Could not update this author", e.getCause());
 				throw new RepositoryException("Could not update this author", e);
@@ -145,6 +145,7 @@ public class HibernateAuthorDAO implements AuthorDAO {
 				LOGGER.error("Can't find author with specifield Id <" + uuId + ">");
 				throw new RepositoryException("Can't find author with specifield Id.");
 			}
+			LOGGER.info("Author by Id retrived.");
 			return a;
 		} catch (NoResultException e) {
 			LOGGER.error("Can't find author with specifield Id <" + uuId + ">");
@@ -187,11 +188,12 @@ public class HibernateAuthorDAO implements AuthorDAO {
 			authorByName.where(builder.like(autor.get(Author_.name), '%' + name + '%'));
 			TypedQuery<Author> authorQuery = entityManager.createQuery(authorByName);
 			List<Author> authorList = authorQuery.getResultList();
+			if(authorList.isEmpty()){
+				LOGGER.error("Can't find author by name <" + name + ">.");
+				throw new RepositoryException("Can't find author by name <" + name + ">.");
+			}
 			LOGGER.info("Search Author done");
 			return authorList;
-		} catch (NoResultException e) {
-			LOGGER.error("Can't find author with name <" + name + ">.");
-			throw new RepositoryException("Can't find author with name <" + name + ">.", e);
 		} catch (PersistenceException e) {
 			LOGGER.error("Could not find author by name <" + name + ">", e);
 			throw new RepositoryException("Could not find author by name <" + name + ">", e);
