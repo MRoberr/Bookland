@@ -54,18 +54,12 @@ public class DataAdministrationController {
 		try {
 			List<UserDTO> list = ConnectionModel.USER_SERVICE_RMI.searchUser(name);
 			return list;
-<<<<<<< HEAD
 		} catch (ServiceException e) {
 			LOGGER.error("Server could not search users.", e);
 			throw new RequestException(e.getMessage());
 		} catch (RemoteException e) {
 			LOGGER.error("Connection with server failed at user search.", e);
 			throw new RequestException(e.getMessage());
-=======
-		} catch (RemoteException e ) {
-			LOGGER.error("No connection when searching publications.", e);
-			return null;
->>>>>>> branch 'develop2v' of https://github.com/MRoberr/Bookland.git
 		}
 	}
 	/**
