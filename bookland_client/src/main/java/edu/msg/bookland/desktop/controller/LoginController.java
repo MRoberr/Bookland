@@ -18,8 +18,10 @@ public class LoginController {
 			return ConnectionModel.USER_SERVICE_RMI.login(u, p);
 		} catch (ServiceException e) {
 			LOGGER.error("Server refused login.", e);
-			throw new RequestException(textLangProvider.INSTANCE.getProperty("loginInvalidUsernameOrPassword") + "\n" + e.getMessage());
+			System.out.println(textLangProvider.INSTANCE.getProperty("loginInvalidUsernameOrPassword"));
+			throw new RequestException(e.getMessage());
 		} catch (RemoteException e) {
+			System.out.println(textLangProvider.INSTANCE.getProperty("connectionError"));
 			LOGGER.error("Connection with server failed at login.", e);
 			throw new RequestException(e.getMessage());
 		}

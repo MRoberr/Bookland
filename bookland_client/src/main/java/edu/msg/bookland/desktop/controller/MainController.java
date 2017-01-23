@@ -108,7 +108,7 @@ public class MainController {
 				}
 			}
 		} catch (RequestException e) {
-			System.out.println(textLangProvider.INSTANCE.getProperty("errorReason") + " " + e.getMessage());
+			System.out.println(textLangProvider.INSTANCE.getProperty("errorReason") + " " + e.getMessage() + "\n");
 		}
 	}
 
