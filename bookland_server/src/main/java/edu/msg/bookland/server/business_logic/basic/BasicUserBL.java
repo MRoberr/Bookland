@@ -60,8 +60,12 @@ public class BasicUserBL implements UserBL {
 	@Override
 	public void updateUser(User user) throws BusinesLogicException {
 		try {
-			user.setPassword(PasswordEncrypting.encrypt(user.getPassword(), SALT));
-			userDAO.updateUser(user);
+			if (user.getPassword() == null) {
+				userDAO.updateUserWithoutPassword(user);
+			} else {
+				user.setPassword(PasswordEncrypting.encrypt(user.getPassword(), SALT));
+				userDAO.updateUser(user);
+			}
 		} catch (RepositoryException e) {
 			LOGGER.error("Can't update User!");
 			throw new BusinesLogicException(e.getMessage(), e);
