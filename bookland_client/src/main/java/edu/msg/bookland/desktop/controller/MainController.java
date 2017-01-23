@@ -499,6 +499,11 @@ public class MainController {
 	private void searchPublications() {
 		System.out.println(textLangProvider.INSTANCE.getProperty("enterPublicationTitle"));
 		tempStr = getLine();
+		while (tempStr.length() < 3) {
+			System.out.println(textLangProvider.INSTANCE.getProperty("searchLenghtToShort"));
+			System.out.println(textLangProvider.INSTANCE.getProperty("enterPublicationTitle"));
+			tempStr = getLine();
+		}
 		try {
 			tempPublications = dac.getPublications(tempStr);
 		} catch (RequestException e) {
@@ -540,6 +545,11 @@ public class MainController {
 	private void searchUsers() {
 		System.out.println(textLangProvider.INSTANCE.getProperty("enterUserName"));
 		tempStr = getLine();
+		while (tempStr.length() < 3) {
+			System.out.println(textLangProvider.INSTANCE.getProperty("searchLenghtToShort"));
+			System.out.println(textLangProvider.INSTANCE.getProperty("enterUserName"));
+			tempStr = getLine();
+		}			
 		try {
 			tempUsers = dac.getUsers(tempStr);
 		} catch (RequestException e) {
