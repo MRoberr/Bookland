@@ -13,10 +13,10 @@ public class ValidationService {
 	public static StringBuilder checkUser(UserDTO user) {
 
 		StringBuilder validationMessage = new StringBuilder();
-		if (!user.getName().matches("\\A[A-Z]{1}[a-z]{3,15}\\z")) {
+		if (!user.getName().matches("^[a-zA-Z0-9._-]{3,}$")) {
 			validationMessage.append("User's name is not appropriate\n");
 		} else if (!user.getPassword().matches(
-				"^(?=.*[0-9]+)(?=.*[a-z]+)(?=.*[A-Z]+)(?=.*[`~!@#$%^&*()\\-_=+\\[{\\]}\\|;:'\",<.>/?]+)(?=\\S+$).{8,}$")) {
+				"^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$")) {
 			validationMessage.append("User's password is not appropriate\n");
 		} else if (user.getLoyaltyIndex() < 0 || user.getLoyaltyIndex() > 10) {
 			validationMessage.append("User's loyaltyindex must between 1 and 10");
