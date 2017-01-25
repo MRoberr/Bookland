@@ -40,8 +40,8 @@ public class BasicBorrowingBL implements BorrowingBL {
 			if (copiesLeft > 0) {
 				int loyaltyIndex = userDAO.getUserById(borrowing.getUserId()).getLoyaltyIndex();
 				if (loyaltyIndex > 0) {
-					borrowingDAO.insertBorrowing(borrowing);
 					pubDAO.decreaseCopiesLeft(borrowing.getPublicationId());
+					borrowingDAO.insertBorrowing(borrowing);
 				} else {
 					LOGGER.error("User Loyalty index is low, can't borrow Publication");
 					throw new BusinesLogicException("User Loyalty index is low, can't borrow Publication");

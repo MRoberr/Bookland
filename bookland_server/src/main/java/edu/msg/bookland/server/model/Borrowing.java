@@ -48,7 +48,7 @@ public class Borrowing implements Serializable {
 	private Publication publication;
 
 	public Borrowing() {
-
+		userPublicationId=new UserPublicationId();
 	}
 
 	public Borrowing(Borrowing b) {
@@ -93,7 +93,7 @@ public class Borrowing implements Serializable {
 		this.deadline = deadline;
 	}
 
-	public Publication getPublicatoin() {
+	public Publication getPublication() {
 
 		return publication;
 	}
@@ -103,6 +103,28 @@ public class Borrowing implements Serializable {
 		return "Borrowing [userId=" + userPublicationId.getUserId() + ", publicationId="
 				+ userPublicationId.getPublicationId() + ", borrowingDate=" + borrowingDate + ", deadline=" + deadline
 				+ "]";
+	}
+
+	public UserPublicationId getUserPublicationId() {
+		return userPublicationId;
+	}
+
+	public void setUserPublicationId(String userId,String publicationId) {
+		this.userPublicationId =new UserPublicationId(userId, publicationId);
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+		this.setUserId(user.getUUID());
+	}
+
+	public void setPublication(Publication publication) {
+		this.publication = publication;
+		this.setPublicationId(publication.getUUID());
 	}
 
 }

@@ -58,7 +58,14 @@ public class BorrowingDTO implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Borrowing [userId=" + user.getUUID() + ", publicationId=" + publication.getUUID() + ", borrowingDate="
+		String out="Borrowing [";
+		if(user!=null){
+			out+=user;
+		}
+		if(publication!=null){
+			out+=publication;
+		}
+		return out+"borrowingDate="
 				+ borrowingDate + ", deadline=" + deadline + "]";
 	}
 

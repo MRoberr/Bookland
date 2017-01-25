@@ -6,19 +6,13 @@
    http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
 
 	<persistence-unit name="bookland_jpa">
-		<class>edu.msg.bookland.server.model.BaseEntity</class>
-		<class>edu.msg.bookland.server.model.Author</class>
-		<class>edu.msg.bookland.server.model.Publication</class>
-		<class>edu.msg.bookland.server.model.Book</class>
-		<class>edu.msg.bookland.server.model.Magazine</class>
-		<class>edu.msg.bookland.server.model.Newspaper</class>
-		<class>edu.msg.bookland.server.model.User</class>
-		<class>edu.msg.bookland.server.model.Borrowing</class>
-		<class>edu.msg.bookland.server.model.UserPublicationId</class>
-		<class>edu.msg.bookland.server.model.Article</class>
-		
+
 		<properties>
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/library?useSSL=false" />
+
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.format_sql" value="true" />
+			<property name="javax.persistence.jdbc.url"
+				value="jdbc:mysql://localhost:3306/library?useSSL=false" />
 			<property name="javax.persistence.jdbc.user" value="library_admin" />
 			<property name="javax.persistence.jdbc.password" value="library_admin_pass" />
 			<property name="hibernate.default_schema" value="library" />

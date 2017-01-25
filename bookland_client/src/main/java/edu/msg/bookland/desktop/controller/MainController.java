@@ -258,9 +258,6 @@ public class MainController {
 
 					}
 				}
-			} catch (Exception e) {
-				e.printStackTrace();
-
 			} finally {
 				tempPublication = null;
 				tempPublications = null;
@@ -423,7 +420,15 @@ public class MainController {
 			break;
 		}
 
-		dac.updateUser(user);
+		
+		try {
+			dac.updateUser(user);
+			System.out.println("Update successfull ");
+		} catch (RequestException e) {
+			System.out.println("Update not succsessfull");
+		}
+		
+		
 
 	}
 
@@ -437,8 +442,13 @@ public class MainController {
 		}
 		int number = getIntLine();
 		UserDTO user = userList.get(number - 1);
-
-		dac.deleteUser(user.getUUID());
+		try {
+			dac.deleteUser(user.getUUID());
+			System.out.println("Delete successfull ");
+		} catch (RequestException e) {
+			System.out.println("Delete not succsessfull");
+		}
+		
 	}
 
 	private void createNewUser() {
@@ -538,19 +548,19 @@ public class MainController {
 	 * Auxiliary for retrieving a User's Borrowings
 	 */
 	private void searchBorrowedPublications() {
-		tempBorrowings = tempUser.getBorrow();
+		tempBorrowings = tempUser.getBorrow();		
 		if (tempBorrowings == null) {
 			System.out.println(textLangProvider.INSTANCE.getProperty("couldNotFindBorrowedPublication") + " <"
 					+ tempUser.getName() + ">!");
 			return;
-		} else if ((tempBorrowings.size() > 0)
-				&& ((tempBorrowings.get(0).getUser() == null) || (tempBorrowings.get(0).getPublication() == null))) {
+		} else if (tempBorrowings.size() == 0) {
 			tempBorrowings = null;
 			return;
 		}
-		tempInt = 0;
+		tempInt = 0;		
 		for (BorrowingDTO b : tempBorrowings) {
 			System.out.println(++tempInt + ": " + b.getPublication().getTitle().toString());
+			b.setUser(tempUser);			
 		}
 	}
 
@@ -564,7 +574,7 @@ public class MainController {
 			System.out.println(textLangProvider.INSTANCE.getProperty("searchLenghtToShort"));
 			System.out.println(textLangProvider.INSTANCE.getProperty("enterUserName"));
 			tempStr = getLine();
-		}			
+		}
 		try {
 			tempUsers = dac.getUsers(tempStr);
 		} catch (RequestException e) {
@@ -574,7 +584,8 @@ public class MainController {
 		}
 		tempInt = 0;
 		for (UserDTO u : tempUsers) {
-			System.out.println(++tempInt + ": " + u.toString());
+			System.out.println(++tempInt + ": " + u.toString() + textLangProvider.INSTANCE.getProperty("nrOfBorrows")
+					+ u.getBorrow().size());
 		}
 	}
 

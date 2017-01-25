@@ -3,7 +3,7 @@ package edu.msg.bookland.server.repository;
 import java.util.List;
 
 import edu.msg.bookland.common.model.UserType;
-import edu.msg.bookland.server.model.*;
+import edu.msg.bookland.server.model.User;
 
 /**
  * Defines database methods for User Model
@@ -63,7 +63,6 @@ public interface UserDAO {
 	 */
 	public UserType login(String userName, String password) throws RepositoryException;
 
-
 	/**
 	 * This method define select with condition of userId for {@link User}
 	 * 
@@ -83,6 +82,19 @@ public interface UserDAO {
 	 */
 	List<User> searchUserByName(String name) throws RepositoryException;
 
+	/**
+	 * This method decrease User LoyalyIndex
+	 * 
+	 * @param uuid-UserId
+	 * @throws RepositoryException
+	 */
 	void decreaseLoyaltyIndex(String uuid) throws RepositoryException;
+
+	/**
+	 * This method increase User LoyalyIndex
+	 * 
+	 * @param uuid-UserId
+	 * @throws RepositoryException
+	 */
 	void increaseLoyaltyIndex(String uuid) throws RepositoryException;
 }

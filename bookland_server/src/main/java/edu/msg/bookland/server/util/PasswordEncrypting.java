@@ -6,7 +6,7 @@ import java.security.NoSuchAlgorithmException;
 
 import org.apache.log4j.Logger;
 
-import edu.msg.bookland.server.repository.RepositoryException;
+import edu.msg.bookland.server.business_logic.BusinesLogicException;
 
 /**
  * Singleton class to Encrypt password
@@ -26,9 +26,9 @@ public class PasswordEncrypting {
 	 * @param password
 	 * @param salt
 	 * @return hashed password
-	 * @throws ServiceException
+	 * @throws BusinesLogicException
 	 */
-	public static String encrypt(String password, String salt) throws RepositoryException {
+	public static String encrypt(String password, String salt) throws BusinesLogicException {
 		try {
 			byte[] initialBytes = (password + salt).getBytes(PropertyProvider.getProperty("encrypt.encoding"));
 			MessageDigest algorithm = MessageDigest.getInstance(PropertyProvider.getProperty("encrypt.algorithm"));
@@ -38,10 +38,10 @@ public class PasswordEncrypting {
 			return new String(hashBytes);
 		} catch (NoSuchAlgorithmException e) {
 			LOGGER.error("No Such Algorithm Exception", e);
-			throw new RepositoryException("No Such Algorithm Exception", e);
+			throw new BusinesLogicException("No Such Algorithm Exception", e);
 		} catch (UnsupportedEncodingException e) {
 			LOGGER.error("Unsuported Encoding", e);
-			throw new RepositoryException("Unsuported Encoding", e);
+			throw new BusinesLogicException("Unsuported Encoding", e);
 		}
 	}
 }

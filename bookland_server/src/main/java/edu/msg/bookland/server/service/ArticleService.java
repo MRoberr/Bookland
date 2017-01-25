@@ -33,7 +33,7 @@ public class ArticleService extends UnicastRemoteObject implements ArticleServic
 			LOGGER.error(e.getMessage());
 			throw new ServiceException(e.getMessage());
 		}
-		return MappingService.articleToDTO(articles);
+		return MappingService.articleLisToDTO(articles);
 	}
 
 	@Override
@@ -78,7 +78,7 @@ public class ArticleService extends UnicastRemoteObject implements ArticleServic
 			LOGGER.error(e.getMessage());
 			throw new ServiceException(e.getMessage());
 		}
-		return MappingService.articleToDTO(articles);
+		return MappingService.articleLisToDTO(articles);
 	}
 
 }
