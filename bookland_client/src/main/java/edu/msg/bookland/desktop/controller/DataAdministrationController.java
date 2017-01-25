@@ -70,11 +70,12 @@ public class DataAdministrationController {
 		
 		try {
 			 ConnectionModel.USER_SERVICE_RMI.insertUser(user);
+		} catch (ServiceException e) {
+			LOGGER.error("Server could not create new  users.", e);
+			throw new RequestException(e.getMessage());
 		} catch (RemoteException e) {
-			LOGGER.error("No connection when new creating user");
-			e.printStackTrace();
-		}catch (ServiceException s) {
-			LOGGER.error(s.getMessage());
+			LOGGER.error("Connection with server failed at create new  user.", e);
+			throw new RequestException(e.getMessage());
 		}
 	
 	}
@@ -85,11 +86,12 @@ public class DataAdministrationController {
 	public void updateUser(UserDTO user){
 		try {
 			ConnectionModel.USER_SERVICE_RMI.updateUser(user);
+		}  catch (ServiceException e) {
+			LOGGER.error("Server could not update users.", e);
+			throw new RequestException(e.getMessage());
 		} catch (RemoteException e) {
-			LOGGER.error("No connection when user update");
-			e.printStackTrace();
-		}catch (ServiceException s) {
-			LOGGER.error(s.getMessage());
+			LOGGER.error("Connection with server failed at user update.", e);
+			throw new RequestException(e.getMessage());
 		}
 	}
 	/**
@@ -99,23 +101,25 @@ public class DataAdministrationController {
 	public void deleteUser(String userID){
 		try {
 			ConnectionModel.USER_SERVICE_RMI.deleteUser(userID);;
+		}  catch (ServiceException e) {
+			LOGGER.error("Server could not delete users.", e);
+			throw new RequestException(e.getMessage());
 		} catch (RemoteException e) {
-			LOGGER.error("No connection when user delete");
-			e.printStackTrace();
-		}catch (ServiceException s) {
-			LOGGER.error(s.getMessage());
+			LOGGER.error("Connection with server failed at user delete.", e);
+			throw new RequestException(e.getMessage());
 		}
 	}
 	public List<UserDTO>getAllUsers(){
 		try {
 			return ConnectionModel.USER_SERVICE_RMI.getAllUsers();
+		}catch (ServiceException e) {
+			LOGGER.error("no connection when gett all users", e);
+			throw new RequestException(e.getMessage());
 		} catch (RemoteException e) {
-			LOGGER.error("no connection when gett all users");
-			e.printStackTrace();
-		}catch (ServiceException s) {
-			LOGGER.error(s.getMessage());
+			LOGGER.error(" connection when gett all users", e);
+			throw new RequestException(e.getMessage());
 		}
-		return null;
+		
 	}
-
+	
 }
