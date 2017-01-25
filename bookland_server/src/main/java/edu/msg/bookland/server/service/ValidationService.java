@@ -20,7 +20,7 @@ public class ValidationService {
 			validationMessage.append("User's password is not appropriate\n");
 		} else if (user.getLoyaltyIndex() < 0 || user.getLoyaltyIndex() > 10) {
 			validationMessage.append("User's loyaltyindex must between 1 and 10");
-		} else if (user.getEmail().matches("[\\w\\-.]+@\\w+(\\.{1})[a-z]+(\\.*)[a-z]+")) {
+		} else if (!user.getEmail().matches("[\\w\\-.]+@\\w+(\\.{1})[a-z]+(\\.*)[a-z]+")) {
 			validationMessage.append("User's email is not correct");
 		}
 		return validationMessage;
