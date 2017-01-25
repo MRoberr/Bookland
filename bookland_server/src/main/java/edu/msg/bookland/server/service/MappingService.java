@@ -180,7 +180,7 @@ public class MappingService {
 			((Book) pub).setAuthors(DTOToAuthorList(((BookDTO) d).getAuthors()));
 		} else if (d instanceof MagazineDTO) {
 			pub = (O) new Magazine();
-			((Magazine) pub).setAuthors(DTOToAuthorList(((BookDTO) d).getAuthors()));
+			((Magazine) pub).setAuthors(DTOToAuthorList(((MagazineDTO) d).getAuthors()));
 		} else {
 			pub = (O) new Newspaper();
 			((Newspaper) pub).setArticles(DTOLisToArticle(((NewspaperDTO) d).getArticles()));
@@ -196,9 +196,12 @@ public class MappingService {
 
 	public static Borrowing DTOToBorrow(BorrowingDTO borrowingDTO) {
 		Borrowing borrowing = new Borrowing();
+		borrowing.setUser(DTOToUser(borrowingDTO.getUser()));
+		borrowing.setPublication(DTOToPublication(borrowingDTO.getPublication()));
+		borrowing.setPublicationId(borrowing.getPublicationId());
 		borrowing.setUserId(borrowing.getUserId());
-		borrowing.setPublicationId(borrowingDTO.getPublicationId());
-		borrowing.setDeadline(borrowing.getDeadline());
+		borrowing.setUserPublicationId(borrowing.getUserId(), borrowing.getPublicationId());
+		borrowing.setDeadline(borrowingDTO.getDeadline());
 		borrowing.setBorrowingDate(borrowingDTO.getBorrowingDate());
 		return borrowing;
 
