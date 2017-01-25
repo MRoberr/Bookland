@@ -93,7 +93,7 @@ public class Borrowing implements Serializable {
 		this.deadline = deadline;
 	}
 
-	public Publication getPublicatoin() {
+	public Publication getPublication() {
 
 		return publication;
 	}

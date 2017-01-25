@@ -21,6 +21,11 @@ import edu.msg.bookland.server.model.Newspaper;
 import edu.msg.bookland.server.model.Publication;
 import edu.msg.bookland.server.model.User;
 
+/**
+ * 
+ * @author Sipos Terez
+ * @author Solomon Jozsef
+ */
 public class MappingService {
 
 	public static List<UserDTO> usersToDTO(List<User> users) {
@@ -39,8 +44,7 @@ public class MappingService {
 
 				for (Borrowing b : borrowings) {
 					BorrowingDTO borrowingDTO = new BorrowingDTO();
-					borrowingDTO.setUserId(b.getUserId());
-					borrowingDTO.setPublicationId(b.getPublicationId());
+					borrowingDTO.setPublication(publicationToDTOGen(b.getPublication()));
 					borrowingDTO.setBorrowingDate(b.getBorrowingDate());
 					borrowingDTO.setDeadline(b.getDeadline());
 					borrowingsDTO.add(borrowingDTO);
@@ -68,14 +72,18 @@ public class MappingService {
 		return user;
 	}
 
+	public static AuthorDTO autorToDTO(Author author) {
+		AuthorDTO authorDTO = new AuthorDTO();
+		authorDTO.setName(author.getName());
+		authorDTO.setUUID(author.getUUID());
+		return authorDTO;
+	}
+
 	public static List<AuthorDTO> authorsToDTO(List<Author> authors) {
 		List<AuthorDTO> authorsDTO = new ArrayList<>();
 		if (authors != null && authors.size() > 0) {
 			for (Author a : authors) {
-				AuthorDTO authorDTO = new AuthorDTO();
-				authorDTO.setName(a.getName());
-				authorDTO.setUUID(a.getUUID());
-				authorsDTO.add(authorDTO);
+				authorsDTO.add(autorToDTO(a));
 			}
 			return authorsDTO;
 		} else {
@@ -95,10 +103,7 @@ public class MappingService {
 		if (authorsDTO != null && authorsDTO.size() > 0) {
 			List<Author> authors = new ArrayList<>();
 			for (AuthorDTO a : authorsDTO) {
-				Author author = new Author();
-				author.setUUID(a.getUUID());
-				author.setName(a.getName());
-				authors.add(author);
+				authors.add(DTOToAuthor(a));
 			}
 			return authors;
 		} else {
@@ -107,81 +112,78 @@ public class MappingService {
 
 	}
 
-	@SuppressWarnings("unchecked")
-	public static <D extends PublicationDTO, O extends Publication> List<D> publicationToDTOGen(List<O> o) {
+	public static <D extends PublicationDTO, O extends Publication> List<D> publicationsToDTOGen(List<O> o) {
 
 		List<D> publicationListDTO = new ArrayList<>();
-
 		if (o != null && o.size() > 0) {
 			for (O p : o) {
-				D publicationDTO;
-				if (p instanceof Book) {
-					publicationDTO = (D) new BookDTO();
-					((BookDTO) publicationDTO).setAuthors(authorsToDTO(((Book) p).getAuthors()));
-				} else if (p instanceof Magazine) {
-					publicationDTO = (D) new MagazineDTO();
-					((MagazineDTO) publicationDTO).setAuthors(authorsToDTO(((Magazine) p).getAuthors()));
-				} else {
-					publicationDTO = (D) new NewspaperDTO();
-				}
-				publicationDTO.setUUID(p.getUUID());
-				publicationDTO.setTitle(p.getTitle());
-				publicationDTO.setReleaseDate(p.getReleaseDate());
-				publicationDTO.setPublisher(p.getPublisher());
-				publicationDTO.setNumberOfCopies(p.getNumberOfCopies());
-				publicationDTO.setCopiesLeft(p.getCopiesLeft());
-				publicationListDTO.add(publicationDTO);
+				publicationListDTO.add(publicationToDTOGen(p));
 			}
 			return publicationListDTO;
-
 		} else {
 			return Collections.emptyList();
 		}
 	}
 
-	public static List<PublicationDTO> publicationToDTO(List<Publication> publications) {
-
-		List<PublicationDTO> publicationListDTO = new ArrayList<>();
-
-		if (publications != null && publications.size() > 0) {
-			for (Publication p : publications) {
-				PublicationDTO pubDTO;
-				if (p instanceof Book) {
-					pubDTO = new BookDTO();
-					((BookDTO) pubDTO).setAuthors(authorsToDTO(((Book) p).getAuthors()));
-				} else if (p instanceof Magazine) {
-					pubDTO = new MagazineDTO();
-					((MagazineDTO) pubDTO).setAuthors(authorsToDTO(((Magazine) p).getAuthors()));
-				} else {
-					pubDTO = new NewspaperDTO();
-				}
-				pubDTO.setUUID(p.getUUID());
-				pubDTO.setTitle(p.getTitle());
-				pubDTO.setReleaseDate(p.getReleaseDate());
-				pubDTO.setPublisher(p.getPublisher());
-				pubDTO.setNumberOfCopies(p.getNumberOfCopies());
-				pubDTO.setCopiesLeft(p.getCopiesLeft());
-				publicationListDTO.add(pubDTO);
-			}
-
-			return publicationListDTO;
+	@SuppressWarnings("unchecked")
+	public static <D extends PublicationDTO, O extends Publication> D publicationToDTOGen(O p) {
+		D publicationDTO;
+		if (p instanceof Book) {
+			publicationDTO = (D) new BookDTO();
+			((BookDTO) publicationDTO).setAuthors(authorsToDTO(((Book) p).getAuthors()));
+		} else if (p instanceof Magazine) {
+			publicationDTO = (D) new MagazineDTO();
+			((MagazineDTO) publicationDTO).setAuthors(authorsToDTO(((Magazine) p).getAuthors()));
 		} else {
-			return Collections.emptyList();
+			publicationDTO = (D) new NewspaperDTO();
+			((NewspaperDTO) publicationDTO).setArticles(articleLisToDTO(((Newspaper) p).getArticles()));
 		}
+		publicationDTO.setUUID(p.getUUID());
+		publicationDTO.setTitle(p.getTitle());
+		publicationDTO.setReleaseDate(p.getReleaseDate());
+		publicationDTO.setPublisher(p.getPublisher());
+		publicationDTO.setNumberOfCopies(p.getNumberOfCopies());
+		publicationDTO.setCopiesLeft(p.getCopiesLeft());
+
+		return publicationDTO;
 
 	}
 
+	/*
+	 * public static List<PublicationDTO> publicationToDTO(List<Publication>
+	 * publications) {
+	 * 
+	 * List<PublicationDTO> publicationListDTO = new ArrayList<>();
+	 * 
+	 * if (publications != null && publications.size() > 0) { for (Publication p
+	 * : publications) { PublicationDTO pubDTO; if (p instanceof Book) { pubDTO
+	 * = new BookDTO(); ((BookDTO) pubDTO).setAuthors(authorsToDTO(((Book)
+	 * p).getAuthors())); } else if (p instanceof Magazine) { pubDTO = new
+	 * MagazineDTO(); ((MagazineDTO) pubDTO).setAuthors(authorsToDTO(((Magazine)
+	 * p).getAuthors())); } else { pubDTO = new NewspaperDTO(); }
+	 * pubDTO.setUUID(p.getUUID()); pubDTO.setTitle(p.getTitle());
+	 * pubDTO.setReleaseDate(p.getReleaseDate());
+	 * pubDTO.setPublisher(p.getPublisher());
+	 * pubDTO.setNumberOfCopies(p.getNumberOfCopies());
+	 * pubDTO.setCopiesLeft(p.getCopiesLeft()); publicationListDTO.add(pubDTO);
+	 * }
+	 * 
+	 * return publicationListDTO; } else { return Collections.emptyList(); }
+	 * 
+	 * }
+	 */
 	@SuppressWarnings("unchecked")
 	public static <O extends Publication, D extends PublicationDTO> O DTOToPublication(D d) {
 		O pub;
-		if(d instanceof BookDTO) {
-		 pub = (O) new Book();
-		 ((Book) pub).setAuthors(DTOToAuthorList(((BookDTO) d).getAuthors()));
-		} else if(d instanceof MagazineDTO) {
+		if (d instanceof BookDTO) {
+			pub = (O) new Book();
+			((Book) pub).setAuthors(DTOToAuthorList(((BookDTO) d).getAuthors()));
+		} else if (d instanceof MagazineDTO) {
 			pub = (O) new Magazine();
 			((Magazine) pub).setAuthors(DTOToAuthorList(((BookDTO) d).getAuthors()));
 		} else {
 			pub = (O) new Newspaper();
+			((Newspaper) pub).setArticles(DTOLisToArticle(((NewspaperDTO) d).getArticles()));
 		}
 		pub.setUUID(d.getUUID());
 		pub.setTitle(d.getTitle());
@@ -199,23 +201,34 @@ public class MappingService {
 		borrowing.setDeadline(borrowing.getDeadline());
 		borrowing.setBorrowingDate(borrowingDTO.getBorrowingDate());
 		return borrowing;
-		
+
 	}
 
-	public static List<ArticleDTO> articleToDTO(List<Article> articles){
+	public static ArticleDTO articleToDTO(Article article) {
+		ArticleDTO articleDTO = new ArticleDTO();
+		articleDTO.setUUID(article.getUUID());
+		articleDTO.setTitle(article.getTitle());
+		return articleDTO;
+	}
+
+	public static List<ArticleDTO> articleLisToDTO(List<Article> articles) {
 		List<ArticleDTO> articlesDTO = new ArrayList<>();
-		if(articles !=null && articles.size() > 0) {
-			for(Article a: articles) {
-				ArticleDTO articleDTO = new ArticleDTO();
-				articleDTO.setUUID(a.getUUID());
-				articleDTO.setTitle(a.getTitle());
-				List<Publication> tempPub = new ArrayList<>(1);
-				tempPub.add(a.getPublication());
-				articleDTO.setPublicationDTO((publicationToDTOGen(tempPub)).get(1));
-				articlesDTO.add(articleDTO);
+		if (articles != null && articles.size() > 0) {
+			for (Article a : articles) {
+				articlesDTO.add(articleToDTO(a));
 			}
 		}
 		return articlesDTO;
+	}
+
+	public static List<Article> DTOLisToArticle(List<ArticleDTO> articlesDTO) {
+		List<Article> articles = new ArrayList<>();
+		if (articlesDTO != null && articlesDTO.size() > 0) {
+			for (ArticleDTO a : articlesDTO) {
+				articles.add(DTOToArticle(a));
+			}
+		}
+		return articles;
 	}
 
 	public static Article DTOToArticle(ArticleDTO articleDTO) {
@@ -223,6 +236,6 @@ public class MappingService {
 		article.setUUID(articleDTO.getUUID());
 		article.setTitle(articleDTO.getTitle());
 		article.setPublication(DTOToPublication(articleDTO.getPublicationDTO()));
-		return article;		
+		return article;
 	}
 }

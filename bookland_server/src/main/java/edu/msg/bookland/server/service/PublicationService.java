@@ -42,7 +42,7 @@ public class PublicationService extends UnicastRemoteObject implements Publicati
 			throw new ServiceException(e.getMessage());
 		}
 
-		return MappingService.<BookDTO, Book>publicationToDTOGen(books);
+		return MappingService.<BookDTO, Book>publicationsToDTOGen(books);
 
 	}
 
@@ -56,7 +56,7 @@ public class PublicationService extends UnicastRemoteObject implements Publicati
 			throw new ServiceException(e.getMessage());
 		}
 
-		return MappingService.<MagazineDTO, Magazine>publicationToDTOGen(magazines);
+		return MappingService.<MagazineDTO, Magazine>publicationsToDTOGen(magazines);
 	}
 
 	@Override
@@ -69,7 +69,7 @@ public class PublicationService extends UnicastRemoteObject implements Publicati
 			throw new ServiceException(e.getMessage());
 		}
 
-		return MappingService.<NewspaperDTO, Newspaper>publicationToDTOGen(newspapers);
+		return MappingService.<NewspaperDTO, Newspaper>publicationsToDTOGen(newspapers);
 	}
 
 	@Override
@@ -82,7 +82,7 @@ public class PublicationService extends UnicastRemoteObject implements Publicati
 			throw new ServiceException(e.getMessage());
 		}
 
-		return MappingService.publicationToDTO(publications);
+		return MappingService.publicationsToDTOGen(publications);
 	}
 
 	@Override
@@ -173,7 +173,7 @@ public class PublicationService extends UnicastRemoteObject implements Publicati
 			throw new ServiceException(e.getMessage());
 		}
 
-		return MappingService.<BookDTO, Book>publicationToDTOGen(books);
+		return MappingService.<BookDTO, Book>publicationsToDTOGen(books);
 	}
 
 	@Override
@@ -186,7 +186,7 @@ public class PublicationService extends UnicastRemoteObject implements Publicati
 			throw new ServiceException(e.getMessage());
 		}
 
-		return MappingService.<MagazineDTO, Magazine>publicationToDTOGen(magazines);
+		return MappingService.<MagazineDTO, Magazine>publicationsToDTOGen(magazines);
 	}
 
 	@Override
@@ -199,7 +199,7 @@ public class PublicationService extends UnicastRemoteObject implements Publicati
 			throw new ServiceException(e.getMessage());
 		}
 
-		return MappingService.<NewspaperDTO, Newspaper>publicationToDTOGen(newspapers);
+		return MappingService.<NewspaperDTO, Newspaper>publicationsToDTOGen(newspapers);
 	}
 
 	@Override
@@ -212,7 +212,7 @@ public class PublicationService extends UnicastRemoteObject implements Publicati
 			throw new ServiceException(e.getMessage());
 		}
 
-		return MappingService.publicationToDTO(publications);
+		return MappingService.publicationsToDTOGen(publications);
 	}
 
 }
