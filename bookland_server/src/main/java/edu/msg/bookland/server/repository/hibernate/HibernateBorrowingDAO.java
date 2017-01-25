@@ -22,7 +22,7 @@ public class HibernateBorrowingDAO implements BorrowingDAO {
 	public void insertBorrowing(Borrowing borrowing) throws RepositoryException {
 		try {
 			entityManager.getTransaction().begin();
-			entityManager.persist(borrowing);
+			entityManager.merge(borrowing);
 			entityManager.getTransaction().commit();
 			LOGGER.info("borrowing inserted");
 		} catch (PersistenceException e) {
