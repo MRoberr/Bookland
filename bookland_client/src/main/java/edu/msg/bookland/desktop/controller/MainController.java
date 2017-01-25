@@ -420,7 +420,15 @@ public class MainController {
 			break;
 		}
 
-		dac.updateUser(user);
+		
+		try {
+			dac.updateUser(user);
+			System.out.println("Update successfull ");
+		} catch (RequestException e) {
+			System.out.println("Update not succsessfull");
+		}
+		
+		
 
 	}
 
@@ -434,8 +442,13 @@ public class MainController {
 		}
 		int number = getIntLine();
 		UserDTO user = userList.get(number - 1);
-
-		dac.deleteUser(user.getUUID());
+		try {
+			dac.deleteUser(user.getUUID());
+			System.out.println("Delete successfull ");
+		} catch (RequestException e) {
+			System.out.println("Delete not succsessfull");
+		}
+		
 	}
 
 	private void createNewUser() {
