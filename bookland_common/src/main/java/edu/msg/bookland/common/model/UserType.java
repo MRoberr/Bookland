@@ -9,5 +9,5 @@ package edu.msg.bookland.common.model;
  */
 public enum UserType {
 
-	ADMIN, READER, SUPER_USER
+	ADMIN, READER, SUPER
 }
