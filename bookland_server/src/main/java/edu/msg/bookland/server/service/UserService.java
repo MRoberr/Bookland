@@ -80,17 +80,7 @@ public class UserService extends UnicastRemoteObject implements UserServiceRmi {
 
 	@Override
 	public void deleteUser(String userID) throws RemoteException, ServiceException {
-		int id;
 
-		try {
-			id = Integer.parseInt(userID);
-		} catch (NumberFormatException e) {
-			throw new ServiceException("Id is not a number");
-		}
-
-		if (id <= 0) {
-			throw new ServiceException("id most be a positive number");
-		}
 
 		try {
 			userBL.deleteUser(userID);
