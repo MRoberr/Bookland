@@ -2,11 +2,13 @@ package edu.msg.bookland.desktop.controller;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
 
+import edu.msg.bookland.common.model.BookDTO;
 import edu.msg.bookland.common.model.BorrowingDTO;
 import edu.msg.bookland.common.model.PublicationDTO;
 import edu.msg.bookland.common.model.UserDTO;
@@ -369,107 +371,125 @@ public class MainController {
 		case 3:
 			deleteUser();
 			break;
+		case 4:
+			getAllUser();
+			break;
+		case 5:
+			searchUsers();
+			break;
 		default:
 			System.out.println(exitBackString);
 			break;
 		}
 		return 0;
 	}
+	
+	private void getAllUser() {
+		try {
+			tempUsers = dac.getAllUsers();
+			tempInt = 0;
+			for (UserDTO u : tempUsers) {
+				System.out.println(++tempInt + "-" + u.getName());
+			}
+			System.out.println(textLangProvider.INSTANCE.getProperty("getAllUsersOk"));
+		} catch (RequestException e) {
+			System.out.println(textLangProvider.INSTANCE.getProperty("getAllUsersNotOk"));
+			System.out.println(textLangProvider.INSTANCE.getProperty("errorReason") + " " + e.getMessage());
+		} finally {
+			tempUsers = null;
+		}
+	}
 
 	private void updateUser() {
-		System.out.println("search user by name: ");
-		String selectedName = getLine();
-		List<UserDTO> userList = dac.getUsers(selectedName);
-		System.out.println("select user: ");
-		for (int i = 0; i < userList.size(); ++i) {
-			System.out.println(i + 1 + " " + userList.get(i).getName());
-		}
-		int number = getIntLine();
-		UserDTO user = userList.get(number - 1);
-
-		System.out.println("1 - update just the name");
-		System.out.println("2 - update just the email");
-		System.out.println("3 - update just the password");
-		System.out.println("4 - update all");
-		int cmd = getIntLine();
-		switch (cmd) {
-		case 1:
-			System.out.println("enter new name");
-			String newName = getLine();
-			user.setName(newName);
-			break;
-		case 2:
-			System.out.println("enter new email: ");
-			String newEmail = getLine();
-			user.setEmail(newEmail);
-			break;
-		case 3:
-			System.out.println("enter new password: ");
-			String newPassword = getLine();
-			user.setPassword(newPassword);
-			break;
-		case 4:
-			System.out.println("enter new name: ");
-			user.setName(getLine());
-			System.out.println("enter new email: ");
-			user.setEmail(getLine());
-			System.out.println("enter new password: ");
-			user.setPassword(getLine());
-			break;
-		default:
-			break;
-		}
-
-		
 		try {
-			dac.updateUser(user);
-			System.out.println("Update successfull ");
-		} catch (RequestException e) {
-			System.out.println("Update not succsessfull" + e.getMessage());
-		}
-		
-		
+			searchUsers();
+			tempUser = getUserFromResult();
+			if (tempUser != null) {
+				DataAdministrationView.menuForAdminDataAUsersUpdate();
+				int cmd = getIntLine();
+				switch (cmd) {
+				case 1:
+					System.out.println(textLangProvider.INSTANCE.getProperty("enterUserName"));
+					String newName = getLine();
+					tempUser.setName(newName);
+					break;
+				case 2:
+					System.out.println(textLangProvider.INSTANCE.getProperty("enterUserEmail"));
+					String newEmail = getLine();
+					tempUser.setEmail(newEmail);
+					break;
+				case 3:
+					System.out.println(textLangProvider.INSTANCE.getProperty("enterUserPassword"));
+					String newPassword = getLine();
+					tempUser.setPassword(newPassword);
+					break;
+				case 4:
+					System.out.println(textLangProvider.INSTANCE.getProperty("enterUserName"));
+					tempUser.setName(getLine());
+					System.out.println(textLangProvider.INSTANCE.getProperty("enterUserEmail"));
+					tempUser.setEmail(getLine());
+					System.out.println(textLangProvider.INSTANCE.getProperty("enterUserPassword"));
+					tempUser.setPassword(getLine());
+					break;
+				default:
+					break;
+				}
 
+				try {
+					dac.updateUser(tempUser);
+					System.out.println(textLangProvider.INSTANCE.getProperty("updateOk"));
+				} catch (RequestException e) {
+					System.out.println(textLangProvider.INSTANCE.getProperty("updateNotOk"));
+					System.out.println(textLangProvider.INSTANCE.getProperty("errorReason") + " " + e.getMessage());
+				}
+			}
+		} finally {
+			tempUsers = null;
+			tempUser = null;
+		}
 	}
 
 	private void deleteUser() {
-		System.out.println("search user by name: ");
-		String selectedName = getLine();
-		List<UserDTO> userList = dac.getUsers(selectedName);
-		System.out.println("select user: ");
-		for (int i = 0; i < userList.size(); ++i) {
-			System.out.println(i + 1 + " " + userList.get(i).getName());
-		}
-		int number = getIntLine();
-		UserDTO user = userList.get(number - 1);
 		try {
-			dac.deleteUser(user.getUUID());
-			System.out.println("Delete successfull ");
-		} catch (RequestException e) {
-			System.out.println("Delete not succsessfull" + e.getMessage());
+			searchUsers();
+			tempUser = getUserFromResult();
+			if (tempUser != null) {
+				try {
+					dac.deleteUser(tempUser.getUUID());
+					System.out.println(textLangProvider.INSTANCE.getProperty("deleteOk"));
+				} catch (RequestException e) {
+					System.out.println(textLangProvider.INSTANCE.getProperty("deleteNotOk"));
+					System.out.println(textLangProvider.INSTANCE.getProperty("errorReason") + " " + e.getMessage());
+				}
+			}
+		} finally {
+			tempUsers = null;
+			tempUser = null;
 		}
-		
 	}
 
 	private void createNewUser() {
-		UserDTO user = new UserDTO();
-		System.out.println("Enter name");
-		user.setName(getLine());
-		System.out.println("Enter email");
-		user.setEmail(getLine());
-		System.out.println("Enter password");
-		user.setPassword(getLine());
-		int loyaltyIndex = 10;
-		user.setLoyaltyIndex(loyaltyIndex);
-		UserType userType = UserType.READER;
-		user.setUserType(userType);
 		try {
-			dac.createNewUser(user);
-			System.out.println("Create successfull ");
-		} catch (RequestException e) {
-			System.out.println("Create not succsessfull" + e.getMessage());
+			tempUser = new UserDTO();
+			System.out.println(textLangProvider.INSTANCE.getProperty("enterUserName"));
+			tempUser.setName(getLine());
+			System.out.println(textLangProvider.INSTANCE.getProperty("enterUserEmail"));
+			tempUser.setEmail(getLine());
+			System.out.println(textLangProvider.INSTANCE.getProperty("enterUserPassword"));
+			tempUser.setPassword(getLine());
+			tempUser.setLoyaltyIndex(10);
+			UserType userType = UserType.READER;
+			tempUser.setUserType(userType);
+			try {
+				dac.createNewUser(tempUser);
+				System.out.println(textLangProvider.INSTANCE.getProperty("createOk"));
+			} catch (RequestException e) {
+				System.out.println(textLangProvider.INSTANCE.getProperty("createNotOk"));
+				System.out.println(textLangProvider.INSTANCE.getProperty("errorReason") + " " + e.getMessage());
+			}
+		} finally {
+			tempUser = null;
 		}
-
 	}
 
 	/**
@@ -509,13 +529,28 @@ public class MainController {
 			System.out.println(textLangProvider.INSTANCE.getProperty("exitProg"));
 			System.exit(0);
 			break;
-		case 1:
+		case 5:
+			getAllPublication();
 			break;
 		default:
 			System.out.println(exitBackString);
 			break;
 		}
 		return 0;
+	}
+
+	private void getAllPublication() {
+		try {
+			tempPublications = dac.getAllPublication();
+			tempInt = 0;
+			for (PublicationDTO p : tempPublications) {
+				System.out.println(++tempInt + "-" + p.getTitle());
+			}
+			System.out.println(textLangProvider.INSTANCE.getProperty("getAllPublicationsOK"));
+		} catch (RequestException e) {
+			System.out.println(textLangProvider.INSTANCE.getProperty("getAllPublicationsNotOK"));
+			System.out.println(textLangProvider.INSTANCE.getProperty("errorReason") + " " + e.getMessage());
+		}
 	}
 
 	/**
@@ -548,7 +583,7 @@ public class MainController {
 	 * Auxiliary for retrieving a User's Borrowings
 	 */
 	private void searchBorrowedPublications() {
-		tempBorrowings = tempUser.getBorrow();		
+		tempBorrowings = tempUser.getBorrow();
 		if (tempBorrowings == null) {
 			System.out.println(textLangProvider.INSTANCE.getProperty("couldNotFindBorrowedPublication") + " <"
 					+ tempUser.getName() + ">!");
@@ -557,10 +592,10 @@ public class MainController {
 			tempBorrowings = null;
 			return;
 		}
-		tempInt = 0;		
+		tempInt = 0;
 		for (BorrowingDTO b : tempBorrowings) {
 			System.out.println(++tempInt + ": " + b.getPublication().getTitle().toString());
-			b.setUser(tempUser);			
+			b.setUser(tempUser);
 		}
 	}
 
@@ -568,11 +603,11 @@ public class MainController {
 	 * Auxiliary for retrieving Users by name
 	 */
 	private void searchUsers() {
-		System.out.println(textLangProvider.INSTANCE.getProperty("enterUserName"));
+		System.out.println(textLangProvider.INSTANCE.getProperty("enterUserNameForSearch"));
 		tempStr = getLine();
 		while (tempStr.length() < 3) {
 			System.out.println(textLangProvider.INSTANCE.getProperty("searchLenghtToShort"));
-			System.out.println(textLangProvider.INSTANCE.getProperty("enterUserName"));
+			System.out.println(textLangProvider.INSTANCE.getProperty("enterUserNameForSearch"));
 			tempStr = getLine();
 		}
 		try {

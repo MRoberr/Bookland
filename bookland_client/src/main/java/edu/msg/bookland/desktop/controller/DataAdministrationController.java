@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import edu.msg.bookland.common.model.BookDTO;
 import edu.msg.bookland.common.model.PublicationDTO;
 import edu.msg.bookland.common.model.ServiceException;
 import edu.msg.bookland.common.model.UserDTO;
@@ -113,13 +114,25 @@ public class DataAdministrationController {
 		try {
 			return ConnectionModel.USER_SERVICE_RMI.getAllUsers();
 		}catch (ServiceException e) {
-			LOGGER.error("no connection when gett all users", e);
+			LOGGER.error("Server could not get all users", e);
 			throw new RequestException(e.getMessage());
 		} catch (RemoteException e) {
-			LOGGER.error(" connection when gett all users", e);
+			LOGGER.error("Connection with server failed when getting all users", e);
 			throw new RequestException(e.getMessage());
 		}
 		
+	}
+	public List<PublicationDTO> getAllPublication() {
+
+		try {
+			return ConnectionModel.PUBLICATION_SERVICE_RMI.getAllPublications();
+		} catch (ServiceException e) {
+			LOGGER.error("Server could not get all publication", e);
+			throw new RequestException(e.getMessage());
+		} catch (RemoteException e) {
+			LOGGER.error("Connection with server failed at get all publication.", e);
+			throw new RequestException(e.getMessage());
+		}
 	}
 	
 }
