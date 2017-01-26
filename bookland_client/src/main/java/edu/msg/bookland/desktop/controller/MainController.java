@@ -384,6 +384,22 @@ public class MainController {
 		}
 		return 0;
 	}
+	
+	private List<UserDTO> getAllUser() {
+		List<UserDTO> users = null;
+		try {
+			users = dac.getAllUsers();
+			int i = 0;
+			for (UserDTO userDTO : users) {
+				System.out.println(++i + "-" + userDTO.getName());
+			}
+			System.out.println("get all user succsessfull");
+		} catch (RequestException e) {
+			System.out.println("get all users not succsessfull" + e.getMessage());
+		}
+		return users;
+
+	}
 
 	private void updateUser() {
 		try {
