@@ -446,7 +446,7 @@ public class MainController {
 			dac.deleteUser(user.getUUID());
 			System.out.println("Delete successfull ");
 		} catch (RequestException e) {
-			System.out.println("Delete not succsessfull");
+			System.out.println("Delete not succsessfull"+ e.getMessage());
 		}
 		
 	}
@@ -467,7 +467,7 @@ public class MainController {
 			dac.createNewUser(user);
 			System.out.println("Create successfull ");
 		} catch (RequestException e) {
-			System.out.println("Create not succsessfull");
+			System.out.println("Create not succsessfull"+ e.getMessage());
 		}
 
 	}
