@@ -7,6 +7,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Transient;
 
@@ -23,14 +25,14 @@ public class Magazine extends Publication {
 
 	@Transient
 	private static final long serialVersionUID = -5114016015626666976L;
-	
-	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "publicationAuthors")	
+
+	@ManyToMany(cascade = {CascadeType.MERGE, CascadeType.DETACH})
+	@JoinTable(name = "publications_authors", joinColumns = @JoinColumn(name = "publications_uuid"), inverseJoinColumns = @JoinColumn(name = "authors_uuid"))
 	private List<Author> mAuthors;
 
 	public Magazine() {
 		
 		mAuthors = new ArrayList<Author>();
-		borrow = new ArrayList<>();
 	}
 
 	public Magazine(Magazine magazine) {

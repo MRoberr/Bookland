@@ -144,7 +144,7 @@ public class HibernatePublicationDAO implements PublicationDAO {
 		try {
 			entityManager.getTransaction().begin();
 			book.getUUID();
-			entityManager.persist(book);
+			entityManager.merge(book);
 			entityManager.getTransaction().commit();
 
 			LOGGER.info("Book insert completed successfully");

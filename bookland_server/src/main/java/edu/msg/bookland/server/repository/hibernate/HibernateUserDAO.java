@@ -58,7 +58,7 @@ public class HibernateUserDAO implements UserDAO {
 
 		try {
 			entityManager.getTransaction().begin();
-			entityManager.persist(user);
+			entityManager.merge(user);
 			entityManager.getTransaction().commit();
 			LOGGER.info("user inserted");
 		} catch (RollbackException e) {
@@ -201,6 +201,8 @@ public class HibernateUserDAO implements UserDAO {
 	@Override
 	public List<User> searchUserByName(String name) throws RepositoryException {
 		try {
+			entityManager.clear();
+			builder = entityManager.getCriteriaBuilder();
 			CriteriaQuery<User> searchUser = builder.createQuery(User.class);
 			Root<User> user1 = searchUser.from(User.class);
 
@@ -209,6 +211,7 @@ public class HibernateUserDAO implements UserDAO {
 
 			TypedQuery<User> pubQuery = entityManager.createQuery(searchUser);
 			List<User> userList = pubQuery.getResultList();
+			System.out.println("size " + userList.get(0).getBorrow().size());
 			if (userList.isEmpty()) {
 				LOGGER.error("Can't find user with specifield name <" + name + ">.");
 				throw new RepositoryException("Can't find user with specifield name <" + name + ">.");

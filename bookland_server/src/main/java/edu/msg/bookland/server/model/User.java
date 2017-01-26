@@ -3,10 +3,12 @@ package edu.msg.bookland.server.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -45,7 +47,8 @@ public class User extends BaseEntity {
 	@Column(name = "email", nullable = false, unique = true)
 	private String email;
 	
-	@OneToMany(mappedBy = "user")
+	@OneToMany(cascade = {CascadeType.MERGE, CascadeType.DETACH})
+	@JoinColumn(name = "user_uuid")
 	private List<Borrowing> borrow;
 
 	public User() {
@@ -81,7 +84,7 @@ public class User extends BaseEntity {
 			borrow.add(new Borrowing(b));
 		}
 	}
-
+	
 	public String getName() {
 		return name;
 	}

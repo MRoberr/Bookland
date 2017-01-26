@@ -179,13 +179,13 @@ public class BasicPublicationBL implements PublicationBL {
 	@Override
 	public void deletePublication(String id) throws BusinesLogicException {
 		try {
-			if (publicationDAO.getPublicationByUuid(id).getBorrow().isEmpty()) {
+//			if (publicationDAO.getPublicationByUuid(id).getBorrow().isEmpty()) {
 				publicationDAO.deletePublication(id);
-			} else {
-				LOGGER.error("This publication is borrowed by someone, you Can't delete Publication!");
-				throw new BusinesLogicException(
-						"This publication is borrowed by someone, you Can't delete Publication!");
-			}
+//			} else {
+//				LOGGER.error("This publication is borrowed by someone, you Can't delete Publication!");
+//				throw new BusinesLogicException(
+//						"This publication is borrowed by someone, you Can't delete Publication!");
+//			}
 		} catch (RepositoryException e) {
 			LOGGER.error("Can't update Book!");
 			throw new BusinesLogicException(e.getMessage(), e);

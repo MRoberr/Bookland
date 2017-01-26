@@ -23,10 +23,6 @@ public class Article extends BaseEntity {
 	@Column(name = "title", nullable = false, unique = true)
 	private String title;
 
-	@ManyToOne
-	@JoinColumn(name = "publications_uuid")
-	private Publication publication;
-
 	public Article() {
 
 	}
@@ -44,11 +40,4 @@ public class Article extends BaseEntity {
 		this.title = title;
 	}
 
-	public Publication getPublication() {
-		return publication;
-	}
-
-	public void setPublication(Publication publication) {
-		this.publication = publication;
-	}
 }

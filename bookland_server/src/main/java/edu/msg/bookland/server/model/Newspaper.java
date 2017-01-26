@@ -1,11 +1,12 @@
 package edu.msg.bookland.server.model;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
@@ -24,11 +25,11 @@ public class Newspaper extends Publication{
 	private static final long serialVersionUID = -3891407649176906111L;
 	
 
-	@OneToMany(mappedBy = "publication")	
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "publication_uuid")
 	List<Article> articles;
 	
 	public Newspaper() {		
-		borrow = new ArrayList<>();
 	}
 	
 	public Newspaper(Newspaper newspaper) {

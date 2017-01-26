@@ -1,14 +1,7 @@
 package edu.msg.bookland.server.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -29,12 +22,6 @@ public class Author extends BaseEntity {
 	@Column(name = "name", nullable = false, unique = true)
 	private String name;
 
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "publications_authors", joinColumns = @JoinColumn(name = "authors_uuid"), inverseJoinColumns = @JoinColumn(name = "publications_uuid"))
-	private List<Publication> publicationAuthors;
-	
-
-	
 	public Author() {
 	}
 
@@ -54,14 +41,6 @@ public class Author extends BaseEntity {
 	@Override
 	public String toString() {
 		return "Author name=" + name;
-	}
-
-	public List<Publication> getPublicationAuthors() {
-		return publicationAuthors;
-	}
-
-	public void setPublicationAuthors(List<Publication> publicationAuthors) {
-		this.publicationAuthors = publicationAuthors;
 	}
 
 }

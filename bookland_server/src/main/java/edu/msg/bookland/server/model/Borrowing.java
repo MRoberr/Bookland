@@ -3,6 +3,7 @@ package edu.msg.bookland.server.model;
 import java.io.Serializable;
 import java.sql.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -37,12 +38,7 @@ public class Borrowing implements Serializable {
 	@Column(name = "deadline")
 	private Date deadline;
 
-	@ManyToOne
-	@MapsId("userId")
-	@JoinColumn(name = "user_uuid")
-	private User user;
-
-	@ManyToOne
+	@ManyToOne(cascade = {CascadeType.DETACH})
 	@MapsId("publicationId")
 	@JoinColumn(name = "publications_uuid")
 	private Publication publication;
@@ -111,15 +107,6 @@ public class Borrowing implements Serializable {
 
 	public void setUserPublicationId(String userId,String publicationId) {
 		this.userPublicationId =new UserPublicationId(userId, publicationId);
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-		this.setUserId(user.getUUID());
 	}
 
 	public void setPublication(Publication publication) {

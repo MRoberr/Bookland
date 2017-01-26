@@ -36,7 +36,6 @@ public abstract class BaseEntity implements Serializable {
 		}
 		return uuId;
 	}
-
 	public void setUUID(String uuID) {
 		uuId = uuID;
 	}

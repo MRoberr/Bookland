@@ -1,7 +1,6 @@
 package edu.msg.bookland.server.model;
 
 import java.sql.Date;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
@@ -9,7 +8,6 @@ import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -44,9 +42,6 @@ public abstract class Publication extends BaseEntity {
 	@Column(name = "release_date")
 	protected Date releaseDate;
 	
-	@OneToMany(mappedBy = "publication")
-	protected List<Borrowing> borrow;
-
 	public String getTitle() {
 		return title;
 	}
@@ -91,14 +86,6 @@ public abstract class Publication extends BaseEntity {
 	public String toString() {
 		return "title=" + title + ", publisher=" + publisher + ", numberOfCopies=" + numberOfCopies + ", copiesLeft="
 				+ copiesLeft;
-	}
-
-	public List<Borrowing> getBorrow() {
-		return borrow;
-	}
-
-	public void setBorrow(List<Borrowing> borrow) {
-		this.borrow = borrow;
 	}
 
 }

@@ -196,10 +196,9 @@ public class MappingService {
 
 	public static Borrowing DTOToBorrow(BorrowingDTO borrowingDTO) {
 		Borrowing borrowing = new Borrowing();
-		borrowing.setUser(DTOToUser(borrowingDTO.getUser()));
 		borrowing.setPublication(DTOToPublication(borrowingDTO.getPublication()));
 		borrowing.setPublicationId(borrowing.getPublicationId());
-		borrowing.setUserId(borrowing.getUserId());
+		borrowing.setUserId(borrowingDTO.getUserId());
 		borrowing.setUserPublicationId(borrowing.getUserId(), borrowing.getPublicationId());
 		borrowing.setDeadline(borrowingDTO.getDeadline());
 		borrowing.setBorrowingDate(borrowingDTO.getBorrowingDate());
@@ -238,7 +237,6 @@ public class MappingService {
 		Article article = new Article();
 		article.setUUID(articleDTO.getUUID());
 		article.setTitle(articleDTO.getTitle());
-		article.setPublication(DTOToPublication(articleDTO.getPublicationDTO()));
 		return article;
 	}
 }
