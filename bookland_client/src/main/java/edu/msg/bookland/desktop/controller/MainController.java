@@ -2,11 +2,13 @@ package edu.msg.bookland.desktop.controller;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
 
+import edu.msg.bookland.common.model.BookDTO;
 import edu.msg.bookland.common.model.BorrowingDTO;
 import edu.msg.bookland.common.model.PublicationDTO;
 import edu.msg.bookland.common.model.UserDTO;
@@ -369,11 +371,36 @@ public class MainController {
 		case 3:
 			deleteUser();
 			break;
+		case 4:
+			getAllUser();
+			break;
+		case 5:
+			searchUsers();
+			tempUser = getUserFromResult();
+			break;
 		default:
 			System.out.println(exitBackString);
 			break;
 		}
 		return 0;
+	}
+
+	
+
+	private List<UserDTO> getAllUser() {
+		List<UserDTO> users = null;
+		try {
+			users = dac.getAllUsers();
+			int i = 0;
+			for (UserDTO userDTO : users) {
+				System.out.println(++i + "-" + userDTO.getName());
+			}
+			System.out.println("get all user succsessfull");
+		} catch (RequestException e) {
+			System.out.println("get all users not succsessfull" + e.getMessage());
+		}
+		return users;
+
 	}
 
 	private void updateUser() {
@@ -420,15 +447,12 @@ public class MainController {
 			break;
 		}
 
-		
 		try {
 			dac.updateUser(user);
 			System.out.println("Update successfull ");
 		} catch (RequestException e) {
 			System.out.println("Update not succsessfull" + e.getMessage());
 		}
-		
-		
 
 	}
 
@@ -446,9 +470,9 @@ public class MainController {
 			dac.deleteUser(user.getUUID());
 			System.out.println("Delete successfull ");
 		} catch (RequestException e) {
-			System.out.println("Delete not succsessfull"+ e.getMessage());
+			System.out.println("Delete not succsessfull" + e.getMessage());
 		}
-		
+
 	}
 
 	private void createNewUser() {
@@ -467,7 +491,7 @@ public class MainController {
 			dac.createNewUser(user);
 			System.out.println("Create successfull ");
 		} catch (RequestException e) {
-			System.out.println("Create not succsessfull"+ e.getMessage());
+			System.out.println("Create not succsessfull" + e.getMessage());
 		}
 
 	}
@@ -509,13 +533,30 @@ public class MainController {
 			System.out.println(textLangProvider.INSTANCE.getProperty("exitProg"));
 			System.exit(0);
 			break;
-		case 1:
+		case 5:
+			getAllPublication();
 			break;
 		default:
 			System.out.println(exitBackString);
 			break;
 		}
 		return 0;
+	}
+
+	private List<PublicationDTO> getAllPublication() {
+		List<PublicationDTO> publications = null;
+		try {
+			publications = dac.getAllPublication();
+			int i = 0;
+			for (PublicationDTO publicationDTO : publications) {
+				System.out.println(++i + "-" + publicationDTO.getTitle());
+			}
+			System.out.println("get all publication succsessful");
+		} catch (RequestException e) {
+			System.out.println("get all publication not succsessful" + e.getMessage());
+		}
+		return publications;
+
 	}
 
 	/**
@@ -548,7 +589,7 @@ public class MainController {
 	 * Auxiliary for retrieving a User's Borrowings
 	 */
 	private void searchBorrowedPublications() {
-		tempBorrowings = tempUser.getBorrow();		
+		tempBorrowings = tempUser.getBorrow();
 		if (tempBorrowings == null) {
 			System.out.println(textLangProvider.INSTANCE.getProperty("couldNotFindBorrowedPublication") + " <"
 					+ tempUser.getName() + ">!");
@@ -557,10 +598,10 @@ public class MainController {
 			tempBorrowings = null;
 			return;
 		}
-		tempInt = 0;		
+		tempInt = 0;
 		for (BorrowingDTO b : tempBorrowings) {
 			System.out.println(++tempInt + ": " + b.getPublication().getTitle().toString());
-			b.setUser(tempUser);			
+			b.setUser(tempUser);
 		}
 	}
 
