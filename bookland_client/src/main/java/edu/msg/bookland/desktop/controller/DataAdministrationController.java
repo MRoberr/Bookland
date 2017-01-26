@@ -114,10 +114,10 @@ public class DataAdministrationController {
 		try {
 			return ConnectionModel.USER_SERVICE_RMI.getAllUsers();
 		}catch (ServiceException e) {
-			LOGGER.error("no connection when gett all users", e);
+			LOGGER.error("Server could not get all users", e);
 			throw new RequestException(e.getMessage());
 		} catch (RemoteException e) {
-			LOGGER.error(" connection when gett all users", e);
+			LOGGER.error("Connection with server failed when getting all users", e);
 			throw new RequestException(e.getMessage());
 		}
 		
