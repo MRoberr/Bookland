@@ -546,9 +546,9 @@ public class MainController {
 			for (PublicationDTO p : tempPublications) {
 				System.out.println(++tempInt + "-" + p.getTitle());
 			}
-			System.out.println(textLangProvider.INSTANCE.getProperty("getAllPublicationsOK"));
+			System.out.println(textLangProvider.INSTANCE.getProperty("getAllPublicationsOk"));
 		} catch (RequestException e) {
-			System.out.println(textLangProvider.INSTANCE.getProperty("getAllPublicationsNotOK"));
+			System.out.println(textLangProvider.INSTANCE.getProperty("getAllPublicationsNotOk"));
 			System.out.println(textLangProvider.INSTANCE.getProperty("errorReason") + " " + e.getMessage());
 		}
 	}
