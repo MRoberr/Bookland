@@ -425,7 +425,7 @@ public class MainController {
 			dac.updateUser(user);
 			System.out.println("Update successfull ");
 		} catch (RequestException e) {
-			System.out.println("Update not succsessfull");
+			System.out.println("Update not succsessfull" + e.getMessage());
 		}
 		
 		
