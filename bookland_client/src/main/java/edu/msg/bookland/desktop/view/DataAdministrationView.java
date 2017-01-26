@@ -25,7 +25,16 @@ public abstract class DataAdministrationView {
 		System.out.println("1 -Insert User");
 		System.out.println("2 -Update User");
 		System.out.println("3 -Delete User");
-		//System.out.println("5 -Show all Users");
+		System.out.println("4 -Show all Users");
+		System.out.println("5  Search for User");
+	}
+	
+	public static void menuForAdminDataAUsersUpdate() {
+		System.out.println(getProperty("chooseAnOption"));
+		System.out.println("1 - update just the name");
+		System.out.println("2 - update just the email");
+		System.out.println("3 - update just the password");
+		System.out.println("4 - update all");
 	}
 	
 	public static void menuForAdminDataAAuthors() {
@@ -52,7 +61,7 @@ public abstract class DataAdministrationView {
 		System.out.println("2 -Insert Publication");
 		System.out.println("3 -Update Publication");
 		System.out.println("4 -Delete Publication");
-		//System.out.println("5 -Show all Publications");
+		System.out.println("5 -Show all Publications");
 	}
 	
 	private static String getProperty(String s) {
