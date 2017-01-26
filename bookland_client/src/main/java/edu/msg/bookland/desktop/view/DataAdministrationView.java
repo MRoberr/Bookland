@@ -28,6 +28,14 @@ public abstract class DataAdministrationView {
 		//System.out.println("5 -Show all Users");
 	}
 	
+	public static void menuForAdminDataAUsersUpdate() {
+		System.out.println(getProperty("chooseAnOption"));
+		System.out.println("1 - update just the name");
+		System.out.println("2 - update just the email");
+		System.out.println("3 - update just the password");
+		System.out.println("4 - update all");
+	}
+	
 	public static void menuForAdminDataAAuthors() {
 		System.out.println(getProperty("chooseAnOption"));
 		System.out.println("1 -Search for Author");
