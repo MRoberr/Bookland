@@ -376,7 +376,6 @@ public class MainController {
 			break;
 		case 5:
 			searchUsers();
-			tempUser = getUserFromResult();
 			break;
 		default:
 			System.out.println(exitBackString);
@@ -385,20 +384,20 @@ public class MainController {
 		return 0;
 	}
 	
-	private List<UserDTO> getAllUser() {
-		List<UserDTO> users = null;
+	private void getAllUser() {
 		try {
-			users = dac.getAllUsers();
-			int i = 0;
-			for (UserDTO userDTO : users) {
-				System.out.println(++i + "-" + userDTO.getName());
+			tempUsers = dac.getAllUsers();
+			tempInt = 0;
+			for (UserDTO u : tempUsers) {
+				System.out.println(++tempInt + "-" + u.getName());
 			}
-			System.out.println("get all user succsessfull");
+			System.out.println(textLangProvider.INSTANCE.getProperty("getAllUsersOk"));
 		} catch (RequestException e) {
-			System.out.println("get all users not succsessfull" + e.getMessage());
+			System.out.println(textLangProvider.INSTANCE.getProperty("getAllUsersNotOk"));
+			System.out.println(textLangProvider.INSTANCE.getProperty("errorReason") + " " + e.getMessage());
+		} finally {
+			tempUsers = null;
 		}
-		return users;
-
 	}
 
 	private void updateUser() {
@@ -410,26 +409,26 @@ public class MainController {
 				int cmd = getIntLine();
 				switch (cmd) {
 				case 1:
-					System.out.println("Enter new name:");
+					System.out.println(textLangProvider.INSTANCE.getProperty("enterUserName"));
 					String newName = getLine();
 					tempUser.setName(newName);
 					break;
 				case 2:
-					System.out.println("Enter new email:");
+					System.out.println(textLangProvider.INSTANCE.getProperty("enterUserEmail"));
 					String newEmail = getLine();
 					tempUser.setEmail(newEmail);
 					break;
 				case 3:
-					System.out.println("Enter new password:");
+					System.out.println(textLangProvider.INSTANCE.getProperty("enterUserPassword"));
 					String newPassword = getLine();
 					tempUser.setPassword(newPassword);
 					break;
 				case 4:
-					System.out.println("Enter new name:");
+					System.out.println(textLangProvider.INSTANCE.getProperty("enterUserName"));
 					tempUser.setName(getLine());
-					System.out.println("Enter new email:");
+					System.out.println(textLangProvider.INSTANCE.getProperty("enterUserEmail"));
 					tempUser.setEmail(getLine());
-					System.out.println("Enter new password:");
+					System.out.println(textLangProvider.INSTANCE.getProperty("enterUserPassword"));
 					tempUser.setPassword(getLine());
 					break;
 				default:
@@ -472,11 +471,11 @@ public class MainController {
 	private void createNewUser() {
 		try {
 			tempUser = new UserDTO();
-			System.out.println("Enter name");
+			System.out.println(textLangProvider.INSTANCE.getProperty("enterUserName"));
 			tempUser.setName(getLine());
-			System.out.println("Enter email");
+			System.out.println(textLangProvider.INSTANCE.getProperty("enterUserEmail"));
 			tempUser.setEmail(getLine());
-			System.out.println("Enter password");
+			System.out.println(textLangProvider.INSTANCE.getProperty("enterUserPassword"));
 			tempUser.setPassword(getLine());
 			tempUser.setLoyaltyIndex(10);
 			UserType userType = UserType.READER;
@@ -540,20 +539,18 @@ public class MainController {
 		return 0;
 	}
 
-	private List<PublicationDTO> getAllPublication() {
-		List<PublicationDTO> publications = null;
+	private void getAllPublication() {
 		try {
-			publications = dac.getAllPublication();
-			int i = 0;
-			for (PublicationDTO publicationDTO : publications) {
-				System.out.println(++i + "-" + publicationDTO.getTitle());
+			tempPublications = dac.getAllPublication();
+			tempInt = 0;
+			for (PublicationDTO p : tempPublications) {
+				System.out.println(++tempInt + "-" + p.getTitle());
 			}
-			System.out.println("get all publication succsessful");
+			System.out.println(textLangProvider.INSTANCE.getProperty("getAllPublicationsOK"));
 		} catch (RequestException e) {
-			System.out.println("get all publication not succsessful" + e.getMessage());
+			System.out.println(textLangProvider.INSTANCE.getProperty("getAllPublicationsNotOK"));
+			System.out.println(textLangProvider.INSTANCE.getProperty("errorReason") + " " + e.getMessage());
 		}
-		return publications;
-
 	}
 
 	/**
@@ -606,11 +603,11 @@ public class MainController {
 	 * Auxiliary for retrieving Users by name
 	 */
 	private void searchUsers() {
-		System.out.println(textLangProvider.INSTANCE.getProperty("enterUserName"));
+		System.out.println(textLangProvider.INSTANCE.getProperty("enterUserNameForSearch"));
 		tempStr = getLine();
 		while (tempStr.length() < 3) {
 			System.out.println(textLangProvider.INSTANCE.getProperty("searchLenghtToShort"));
-			System.out.println(textLangProvider.INSTANCE.getProperty("enterUserName"));
+			System.out.println(textLangProvider.INSTANCE.getProperty("enterUserNameForSearch"));
 			tempStr = getLine();
 		}
 		try {
