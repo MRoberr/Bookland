@@ -61,4 +61,6 @@ public interface AuthorDAO {
 	 * @throws RepositoryException
 	 */
 	List<Author> searchAuthor(String name) throws RepositoryException;
+	
+	int getPublicationNumberOfAuthor(String authorId) throws RepositoryException;
 }

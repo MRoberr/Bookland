@@ -47,6 +47,7 @@ public class HibernateArticleDAO implements ArticleDAO {
 	@Override
 	public List<Article> getAllArticles() throws RepositoryException {
 		try {
+			entityManager.clear();
 			CriteriaQuery<Article> articles = builder.createQuery(Article.class);
 			Root<Article> article = articles.from(Article.class);
 			articles.select(article);
@@ -71,6 +72,7 @@ public class HibernateArticleDAO implements ArticleDAO {
 	@Override
 	public void insertArticle(Article article) throws RepositoryException {
 		try {
+			entityManager.clear();
 			entityManager.getTransaction().begin();
 			entityManager.persist(article);
 			entityManager.getTransaction().commit();
@@ -102,6 +104,7 @@ public class HibernateArticleDAO implements ArticleDAO {
 	@Override
 	public void updateArticle(Article article) throws RepositoryException {
 		try {
+			entityManager.clear();
 			entityManager.getTransaction().begin();
 			CriteriaUpdate<Article> update = builder.createCriteriaUpdate(Article.class);
 
@@ -138,6 +141,7 @@ public class HibernateArticleDAO implements ArticleDAO {
 	@Override
 	public void deleteArticle(String id) throws RepositoryException {
 		try {
+			entityManager.clear();
 			CriteriaDelete<Article> delete = builder.createCriteriaDelete(Article.class);
 			Root<Article> authorRoot = delete.from(Article.class);
 			delete.where(builder.equal(authorRoot.get(Article_.uuId), id));
@@ -157,6 +161,7 @@ public class HibernateArticleDAO implements ArticleDAO {
 	@Override
 	public Article getArticleByUuid(String uuId) throws RepositoryException {
 		try {
+			entityManager.clear();
 			Article a = entityManager.find(Article.class, uuId);
 			if (a == null) {
 				LOGGER.error("Could not found an article by id.");
@@ -179,6 +184,7 @@ public class HibernateArticleDAO implements ArticleDAO {
 	@Override
 	public List<Article> searchArticle(String title) throws RepositoryException {
 		try {
+			entityManager.clear();
 			CriteriaQuery<Article> articleByName = builder.createQuery(Article.class);
 			Root<Article> article = articleByName.from(Article.class);
 			articleByName.select(article);

@@ -33,6 +33,7 @@ public class HibernateBorrowingDAO implements BorrowingDAO {
 	@Override
 	public void insertBorrowing(Borrowing borrowing) throws RepositoryException {
 		try {
+			entityManager.clear();
 			entityManager.getTransaction().begin();
 			entityManager.merge(borrowing);
 			entityManager.getTransaction().commit();
@@ -48,6 +49,7 @@ public class HibernateBorrowingDAO implements BorrowingDAO {
 	@Override
 	public void deleteBorrowing(String userId, String publicationId)throws RepositoryException {
 		try {
+			entityManager.clear();
 			entityManager.getTransaction().begin();
 			
 			CriteriaDelete<Borrowing> delete = builder.createCriteriaDelete(Borrowing.class);
@@ -75,6 +77,7 @@ public class HibernateBorrowingDAO implements BorrowingDAO {
 
 	public void updateBorrowing(Borrowing borrowing) throws RepositoryException {
 		try {
+			entityManager.clear();
 			entityManager.getTransaction().begin();
 			TypedQuery<Borrowing> query = entityManager.createQuery(
 					"SELECT b FROM Borrowing b WHERE b.userId in :idu " + "and b.publicationId in :idp",
@@ -100,19 +103,30 @@ public class HibernateBorrowingDAO implements BorrowingDAO {
 
 	@Override
 	public Borrowing getBorrowById(String userId, String publicationId) throws RepositoryException {
-		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-		CriteriaQuery<Borrowing> borrow = builder.createQuery(Borrowing.class);
-
-		Root<Borrowing> borrowRoot = borrow.from(Borrowing.class);
-
-		UserPublicationId pk = new UserPublicationId();
-		pk.SetPublicationId(publicationId);
-		pk.setUserId(userId);
-
-		borrow.select(borrowRoot);
-		borrow.where(builder.and(builder.equal(borrowRoot.get(Borrowing_.userPublicationId), pk)));
-		TypedQuery<Borrowing> borrowQuery = entityManager.createQuery(borrow);
-
+		
+		try{
+			entityManager.clear();
+			CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+			CriteriaQuery<Borrowing> borrow = builder.createQuery(Borrowing.class);
+	
+			Root<Borrowing> borrowRoot = borrow.from(Borrowing.class);
+	
+			UserPublicationId pk = new UserPublicationId();
+			pk.SetPublicationId(publicationId);
+			pk.setUserId(userId);
+	
+			borrow.select(borrowRoot);
+			borrow.where(builder.and(builder.equal(borrowRoot.get(Borrowing_.userPublicationId), pk)));
+			TypedQuery<Borrowing> borrowQuery = entityManager.createQuery(borrow);
+			
+			LOGGER.info("Borrow get was successful");
+			
 		return borrowQuery.getSingleResult();
+		
+		} catch(PersistenceException e) {
+			
+			LOGGER.error("Failed to get borrow by id", e);
+			throw new RepositoryException("Failed to get borrow by id", e);
+		}
 	}
 }
