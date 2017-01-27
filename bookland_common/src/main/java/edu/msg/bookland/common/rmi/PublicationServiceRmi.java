@@ -65,6 +65,9 @@ public interface PublicationServiceRmi extends Remote {
 	 */
 	public List<PublicationDTO> getAllPublications() throws RemoteException, ServiceException;
 
+	public List<PublicationDTO> getAllPiblicationPagination(int pageIndex, int noOfRecords)
+			throws RemoteException, ServiceException;
+
 	/**
 	 * This method inserts a Book into DB.
 	 * 

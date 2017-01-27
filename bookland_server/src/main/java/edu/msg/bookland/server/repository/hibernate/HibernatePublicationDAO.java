@@ -242,7 +242,7 @@ public class HibernatePublicationDAO implements PublicationDAO {
 
 			TypedQuery<Publication> pubQuery = entityManager.createQuery(pubByTitle);
 			List<Publication> pubList = pubQuery.getResultList();
-			
+
 			if (pubList.isEmpty()) {
 
 				LOGGER.error("Searching for publication by its title resulted an empty list");
@@ -294,12 +294,12 @@ public class HibernatePublicationDAO implements PublicationDAO {
 		try {
 			entityManager.clear();
 			Publication pub = entityManager.find(Publication.class, uuid);
-			
+
 			LOGGER.info("Got publication by id");
 			return pub;
-			
-		} catch(PersistenceException e) {
-			
+
+		} catch (PersistenceException e) {
+
 			LOGGER.error("Failed to get publication by id", e);
 			throw new RepositoryException("Failed to get publication by id", e);
 		}
@@ -312,20 +312,20 @@ public class HibernatePublicationDAO implements PublicationDAO {
 			entityManager.clear();
 			entityManager.getTransaction().begin();
 			CriteriaDelete<Publication> delete = builder.createCriteriaDelete(Publication.class);
-			
+
 			Root<Publication> pubRoot = delete.from(Publication.class);
-			
+
 			delete.where(builder.equal(pubRoot.get(Publication_.uuId), uuid));
 			entityManager.createQuery(delete).executeUpdate();
 			entityManager.getTransaction().commit();
 			LOGGER.info("Publication deleted successgully");
-			
+
 		} catch (PersistenceException e) {
-			
+
 			LOGGER.error("Failed to delete publication", e);
 			throw new RepositoryException("Failed to delete publication", e);
 		}
-		
+
 	}
 
 	@Override
@@ -340,7 +340,7 @@ public class HibernatePublicationDAO implements PublicationDAO {
 
 		TypedQuery<Book> bookQuery = entityManager.createQuery(bookByTitle);
 		List<Book> bookList = bookQuery.getResultList();
-		
+
 		return bookList;
 	}
 
@@ -356,7 +356,7 @@ public class HibernatePublicationDAO implements PublicationDAO {
 
 		TypedQuery<Magazine> magazineQuery = entityManager.createQuery(magazineByTitle);
 		List<Magazine> magazineList = magazineQuery.getResultList();
-		
+
 		return magazineList;
 	}
 
@@ -372,7 +372,7 @@ public class HibernatePublicationDAO implements PublicationDAO {
 
 		TypedQuery<Newspaper> newspaperQuery = entityManager.createQuery(newspaperByTitle);
 		List<Newspaper> newspaperList = newspaperQuery.getResultList();
-		
+
 		return newspaperList;
 	}
 
@@ -383,7 +383,7 @@ public class HibernatePublicationDAO implements PublicationDAO {
 
 		entityManager.getTransaction().begin();
 		CriteriaUpdate<Book> updateCopiesLeft = builder.createCriteriaUpdate(Book.class);
- 
+
 		Root<Book> bookRoot = updateCopiesLeft.from(Book.class);
 
 		pub.setCopiesLeft(pub.getCopiesLeft() + value);
@@ -394,28 +394,33 @@ public class HibernatePublicationDAO implements PublicationDAO {
 		entityManager.getTransaction().commit();
 	}
 
-	
+	public List<Publication> getAllPiblicationPagination(int pageIndex, int noOfRecords) {
+
+		try {
+			entityManager.clear();
+			CriteriaQuery<Publication> pubs = builder.createQuery(Publication.class);
+
+			Root<Publication> pub = pubs.from(Publication.class);
+			pubs.select(pub);
+
+			TypedQuery<Publication> pubQuery = entityManager.createQuery(pubs);
+			List<Publication> pubList = pubQuery.setMaxResults(noOfRecords).setFirstResult(pageIndex * noOfRecords)
+					.getResultList();
+
+			LOGGER.info("Publications query was successful");
+			if (pubList == null || pubList.isEmpty()){
+				LOGGER.error("Couldn't execute query on publications");
+				throw new RepositoryException("Couldn't execute query on publications");		
+			}
+				return pubList;
+		} catch (PersistenceException e) {
+
+			LOGGER.error("Couldn't execute query on publications", e);
+			throw new RepositoryException("Couldn't execute query on publications", e);
+		}
+		// setMaxResults(noOfRecords)
+		// .setFirstResult(pageIndex * noOfRecords));
+		// .getResultList();
+	}
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

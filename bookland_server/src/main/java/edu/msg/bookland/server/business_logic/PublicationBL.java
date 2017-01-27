@@ -55,7 +55,7 @@ public interface PublicationBL {
 	 * @throws BusinesLogicException
 	 */
 	List<Publication> getAllPublications() throws BusinesLogicException;
-
+	List<Publication> getAllPiblicationPagination(int pageIndex, int noOfRecords) throws BusinesLogicException;
 	/**
 	 * This method define insert for {@link Book}
 	 * 

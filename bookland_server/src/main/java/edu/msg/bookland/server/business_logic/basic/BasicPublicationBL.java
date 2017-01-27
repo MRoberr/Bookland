@@ -179,13 +179,16 @@ public class BasicPublicationBL implements PublicationBL {
 	@Override
 	public void deletePublication(String id) throws BusinesLogicException {
 		try {
-//			if (publicationDAO.getPublicationByUuid(id).getBorrow().isEmpty()) {
-				publicationDAO.deletePublication(id);
-//			} else {
-//				LOGGER.error("This publication is borrowed by someone, you Can't delete Publication!");
-//				throw new BusinesLogicException(
-//						"This publication is borrowed by someone, you Can't delete Publication!");
-//			}
+			// if
+			// (publicationDAO.getPublicationByUuid(id).getBorrow().isEmpty()) {
+			publicationDAO.deletePublication(id);
+			// } else {
+			// LOGGER.error("This publication is borrowed by someone, you Can't
+			// delete Publication!");
+			// throw new BusinesLogicException(
+			// "This publication is borrowed by someone, you Can't delete
+			// Publication!");
+			// }
 		} catch (RepositoryException e) {
 			LOGGER.error("Can't update Book!");
 			throw new BusinesLogicException(e.getMessage(), e);
@@ -246,6 +249,16 @@ public class BasicPublicationBL implements PublicationBL {
 	public List<Newspaper> searchNewspaper(String title) throws BusinesLogicException {
 		try {
 			return publicationDAO.searchNewspaper(title);
+		} catch (RepositoryException e) {
+			LOGGER.error("Can't get Newspaper!");
+			throw new BusinesLogicException(e.getMessage(), e);
+		}
+	}
+
+	@Override
+	public List<Publication> getAllPiblicationPagination(int pageIndex, int noOfRecords) throws BusinesLogicException {
+		try {
+			return publicationDAO.getAllPiblicationPagination(pageIndex, noOfRecords);
 		} catch (RepositoryException e) {
 			LOGGER.error("Can't get Newspaper!");
 			throw new BusinesLogicException(e.getMessage(), e);

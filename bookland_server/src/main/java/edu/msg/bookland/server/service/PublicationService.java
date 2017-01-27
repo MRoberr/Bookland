@@ -20,7 +20,6 @@ import edu.msg.bookland.server.model.Magazine;
 import edu.msg.bookland.server.model.Newspaper;
 import edu.msg.bookland.server.model.Publication;
 
-
 public class PublicationService extends UnicastRemoteObject implements PublicationServiceRmi {
 
 	private static final long serialVersionUID = 3284877157625860710L;
@@ -77,6 +76,19 @@ public class PublicationService extends UnicastRemoteObject implements Publicati
 		List<Publication> publications;
 		try {
 			publications = publicationBL.getAllPublications();
+		} catch (BusinesLogicException e) {
+			LOGGER.error(e.getMessage());
+			throw new ServiceException(e.getMessage());
+		}
+
+		return MappingService.publicationsToDTOGen(publications);
+	}
+
+	public List<PublicationDTO> getAllPiblicationPagination(int pageIndex, int noOfRecords)
+			throws RemoteException, ServiceException {
+		List<Publication> publications;
+		try {
+			publications = publicationBL.getAllPiblicationPagination(pageIndex, noOfRecords);
 		} catch (BusinesLogicException e) {
 			LOGGER.error(e.getMessage());
 			throw new ServiceException(e.getMessage());
