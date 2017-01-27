@@ -396,8 +396,7 @@ public class MainController {
 			tempUsers = dac.getAllUsers();
 			tempInt = 0;
 			for (UserDTO u : tempUsers) {
-				System.out.println(++tempInt + "-" + u.getName() + textLangProvider.INSTANCE.getProperty("nrOfBorrows")
-						+ u.getBorrow().size());
+				System.out.println(++tempInt + "- " + createUserInfo(u));
 			}
 			System.out.println(textLangProvider.INSTANCE.getProperty("getAllUsersOk"));
 		} catch (RequestException e) {
@@ -598,7 +597,7 @@ public class MainController {
 	 * Auxiliary for retrieving a User's Borrowings
 	 */
 	private void searchBorrowedPublications() {
-		tempBorrowings = tempUser.getBorrow();		
+		tempBorrowings = tempUser.getBorrow();
 		if (tempBorrowings.size() == 0) {
 			tempBorrowings = null;
 			System.out.println(textLangProvider.INSTANCE.getProperty("couldNotFindBorrowedPublication") + " <"
@@ -632,8 +631,7 @@ public class MainController {
 		}
 		tempInt = 0;
 		for (UserDTO u : tempUsers) {
-			System.out.println(++tempInt + ": " + u.toString() + textLangProvider.INSTANCE.getProperty("nrOfBorrows")
-					+ u.getBorrow().size());
+			System.out.println(++tempInt + ": " + createUserInfo(u));
 		}
 	}
 
@@ -730,5 +728,20 @@ public class MainController {
 			System.out.println(exitString);
 			return null;
 		}
+	}
+
+	/**
+	 * Auxiliary for internationalized user information.
+	 * 
+	 * @param u
+	 * @return String
+	 */
+	private String createUserInfo(UserDTO u) {
+		tempStr = textLangProvider.INSTANCE.getProperty("userName") + " " + u.getName()
+				+ textLangProvider.INSTANCE.getProperty("userType") + " " + u.getUserType()
+				+ textLangProvider.INSTANCE.getProperty("userEmail") + " " + u.getEmail()
+				+ textLangProvider.INSTANCE.getProperty("userLoyaltyIndex") + " " + u.getLoyaltyIndex()
+				+ textLangProvider.INSTANCE.getProperty("userNrOfBorrows") + " " + u.getBorrow().size();
+		return tempStr;
 	}
 }
