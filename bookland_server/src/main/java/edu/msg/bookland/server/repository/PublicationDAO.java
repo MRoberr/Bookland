@@ -113,5 +113,6 @@ public interface PublicationDAO {
 	void decreaseCopiesLeft(String uuid) throws RepositoryException;// --1
 	
 	public List<Publication> getAllPiblicationPagination(int pageIndex, int noOfRecords);
+	public long getNumberOfpublications();
 	
 }

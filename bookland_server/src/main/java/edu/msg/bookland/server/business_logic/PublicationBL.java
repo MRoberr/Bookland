@@ -149,5 +149,7 @@ public interface PublicationBL {
 	 * @throws BusinesLogicException
 	 */
 	List<Publication> searchPublication(String title) throws BusinesLogicException;
+	
+	long getNumberOfPublications();
 
 }

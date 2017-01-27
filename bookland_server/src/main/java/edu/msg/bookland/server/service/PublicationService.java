@@ -226,5 +226,14 @@ public class PublicationService extends UnicastRemoteObject implements Publicati
 
 		return MappingService.publicationsToDTOGen(publications);
 	}
+	
+	public long getNumberOfPublications() {
+		try {
+			return publicationBL.getNumberOfPublications();
+		} catch (BusinesLogicException e) {
+			LOGGER.error(e.getMessage());
+			throw new ServiceException(e.getMessage());
+		}
+	}
 
 }

@@ -265,4 +265,14 @@ public class BasicPublicationBL implements PublicationBL {
 		}
 	}
 
+	@Override
+	public long getNumberOfPublications() {
+		try {
+			return publicationDAO.getNumberOfpublications();
+		} catch (RepositoryException e) {
+			LOGGER.error("Can't get Newspaper!");
+			throw new BusinesLogicException(e.getMessage(), e);
+		}
+	}
+
 }

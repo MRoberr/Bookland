@@ -193,5 +193,7 @@ public interface PublicationServiceRmi extends Remote {
 	 *             when Server could not finish request
 	 */
 	public List<PublicationDTO> searchPublicationsByRegexp(String regex) throws RemoteException, ServiceException;
+	
+	public long getNumberOfPublications() throws RemoteException,ServiceException;
 
 }

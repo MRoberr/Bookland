@@ -31,6 +31,7 @@ import edu.msg.bookland.server.repository.RepositoryException;
  * Managing the publication database with Hibernate - criteria api
  * 
  * @author Róbert Levente Májai
+ * @author Sipos Terez
  *
  */
 public class HibernatePublicationDAO implements PublicationDAO {
@@ -408,19 +409,29 @@ public class HibernatePublicationDAO implements PublicationDAO {
 					.getResultList();
 
 			LOGGER.info("Publications query was successful");
-			if (pubList == null || pubList.isEmpty()){
+			if (pubList == null || pubList.isEmpty()) {
 				LOGGER.error("Couldn't execute query on publications");
-				throw new RepositoryException("Couldn't execute query on publications");		
+				throw new RepositoryException("Couldn't execute query on publications");
 			}
-				return pubList;
+			return pubList;
 		} catch (PersistenceException e) {
 
 			LOGGER.error("Couldn't execute query on publications", e);
 			throw new RepositoryException("Couldn't execute query on publications", e);
 		}
-		// setMaxResults(noOfRecords)
-		// .setFirstResult(pageIndex * noOfRecords));
-		// .getResultList();
+	}
+
+	@Override
+	public long getNumberOfpublications() {
+		try {
+			entityManager.clear();
+			CriteriaQuery<Long> cq = builder.createQuery(Long.class);
+			cq.select(builder.count(cq.from(Publication.class)));
+			return entityManager.createQuery(cq).getSingleResult();
+		} catch (PersistenceException e) {
+			LOGGER.error("Couldn't execute query on publications", e);
+			throw new RepositoryException("Couldn't execute query on publications", e);
+		}
 	}
 
 }
