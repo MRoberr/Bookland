@@ -598,13 +598,11 @@ public class MainController {
 	 * Auxiliary for retrieving a User's Borrowings
 	 */
 	private void searchBorrowedPublications() {
-		tempBorrowings = tempUser.getBorrow();
-		if (tempBorrowings == null) {
+		tempBorrowings = tempUser.getBorrow();		
+		if (tempBorrowings.size() == 0) {
+			tempBorrowings = null;
 			System.out.println(textLangProvider.INSTANCE.getProperty("couldNotFindBorrowedPublication") + " <"
 					+ tempUser.getName() + ">!");
-			return;
-		} else if (tempBorrowings.size() == 0) {
-			tempBorrowings = null;
 			return;
 		}
 		tempInt = 0;
