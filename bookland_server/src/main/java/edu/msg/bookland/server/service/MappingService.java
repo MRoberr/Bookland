@@ -149,29 +149,7 @@ public class MappingService {
 
 	}
 
-	/*
-	 * public static List<PublicationDTO> publicationToDTO(List<Publication>
-	 * publications) {
-	 * 
-	 * List<PublicationDTO> publicationListDTO = new ArrayList<>();
-	 * 
-	 * if (publications != null && publications.size() > 0) { for (Publication p
-	 * : publications) { PublicationDTO pubDTO; if (p instanceof Book) { pubDTO
-	 * = new BookDTO(); ((BookDTO) pubDTO).setAuthors(authorsToDTO(((Book)
-	 * p).getAuthors())); } else if (p instanceof Magazine) { pubDTO = new
-	 * MagazineDTO(); ((MagazineDTO) pubDTO).setAuthors(authorsToDTO(((Magazine)
-	 * p).getAuthors())); } else { pubDTO = new NewspaperDTO(); }
-	 * pubDTO.setUUID(p.getUUID()); pubDTO.setTitle(p.getTitle());
-	 * pubDTO.setReleaseDate(p.getReleaseDate());
-	 * pubDTO.setPublisher(p.getPublisher());
-	 * pubDTO.setNumberOfCopies(p.getNumberOfCopies());
-	 * pubDTO.setCopiesLeft(p.getCopiesLeft()); publicationListDTO.add(pubDTO);
-	 * }
-	 * 
-	 * return publicationListDTO; } else { return Collections.emptyList(); }
-	 * 
-	 * }
-	 */
+	
 	@SuppressWarnings("unchecked")
 	public static <O extends Publication, D extends PublicationDTO> O DTOToPublication(D d) {
 		O pub;

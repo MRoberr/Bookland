@@ -53,6 +53,7 @@ public class HibernatePublicationDAO implements PublicationDAO {
 	public List<Book> getAllBooks() throws RepositoryException {
 
 		try {
+			entityManager.clear();
 			CriteriaQuery<Book> books = builder.createQuery(Book.class);
 
 			Root<Book> book = books.from(Book.class);
@@ -76,6 +77,7 @@ public class HibernatePublicationDAO implements PublicationDAO {
 	public List<Magazine> getAllMagazines() throws RepositoryException {
 
 		try {
+			entityManager.clear();
 			CriteriaQuery<Magazine> magazines = builder.createQuery(Magazine.class);
 
 			Root<Magazine> magazine = magazines.from(Magazine.class);
@@ -98,6 +100,7 @@ public class HibernatePublicationDAO implements PublicationDAO {
 	public List<Newspaper> getAllNewspapers() throws RepositoryException {
 
 		try {
+			entityManager.clear();
 			CriteriaQuery<Newspaper> newspapers = builder.createQuery(Newspaper.class);
 
 			Root<Newspaper> newspaper = newspapers.from(Newspaper.class);
@@ -120,6 +123,7 @@ public class HibernatePublicationDAO implements PublicationDAO {
 	public List<Publication> getAllPublications() throws RepositoryException {
 
 		try {
+			entityManager.clear();
 			CriteriaQuery<Publication> pubs = builder.createQuery(Publication.class);
 
 			Root<Publication> pub = pubs.from(Publication.class);
@@ -142,6 +146,7 @@ public class HibernatePublicationDAO implements PublicationDAO {
 	public void insertBook(Book book) throws RepositoryException {
 
 		try {
+			entityManager.clear();
 			entityManager.getTransaction().begin();
 			book.getUUID();
 			entityManager.merge(book);
@@ -160,6 +165,7 @@ public class HibernatePublicationDAO implements PublicationDAO {
 	public void insertMagazine(Magazine magazine) throws RepositoryException {
 
 		try {
+			entityManager.clear();
 			entityManager.getTransaction().begin();
 			magazine.getUUID();
 			entityManager.persist(magazine);
@@ -178,6 +184,7 @@ public class HibernatePublicationDAO implements PublicationDAO {
 	public void insertNewspaper(Newspaper newspaper) throws RepositoryException {
 
 		try {
+			entityManager.clear();
 			entityManager.getTransaction().begin();
 			newspaper.getUUID();
 			entityManager.persist(newspaper);
@@ -196,6 +203,7 @@ public class HibernatePublicationDAO implements PublicationDAO {
 	public void updatePublication(Publication publication) throws RepositoryException {
 
 		try {
+			entityManager.clear();
 			entityManager.getTransaction().begin();
 			CriteriaUpdate<Publication> update = builder.createCriteriaUpdate(Publication.class);
 
@@ -225,6 +233,7 @@ public class HibernatePublicationDAO implements PublicationDAO {
 	public List<Publication> searchPublication(String title) throws RepositoryException {
 
 		try {
+			entityManager.clear();
 			CriteriaQuery<Publication> pubByTitle = builder.createQuery(Publication.class);
 			Root<Publication> pub = pubByTitle.from(Publication.class);
 
@@ -254,7 +263,7 @@ public class HibernatePublicationDAO implements PublicationDAO {
 	public void increaseCopiesLeft(String uuid) throws RepositoryException {
 
 		try {
-
+			entityManager.clear();
 			modifyCopiesLeft(uuid, 1);
 			LOGGER.info("Number of copies left increased");
 		} catch (PersistenceException e) {
@@ -268,7 +277,7 @@ public class HibernatePublicationDAO implements PublicationDAO {
 	public void decreaseCopiesLeft(String uuid) {
 
 		try {
-
+			entityManager.clear();
 			modifyCopiesLeft(uuid, -1);
 			LOGGER.info("Number of copies left decreased");
 		} catch (PersistenceException e) {
@@ -283,7 +292,7 @@ public class HibernatePublicationDAO implements PublicationDAO {
 	public Publication getPublicationByUuid(String uuid) {
 
 		try {
-			
+			entityManager.clear();
 			Publication pub = entityManager.find(Publication.class, uuid);
 			
 			LOGGER.info("Got publication by id");
@@ -300,6 +309,7 @@ public class HibernatePublicationDAO implements PublicationDAO {
 	public void deletePublication(String uuid) throws RepositoryException {
 
 		try {
+			entityManager.clear();
 			entityManager.getTransaction().begin();
 			CriteriaDelete<Publication> delete = builder.createCriteriaDelete(Publication.class);
 			
@@ -321,6 +331,7 @@ public class HibernatePublicationDAO implements PublicationDAO {
 	@Override
 	public List<Book> searchBook(String title) throws BusinesLogicException {
 
+		entityManager.clear();
 		CriteriaQuery<Book> bookByTitle = builder.createQuery(Book.class);
 		Root<Book> pub = bookByTitle.from(Book.class);
 
@@ -336,6 +347,7 @@ public class HibernatePublicationDAO implements PublicationDAO {
 	@Override
 	public List<Magazine> searchMagazine(String title) throws BusinesLogicException {
 
+		entityManager.clear();
 		CriteriaQuery<Magazine> magazineByTitle = builder.createQuery(Magazine.class);
 		Root<Magazine> pub = magazineByTitle.from(Magazine.class);
 
@@ -351,6 +363,7 @@ public class HibernatePublicationDAO implements PublicationDAO {
 	@Override
 	public List<Newspaper> searchNewspaper(String title) throws RepositoryException {
 
+		entityManager.clear();
 		CriteriaQuery<Newspaper> newspaperByTitle = builder.createQuery(Newspaper.class);
 		Root<Newspaper> pub = newspaperByTitle.from(Newspaper.class);
 
@@ -365,6 +378,7 @@ public class HibernatePublicationDAO implements PublicationDAO {
 
 	public void modifyCopiesLeft(String id, int value) {
 
+		entityManager.clear();
 		Publication pub = entityManager.find(Publication.class, id);
 
 		entityManager.getTransaction().begin();
@@ -379,6 +393,7 @@ public class HibernatePublicationDAO implements PublicationDAO {
 		entityManager.createQuery(updateCopiesLeft).executeUpdate();
 		entityManager.getTransaction().commit();
 	}
+
 	
 
 }

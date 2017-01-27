@@ -36,6 +36,7 @@ public class HibernateUserDAO implements UserDAO {
 	@Override
 	public List<User> getAllUsers() throws RepositoryException {
 		try {
+			entityManager.clear();
 			CriteriaQuery<User> users = builder.createQuery(User.class);
 			Root<User> User = users.from(User.class);
 			users.select(User);
@@ -57,6 +58,7 @@ public class HibernateUserDAO implements UserDAO {
 	public void insertUser(User user) throws RepositoryException {
 
 		try {
+			entityManager.clear();
 			entityManager.getTransaction().begin();
 			entityManager.merge(user);
 			entityManager.getTransaction().commit();
@@ -84,6 +86,7 @@ public class HibernateUserDAO implements UserDAO {
 	@Override
 	public void updateUser(User user) throws RepositoryException {
 		try {
+			entityManager.clear();
 			entityManager.getTransaction().begin();
 			User userDB = entityManager.find(User.class, user.getUUID());
 			userDB.setEmail(user.getEmail());
@@ -116,6 +119,7 @@ public class HibernateUserDAO implements UserDAO {
 	@Override
 	public void deleteUser(String id) throws RepositoryException {
 		try {
+			entityManager.clear();
 			entityManager.getTransaction().begin();
 			User userDB = entityManager.find(User.class, id);
 			entityManager.remove(userDB);
@@ -131,6 +135,7 @@ public class HibernateUserDAO implements UserDAO {
 	@Override
 	public void updateUserWithoutPassword(User user) throws RepositoryException {
 		try {
+			entityManager.clear();
 			entityManager.getTransaction().begin();
 			User userDB = entityManager.find(User.class, user.getUUID());
 			userDB.setEmail(user.getEmail());
@@ -162,6 +167,7 @@ public class HibernateUserDAO implements UserDAO {
 	@Override
 	public UserType login(String userName, String password) throws RepositoryException {
 		try {
+			entityManager.clear();
 			CriteriaQuery<User> userLogin = builder.createQuery(User.class);
 			Root<User> user1 = userLogin.from(User.class);
 
@@ -185,6 +191,7 @@ public class HibernateUserDAO implements UserDAO {
 	@Override
 	public User getUserById(String id) throws RepositoryException {
 		try {
+			entityManager.clear();
 			User user = entityManager.find(User.class, id);
 			if (user == null) {
 				LOGGER.error("Can't find user with specifield Id <" + id + ">.");
@@ -227,6 +234,7 @@ public class HibernateUserDAO implements UserDAO {
 	@Override
 	public void decreaseLoyaltyIndex(String uuid) throws RepositoryException {
 		try {
+			entityManager.clear();
 			entityManager.getTransaction().begin();
 			User userDB = entityManager.find(User.class, uuid);
 			userDB.setLoyaltyIndex(userDB.getLoyaltyIndex() - 1);
@@ -241,6 +249,7 @@ public class HibernateUserDAO implements UserDAO {
 	@Override
 	public void increaseLoyaltyIndex(String uuid) throws RepositoryException {
 		try {
+			entityManager.clear();
 			entityManager.getTransaction().begin();
 			User userDB = entityManager.find(User.class, uuid);
 			userDB.setLoyaltyIndex(userDB.getLoyaltyIndex() + 1);
