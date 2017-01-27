@@ -558,7 +558,7 @@ public class MainController {
 			tempPublications = dac.getAllPublication();
 			tempInt = 0;
 			for (PublicationDTO p : tempPublications) {
-				System.out.println(++tempInt + "-" + p.getTitle());
+				System.out.println(++tempInt + "-" + createPublicationInfo(p));
 			}
 			System.out.println(textLangProvider.INSTANCE.getProperty("getAllPublicationsOk"));
 		} catch (RequestException e) {
@@ -588,7 +588,7 @@ public class MainController {
 		}
 		tempInt = 0;
 		for (PublicationDTO p : tempPublications) {
-			System.out.println(++tempInt + ": " + p.toString());
+			System.out.println(++tempInt + ": " + createPublicationInfo(p));
 		}
 
 	}
@@ -606,7 +606,7 @@ public class MainController {
 		}
 		tempInt = 0;
 		for (BorrowingDTO b : tempBorrowings) {
-			System.out.println(++tempInt + ": " + b.getPublication().getTitle().toString());
+			System.out.println(++tempInt + ": " + createPublicationInfo(b.getPublication()));
 			b.setUserId(tempUser.getUUID());
 		}
 	}
@@ -742,6 +742,15 @@ public class MainController {
 				+ textLangProvider.INSTANCE.getProperty("userEmail") + " " + u.getEmail()
 				+ textLangProvider.INSTANCE.getProperty("userLoyaltyIndex") + " " + u.getLoyaltyIndex()
 				+ textLangProvider.INSTANCE.getProperty("userNrOfBorrows") + " " + u.getBorrow().size();
+		return tempStr;
+	}
+
+	private String createPublicationInfo(PublicationDTO p) {
+		tempStr = textLangProvider.INSTANCE.getProperty("publicationTitle") + " " + p.getTitle()
+				+ textLangProvider.INSTANCE.getProperty("publicationPublisher") + " " + p.getPublisher()
+				+ textLangProvider.INSTANCE.getProperty("publicationReleaseDate") + " " + p.getReleaseDate()
+				+ textLangProvider.INSTANCE.getProperty("publicationNrOfCopies") + " " + p.getNumberOfCopies()
+				+ textLangProvider.INSTANCE.getProperty("publicationNrOfCopiesLeft") + " " + p.getCopiesLeft();
 		return tempStr;
 	}
 }
