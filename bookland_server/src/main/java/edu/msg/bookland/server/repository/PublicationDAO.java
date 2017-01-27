@@ -111,4 +111,5 @@ public interface PublicationDAO {
 	void increaseCopiesLeft(String uuid) throws RepositoryException; // ++1
 
 	void decreaseCopiesLeft(String uuid) throws RepositoryException;// --1
+	
 }

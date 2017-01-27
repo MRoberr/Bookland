@@ -49,6 +49,7 @@ public class HibernateAuthorDAO implements AuthorDAO {
 	@Override
 	public List<Author> getAllAuthors() throws RepositoryException {
 		try {
+			entityManager.clear();
 			CriteriaQuery<Author> authors = builder.createQuery(Author.class);
 			Root<Author> Author = authors.from(Author.class);
 			authors.select(Author);
@@ -73,6 +74,7 @@ public class HibernateAuthorDAO implements AuthorDAO {
 	@Override
 	public void insertAuthor(Author author) throws RepositoryException {
 		try {
+			entityManager.clear();
 			entityManager.getTransaction().begin();
 			author.getUUID();
 			entityManager.persist(author);
@@ -103,6 +105,7 @@ public class HibernateAuthorDAO implements AuthorDAO {
 	@Override
 	public void updateAuthor(Author author) throws RepositoryException {
 		try {
+			entityManager.clear();
 			entityManager.getTransaction().begin();
 			CriteriaUpdate<Author> update = builder.createCriteriaUpdate(Author.class);
 
@@ -139,6 +142,7 @@ public class HibernateAuthorDAO implements AuthorDAO {
 	@Override
 	public Author getAuthorByUuid(String uuId) throws RepositoryException {
 		try {
+			entityManager.clear();
 			Author a = entityManager.find(Author.class, uuId);
 			LOGGER.info("Retrieved author by id");
 			if (a == null) {
@@ -164,6 +168,7 @@ public class HibernateAuthorDAO implements AuthorDAO {
 	@Override
 	public void deleteAuthor(String id) throws RepositoryException {
 		try {
+			entityManager.clear();
 			CriteriaDelete<Author> delete = builder.createCriteriaDelete(Author.class);
 			Root<Author> authorRoot = delete.from(Author.class);
 			delete.where(builder.equal(authorRoot.get(Author_.uuId), id));
@@ -182,6 +187,7 @@ public class HibernateAuthorDAO implements AuthorDAO {
 	@Override
 	public List<Author> searchAuthor(String name) throws RepositoryException {
 		try {
+			entityManager.clear();
 			CriteriaQuery<Author> authorByName = builder.createQuery(Author.class);
 			Root<Author> autor = authorByName.from(Author.class);
 			authorByName.select(autor);
@@ -198,6 +204,15 @@ public class HibernateAuthorDAO implements AuthorDAO {
 			LOGGER.error("Could not find author by name <" + name + ">", e);
 			throw new RepositoryException("Could not find author by name <" + name + ">", e);
 		}
+	}
+
+	@Override
+	public int getPublicationNumberOfAuthor(String authorId) throws RepositoryException {
+
+		entityManager.clear();
+		
+		
+		return 0;
 	}
 
 }
