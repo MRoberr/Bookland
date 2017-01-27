@@ -218,7 +218,6 @@ public class HibernateUserDAO implements UserDAO {
 
 			TypedQuery<User> pubQuery = entityManager.createQuery(searchUser);
 			List<User> userList = pubQuery.getResultList();
-			System.out.println("size " + userList.get(0).getBorrow().size());
 			if (userList.isEmpty()) {
 				LOGGER.error("Can't find user with specifield name <" + name + ">.");
 				throw new RepositoryException("Can't find user with specifield name <" + name + ">.");
