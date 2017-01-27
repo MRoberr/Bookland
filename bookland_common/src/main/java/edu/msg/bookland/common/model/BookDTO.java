@@ -5,7 +5,7 @@ import java.util.Calendar;
 import java.util.List;
 
 /**
- * BookDTO model class coresponding to Book model in server.
+ * BookDTO model class corresponding to Book model in server.
  * 
  * @author Majai Robert
  * @author Simo Zoltan
