@@ -9,18 +9,18 @@ GRANT ALL privileges on library.* to 'library_admin'@'localhost';
 Drop table if exists  `library`.`library_users`;
 CREATE TABLE `library`.`library_users` (
   `uuid` VARCHAR(80) NOT NULL,
-  `name` VARCHAR(45) NOT NULL UNIQUE,
+  `name` VARCHAR(45) NOT NULL UNIQUE collate latin1_general_cs,
   `email` VARCHAR(45) NOT NULL UNIQUE,
   `user_type` enum('ADMIN','READER','SUPER'),
   `loyalty_index` INT(2),
    `password` VARCHAR(80),
   PRIMARY KEY (`uuid`),
-  UNIQUE INDEX `uuid_UNIQUE` (`uuid` ASC)); 
+  UNIQUE INDEX `uuid_UNIQUE` (`uuid` ASC));
   
 INSERT INTO `library`.`library_users` (`uuid`, `name`, `email`,`user_type`, `loyalty_index`, `password`) VALUES ('123', 'Robi','alma@fa.com', 'ADMIN', '10', '���N�@�c�0�GW��d>');
 INSERT INTO `library`.`library_users` (`uuid`, `name`, `email`, `user_type`, `loyalty_index`, `password`) VALUES ('145', 'Terez','terez@msg.com', 'READER', '10', '���N�@�c�0�GW��d>');
 INSERT INTO `library`.`library_users` (`uuid`, `name`,  `email`,`user_type`, `loyalty_index`, `password`) VALUES ('146', 'Joco', ' joco@msg.com','READER', '0', '���N�@�c�0�GW��d>');
-INSERT INTO `library`.`library_users` (`uuid`, `name`,  `email`,`user_type`, `loyalty_index`, `password`) VALUES ('146888', 'Zolti', ' zolti@msg.com','SUPER', '1', '���N�@�c�0�GW��d>');
+INSERT INTO `library`.`library_users` (`uuid`, `name`,  `email`,`user_type`, `loyalty_index`, `password`) VALUES ('14666', 'Zolti', ' zolti@msg.com','SUPER', '10', '���N�@�c�0�GW��d>');
  
   
    Drop table if exists  `library`.`authors`;

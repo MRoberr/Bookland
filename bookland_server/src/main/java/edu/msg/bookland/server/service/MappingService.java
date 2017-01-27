@@ -44,6 +44,7 @@ public class MappingService {
 
 				for (Borrowing b : borrowings) {
 					BorrowingDTO borrowingDTO = new BorrowingDTO();
+					borrowingDTO.setUserId(u.getUUID());
 					borrowingDTO.setPublication(publicationToDTOGen(b.getPublication()));
 					borrowingDTO.setBorrowingDate(b.getBorrowingDate());
 					borrowingDTO.setDeadline(b.getDeadline());
