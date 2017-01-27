@@ -1,7 +1,6 @@
 package edu.msg.bookland.common.model;
 
 import java.sql.Date;
-import java.util.List;
 
 /**
  * Publication model class.
@@ -20,7 +19,6 @@ public abstract class PublicationDTO extends BaseEntityDTO {
 	private int numberOfCopies;
 	private int copiesLeft;
 	protected Date releaseDate;
-	protected List<BorrowingDTO> borrow;
 
 	public String getTitle() {
 		return title;

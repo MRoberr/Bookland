@@ -19,9 +19,7 @@ public class BookDTO extends PublicationDTO {
 	private List<AuthorDTO> authors;
 
 	public BookDTO() {
-
 		authors = new ArrayList<AuthorDTO>();
-		borrow = new ArrayList<>();
 	}
 
 	public List<AuthorDTO> getAuthors() {
@@ -31,6 +29,10 @@ public class BookDTO extends PublicationDTO {
 	public void addAuthor(AuthorDTO author) {
 		authors.add(author);
 	}
+	
+	public void setAuthors(List<AuthorDTO> authors) {
+		this.authors = authors;
+	}
 
 	@Override
 	public String toString() {
@@ -39,10 +41,6 @@ public class BookDTO extends PublicationDTO {
 		date.setTime(releaseDate);
 		int year = date.get(Calendar.YEAR);
 		return "Book: " + ss + ", releaseDate " + year + ", " + authors;
-	}
-
-	public void setAuthors(List<AuthorDTO> authors) {
-		this.authors = authors;
 	}
 
 }

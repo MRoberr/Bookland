@@ -245,7 +245,7 @@ public class MainController {
 					tempPublication = getPublicationFromResult();
 					if (tempPublication != null) {
 						BorrowingDTO b = new BorrowingDTO();
-						b.setUser(tempUser);
+						b.setUserId(tempUser.getUUID());
 						b.setPublication(tempPublication);
 						b.setBorrowingDate(Date.valueOf(LocalDate.now()));
 						b.setDeadline(Date.valueOf(LocalDate.now().plusDays(20)));
@@ -595,7 +595,7 @@ public class MainController {
 		tempInt = 0;
 		for (BorrowingDTO b : tempBorrowings) {
 			System.out.println(++tempInt + ": " + b.getPublication().getTitle().toString());
-			b.setUser(tempUser);
+			b.setUserId(tempUser.getUUID());
 		}
 	}
 
