@@ -14,10 +14,6 @@ public class AuthorDTO extends BaseEntityDTO {
 
 	private String name;
 
-	public AuthorDTO() {
-
-	}
-
 	public String getName() {
 		return name;
 	}

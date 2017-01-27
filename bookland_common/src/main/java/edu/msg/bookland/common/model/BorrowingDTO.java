@@ -17,7 +17,7 @@ public class BorrowingDTO implements Serializable {
 
 	private Date borrowingDate;
 	private Date deadline;
-	private UserDTO user;
+	private String userId;
 	private PublicationDTO publication;
 
 	public BorrowingDTO() {
@@ -25,11 +25,11 @@ public class BorrowingDTO implements Serializable {
 	}
 
 	public String getUserId() {
-		return user.getUUID();
+		return userId;
 	}
 
 	public void setUserId(String userId) {
-		user.setUUID(userId);
+		this.userId=userId;
 	}
 
 	public String getPublicationId() {
@@ -59,22 +59,11 @@ public class BorrowingDTO implements Serializable {
 	@Override
 	public String toString() {
 		String out="Borrowing [";
-		if(user!=null){
-			out+=user;
-		}
 		if(publication!=null){
 			out+=publication;
 		}
 		return out+"borrowingDate="
 				+ borrowingDate + ", deadline=" + deadline + "]";
-	}
-
-	public UserDTO getUser() {
-		return user;
-	}
-
-	public void setUser(UserDTO user) {
-		this.user = user;
 	}
 
 	public PublicationDTO getPublication() {

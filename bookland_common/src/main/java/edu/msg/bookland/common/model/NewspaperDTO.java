@@ -17,10 +17,21 @@ public class NewspaperDTO extends PublicationDTO {
 	private static final long serialVersionUID = -3891407649176906111L;
 
 	List<ArticleDTO> articles;
-	// list articles
 
 	public NewspaperDTO() {
-		borrow = new ArrayList<>();
+		articles=new ArrayList<>();
+	}
+	
+	public List<ArticleDTO> getArticles() {
+		return articles;
+	}
+	
+	public void addArticle(ArticleDTO article) {
+		articles.add(article);
+	}
+
+	public void setArticles(List<ArticleDTO> articles) {
+		this.articles = articles;
 	}
 
 	@Override
@@ -31,15 +42,7 @@ public class NewspaperDTO extends PublicationDTO {
 		int year = date.get(Calendar.YEAR);
 		int month = date.get(Calendar.MONTH);
 		int day = date.get(Calendar.DAY_OF_MONTH);
-		return "Newspaper: " + ss + ", releaseDate " + year + "-" + month + "-" + day;
-	}
-
-	public List<ArticleDTO> getArticles() {
-		return articles;
-	}
-
-	public void setArticles(List<ArticleDTO> articles) {
-		this.articles = articles;
+		return "Newspaper: " + ss + ", releaseDate " + year + "-" + month + "-" + day +", "+ articles;
 	}
 
 }

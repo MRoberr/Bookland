@@ -20,7 +20,6 @@ public class MagazineDTO extends PublicationDTO {
 
 	public MagazineDTO() {
 		authors = new ArrayList<AuthorDTO>();
-		borrow = new ArrayList<>();
 	}
 
 	public List<AuthorDTO> getAuthors() {
@@ -30,7 +29,11 @@ public class MagazineDTO extends PublicationDTO {
 	public void addAuthor(AuthorDTO author) {
 		authors.add(author);
 	}
-
+	
+	public void setAuthors(List<AuthorDTO> authors) {
+		this.authors = authors;
+	}
+	
 	@Override
 	public String toString() {
 		String ss = super.toString();
@@ -41,8 +44,6 @@ public class MagazineDTO extends PublicationDTO {
 		return "Magazine: " + ss + ", releaseDate " + year + "-" + month + ", " + authors;
 	}
 
-	public void setAuthors(List<AuthorDTO> authors) {
-		this.authors = authors;
-	}
+	
 
 }

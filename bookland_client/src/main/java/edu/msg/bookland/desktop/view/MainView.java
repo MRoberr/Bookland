@@ -27,7 +27,7 @@ public abstract class MainView {
 		System.out.println(getProperty("chooseOperationType"));
 		System.out.println("1 -" + getProperty("operationCustomService"));
 		System.out.println("2 -" + getProperty("operationDataAdministration"));
-		System.out.println("3 -" + getProperty("operationLanguageChange"));
+		System.out.println("3 -" + getProperty("operationLanguageChange")); 
 	}
 
 	private static String getProperty(String s) {

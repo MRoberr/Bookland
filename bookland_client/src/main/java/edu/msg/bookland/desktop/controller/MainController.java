@@ -2,13 +2,11 @@ package edu.msg.bookland.desktop.controller;
 
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
 
-import edu.msg.bookland.common.model.BookDTO;
 import edu.msg.bookland.common.model.BorrowingDTO;
 import edu.msg.bookland.common.model.PublicationDTO;
 import edu.msg.bookland.common.model.UserDTO;
@@ -43,6 +41,7 @@ public class MainController {
 	private PublicationDTO tempPublication;
 	private UserDTO tempUser;
 	private BorrowingDTO tempBorrowing;
+	private UserType tempUserType;
 
 	/**
 	 * Constant messages
@@ -116,7 +115,15 @@ public class MainController {
 				System.out.println("=" + textLangProvider.INSTANCE.getProperty("operationLoggedInAsAdmin"));
 				while (true) {
 					MainView.menuInitForAdmin();
-					if (handleAdminCommand() == -2) {
+					if (handleAdminCommand(UserType.ADMIN) == -2) {
+						break;
+					}
+				}
+			} else if (login.equals(UserType.SUPER)) {
+				System.out.println("=" + textLangProvider.INSTANCE.getProperty("operationLoggedInAsSuperAdmin"));
+				while (true) {
+					MainView.menuInitForAdmin();
+					if (handleAdminCommand(UserType.SUPER) == -2) {
 						break;
 					}
 				}
@@ -184,7 +191,7 @@ public class MainController {
 	/**
 	 * Controller for users logged in as ADMIN
 	 */
-	private int handleAdminCommand() {
+	private int handleAdminCommand(UserType uT) {
 		int cmd = getIntLine();
 		switch (cmd) {
 		case -1:
@@ -206,7 +213,7 @@ public class MainController {
 			while (true) {
 				System.out.println("=" + textLangProvider.INSTANCE.getProperty("operationDataAdministration") + "=");
 				DataAdministrationView.menuForAdminDataA();
-				if (handleAdminDataAdministration() == -2) {
+				if (handleAdminDataAdministration(uT) == -2) {
 					break;
 				}
 			}
@@ -245,7 +252,7 @@ public class MainController {
 					tempPublication = getPublicationFromResult();
 					if (tempPublication != null) {
 						BorrowingDTO b = new BorrowingDTO();
-						b.setUser(tempUser);
+						b.setUserId(tempUser.getUUID());
 						b.setPublication(tempPublication);
 						b.setBorrowingDate(Date.valueOf(LocalDate.now()));
 						b.setDeadline(Date.valueOf(LocalDate.now().plusDays(20)));
@@ -305,7 +312,7 @@ public class MainController {
 	 * 
 	 * @return number 0 by default and -2 for implementing GO BACK/UP
 	 */
-	private int handleAdminDataAdministration() {
+	private int handleAdminDataAdministration(UserType uT) {
 		int cmd = getIntLine();
 		switch (cmd) {
 		case -2:
@@ -318,7 +325,7 @@ public class MainController {
 			while (true) {
 				System.out.println(textLangProvider.INSTANCE.getProperty("operationUserManagement") + "=");
 				DataAdministrationView.menuForAdminDataAUsers();
-				if (handleAdminDataAUserComm() == -2) {
+				if (handleAdminDataAUserComm(uT) == -2) {
 					break;
 				}
 			}
@@ -353,7 +360,7 @@ public class MainController {
 	 * 
 	 * @return number 0 by default and -2 for implementing GO BACK/UP
 	 */
-	private int handleAdminDataAUserComm() {
+	private int handleAdminDataAUserComm(UserType uT) {
 		int cmd = getIntLine();
 		switch (cmd) {
 		case -2:
@@ -363,7 +370,7 @@ public class MainController {
 			System.exit(0);
 			break;
 		case 1:
-			createNewUser();
+			createNewUser(uT);
 			break;
 		case 2:
 			updateUser();
@@ -383,13 +390,14 @@ public class MainController {
 		}
 		return 0;
 	}
-	
+
 	private void getAllUser() {
 		try {
 			tempUsers = dac.getAllUsers();
 			tempInt = 0;
 			for (UserDTO u : tempUsers) {
-				System.out.println(++tempInt + "-" + u.getName());
+				System.out.println(++tempInt + "-" + u.getName() + textLangProvider.INSTANCE.getProperty("nrOfBorrows")
+						+ u.getBorrow().size());
 			}
 			System.out.println(textLangProvider.INSTANCE.getProperty("getAllUsersOk"));
 		} catch (RequestException e) {
@@ -468,7 +476,7 @@ public class MainController {
 		}
 	}
 
-	private void createNewUser() {
+	private void createNewUser(UserType uT) {
 		try {
 			tempUser = new UserDTO();
 			System.out.println(textLangProvider.INSTANCE.getProperty("enterUserName"));
@@ -478,8 +486,15 @@ public class MainController {
 			System.out.println(textLangProvider.INSTANCE.getProperty("enterUserPassword"));
 			tempUser.setPassword(getLine());
 			tempUser.setLoyaltyIndex(10);
-			UserType userType = UserType.READER;
-			tempUser.setUserType(userType);
+			if (uT == UserType.SUPER) {
+				tempUserType = null;
+				while (tempUserType == null) {
+					tempUserType = getUserTypeFromResult();
+				}
+				tempUser.setUserType(tempUserType);
+			} else {
+				tempUser.setUserType(UserType.READER);
+			}
 			try {
 				dac.createNewUser(tempUser);
 				System.out.println(textLangProvider.INSTANCE.getProperty("createOk"));
@@ -595,7 +610,7 @@ public class MainController {
 		tempInt = 0;
 		for (BorrowingDTO b : tempBorrowings) {
 			System.out.println(++tempInt + ": " + b.getPublication().getTitle().toString());
-			b.setUser(tempUser);
+			b.setUserId(tempUser.getUUID());
 		}
 	}
 
@@ -696,4 +711,26 @@ public class MainController {
 		}
 	}
 
+	/**
+	 * Controller for User Type selection when Super user creates new user.
+	 * 
+	 * @return selected User
+	 */
+	private UserType getUserTypeFromResult() {
+		DataAdministrationView.menuForAdminDataAUsersSuperCreate();
+		System.out.println(textLangProvider.INSTANCE.getProperty("selectNrFromList"));
+		int cmd = getIntLine();
+		if (cmd == -1) {
+			System.out.println(textLangProvider.INSTANCE.getProperty("exitProg"));
+			System.exit(0);
+			return null;
+		} else if (cmd == 1) {
+			return UserType.READER;
+		} else if (cmd == 2) {
+			return UserType.ADMIN;
+		} else {
+			System.out.println(exitString);
+			return null;
+		}
+	}
 }

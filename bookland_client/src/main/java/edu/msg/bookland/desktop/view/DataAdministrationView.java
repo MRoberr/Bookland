@@ -35,6 +35,11 @@ public abstract class DataAdministrationView {
 		System.out.println("3 -" + getProperty("optionUpdateJustPassword"));
 		System.out.println("4 -" + getProperty("optionUpdateAll"));
 	}
+	public static void menuForAdminDataAUsersSuperCreate() {
+		System.out.println(getProperty("optionUserTypes"));
+		System.out.println("1 -" + getProperty("optionReader"));
+		System.out.println("2 -" + getProperty("optionAdmin"));
+	}
 
 	public static void menuForAdminDataAAuthors() {
 		System.out.println(getProperty("chooseAnOption"));
